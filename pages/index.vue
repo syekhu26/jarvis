@@ -1,6 +1,7 @@
 <template>
   <!-- <Tutorial /> -->
-  <ButtonAddList />
+  <!-- <ButtonAddList /> -->
+  <BoxList />
 </template>
 
 <script>
