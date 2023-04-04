@@ -1,7 +1,6 @@
 <template>
     <ul class="flex justify-between block h-[99px] shadow">
-      <!-- <div class="flex justify-between block bg-gray-700 px-4 py-3"> -->
-      <li class="flex place-items-center">
+        <li class="flex place-items-center">
         <NuxtLink to="/" class="flex block py-2 px-4">
           <img src="../assets/img/logoipsum-245 1.png" alt="logo" class="rounded-full w-[52px] h-[41px] mx-3 my-auto" />
           <h1 class="text-2xl text-[#0F62FE] font-[IBM Plex Sans]">Bantu.in</h1>
