@@ -1,10 +1,9 @@
 <template>
-    <div>
-      <TopBar />
-      <div class="flex">
-          <SideBar />
-          <Nuxt/>
-      </div>
+  <div>
+    <TopBar />
+    <div class="flex">
+      <SideBar />
+      <Nuxt />
     </div>
-  </template>
-  
+  </div>
+</template>
