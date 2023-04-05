@@ -1,6 +1,7 @@
 <template>
   <!-- <Tutorial /> -->
   <Timeline />
+  <BoxList />
 </template>
 
 <script>

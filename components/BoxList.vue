@@ -14,16 +14,13 @@
         <CardNoteTim />
         <CardNoteTim class="mt-3" />
       </div>
-
       <div class="mt-3 px-3">
         <button
-          @click="$emit('click')"
           type="button"
           class="flex w-full items-center rounded-md p-2 text-sm font-medium text-gray-600 hover:bg-gray-300 hover:text-gray-800"
         >
           Tambah Catatan
         </button>
-        <!-- <FormNote /> -->
       </div>
     </div>
   </div>

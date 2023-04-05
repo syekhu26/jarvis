@@ -72,7 +72,6 @@ export default {
       isOpen: false,
     }
   },
-
   methods: {},
 }
 </script>
