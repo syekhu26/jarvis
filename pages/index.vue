@@ -1,5 +1,7 @@
 <template>
-  <Tutorial />
+  <!-- <Tutorial /> -->
+  <Timeline />
+  <BoxList />
 </template>
 
 <script>
