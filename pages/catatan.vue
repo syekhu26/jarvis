@@ -3,7 +3,7 @@
     <!-- <h1 class="text-3xl font-bold underline">Hello world!</h1> -->
 
     <div class="flex items-center justify-between mt-6 px-8">
-      <h1 class="font-bold">Catatanku</h1>
+      <h1 class="text-2xl font-bold mb-3">Catatan</h1>
       <FormNote />
     </div>
     <div class="flex-none min-w-full px-8 items-center mb-8">
@@ -15,7 +15,7 @@
             <a
               href=""
               class="flex text-md leading-6 font-semibold pt-3 pb-2.5 border-b-2 -mb-px text-sky-500 border-current"
-              >Catatan</a
+              >Catatanku</a
             >
           </h2>
         </li>

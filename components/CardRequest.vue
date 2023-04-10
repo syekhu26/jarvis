@@ -1,6 +1,6 @@
 <template>
     <div class="mx-2 my-2">
-      <div class="border border-1 h-[172px] w-[547px] p-3 bg-[#DDE1E6]">
+      <div class="border border-gray-300 h-[172px] w-[547px] p-3 bg-[#DDE1E6] rounded-md">
           <div class="flex">
             <img
               class="h-10 w-10 rounded-full m-3"
