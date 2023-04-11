@@ -110,9 +110,9 @@
               </div>
               <div>
                 <label for="remainder" class="mb-2 block text-sm">
-                  Pilih Tanggal Reminder</label
+                  Tambahkan Pengingat</label
                 >
-                <select
+                <!-- <select
                   v-model="remainder"
                   placeholder="Pilih Reminder"
                   class="border rounded w-full mb-3 focus:outline-none focus:border-blue-500 h-12"
@@ -121,7 +121,7 @@
                   <option>H-2</option>
                   <option>H-4</option>
                   <option>H-6</option>
-                </select>
+                </select> -->
               </div>
 
               <div>
