@@ -13,25 +13,71 @@
           <div class="font-bold mb-6 mt-2">Buat Tim</div>
           <!-- <p>{{ tim }}</p> -->
           <form>
-            <div class="grid grid-cols-2 gap-5">
-              <label for="nama" class="text-sm font-medium dark:text-black"
+            <div>
+              <!-- <label for="nama" class="text-sm font-medium dark:text-black"
                 >Nama tim</label
               >
               <input
                 class="border text-black px-4 py-2 col-span-2"
                 placeholder="masukkan nama tim"
                 required
-              />
-              <label for="email" class="text-sm font-medium dark:text-black"
-                >Pilih bagian Yang terlibat</label
+              /> -->
+              <div>
+                <label for="nama" class="mb-2 block text-sm"> Nama Tim</label>
+                <input
+                  type="text"
+                  name="nama"
+                  placeholder="Masukkan Nama Tim"
+                  required
+                  class="border text-black px-4 py-2 w-full mb-3 focus:outline-none focus:border-blue-500"
+                />
+              </div>
+              <div>
+                <label for="email" class="mb-2 block text-sm">
+                  Pilih Bagian Yang Terlibat</label
+                >
+              </div>
+              <div class="relative text-gray-600 border">
+                <span class="absolute inset-y-0 left-0 flex items-center pl-2">
+                  <iconInviteIcon />
+                </span>
+                <input
+                  type="email"
+                  name="email"
+                  v-model="input"
+                  class="py-2 border text-black pl-10 w-full focus:outline-none focus:border-blue-500"
+                  placeholder="Masukkan Email"
+                  required
+                />
+              </div>
+              <div>
+                <div>
+                  <div
+                    v-for="item in items"
+                    :key="item"
+                    class="bg-slate-200 rounded mb-2 px-2 flex items-center"
+                  >
+                    {{ item }}
+                    <div>
+                      <button
+                        v-if="item"
+                        class="ml-2 mt-2"
+                        type="button"
+                        @click="remove"
+                        title="Remove"
+                      >
+                        <iconSilangIcon class="w-3 h-3" />
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div
+                @click="addEmail"
+                class="flex items-center mt-2 mb-3 text-blue-600 cursor-pointer"
               >
-              <input
-                class="border text-black px-4 py-2 col-span-2"
-                placeholder="Masukkan email anggota"
-                required
-              />
-              <div class="mb-3 text-blue-600">
-                <a href="">Tambah email</a>
+                <iconPlusIcon />
+                <span class="px-1">Tambah email</span>
               </div>
             </div>
             <div class="mt-11 float-right px-5">
@@ -56,6 +102,8 @@ export default {
   data() {
     return {
       toggleModal: false,
+      input: '',
+      items: [''],
       // tim: [
       //   {
       //     nama: " ",
@@ -81,6 +129,16 @@ export default {
     // addNewData(){
     //   this.
     // }
+    addEmail() {
+      if (!this.input) {
+        return
+      }
+      this.items.push(this.input)
+      this.input = ''
+    },
+    remove(i) {
+      this.items.splice(i, 1)
+    },
     addGroup() {
       console.warn(this.tim)
     },

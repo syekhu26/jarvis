@@ -15,18 +15,16 @@ export default {
   },
 
   // Global CSS: https://go.nuxtjs.dev/config-css
-<<<<<<< HEAD
-  css: ['@/assets/css/main.css',],
-=======
   css: [
     '@/assets/css/main.css',
   ],
->>>>>>> 101710c06bbc700e83c37b7a639b2646987e4252
 
   ssr:false,
 
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
-  plugins: [],
+  plugins: [
+    { src: "@/plugins/vuetimeline.js" }
+  ],
 
   // Auto import components: https://go.nuxtjs.dev/config-components
   components: true,

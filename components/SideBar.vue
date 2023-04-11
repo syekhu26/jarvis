@@ -7,7 +7,7 @@
       </NuxtLink>
     </div>
     <div class="hover:bg-[#EDF5FF]">
-      <NuxtLink to="/personal" class="flex my-4 ml-9 p-2 text-xl">
+      <NuxtLink to="/catatan" class="flex my-4 ml-9 p-2 text-xl">
         <iconNoteIcon />
         <p class="mx-4 text-[#697077]">Catatanku</p>
       </NuxtLink>
@@ -21,7 +21,7 @@
     <div class="hover:bg-[#EDF5FF]">
       <NuxtLink to="#" class="flex my-4 ml-9 p-2 text-xl">
         <iconRequestIcon />
-        <p class="mx-4 text-[#697077]">Request</p>
+        <p class="mx-4 text-[#697077]">Permintaan</p>
       </NuxtLink>
     </div>
   </aside>
