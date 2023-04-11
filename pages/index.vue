@@ -1,15 +1,32 @@
 <template>
-  <div>
-    <button
-      class="absolute my-4 right-3 w-[328px] h-9 text-[14px] text-white bg-blue-500 rounded"
-    >
-      Buat Catatan
-    </button>
+  <div class="w-full">
+    <div>
+      <div class="flex items-center justify-between mt-6 px-8">
+        <h1 class="text-2xl font-bold mb-3">Permintaan masuk</h1>
+        <FormNote />
+      </div>
+      <div class="min-w-full px-8 items-center mb-8">
+        <p class="text-lg">Belum catatan masuk atau undangan grub</p>
+      </div>
+    </div>
+    <div>
+      <div class="flex items-center justify-between mt-6 px-8">
+        <h1 class="text-2xl font-bold mb-3">Daftar catatan</h1>
+      </div>
+      <div class="min-w-full px-8 items-center mb-8">
+        <CardListNote />
+      </div>
+    </div>
   </div>
 </template>
 
 <script>
+import CardListNote from '~/components/CardListNote.vue';
+
 export default {
-  name: 'IndexPage',
+    layout: "home",
+    components: { 
+      CardListNote
+    }
 }
 </script>

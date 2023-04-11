@@ -1,7 +1,7 @@
 <template>
   <div class="w-full">
     <div class="flex items-center justify-between mt-6 px-8">
-      <h1 class="font-bold">Catatanku</h1>
+      <h1 class="text-2xl font-bold mb-3">Catatan</h1>
       <FormNote />
     </div>
     <div class="flex-none min-w-full px-8 items-center mb-8">
@@ -9,10 +9,14 @@
         class="border-b border-slate-200 space-x-6 flex whitespace-nowrap dark:border-slate-200"
       >
         <li>
-          <h2
-            class="flex text-md leading-6 font-semibold pt-3 pb-2.5 border-b-2 -mb-px text-sky-500 border-current cursor-pointer"
-          >
-            Catatan
+        
+
+          <h2 class="">
+            <a
+              href=""
+              class="flex text-md leading-6 font-semibold pt-3 pb-2.5 border-b-2 -mb-px text-sky-500 border-current"
+              >Catatanku</a
+            >
           </h2>
         </li>
         <li>
