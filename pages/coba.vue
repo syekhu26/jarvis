@@ -1,29 +1,74 @@
 <template>
-  <!-- <FormUpload /> -->
-  <!-- <DetailNote /> -->
-  <!-- <FormNote /> -->
+  <!-- <datetime v-model="date" input-id="startDate">
+    <label for="startDate" slot="before">Field Label</label>
+    <span class="description" slot="after">The field description</span>
+  </datetime> -->
   <div>
-    <div
-      class="relative mb-3 xl:w-96"
-      id="timepicker-default-time-string-without-pm-am"
-      data-te-input-wrapper-init
-    >
-      <input
-        type="text"
-        class="peer block min-h-[auto] w-full rounded border-0 bg-transparent px-3 py-[0.32rem] leading-[2.15] outline-none transition-all duration-200 ease-linear focus:placeholder:opacity-100 data-[te-input-state-active]:placeholder:opacity-100 motion-reduce:transition-none dark:text-neutral-200 dark:placeholder:text-neutral-200 [&:not([data-te-input-placeholder-active])]:placeholder:opacity-0"
-        id="form9"
-      />
-      <label
-        for="form9"
-        class="pointer-events-none absolute left-3 top-0 mb-0 max-w-[90%] origin-[0_0] truncate pt-[0.37rem] leading-[2.15] text-neutral-500 transition-all duration-200 ease-out peer-focus:-translate-y-[1.15rem] peer-focus:scale-[0.8] peer-focus:text-primary peer-data-[te-input-state-active]:-translate-y-[1.15rem] peer-data-[te-input-state-active]:scale-[0.8] motion-reduce:transition-none dark:text-neutral-200 dark:peer-focus:text-neutral-200"
-        >With string without AM/PM</label
+    <datetime
+      type="datetime"
+      v-model="datetime"
+      class="w-10 h-10 border w-full"
+    ></datetime>
+    <div>
+      <div
+        v-for="deadline in deadlines"
+        :key="deadline"
+        class="bg-slate-200 rounded mb-2 px-2 flex items-center"
       >
+        {{ deadline }}
+        <div>
+          <button
+            v-if="deadline"
+            class="ml-2 mt-2"
+            type="button"
+            @click="removeDeadlines"
+            title="Remove"
+          >
+            <iconSilangIcon class="w-3 h-3" />
+          </button>
+        </div>
+      </div>
+    </div>
+    <div
+      @click="addRemainder"
+      class="flex items-center mt-2 mb-3 text-blue-600 cursor-pointer"
+    >
+      <iconPlusIcon />
+      <span class="px-1">Tambah email</span>
     </div>
   </div>
 </template>
+
 <script>
-// import VueTimepicker from 'vue2-timepicker/src/vue-timepicker.vue'
 export default {
-  // components: { VueTimepicker },
+  data() {
+    return {
+      datetime: '',
+      deadlines: [],
+    }
+  },
+  methods: {
+    addRemainder() {
+      if (!this.datetime) {
+        return
+      }
+      this.deadlines.push(
+        this.$moment(this.datetime).format('MMM DD,YYYY hh:mm A')
+      )
+
+      this.input = ''
+    },
+    removeDeadlines(i) {
+      this.deadlines.splice(i, 1)
+    },
+  },
 }
+// import { ref } from 'vue'
+// export default {
+//   setup() {
+//     return {
+//       date: ref('2019-02-01 12:44'),
+//     }
+//   },
+// }
 </script>

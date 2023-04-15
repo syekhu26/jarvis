@@ -14,15 +14,20 @@
   },
   "dependencies": {
     "@bachdgvn/vue-otp-input": "^1.0.8",
-    "@growthbunker/vuetimeline": "^0.1.17",
     "@nuxtjs/axios": "^5.13.6",
+    "@nuxtjs/moment": "^1.6.1",
     "core-js": "^3.25.3",
+    "luxon": "^1.28.1",
     "nuxt": "^2.15.8",
     "otp-input-vue2": "^1.1.0",
+    "v-calendar": "^2.4.1",
     "vue": "^2.7.10",
+    "vue-cute-timeline": "^1.2.10",
+    "vue-datetime": "^1.0.0-beta.14",
     "vue-server-renderer": "^2.7.10",
     "vue-template-compiler": "^2.7.10",
-    "vue2-timepicker": "^1.1.6"
+    "vue2-timepicker": "^1.1.6",
+    "weekstart": "^1.1.0"
   },
   "devDependencies": {
     "@babel/eslint-parser": "^7.19.1",

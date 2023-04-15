@@ -14,6 +14,29 @@ export default {
     link: [{ rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }],
   },
 
+  // quasar: {
+  //   animations: ["fadeIn", "fadeOut"],
+  //   extras: ["fontawesome-v5"],
+  //   framework: {
+  //     config: {
+  //       brand: {
+  //         primary: "#ffffff",
+  //         // ...
+  //       },
+  //     },
+  //     components: [
+  //       "QAvatar",
+  //       "QBtn",
+  //       // ...
+  //     ],
+  //     directives: ["ClosePopup"],
+  //     plugins: ["Cookies"],
+  //     iconSet: "fontawesome-v5",
+  //     cssAddon: true
+  //   },
+  //   supportIE: true
+  // },
+
   // Global CSS: https://go.nuxtjs.dev/config-css
   css: [
     '@/assets/css/main.css',
@@ -23,7 +46,12 @@ export default {
 
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
   plugins: [
-    { src: "@/plugins/vuetimeline.js" }
+    {
+      src: "@/plugins/vcalender.js", mode:"client",
+    } ,
+    { src: "@/plugins/timeline.js" },
+    { src: "@/plugins/datetime.js", mode:"client" },
+    // {src:"@/plugins/quasar.js"}
   ],
 
   // Auto import components: https://go.nuxtjs.dev/config-components
@@ -33,12 +61,14 @@ export default {
   buildModules: [
     // https://go.nuxtjs.dev/eslint
     '@nuxtjs/eslint-module',
+    '@nuxtjs/moment',
   ],
 
   // Modules: https://go.nuxtjs.dev/config-modules
   modules: [
     // https://go.nuxtjs.dev/axios
     '@nuxtjs/axios',
+    // 'nuxt-quasar',
   ],
 
   // Axios module configuration: https://go.nuxtjs.dev/config-axios

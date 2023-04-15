@@ -31,7 +31,29 @@
                   </div>
                 </button>
               </div>
-              <div class="relative max-w-2xl">
+              <div class="-mt-7">
+                <timeline>
+                  <timeline-item :hollow="false"
+                    >CEO membuat catatan untuk bag.sekretaris dan
+                    keuangan.</timeline-item
+                  >
+                  <timeline-item :hollow="false"
+                    >Bag.bendahara mengirim uang ke bag.sekretaris.
+                    <a href="" class="text-blue-500"
+                      >Lihat disini</a
+                    ></timeline-item
+                  >
+                  <timeline-item :hollow="false">
+                    Bag.sekretaris memesan tiket pesawat. Tiket pesawat telah
+                    tersedia.
+                    <a href="" class="text-blue-500"
+                      >Lihat disini</a
+                    ></timeline-item
+                  >
+                </timeline>
+              </div>
+
+              <!-- <div class="relative max-w-2xl">
                 <div
                   class="absolute top-0 h-full border-r-2 border-gray-500 left-3"
                 ></div>
@@ -67,7 +89,7 @@
                   </li>
                 </ul>
                 <div class="mb-32"></div>
-              </div>
+              </div> -->
             </div>
           </div>
         </div>
@@ -78,7 +100,13 @@
 </template>
 
 <script>
+import { Timeline, TimelineItem } from 'vue-cute-timeline'
+import 'vue-cute-timeline/dist/index.css'
 export default {
+  components: {
+    timeline: Timeline,
+    'timeline-item': TimelineItem,
+  },
   data() {
     return {
       isOpen: false,

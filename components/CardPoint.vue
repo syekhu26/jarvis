@@ -1,6 +1,6 @@
 <template>
   <div>
-    <NuxtLink to="/detailPoint">
+    <NuxtLink to="/detail-point">
       <div
         class="group relative rounded-md border-b border-gray-300 bg-slate-500 p-3 shadow hover:bg-gray-50"
       >

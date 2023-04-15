@@ -14,19 +14,12 @@
           <!-- <p>{{ tim }}</p> -->
           <form>
             <div>
-              <!-- <label for="nama" class="text-sm font-medium dark:text-black"
-                >Nama tim</label
-              >
-              <input
-                class="border text-black px-4 py-2 col-span-2"
-                placeholder="masukkan nama tim"
-                required
-              /> -->
               <div>
                 <label for="nama" class="mb-2 block text-sm"> Nama Tim</label>
                 <input
                   type="text"
                   name="nama"
+                  v-model="nama"
                   placeholder="Masukkan Nama Tim"
                   required
                   class="border text-black px-4 py-2 w-full mb-3 focus:outline-none focus:border-blue-500"
@@ -110,10 +103,12 @@ export default {
       //     email: " ",
       //   },
       // ],
-      tim: {
-        nama: '',
-        email: '',
-      },
+      grup: [
+        {
+          nama: '',
+          input: [''],
+        },
+      ],
     }
   },
   methods: {
