@@ -30,13 +30,20 @@
                     <label for="subjek" class="mb-2 block text-sm">
                       Subjek</label
                     >
-                    <input
-                      type="text"
-                      name="subjek"
-                      placeholder="Masukkan Subjek"
-                      required
-                      class="border text-black px-4 py-2 w-full mb-3 focus:outline-none focus:border-blue-500"
-                    />
+                    <div class="mb-3">
+                      <input
+                        type="text"
+                        name="subjek"
+                        v-model="subject"
+                        @input="subjectValidate"
+                        placeholder="Masukkan Subjek"
+                        required
+                        class="border text-black px-4 py-2 w-full focus:outline-none focus:border-blue-500"
+                      />
+                      <span v-if="subjectError" class="text-red-500">{{
+                        subjectError
+                      }}</span>
+                    </div>
                   </div>
                   <div>
                     <div class="flex items-center justify-between">
@@ -45,12 +52,18 @@
                       </label>
                       <p class="font-sans">{{ tambahAngka }}/100</p>
                     </div>
-                    <textarea
-                      v-model="deskripsi"
-                      name="deskripsi"
-                      placeholder="Masukkan Deskripsi"
-                      class="border text-black px-4 py-2 w-full mb-3 focus:outline-none focus:border-blue-500"
-                    />
+                    <div class="mb-3">
+                      <textarea
+                        v-model="deskripsi"
+                        @input="deskripsiValidate"
+                        name="deskripsi"
+                        placeholder="Masukkan Deskripsi"
+                        class="border text-black px-4 py-2 w-full focus:outline-none focus:border-blue-500"
+                      />
+                      <span v-if="deskripsiError" class="text-red-500">{{
+                        deskripsiError
+                      }}</span>
+                    </div>
                   </div>
                   <div>
                     <label for="email" class="mb-2 block text-sm">
@@ -66,12 +79,16 @@
                     <input
                       type="email"
                       name="email"
-                      v-model="input"
+                      v-model="email"
+                      @input="emailValidate"
                       class="py-2 border text-black pl-10 w-full focus:outline-none focus:border-blue-500"
                       placeholder="Masukkan Email"
                       required
                     />
                   </div>
+                  <span v-if="emailError" class="text-red-500">{{
+                    emailError
+                  }}</span>
                   <div>
                     <div
                       v-for="item in items"
@@ -114,45 +131,68 @@
                     
                       </div>
                     </div> -->
-                    <div
+                    <!-- <div
                       class="mt-2 px-2 border-2 w-10 h-10 w-full focus:outline-none focus:border-blue-500 mb-3"
                     >
                       <div class="flex item-center">
                         <iconKalenderIcon class="mt-3" />
-                        <!-- <div v-if="date" class="px-4">
+                        <div v-if="date" class="px-4">
                             {{ getTime }}
-                          </div> -->
+                          </div>
                         <div>
                           <datetime
                             class="mt-2 px-4"
                             type="datetime"
                             v-model="date"
+                            @input="kalenderValidate"
                             placeholder="yyyy-mm-d"
                           ></datetime>
                         </div>
+                        <span v-if="kalenderError" class="text-red-500">{{
+                          kalenderError
+                        }}</span>
+                      </div>
+                    </div> -->
+                    <div class="border w-full w-10 h-10 px-2">
+                      <div class="">
+                        <vc-date-picker
+                          class=""
+                          v-model="date"
+                          @input="kalenderValidate"
+                          :min-date="new Date()"
+                          mode="dateTime"
+                          :minute-increment="5"
+                        >
+                          <template #default="{ inputValue, inputEvents }">
+                            <div class="flex item-center">
+                              <iconKalenderIcon class="mt-3" />
+
+                              <input
+                                :value="inputValue"
+                                v-on="inputEvents"
+                                class="w-full mt-2 border-hidden px-4 mb-2"
+                                placeholder="yyyy-mm-dd"
+                              />
+                            </div>
+                            <span v-if="dateError" class="text-red-500">{{
+                              dateError
+                            }}</span>
+                          </template>
+                        </vc-date-picker>
                       </div>
                     </div>
                   </div>
                   <div>
-                    <label for="remainder" class="mb-2 block text-sm">
+                    <label for="remainder" class="mb-2 block text-sm mt-6">
                       Tambahkan Pengingat</label
                     >
-
+                    <!-- 
                     <div
                       class="mt-2 px-2 border-2 w-10 h-10 w-full focus:outline-none focus:border-blue-500 mb-3"
                     >
                       <div class="flex item-center">
                         <iconAlarmIcon class="mt-3" />
-                        <!-- <div v-if="date" class="px-4">
-                            {{ getTime }}
-                          </div> -->
-
-                        <!-- <datetime
-                              class="mt-2 px-4"
-                              type="datetime"
-                              v-model="remainder[remainder.length]"
-                              placeholder="Pilih Waktu Remainder"
-                            ></datetime> -->
+                       
                         <datetime
                           type="datetime"
                           v-model="datetime"
@@ -160,6 +200,33 @@
                           placeholder="Pilih Waktu Remainder"
                         ></datetime>
                       </div>
+                    </div> -->
+                    <div class="border w-full w-10 h-10 px-2">
+                      <vc-date-picker
+                        v-model="datetime"
+                        @input="remainderValidate"
+                        mode="dateTime"
+                        :max-date="date"
+                        :min-date="new Date()"
+                        :minute-increment="5"
+                      >
+                        <template #default="{ inputValue, inputEvents }">
+                          <div class="flex item-center">
+                            <iconAlarmIcon class="mt-3" />
+
+                            <input
+                              :value="inputValue"
+                              v-on="inputEvents"
+                              :disabled="remainderDisabled"
+                              class="w-full mt-2 px-4"
+                              placeholder="Pilih Waktu Remainder"
+                            />
+                          </div>
+                          <span v-if="datetimeError" class="text-red-500">{{
+                            datetimeError
+                          }}</span>
+                        </template>
+                      </vc-date-picker>
                     </div>
                   </div>
 
@@ -186,7 +253,7 @@
 
                   <div
                     @click="addRemainder"
-                    class="flex items-center mb-3 text-blue-600 cursor-pointer"
+                    class="flex items-center mb-3 text-blue-600 cursor-pointer mt-6"
                   >
                     <iconPlusIcon />
                     <span class="px-1">Tambah reminder</span>
@@ -212,6 +279,8 @@
                     >
                     <div>
                       <select
+                        v-model="voice"
+                        @change="voiceValidate"
                         class="border w-full h-10 mb-3 focus:border-blue-500"
                       >
                         <option>Pilih Ringtone</option>
@@ -219,6 +288,9 @@
                         <option>aiyaaiya</option>
                         <option>oke</option>
                       </select>
+                      <div v-if="voiceError" class="text-red-500">
+                        {{ voiceError }}
+                      </div>
                     </div>
                   </div>
 
@@ -248,28 +320,40 @@
 export default {
   // components: { VueTimepicker },
   data() {
-    // const date = new Date()
-    // date.setMinutes(0, 0, 0)
+    const date = new Date()
+    date.setMinutes(0, 0, 0)
     return {
       isOpen: false,
       deskripsi: '',
-      input: '',
+      email: '',
       items: [],
       datetime: '',
       deadlines: [],
       // toggle: false,
       // toggletgl: false,
-      date: null,
+      // date: null,
+      // form input
+      subject: '',
+      subjectError: '',
+      deskripsiError: '',
+      emailError: '',
+      date: '',
+      dateError: '',
+      datetimeError: '',
+      // repeat: '',
+      // repeatError: '',
+      voice: '',
+      voiceError: '',
     }
   },
 
   methods: {
     addEmail() {
-      if (!this.input) {
+      if (!this.email) {
         return
       }
-      this.items.push(this.input)
-      this.input = ''
+      this.items.push(this.email)
+      this.email = ''
     },
     remove(i) {
       this.items.splice(i, 1)
@@ -282,24 +366,72 @@ export default {
         this.$moment(this.datetime).format('MMM DD,YYYY hh:mm A')
       )
 
-      this.input = ''
+      this.datetime = ''
     },
     removeDeadlines(i) {
       this.deadlines.splice(i, 1)
+    },
+    subjectValidate() {
+      if (!this.subject) {
+        this.subjectError = 'Anda belum mengisi subject.'
+      } else {
+        this.subjectError = ''
+      }
+    },
+    deskripsiValidate() {
+      if (!this.deskripsi) {
+        this.deskripsiError = 'Anda belum mengisi deskripsi.'
+      } else {
+        this.deskripsiError = ''
+      }
+    },
+    emailValidate() {
+      // Regular expression for email validation
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+      if (!this.email.match(emailRegex)) {
+        this.emailError = 'Email yang anda masukkan tidak valid'
+      } else {
+        this.emailError = ''
+      }
+    },
+    kalenderValidate() {
+      if (!this.date) {
+        this.dateError = 'Anda belum memasukkan tanggal acara.'
+      } else {
+        this.dateError = ''
+      }
+    },
+    remainderValidate() {
+      if (!this.datetime) {
+        this.datetimeError = 'Anda belum menambahkan pengingat.'
+      } else {
+        this.datetimeError = ''
+      }
+    },
+    voiceValidate() {
+      if (this.voice === '') {
+        this.voiceError = 'Anda belum menambahkan pengingat.'
+      } else {
+        this.voiceError = ''
+      }
     },
   },
   computed: {
     tambahAngka() {
       return this.deskripsi.length
     },
-    // getTime() {
-    //   // return this.date.split(' ')
-    //   return this.$moment(this.date).format('MMM DD,YYYY hh:mm A')
-    // },
+    getTime() {
+      // return this.date.split(' ')
+      return this.$moment(this.date).format('MMM DD,YYYY hh:mm A')
+    },
     // getAlarm() {
     //   // return this.date.split(' ')
     //   return this.$moment(this.remainder).format('MMM DD,YYYY hh:mm A')
     // },
+    remainderDisabled() {
+      // Kondisi untuk mengatur datetime dalam keadaan disabled atau tidak
+      return this.date === ''
+    },
   },
 }
 </script>

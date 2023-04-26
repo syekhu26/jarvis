@@ -7,7 +7,14 @@
     <hr />
     <p class="p-8">Belum ada tim yang dibuat</p>
 
-    <CardGroup v-for="item in grup" :key="item.id" :item="item" />
+    <CardGroup
+      v-for="data in dataGrup"
+      :key="data"
+      :inputData="data.nama"
+      class=""
+    />
+
+    <!-- <CardGroup v-for="item in grup" :key="item.id" :item="item" /> -->
 
     <!-- <p>{{ output }}</p> -->
 
@@ -18,7 +25,7 @@
   </div>
 </template>
 
-<script>
+<!-- <script>
 export default {
   layout: 'home',
   data() {
@@ -31,6 +38,69 @@ export default {
         },
       ],
     }
+  },
+}
+</script> -->
+<script>
+export default {
+  layout: 'home',
+  name: 'Modal',
+  props: {
+    inputData: {
+      type: [String, Boolean, Number],
+      required: true,
+    },
+  },
+  data() {
+    return {
+      toggleModal: false,
+      email: '',
+      items: [],
+      // tim: [
+      //   {
+      //     nama: " ",
+      //     email: " ",
+      //   },
+      // ],
+      dataGrup: [],
+      grup: [
+        {
+          nama: '',
+          email: [],
+        },
+      ],
+    }
+  },
+  methods: {
+    // pushNewData() {
+    //   this.$emit("addNewData", this.nama, this.email);
+    //   this.$refs.form.reset();
+    //   this.nama = "";
+    //   this.email = "";
+    // },
+    // confirmInput() {
+    //   this.output = this.nama;
+    // },
+    // addNewData(){
+    //   this.
+    // }
+    addEmail() {
+      if (!this.email) {
+        return
+      }
+      this.grup.email.push(this.email)
+      this.email = ''
+    },
+    remove(i) {
+      this.items.splice(i, 1)
+    },
+    addGroup() {
+      if (!this.grup) {
+        return
+      }
+      this.dataGrup.push(this.grup)
+      this.grup = [{ nama: '', email: '' }]
+    },
   },
 }
 </script>
