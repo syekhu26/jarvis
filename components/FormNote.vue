@@ -1,10 +1,9 @@
 <template>
   <div>
-    <ButtonGlobal @click="isOpen = !isOpen" />
+    <!-- <ButtonGlobal @click="isOpen = !isOpen" /> -->
     <div>
       <div class="">
         <div
-          v-if="isOpen"
           class="bg-opacity-50 bg-black fixed inset-0 justify-center items-center overflow-y-auto overflow-x-hidden"
         >
           <div class="mt-10 my-10">
@@ -283,7 +282,7 @@
                         @change="voiceValidate"
                         class="border w-full h-10 mb-3 focus:border-blue-500"
                       >
-                        <option>Pilih Ringtone</option>
+                        <option value="" disabled hidden>Pilih Ringtone</option>
                         <option>hahahihi</option>
                         <option>aiyaaiya</option>
                         <option>oke</option>
@@ -342,7 +341,7 @@ export default {
       datetimeError: '',
       // repeat: '',
       // repeatError: '',
-      voice: '',
+      voice: null,
       voiceError: '',
     }
   },

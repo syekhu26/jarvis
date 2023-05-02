@@ -52,6 +52,7 @@ export default {
     { src: "@/plugins/timeline.js" },
     { src: "@/plugins/datetime.js", mode:"client" },
     // {src:"@/plugins/quasar.js"}
+    { src: "@/plugins/draggable.js" },
   ],
 
   // Auto import components: https://go.nuxtjs.dev/config-components

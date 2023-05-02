@@ -1,7 +1,7 @@
 <template>
   <div class="mx-2 my-3">
     <div
-      class="border border-1 h-[124px] w-[547px] flex flex-row items-center p-3"
+      class="border border-1 h-[124px] w-[547px] flex flex-row items-center p-3 rounded-md"
     >
       <div class="border-right w-[37px] m-2 flex flex-col">
         <p class="text-3xl font-semibold place-self-center">2</p>
@@ -16,15 +16,16 @@
           </p>
           <div class="flex my-1">
             <iconUserIcon class="h-5 w-5 mx-1" />
+            <p class="text-sky-500">Personal</p>
             <img
               class="rounded-full w-5 h-5 mx-1"
               src="https://cdn-icons-png.flaticon.com/512/3135/3135715.png"
               alt=""
             />
-            <p class="text-gray-500 mx-1 text-xs">Nama User</p>
+            <p class="text-gray-500 mx-1 text-xs">Mbabro</p>
           </div>
         </div>
-        <div class="bg-red-400 rounded-full text-[12px] h-6 px-3">50%</div>
+        <div class="bg-green-400 rounded-full text-[12px] h-6 px-3">100%</div>
       </div>
     </div>
   </div>

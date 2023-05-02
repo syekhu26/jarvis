@@ -1,6 +1,6 @@
 <template>
   <div
-    class="group relative rounded-md border-b border-gray-300 bg-white p-3 shadow hover:bg-gray-50"
+    class="group relative rounded-md border border-slate-400 bg-white p-3 shadow-lg hover:bg-gray-50"
   >
     <div>
       <div class="">
@@ -9,13 +9,12 @@
           Lorem ipsum, dolor sit amet consectetur adipisicing elit. Quos
           asperiores
         </p>
-        <div class="flex justify-between items-center">
-          <p>syekhu</p>
-          <p
-            class="mt-2 max-w-max rounded-sm bg-blue-100 px-2 py-1 text-xs font-semibold text-gray-600"
-          >
-            tanggal
-          </p>
+        <div class="mt-2">
+          <img
+            class="rounded-full w-5 h-5 mx-1 top-0 left-0"
+            src="https://cdn-icons-png.flaticon.com/512/3135/3135715.png"
+            alt=""
+          />
         </div>
       </div>
     </div>
