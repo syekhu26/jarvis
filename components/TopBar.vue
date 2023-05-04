@@ -2,7 +2,7 @@
   <div>
     <ul class="flex justify-between h-[99px] shadow">
       <li class="flex place-items-center">
-        <NuxtLink to="/index" class="flex py-2 px-4">
+        <NuxtLink to="/" class="flex py-2 px-4">
           <img
             src="../assets/img/logoipsum-245 1.png"
             alt="logo"
@@ -15,7 +15,7 @@
         <li>
           <NuxtLink
             to="#"
-            class="mx-2 hover:bg-gray-400 hover:text-black block py-3 px-4"
+            class="mx-2 hover:text-gray-600 block py-3 px-4"
           >
             <img
               class="w-[20.31px] h-[22.66px]"
@@ -28,7 +28,7 @@
         <li>
           <NuxtLink
             to="#"
-            class="mx-2 hover:bg-gray-400 hover:text-black block py-3 px-4"
+            class="mx-2 hover:text-black block py-3 px-4"
           >
             <img
               class="w-[43px] h-[43px] bg-gray-600 rounded-full"

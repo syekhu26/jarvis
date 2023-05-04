@@ -1,6 +1,8 @@
 <template>
   <div>
+    <CardListNote @detail="isOpen = !isOpen" />
     <div
+      v-if="isOpen"
       class="fixed inset-0 z-10 overflow-y-auto justify-center items-center overflow-x-hidden"
     >
       <div class="min-h-screen px-4 text-center">
@@ -17,6 +19,7 @@
             <div class="-mt-7">
               <div class="flex items-center justify-between">
                 <div
+                  @click="isOpen = false"
                   class="w-10 h-10 rounded-full flex absolute mt-7 top-5 right-5 cursor-pointer"
                 >
                   <iconSilangIcon />
@@ -26,7 +29,8 @@
                 <h1 class="font-bold text-xl">Beli Tiket Pesawat</h1>
                 <div class="flex items-center">
                   <a href="" class="p-2 text-blue-500">Edit</a>
-                  <a href="" class="text-red-500">Hapus</a>
+                  <DeleteNote />
+                  <!-- <a href="" class="text-red-500">Hapus</a> -->
                 </div>
               </div>
               <p class="font-sans mb-3">
@@ -63,3 +67,12 @@
     </div>
   </div>
 </template>
+<script>
+export default {
+  data() {
+    return {
+      isOpen: false,
+    }
+  },
+}
+</script>
