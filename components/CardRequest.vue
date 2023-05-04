@@ -21,8 +21,8 @@
           </div>
       </div>
       <div class="flex justify-end">
-          <button class="border border-red-500 bg-white px-5 py-1 mx-2 rounded">tolak</button>
-          <button class="bg-[#0F62FE] text-white px-5 py-1 mx-2 rounded">terima</button>
+          <button class="border border-red-500 hover:bg-red-300 bg-white px-5 py-1 mx-2 rounded">tolak</button>
+          <button class="bg-[#0F62FE] hover:bg-blue-400 text-white hover:text-black px-5 py-1 mx-2 rounded">terima</button>
       </div>
       </div>
     </div>

@@ -42,7 +42,8 @@
                 <h1 class="font-bold text-xl">Beli Tiket Pesawat</h1>
                 <div class="flex items-center">
                   <a href="" class="p-2 text-blue-500">Edit</a>
-                  <a href="" class="text-red-500">Hapus</a>
+                  <!-- <a href="" class="text-red-500">Hapus</a> -->
+                  <DeleteNote />
                 </div>
               </div>
               <p class="font-sans">
