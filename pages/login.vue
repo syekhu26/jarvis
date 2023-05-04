@@ -1,8 +1,8 @@
 <template>
-  <div class="flex justify-center items-center mt-32">
+  <div class="flex justify-center items-center mt-24">
     <div class="w-full max-w-lg">
       <div class="bg-white shadow-lg border rounded px-8 pt-6 pb-8 mb-4">
-        <div class="flex item-center justify-center">
+        <div class="flex item-center justify-center mb-5">
           <img
             src="../assets/img/logoipsum-245 1.png"
             alt="logo"
@@ -10,7 +10,7 @@
           />
           <h1 class="text-2xl text-[#0F62FE] font-[IBM Plex Sans]">Bantu.in</h1>
         </div>
-        <h1 class="text-lg font-bold mb-6 mt-3">Masuk</h1>
+        <!-- <h1 class="text-lg font-bold mb-6 mt-3">Masuk</h1> -->
         <div>
           <form action="">
             <div class="w-full my-3">
@@ -44,12 +44,20 @@
                 <p for="password" class="text-sm font-medium dark:text-white"
                   >Password</p>
                 <input
+                 :type="inputTypeIcon"
                 v-model="passKey"
                 type="password"
                   class="w-full border text-black px-4 py-2 col-span-2"
                   placeholder="Masukkan Password"
                   required
                 />
+                  <div
+                  class="absolute inset-y-0 right-0 flex items-center pr-[445px] -mt-20"
+                  @click.prevent="ToggleIcon"
+                >
+                  <i v-if="inputTypeIcon == 'password'"><iconEyeShow /></i>
+                  <i v-else><iconEyeHide /></i>
+                </div>
                 <p
                   v-if="passwordLoginCorrect === false"
                   class="text-sm text-red-500 mb-2"
@@ -72,11 +80,15 @@
               >
             </div>
             <button
-              class="text-base bg-slate-500 text-white font-semibold py-3 px-8 w-full rounded hover:shadow-lg hover:bg-slate-700"
+              class="text-base bg-blue-600 text-white font-semibold py-3 px-8 w-full rounded hover:shadow-lg hover:bg-slate-700"
             >
               Masuk
             </button>
           </form>
+        </div>
+        <div class="mb-8 mt-8 justify-center items-center flex">
+          Belum punya akun?
+          <NuxtLink to="/register" class="text-blue-500">Daftar</NuxtLink>
         </div>
       </div>
     </div>
@@ -87,11 +99,19 @@
 export default {
   data() {
     return {
-      userName: '',
+
+      inputTypeIcon: 'password',
+       userName: '',
       regexName: /^.{1,20}$/,
 
       passKey: '',
       regexPass: /^.*(?=.{8,})(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z]).*$/,
+    }
+  },
+  methods: {
+    ToggleIcon() {
+      this.inputTypeIcon =
+        this.inputTypeIcon === 'password' ? 'text' : 'password'
     }
   },
   computed: {

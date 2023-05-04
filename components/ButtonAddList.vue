@@ -1,6 +1,5 @@
 <template>
   <div
-    @click="$emit('click')"
     class="flex items-center justify-center mt-2 mb-3 cursor-pointer bg-gray-200 w-44 mt-6"
   >
     <iconTambahIcon />
@@ -19,6 +18,12 @@
 </template>
 <script>
 export default {
+  // props: {
+  //   inputData: {
+  //     type: String,
+  //     required: true,
+  //   },
+  // },
   data() {
     return {
       newData: '',
@@ -29,10 +34,7 @@ export default {
   },
   methods: {
     addData() {
-      if (this.newData) {
-        this.dataList.push(this.newData)
-        this.newData = ''
-      }
+      this.$emit('add-data', this.newData)
     },
     buttonInput() {
       this.showInput = !this.showInput

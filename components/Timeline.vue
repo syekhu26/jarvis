@@ -18,20 +18,23 @@
           <div
             class="my-5 inline-block w-full max-w-xl transform overflow-hidden rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all"
           >
-            <div class="-mt-7">
+            <div class="mt-4">
               <div class="flex justify-between items-center">
-                <button
+                <!-- <button
                   class="my-10 bg-green-400 px-3 py-1 rounded-full text-white font-semibold font-sans block hover:bg-sky-700 active:bg-sky-900 focus:ring-sky-300 dark:bg-slate-300 dark:text-slate-800 dark:hover:text-slate-900 dark:hover:bg-slate-100"
                 >
                   100%
-                </button>
+                </button> -->
+                <div>
+                  <h2 class="font-semibold text-black">Progress Catatan</h2>
+                </div>
                 <button>
                   <div @click="isOpen = false">
                     <p class="text-blue-500">Kembali</p>
                   </div>
                 </button>
               </div>
-              <div class="-mt-7">
+              <div class="">
                 <timeline>
                   <timeline-item :hollow="false"
                     >CEO membuat catatan untuk bag.sekretaris dan

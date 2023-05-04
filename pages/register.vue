@@ -2,7 +2,7 @@
   <div class="flex justify-center items-center mt-12">
     <div class="w-full max-w-lg">
       <div class="bg-white shadow-lg border rounded px-8 pt-6 pb-8 mb-4">
-        <h1 class="text-2xl font-bold mb-6 mt-3">Daftar Akun</h1>
+        <h1 class="text-2xl font-bold mb-6 mt-3 text-center">Daftar Akun</h1>
         <div>
           <form action="">
             <div class="w-full my-3">
@@ -137,7 +137,7 @@
               >
             </div>
             <button
-              class="text-base bg-slate-500 text-white font-semibold py-3 px-8 w-full rounded hover:shadow-lg hover:bg-slate-700"
+              class="text-base bg-blue-600 text-white font-semibold py-3 px-8 w-full rounded hover:shadow-lg hover:bg-slate-700"
             >
               Daftar
             </button>
