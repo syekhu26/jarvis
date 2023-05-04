@@ -9,7 +9,7 @@
     /> -->
     <div
       v-if="toggleModal"
-      class="fixed overflow-x-hidden overflow-y-auto inset-0 flex justify-center items-center"
+      class="fixed overflow-x-hidden overflow-y-auto inset-0 flex justify-center items-center z-10"
     >
       <div>
         <div class="fixed inset-0 bg-black bg-opacity-50"></div>

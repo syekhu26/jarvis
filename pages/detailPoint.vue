@@ -9,8 +9,9 @@
     </div>
     <div>
       <div class="p-5 m-8">
-        <h1 class="text-black text-4xl font-bold">Berkah Ramadhan</h1>
-        <p class="mt-2">10 Catatan</p>
+        <h1 class="text-black text-4xl font-bold">
+          Berkah ramadan 10 Notes hanya 2300 points.
+        </h1>
       </div>
       <div class="max-w-2xl rounded-xl m-8 p-5 font-sans">
         <div class="font-bold">
@@ -25,16 +26,23 @@
           distinctio dolores illum molestiae vitae ratione!
         </p>
       </div>
-      <div class="flex justify-between items-center p-5 m-8">
-        <h1 class="font-semibold text-xl">Point : 2000</h1>
-        <button
+      <div class="p-10">
+        <!-- <h1 class="font-semibold text-xl">Point : 2000</h1> -->
+        <!-- <button
           @click="redeem"
           class="text-base bg-slate-500 text-white font-semibold py-3 px-8 rounded hover:shadow-lg hover:bg-slate-700"
         >
           Redeem
+        </button> -->
+        <button
+          @click="show"
+          class="my-4 right-3 w-[150px] h-9 text-[14px] text-white bg-blue-500 rounded md:w-[328px]"
+        >
+          Tukarkan Sekarang
         </button>
       </div>
     </div>
+    <PopupRedeem :show="isOpen" @close="hide" />
   </div>
 </template>
 
@@ -42,11 +50,19 @@
 export default {
   layout: 'navbar',
   data() {
-    return {}
+    return {
+      isOpen: false,
+    }
   },
   methods: {
     redeem() {
       alert('Berhasil redeem anda mendapatkan 10 point')
+    },
+    show() {
+      this.isOpen = true
+    },
+    hide() {
+      this.isOpen = false
     },
   },
 }

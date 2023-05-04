@@ -2,17 +2,12 @@
   <div class="flex justify-center items-center mt-32">
     <div class="w-full max-w-lg">
       <div class="bg-white shadow-lg border rounded px-8 pt-6 pb-8 mb-4">
-        <div class="flex item-center justify-center mt-5">
-          <img
-            src="../assets/img/logoipsum-245 1.png"
-            alt="logo"
-            class="rounded-full w-[52px] h-[41px] mx-3 my-auto"
-          />
-          <h1 class="text-2xl text-[#0F62FE] font-[IBM Plex Sans]">Bantu.in</h1>
-        </div>
         <div class="mt-8 text-center font-sans">
-          <h1 class="text-xl font-bold mb-6 mt-3">Verifikasi Email</h1>
-          <p>Kode telah dikirim ke ahmad@gmail.com</p>
+          <h1 class="text-xl font-bold mb-6 mt-3">Periksa Email Untuk OTP</h1>
+          <p>
+            Untuk mereset kata sandi anda, silahkan masukan 4 digit pin yang
+            telah dikirimkan ke email anda.
+          </p>
         </div>
         <div>
           <form action="">
@@ -49,9 +44,9 @@
               </h4>
             </div>
             <button
-              class="text-base bg-slate-500 text-white font-semibold py-3 px-8 w-full rounded hover:shadow-lg hover:bg-slate-700 mt-5"
+              class="text-base bg-blue-600 text-white font-semibold py-3 px-8 w-full rounded hover:shadow-lg hover:bg-slate-700 mt-5"
             >
-              Verifikasi
+              Selanjutnya
             </button>
           </form>
         </div>

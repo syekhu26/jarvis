@@ -12,13 +12,14 @@
         </div>
         <!-- <h1 class="text-lg font-bold mb-6 mt-3">Masuk</h1> -->
         <div>
-          <form action="">
+          <form action="" @submit.prevent="login">
             <div class="">
               <label for="username" class="text-sm font-medium dark:text-white"
                 >Email</label
               >
               <div class="mb-3">
                 <input
+                  v-model="email"
                   class="border text-black px-4 py-2 w-full"
                   placeholder="Masukkan Email"
                   required
@@ -54,6 +55,7 @@
               </div> -->
               <div class="mb-3">
                 <input
+                  v-model="password"
                   :type="inputTypeIcon"
                   class="border text-black px-4 py-2 w-full"
                   placeholder="Masukkan Password"
@@ -75,6 +77,7 @@
             </div>
 
             <button
+              type="submit"
               class="text-base bg-blue-600 text-white font-semibold py-3 px-8 w-full rounded hover:shadow-lg hover:bg-slate-700"
             >
               Masuk
@@ -95,6 +98,8 @@ export default {
   data() {
     return {
       inputTypeIcon: 'password',
+      email: '',
+      password: '',
     }
   },
   methods: {
@@ -102,6 +107,22 @@ export default {
       this.inputTypeIcon =
         this.inputTypeIcon === 'password' ? 'text' : 'password'
     },
+
+    async login() {
+      try {
+        await this.$auth.loginWith('local', {
+          data: {
+            email: this.email,
+            password: this.password,
+          },
+        })
+      } catch (e) {
+        this.error = e
+      }
+    },
   },
 }
 </script>
+<!-- methods: {
+  
+} -->

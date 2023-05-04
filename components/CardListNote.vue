@@ -30,3 +30,18 @@
     </div>
   </div>
 </template>
+
+<script>
+export default {
+  data() {
+    return {
+      props: {
+        inputData: {
+          type: [String, Boolean, Number],
+          required: true,
+        },
+      },
+    }
+  },
+}
+</script>

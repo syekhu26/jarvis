@@ -1,6 +1,7 @@
 <template>
   <div>
     <div
+      v-if="showModal"
       class="fixed overflow-x-hidden overflow-y-auto inset-0 flex justify-center items-center"
     >
       <div>
@@ -10,7 +11,7 @@
         <div class="bg-white w-full rounded shadow-2xl flex flex-col px-8">
           <div class="flex items-center justify-between mt-5">
             <div class="font-bold mb-6 mt-2">Tambah Anggota</div>
-            <div @click="toggleModal = false">
+            <div @click="$emit('close')">
               <iconSilangIcon class="cursor-pointer" />
             </div>
           </div>
@@ -84,6 +85,12 @@
 <script>
 export default {
   name: 'Modal',
+  props: {
+    showModal: {
+      type: Boolean,
+      default: false,
+    },
+  },
   data() {
     return {
       toggleModal: false,

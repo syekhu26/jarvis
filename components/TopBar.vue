@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="top-0 w-full z-[1000] bg-white">
     <ul class="flex justify-between h-[99px] shadow">
       <li class="flex place-items-center">
         <NuxtLink to="/index" class="flex py-2 px-4">
@@ -49,12 +49,12 @@
   </div>
 </template>
 <script>
-export default{
-  data(){
+export default {
+  data() {
     return {
-      profileOpen : false,
-      notifOpen : false,
+      profileOpen: false,
+      notifOpen: false,
     }
-  }
+  },
 }
 </script>

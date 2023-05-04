@@ -1,7 +1,7 @@
 <template>
   <div class="w-full">
     <div>
-      <div class="flex items-center justify-between mt-6 px-8">
+      <div class="flex items-center justify-between mt-6 px-8 mt-[99px]">
         <h1 class="text-2xl font-bold mb-3">Permintaan masuk</h1>
         <ButtonGlobal />
       </div>

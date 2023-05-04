@@ -69,14 +69,63 @@ export default {
   modules: [
     // https://go.nuxtjs.dev/axios
     '@nuxtjs/axios',
+    '@nuxtjs/auth-next'
     // 'nuxt-quasar',
   ],
+
+  auth: {
+    // Options
+    redirect: {
+      login: '/login',
+      home: '/index',
+      logout: '/login'
+    },
+    strategies: {
+      local: {
+        token: {
+          property: 'token',
+          global:true,
+          required:true,
+
+        },
+        user : {
+          autoFetch : true,
+          property : false
+        },
+        endpoints: {
+          login: {
+            url: '/login',
+            method: 'post',
+          },
+          user: {
+            url: '/auth/current_user',
+            method: 'get',
+            // propertyName: 'user'
+          },
+          logout:false
+          // logout: {
+          //   url: '/api/logout',
+          //   method: 'post'
+          // }
+        }
+      }
+    },
+    cookie: {
+      name: 'token'
+    }
+  },
+ 
 
   // Axios module configuration: https://go.nuxtjs.dev/config-axios
   axios: {
     // Workaround to avoid enforcing hard-coded localhost:3000: https://github.com/nuxt-community/axios-module/issues/308
-    baseURL: '/',
+    baseURL: 'https://bantuin.fly.dev/api',
   },
+
+  env: {
+    API_URL: process.env.API_URL || 'https://bantuin.fly.dev/api'
+  },
+  // loading: '~/components/Loading.vue',
 
   // Build Configuration: https://go.nuxtjs.dev/config-build
   build: {
