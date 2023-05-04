@@ -33,7 +33,7 @@
 
   <!-- SUDAH LOGIN -->
   <div
-    class="w-[280px] h-[280px] border border-gray-300 rounded-md justify-center z-[99px]"
+    class="w-[280px] h-[280px] border border-gray-300 bg-white rounded-md justify-center z-[99px]"
   >
     <div class="flex">
       <img
@@ -48,17 +48,19 @@
     <div class="w-[260px] h-px bg-gray-300 mx-2"></div>
     <div class="border bg-white w-[260px] mx-2 my-3 p-2">
       <div class="flex">
-        <div>
-          <div class="flex">
-            <img
-              class="h-5 w-5 mx-2"
-              src="../assets/img/logoipsum-245 1.png"
-              alt=""
-            />
-            <p class="text-sm text-blue-600">Bisa.in point :</p>
-          </div>
-          <p class="text-sm font-bold mx-3">2500</p>
-        </div>
+        <NuxtLink to="/point">
+            <div>
+              <div class="flex">
+                <img
+                  class="h-5 w-5 mx-2"
+                  src="../assets/img/logoipsum-245 1.png"
+                  alt=""
+                />
+                <p class="text-sm text-blue-600">Bisa.in point :</p>
+              </div>
+              <p class="text-sm font-bold mx-3">2500</p>
+            </div>
+        </NuxtLink>
         <div class="w-px h-9 bg-gray-300 mx-2"></div>
         <div>
           <div class="flex">
