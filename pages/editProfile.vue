@@ -1,5 +1,5 @@
 <template>
-  <form class="flex w-full h-screen mx-9 m-2" v-on:submit="submitEditprofil">
+  <form class="flex w-full h-screen mx-9 m-2" @v-on:submit="submitEditprofil">
     <div class="w-[20%] my-4 mx-2">
       <img
         src="https://images.unsplash.com/photo-1633332755192-727a05c4013d?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8dXNlcnxlbnwwfHwwfHw%3D&auto=format&fit=crop&w=500&q=60"
@@ -20,6 +20,9 @@
         <p v-if="usernameCorrect === false" class="text-sm text-red-500 mb-2">
           Nama pengguna harus diisi
         </p>
+        <p v-if="usernameCorrect === true" class="text-sm text-green-500 mb-2">
+          oke
+        </p>
       </div>
       <div class="my-2">
         <p>Pekerjaan</p>
@@ -31,6 +34,9 @@
         />
         <p v-if="workCorrect === false" class="text-sm text-red-500 mb-2">
           Masukkan pekerjan anda
+        </p>
+        <p v-if="workCorrect === true" class="text-sm text-green-500 mb-2">
+          oke
         </p>
       </div>
       <div class="my-2">
@@ -44,6 +50,9 @@
         <p v-if="emailCorrect === false" class="text-sm text-red-500 mb-2">
           Masukkan email anda untuk melakukan verifikasi
         </p>
+        <p v-if="emailCorrect === true" class="text-sm text-green-500 mb-2">
+          oke
+        </p>
       </div>
       <div class="my-2">
         <p>Nomor telepon</p>
@@ -55,6 +64,9 @@
         />
         <p v-if="phoneCorrect === false" class="text-sm text-red-500 mb-2">
           Masukkan nomor telepon anda
+        </p>
+        <p v-if="phoneCorrect === true" class="text-sm text-green-500 mb-2">
+          oke
         </p>
       </div>
       <div class="my-2">
@@ -68,6 +80,9 @@
         <p v-if="passwordCorrect === false" class="text-sm text-red-500 mb-2">
           minimal 8 karakter terdiri atas huruf kapital, huruf kecil, dan angka
         </p>
+        <p v-if="passwordCorrect === true" class="text-sm text-green-500 mb-2">
+          oke
+        </p>
       </div>
       <div class="my-2">
         <p>Ulangi kata sandi</p>
@@ -79,6 +94,9 @@
         />
         <p v-if="repeatpassCorrect === false" class="text-sm text-red-500 mb-2">
           kata sandi anda tidak sesuai
+        </p>
+        <p v-if="repeatpassCorrect === true" class="text-sm text-green-500 mb-2">
+          oke
         </p>
       </div>
       <div class="w-full my-3">
