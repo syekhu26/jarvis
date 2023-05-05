@@ -5,7 +5,7 @@
       class="border border-1 h-[124px] w-[547px] flex flex-row items-center p-3 rounded-md cursor-pointer"
     >
       <div class="border-right w-[37px] m-2 flex flex-col">
-        <p class="text-3xl font-semibold place-self-center">2</p>
+        <p class="text-3xl font-semibold place-self-center">5</p>
         <p class="text-xl place-self-center">Bulan</p>
       </div>
       <div class="h-[80px] w-[1px] bg-gray-300 mx-2"></div>
@@ -17,7 +17,7 @@
           </p>
           <div class="flex my-1">
             <iconUserIcon class="h-5 w-5 mx-1 opacity-50" />
-            <p class="text-sky-500 mx-1 text-sm">Personal</p>
+            <p class="text-sky-500 mx-1 text-sm">kolaboration</p>
             <img
               class="rounded-full w-5 h-5 mx-1"
               src="https://cdn-icons-png.flaticon.com/512/3135/3135715.png"

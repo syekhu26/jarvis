@@ -12,17 +12,17 @@
         </div>
         <!-- <h1 class="text-lg font-bold mb-6 mt-3">Masuk</h1> -->
         <div>
-          <form action="">
+          <form action="" @submit.prevent="login">
             <div class="w-full my-3">
               <div class="my-2">
-                <p for="username" class="text-sm font-medium dark:text-white">
-                  Username
+                <p for="email" class="text-sm font-medium dark:text-white">
+                  Email
                 </p>
                 <input
-                  v-model="userName"
+                  v-model="email"
                   type="text"
                   class="w-full border text-black px-4 py-2 col-span-2"
-                  placeholder="Masukkan Username"
+                  placeholder="Masukkan Email"
                   required
                 />
                 <p
@@ -44,14 +44,13 @@
                 </p>
                 <input
                   :type="inputTypeIcon"
-                  v-model="passKey"
-                  type="password"
+                  v-model="password"
                   class="w-full border text-black px-4 py-2 col-span-2"
                   placeholder="Masukkan Password"
                   required
                 />
                 <div
-                  class="absolute inset-y-0 right-0 flex items-center pr-[445px] -mt-20"
+                  class="absolute inset-y-0 right-0 flex items-center pr-[470px] -top-9"
                   @click.prevent="ToggleIcon"
                 >
                   <i v-if="inputTypeIcon == 'password'"><iconEyeShow /></i>
@@ -71,19 +70,26 @@
                   oke
                 </p>
               </div>
+              <NuxtLink to="/resetpassword">
+                <div class="text-sky-500 float-right cursor-pointer">
+                  Lupa Kata Sandi
+                </div>
+              </NuxtLink>
             </div>
-            <div class="mb-8 mt-1">
+            <!-- <div class="mb-8 mt-1">
               Belum punya akun?
               <NuxtLink to="/register" class="text-blue-500"
                 >Silahkan daftar</NuxtLink
               >
+            </div> -->
+            <div class="mt-20">
+              <button
+                type="submit"
+                class="text-base bg-blue-600 text-white font-semibold py-3 px-8 w-full rounded hover:shadow-lg hover:bg-slate-700"
+              >
+                Masuk
+              </button>
             </div>
-            <button
-              type="submit"
-              class="text-base bg-blue-600 text-white font-semibold py-3 px-8 w-full rounded hover:shadow-lg hover:bg-slate-700"
-            >
-              Masuk
-            </button>
           </form>
         </div>
         <div class="mb-8 mt-8 justify-center items-center flex">
@@ -101,9 +107,10 @@ export default {
     return {
       inputTypeIcon: 'password',
       userName: '',
+      email: '',
       regexName: /^.{1,20}$/,
 
-      passKey: '',
+      password: '',
       regexPass: /^.*(?=.{8,})(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z]).*$/,
     }
   },
@@ -112,15 +119,6 @@ export default {
       this.inputTypeIcon =
         this.inputTypeIcon === 'password' ? 'text' : 'password'
     },
-  },
-  computed: {
-    usernameLoginCorrect() {
-      return this.regexName.test(this.userName)
-    },
-    passwordLoginCorrect() {
-      return this.regexPass.test(this.passKey)
-    },
-
     async login() {
       try {
         await this.$auth.loginWith('local', {
@@ -132,6 +130,14 @@ export default {
       } catch (e) {
         this.error = e
       }
+    },
+  },
+  computed: {
+    usernameLoginCorrect() {
+      return this.regexName.test(this.userName)
+    },
+    passwordLoginCorrect() {
+      return this.regexPass.test(this.password)
     },
   },
 }

@@ -31,7 +31,8 @@
       :inputData="data.nama"
       class=""
     /> -->
-      <CardListNote class="mx-8" />
+      <DetailPersonal class="mx-8" />
+      <DetailNoteCollab class="mx-8" />
       <CardListNote
         v-for="data in dataNote"
         :key="data"
@@ -41,7 +42,8 @@
     </div>
 
     <div v-if="active === 'DetailNote'">
-      <DetailNote class="mx-8" />
+      <!-- <DetailNote class="mx-8" /> -->
+      <DetailNoteCollab class="mx-8" />
     </div>
     <FormNote :show="isOpen" @close="hide" />
   </div>
@@ -54,7 +56,7 @@ export default {
   data() {
     return {
       isOpen: false,
-      active: 'DetailNote',
+      active: 'CardListNote',
     }
   },
   methods: {

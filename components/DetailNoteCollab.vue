@@ -1,8 +1,8 @@
 <template>
   <div>
-    <CardNote @click="isOpen = !isOpen" />
+    <CardListNoteCollab @click="toggleModal = !toggleModal" />
     <div
-      v-if="isOpen"
+      v-if="toggleModal"
       class="fixed inset-0 z-10 overflow-y-auto justify-center items-center overflow-x-hidden"
     >
       <div class="min-h-screen px-4 text-center">
@@ -20,7 +20,7 @@
               <div class="flex items-center justify-between">
                 <div class="flex items-center">
                   <div
-                    class="my-10 bg-green-500 px-5 py-1 rounded-full text-white font-semibold font-sans block mx-auto hover:bg-green-700 active:bg-green-900 focus:ring-sky-300 dark:bg-slate-300 dark:text-slate-800 dark:hover:text-slate-900 dark:hover:bg-slate-100"
+                    class="my-10 bg-green-500 px-5 py-1 rounded-full text-white font-semibold font-sans block mx-auto"
                   >
                     100%
                   </div>
@@ -32,7 +32,7 @@
                   </button> -->
                 </div>
                 <div
-                  @click="isOpen = false"
+                  @click="toggleModal = false"
                   class="w-10 h-10 rounded-full flex absolute mt-7 top-5 right-5 cursor-pointer"
                 >
                   <iconSilangIcon />
@@ -41,7 +41,9 @@
               <div class="flex items-center justify-between -mt-6">
                 <h1 class="font-bold text-xl">Beli Tiket Pesawat</h1>
                 <div class="flex items-center">
-                  <a href="" class="p-2 text-blue-500">Edit</a>
+                  <div @click="show" class="p-2 text-blue-500 cursor-pointer">
+                    Edit
+                  </div>
                   <!-- <a href="" class="text-red-500">Hapus</a> -->
                   <DeleteNote />
                 </div>
@@ -52,23 +54,58 @@
                 sampai lupa
               </p>
               <div class="mb-4">
-                <button
-                  class="my-5 bg-sky-500 px-5 py-2 rounded-full text-white font-semibold font-sans block hover:bg-sky-700 active:bg-sky-900 focus:ring-sky-300 dark:bg-slate-300 dark:text-slate-800 dark:hover:text-slate-900 dark:hover:bg-slate-100"
+                <div
+                  class="my-3 bg-sky-500 px-5 py-2 rounded-full text-white font-semibold font-sans block max-w-[100px]"
                 >
                   Kak Lea
-                </button>
-                <button
-                  class="bg-sky-500 px-5 py-2 rounded-full text-white font-semibold font-sans block hover:bg-sky-700 active:bg-sky-900 focus:ring-sky-300 dark:bg-slate-300 dark:text-slate-800 dark:hover:text-slate-900 dark:hover:bg-slate-100"
+                </div>
+                <div
+                  class="bg-sky-500 px-5 py-2 rounded-full text-white font-semibold font-sans block max-w-[130px]"
                 >
                   Kak Jasmine
-                </button>
+                </div>
+
+                <div class="flex items-center mt-2">
+                  <p>dan 3 orang lagi.</p>
+                  <div
+                    @click="showMember"
+                    class="text-sky-500 px-1 cursor-pointer"
+                  >
+                    Lihat semua
+                  </div>
+                  <PopupMemberCollab :showMember="member" @close="hideMember" />
+                </div>
               </div>
-              <div class="mb-4">File Dokumen :</div>
 
               <div class="mb-4">
-                <p>Tanggal Acara :</p>
-                <p>Reminder :</p>
-                <p>Ringtone :</p>
+                <div>File Dokumen :</div>
+                <div class="text-sky-500 underline">Bukti transaksi.png</div>
+                <div class="text-sky-500 underline">Tiket pesawat.pdf</div>
+                <div class="flex items-center mt-2">
+                  <p>dan 3 dokument lagi.</p>
+                  <div
+                    @click="showDoc"
+                    class="text-sky-500 px-1 cursor-pointer"
+                  >
+                    Lihat semua
+                  </div>
+                  <PopupDocumentCollab :showDoc="doc" @close="hideDoc" />
+                </div>
+              </div>
+
+              <div class="mb-4">
+                <div class="flex">
+                  <p>Tanggal Acara :</p>
+                  <p>13/03/2021</p>
+                </div>
+                <div class="flex">
+                  <p>Reminder :</p>
+                  <p>H-2 - 11/03/2021</p>
+                </div>
+                <div class="flex">
+                  <p>Ringtone :</p>
+                  <p class="text-sky-500">Aiyaiyaiya</p>
+                </div>
               </div>
               <div class="mb-4">
                 <h5>Pembuat catatan :</h5>
@@ -80,6 +117,7 @@
               <div>
                 <button
                   type="submit"
+                  @click="showModal"
                   class="float-right inline-flex justify-center rounded border border-transparent bg-blue-500 px-4 py-2 text-sm font-medium text-white hover:bg-blue-600 focus:outline-none"
                 >
                   Selesaikan Catatan
@@ -87,6 +125,8 @@
               </div>
             </div>
           </div>
+          <FormNote :show="isOpen" @close="hide" />
+          <FinishNote :showModal="modal" @close="hideModal" />
         </div>
         <!-- ok -->
       </div>
@@ -99,7 +139,37 @@ export default {
   data() {
     return {
       isOpen: false,
+      toggleModal: false,
+      modal: false,
+      member: false,
+      doc: false,
     }
+  },
+  methods: {
+    show() {
+      this.isOpen = true
+    },
+    hide() {
+      this.isOpen = false
+    },
+    showModal() {
+      this.modal = true
+    },
+    hideModal() {
+      this.modal = false
+    },
+    showMember() {
+      this.member = true
+    },
+    hideMember() {
+      this.member = false
+    },
+    showDoc() {
+      this.doc = true
+    },
+    hideDoc() {
+      this.doc = false
+    },
   },
 }
 </script>

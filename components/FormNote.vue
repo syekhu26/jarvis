@@ -278,11 +278,9 @@
                     >
                     <div>
                       <select
-                        v-model="voice"
-                        @change="voiceValidate"
                         class="border w-full h-10 mb-3 focus:border-blue-500"
                       >
-                        <option value="" disabled hidden>Pilih Ringtone</option>
+                        <option value="">Pilih Ringtone</option>
                         <option>hahahihi</option>
                         <option>aiyaaiya</option>
                         <option>oke</option>

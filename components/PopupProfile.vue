@@ -49,17 +49,17 @@
     <div class="border bg-white w-[260px] mx-2 my-3 p-2">
       <div class="flex">
         <NuxtLink to="/point">
-            <div>
-              <div class="flex">
-                <img
-                  class="h-5 w-5 mx-2"
-                  src="../assets/img/logoipsum-245 1.png"
-                  alt=""
-                />
-                <p class="text-sm text-blue-600">Bisa.in point :</p>
-              </div>
-              <p class="text-sm font-bold mx-3">2500</p>
+          <div>
+            <div class="flex">
+              <img
+                class="h-5 w-5 mx-2"
+                src="../assets/img/logoipsum-245 1.png"
+                alt=""
+              />
+              <p class="text-sm text-blue-600">Bisa.in point :</p>
             </div>
+            <p class="text-sm font-bold mx-3">2500</p>
+          </div>
         </NuxtLink>
         <div class="w-px h-9 bg-gray-300 mx-2"></div>
         <div>
@@ -79,6 +79,7 @@
         </button>
       </NuxtLink>
       <button
+        @click="logout"
         class="w-[260px] border border-red-500 text-red-500 text-sm justify-center p-2 mx-2 my-2 rounded"
       >
         Keluar
@@ -86,3 +87,18 @@
     </div>
   </div>
 </template>
+
+<script>
+export default {
+  methods: {
+    async logout() {
+      try {
+        await this.$auth.logout()
+        // redirect to the login page or another page
+      } catch (err) {
+        console.log(err)
+      }
+    },
+  },
+}
+</script>

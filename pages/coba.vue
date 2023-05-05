@@ -3,6 +3,8 @@
   <!-- <HeaderViewMember /> -->
   <!-- <DeleteMember /> -->
   <!-- <CardPoint /> -->
-  <CardMember />
+  <!-- <CardMember /> -->
   <!-- <Loading /> -->
+  <!-- <DetailNoteCollab /> -->
+  <DetailPersonal />
 </template>

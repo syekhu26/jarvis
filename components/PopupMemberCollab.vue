@@ -1,6 +1,7 @@
 <template>
   <div>
     <div
+      v-if="showMember"
       class="fixed inset-0 z-10 overflow-y-auto justify-center items-center overflow-x-hidden"
     >
       <div class="min-h-screen px-4 text-center">
@@ -25,7 +26,7 @@
                 <h2 class="font-semibold text-black">Semua Orang</h2>
               </div>
               <button>
-                <div @click="isOpen = false">
+                <div @click="$emit('close')">
                   <p class="text-blue-500">Kembali</p>
                 </div>
               </button>
@@ -44,10 +45,11 @@
 
 <script>
 export default {
-  data() {
-    return {
-      isOpen: false,
-    }
+  props: {
+    showMember: {
+      type: Boolean,
+      default: false,
+    },
   },
 }
 </script>

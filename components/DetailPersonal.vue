@@ -1,8 +1,8 @@
 <template>
   <div>
-    <CardListNote @detail="isOpen = !isOpen" />
+    <CardListNote @click="toggleModal = !toggleModal" />
     <div
-      v-if="isOpen"
+      v-if="toggleModal"
       class="fixed inset-0 z-10 overflow-y-auto justify-center items-center overflow-x-hidden"
     >
       <div class="min-h-screen px-4 text-center">
@@ -19,7 +19,7 @@
             <div class="-mt-7">
               <div class="flex items-center justify-between">
                 <div
-                  @click="isOpen = false"
+                  @click="toggleModal = false"
                   class="w-10 h-10 rounded-full flex absolute mt-7 top-5 right-5 cursor-pointer"
                 >
                   <iconSilangIcon />
@@ -28,7 +28,9 @@
               <div class="flex items-center justify-between mt-24 mb-3">
                 <h1 class="font-bold text-xl">Beli Tiket Pesawat</h1>
                 <div class="flex items-center">
-                  <a href="" class="p-2 text-blue-500">Edit</a>
+                  <div @click="show" class="p-2 text-blue-500 cursor-pointer">
+                    Edit
+                  </div>
                   <DeleteNote />
                   <!-- <a href="" class="text-red-500">Hapus</a> -->
                 </div>
@@ -40,9 +42,18 @@
               </p>
 
               <div class="mb-4">
-                <p>Tanggal Acara :</p>
-                <p>Reminder :</p>
-                <p>Ringtone :</p>
+                <div class="flex">
+                  <p>Tanggal Acara :</p>
+                  <p>13/03/2021</p>
+                </div>
+                <div class="flex">
+                  <p>Reminder :</p>
+                  <p>H-2 - 11/03/2021</p>
+                </div>
+                <div class="flex">
+                  <p>Ringtone :</p>
+                  <p class="text-sky-500">Aiyaiyaiya</p>
+                </div>
               </div>
               <div class="mb-4">
                 <h5>Pembuat catatan :</h5>
@@ -54,6 +65,7 @@
               <div>
                 <button
                   type="submit"
+                  @click="showModal"
                   class="float-right inline-flex justify-center rounded border border-transparent bg-blue-500 px-4 py-2 text-sm font-medium text-white hover:bg-blue-600 focus:outline-none"
                 >
                   Selesaikan Catatan
@@ -61,6 +73,8 @@
               </div>
             </div>
           </div>
+          <FormNote :show="isOpen" @close="hide" />
+          <FinishNote :showModal="modal" @close="hideModal" />
         </div>
         <!-- ok -->
       </div>
@@ -72,7 +86,23 @@ export default {
   data() {
     return {
       isOpen: false,
+      toggleModal: false,
+      modal: false,
     }
+  },
+  methods: {
+    show() {
+      this.isOpen = true
+    },
+    hide() {
+      this.isOpen = false
+    },
+    showModal() {
+      this.modal = true
+    },
+    hideModal() {
+      this.modal = false
+    },
   },
 }
 </script>
