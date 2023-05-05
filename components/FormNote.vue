@@ -4,7 +4,8 @@
     <div>
       <div class="">
         <div
-          class="bg-opacity-50 bg-black fixed inset-0 justify-center items-center overflow-y-auto overflow-x-hidden"
+          v-if="show"
+          class="bg-opacity-50 bg-black fixed inset-0 justify-center items-center overflow-y-auto overflow-x-hidden z-20"
         >
           <div class="mt-10 my-10">
             <div
@@ -16,7 +17,7 @@
                   Buat Catatan
                 </h3>
                 <div
-                  @click="isOpen = false"
+                  @click="$emit('close')"
                   class="w-10 h-10 rounded-full flex mt-3 top-5 right-5 cursor-pointer"
                 >
                   <iconSilangIcon />
@@ -24,7 +25,7 @@
               </div>
 
               <div class="mt-4">
-                <form action="" class="w-full">
+                <form action="" class="w-full" @submit.prevent="addNote">
                   <div>
                     <label for="subjek" class="mb-2 block text-sm">
                       Subjek</label
@@ -82,7 +83,6 @@
                       @input="emailValidate"
                       class="py-2 border text-black pl-10 w-full focus:outline-none focus:border-blue-500"
                       placeholder="Masukkan Email"
-                      required
                     />
                   </div>
                   <span v-if="emailError" class="text-red-500">{{
@@ -169,7 +169,7 @@
                               <input
                                 :value="inputValue"
                                 v-on="inputEvents"
-                                class="w-full mt-2 border-hidden px-4 mb-2"
+                                class="w-full mt-2 border-hidden px-4 mb-2 outline-none"
                                 placeholder="yyyy-mm-dd"
                               />
                             </div>
@@ -217,7 +217,7 @@
                               :value="inputValue"
                               v-on="inputEvents"
                               :disabled="remainderDisabled"
-                              class="w-full mt-2 px-4"
+                              class="w-full mt-2 px-4 outline-none"
                               placeholder="Pilih Waktu Remainder"
                             />
                           </div>
@@ -278,11 +278,9 @@
                     >
                     <div>
                       <select
-                        v-model="voice"
-                        @change="voiceValidate"
                         class="border w-full h-10 mb-3 focus:border-blue-500"
                       >
-                        <option value="" disabled hidden>Pilih Ringtone</option>
+                        <option value="">Pilih Ringtone</option>
                         <option>hahahihi</option>
                         <option>aiyaaiya</option>
                         <option>oke</option>
@@ -297,6 +295,7 @@
                     <div>
                       <button
                         type="submit"
+                        value="submit"
                         class="float-right text-base bg-sky-500 text-white font-semibold py-2 px-5 rounded hover:shadow-lg hover:bg-sky-700"
                       >
                         Buat Catatan
@@ -318,21 +317,26 @@
 // import 'vue2-timepicker/dist/VueTimepicker.css'
 export default {
   // components: { VueTimepicker },
+  props: {
+    show: {
+      type: Boolean,
+      default: false,
+    },
+  },
   data() {
     const date = new Date()
     date.setMinutes(0, 0, 0)
     return {
       isOpen: false,
-      deskripsi: '',
-      email: '',
+
       items: [],
-      datetime: '',
+      deskripsi: '',
       deadlines: [],
       // toggle: false,
       // toggletgl: false,
       // date: null,
       // form input
-      subject: '',
+
       subjectError: '',
       deskripsiError: '',
       emailError: '',
@@ -341,8 +345,20 @@ export default {
       datetimeError: '',
       // repeat: '',
       // repeatError: '',
-      voice: null,
+
       voiceError: '',
+      dataNote: [],
+      note: [
+        {
+          subject: '',
+          deskripsi: '',
+          email: '',
+          date: '',
+          datetime: '',
+          pengingat: '',
+          voice: '',
+        },
+      ],
     }
   },
 
@@ -413,6 +429,23 @@ export default {
       } else {
         this.voiceError = ''
       }
+    },
+    addNote() {
+      if (!this.note) {
+        return
+      }
+      this.dataNote.push(this.note)
+      this.note = [
+        {
+          subject: '',
+          deskripsi: '',
+          email: '',
+          date: '',
+          datetime: '',
+          pengingat: '',
+          voice: '',
+        },
+      ]
     },
   },
   computed: {

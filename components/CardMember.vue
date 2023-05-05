@@ -9,7 +9,28 @@
         />
         <h5 class="px-2">Nabil Ahmad</h5>
       </div>
-      <iconHapusIcon />
+      <div @click="show">
+        <iconHapusIcon />
+      </div>
     </div>
+    <DeleteMember :show="isOpen" @close="hide" />
   </div>
 </template>
+
+<script>
+export default {
+  data() {
+    return {
+      isOpen: false,
+    }
+  },
+  methods: {
+    show() {
+      this.isOpen = true
+    },
+    hide() {
+      this.isOpen = false
+    },
+  },
+}
+</script>

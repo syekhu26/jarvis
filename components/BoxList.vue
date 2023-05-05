@@ -21,10 +21,7 @@
           <CardNoteTim class="mt-3" />
         </div>
         <div class="mt-3 px-3">
-          <div
-            @click="isOpen = !isOpen"
-            class="flex justify-center items-center mx-12"
-          >
+          <div @click="show" class="flex justify-center items-center mx-12">
             <iconPlusIcon />
             <button
               type="button"
@@ -36,7 +33,7 @@
         </div>
       </div>
     </div>
-    <FormNote v-if="isOpen" />
+    <FormNote :show="isOpen" @close="hide" />
   </div>
 </template>
 
@@ -52,6 +49,14 @@ export default {
     return {
       isOpen: false,
     }
+  },
+  methods: {
+    show() {
+      this.isOpen = true
+    },
+    hide() {
+      this.isOpen = false
+    },
   },
 }
 </script>
