@@ -25,7 +25,7 @@
               </div>
 
               <div class="mt-4">
-                <form action="" class="w-full" @submit.prevent="addNote">
+                <form action="" class="w-full">
                   <div>
                     <label for="subjek" class="mb-2 block text-sm">
                       Subjek</label
@@ -347,18 +347,18 @@ export default {
       // repeatError: '',
 
       voiceError: '',
-      dataNote: [],
-      note: [
-        {
-          subject: '',
-          deskripsi: '',
-          email: '',
-          date: '',
-          datetime: '',
-          pengingat: '',
-          voice: '',
-        },
-      ],
+      // dataNote: [],
+      // note: [
+      //   {
+      //     subject: '',
+      //     deskripsi: '',
+      //     email: '',
+      //     date: '',
+      //     datetime: '',
+      //     pengingat: '',
+      //     voice: '',
+      //   },
+      // ],
     }
   },
 
@@ -430,23 +430,23 @@ export default {
         this.voiceError = ''
       }
     },
-    addNote() {
-      if (!this.note) {
-        return
-      }
-      this.dataNote.push(this.note)
-      this.note = [
-        {
-          subject: '',
-          deskripsi: '',
-          email: '',
-          date: '',
-          datetime: '',
-          pengingat: '',
-          voice: '',
-        },
-      ]
-    },
+    // addNote() {
+    //   if (!this.note) {
+    //     return
+    //   }
+    //   this.dataNote.push(this.note)
+    //   this.note = [
+    //     {
+    //       subject: '',
+    //       deskripsi: '',
+    //       email: '',
+    //       date: '',
+    //       datetime: '',
+    //       pengingat: '',
+    //       voice: '',
+    //     },
+    //   ]
+    // },
   },
   computed: {
     tambahAngka() {

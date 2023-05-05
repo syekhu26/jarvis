@@ -33,12 +33,12 @@
     /> -->
       <DetailPersonal class="mx-8" />
       <DetailNoteCollab class="mx-8" />
-      <CardListNote
+      <!-- <CardListNote
         v-for="data in dataNote"
         :key="data"
         :inputData="data.subject"
         class="mx-8"
-      />
+      /> -->
     </div>
 
     <div v-if="active === 'DetailNote'">
