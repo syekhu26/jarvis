@@ -15,17 +15,17 @@
           <form action="" @submit.prevent="login">
             <div class="w-full my-3">
               <div class="my-2">
-                <p for="email" class="text-sm font-medium dark:text-white">
+                <label for="email" class="text-sm font-medium dark:text-white">
                   Email
-                </p>
+                </label>
                 <input
                   v-model="email"
-                  type="text"
+                  type="email"
                   class="w-full border text-black px-4 py-2 col-span-2"
                   placeholder="Masukkan Email"
                   required
                 />
-                <p
+                <!-- <p
                   v-if="usernameLoginCorrect === false"
                   class="text-sm text-red-500 mb-2"
                 >
@@ -36,12 +36,15 @@
                   class="text-sm text-green-500 mb-2"
                 >
                   oke
-                </p>
+                </p> -->
               </div>
               <div class="my-2">
-                <p for="password" class="text-sm font-medium dark:text-white">
+                <label
+                  for="password"
+                  class="text-sm font-medium dark:text-white"
+                >
                   Password
-                </p>
+                </label>
                 <input
                   :type="inputTypeIcon"
                   v-model="password"
@@ -56,7 +59,7 @@
                   <i v-if="inputTypeIcon == 'password'"><iconEyeShow /></i>
                   <i v-else><iconEyeHide /></i>
                 </div>
-                <p
+                <!-- <p
                   v-if="passwordLoginCorrect === false"
                   class="text-sm text-red-500 mb-2"
                 >
@@ -68,7 +71,7 @@
                   class="text-sm text-green-500 mb-2"
                 >
                   oke
-                </p>
+                </p> -->
               </div>
               <NuxtLink to="/resetpassword">
                 <div class="text-sky-500 float-right cursor-pointer">
@@ -106,12 +109,12 @@ export default {
   data() {
     return {
       inputTypeIcon: 'password',
-      userName: '',
+      // userName: '',
       email: '',
-      regexName: /^.{1,20}$/,
+      // regexName: /^.{1,20}$/,
 
       password: '',
-      regexPass: /^.*(?=.{8,})(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z]).*$/,
+      // regexPass: /^.*(?=.{8,})(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z]).*$/,
     }
   },
   methods: {
@@ -133,12 +136,12 @@ export default {
     },
   },
   computed: {
-    usernameLoginCorrect() {
-      return this.regexName.test(this.userName)
-    },
-    passwordLoginCorrect() {
-      return this.regexPass.test(this.password)
-    },
+    // usernameLoginCorrect() {
+    //   return this.regexName.test(this.userName)
+    // },
+    // passwordLoginCorrect() {
+    //   return this.regexPass.test(this.password)
+    // },
   },
 }
 </script>

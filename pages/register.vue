@@ -7,81 +7,85 @@
           <form action="">
             <div class="w-full my-3">
               <div class="my-2">
-              <p for="username" class="text-sm font-medium dark:text-white"
-                >Username</p
-              >
-              <input
-                v-model="userName"
-                type="text"
-                class="w-full border text-black px-4 py-2 col-span-2"
-                placeholder="Masukkan Username"
-                required
-              />
-              <p
-                v-if="usernameCorrect === false"
-                class="text-sm text-red-500 mb-2"
-              >
-                Nama pengguna harus diisi
-              </p>
-              <p
-                v-if="usernameCorrect === true"
-                class="text-sm text-green-500 mb-2"
-              >
-                oke
-              </p>
-            </div>
-            <div class="my-2">
-              <p for="email" class="text-sm font-medium dark:text-white"
-                >Email</p
-              >
-              <input
-                v-model="userEmail"
-                type="email"
-                class="w-full border text-black px-4 py-2 col-span-2"
-                placeholder="Masukkan Email"
-                required
-              />
-              <p
-                v-if="emailCorrect === false"
-                class="text-sm text-red-500 mb-2"
-              >
-                Masukkan email anda untuk melakukan verifikasi
-              </p>
-              <p
-                v-if="emailCorrect === true"
-                class="text-sm text-green-500 mb-2"
-              >
-                oke
-              </p>
-            </div>
-            <div class="my-2">
-              <p for="no hp" class="text-sm font-medium dark:text-white"
-                >No HP</p
-              >
-              <input
-                v-model="userPhone"
-                type="number"
-                class="w-full border text-black px-4 py-2 col-span-2"
-                placeholder="Masukkan No HP"
-                required
-              />
-              <p
-                v-if="phoneCorrect === false"
-                class="text-sm text-red-500 mb-2"
-              >
-                Masukkan nomor telepon anda
-              </p>
-              <p
-                v-if="phoneCorrect === true"
-                class="text-sm text-green-500 mb-2"
-              >
-                oke
-              </p>
-            </div>
-            <div class="my-2">
-              <p for="password" class="text-sm font-medium dark:text-white"
-              >Password</p
-              >
+                <label
+                  for="username"
+                  class="text-sm font-medium dark:text-white"
+                  >Username</label
+                >
+                <input
+                  v-model="userName"
+                  type="text"
+                  class="w-full border text-black px-4 py-2 col-span-2"
+                  placeholder="Masukkan Username"
+                  required
+                />
+                <p
+                  v-if="usernameCorrect === false"
+                  class="text-sm text-red-500 mb-2"
+                >
+                  Nama pengguna harus diisi
+                </p>
+                <p
+                  v-if="usernameCorrect === true"
+                  class="text-sm text-green-500 mb-2"
+                >
+                  oke
+                </p>
+              </div>
+              <div class="my-2">
+                <label for="email" class="text-sm font-medium dark:text-white"
+                  >Email</label
+                >
+                <input
+                  v-model="userEmail"
+                  type="email"
+                  class="w-full border text-black px-4 py-2 col-span-2"
+                  placeholder="Masukkan Email"
+                  required
+                />
+                <p
+                  v-if="emailCorrect === false"
+                  class="text-sm text-red-500 mb-2"
+                >
+                  Masukkan email anda untuk melakukan verifikasi
+                </p>
+                <p
+                  v-if="emailCorrect === true"
+                  class="text-sm text-green-500 mb-2"
+                >
+                  oke
+                </p>
+              </div>
+              <div class="my-2">
+                <label for="no hp" class="text-sm font-medium dark:text-white"
+                  >No HP</label
+                >
+                <input
+                  v-model="userPhone"
+                  type="number"
+                  class="w-full border text-black px-4 py-2 col-span-2"
+                  placeholder="Masukkan No HP"
+                  required
+                />
+                <p
+                  v-if="phoneCorrect === false"
+                  class="text-sm text-red-500 mb-2"
+                >
+                  Masukkan nomor telepon anda
+                </p>
+                <p
+                  v-if="phoneCorrect === true"
+                  class="text-sm text-green-500 mb-2"
+                >
+                  oke
+                </p>
+              </div>
+              <div class="my-2">
+                <label
+                  for="password"
+                  class="text-sm font-medium dark:text-white"
+                  >Password</label
+                >
                 <input
                   v-model="passKey"
                   type="password"
@@ -93,8 +97,8 @@
                   v-if="passwordCorrect === false"
                   class="text-sm text-red-500 mb-2"
                 >
-                  minimal 8 karakter terdiri atas huruf kapital, huruf kecil, dan
-                  angka
+                  minimal 8 karakter terdiri atas huruf kapital, huruf kecil,
+                  dan angka
                 </p>
                 <p
                   v-if="passwordCorrect === true"
@@ -102,33 +106,33 @@
                 >
                   oke
                 </p>
-            </div>
-            <div class="my-2">
-              <p
-                for="password konfirmasi"
-                class="text-sm font-medium dark:text-white"
-                >Ulangi Password</p
-              >
-              <input
-                v-model="repeatPass"
-                type="password"
-                class="w-full border text-black px-4 py-2 col-span-2"
-                placeholder="Masukkan Password Ulang"
-                required
-              />
-              <p
-                v-if="repeatpassCorrect === false"
-                class="text-sm text-red-500 mb-2"
-              >
-                kata sandi anda tidak sesuai
-              </p>
-              <p
-                v-if="repeatpassCorrect === true"
-                class="text-sm text-green-500 mb-2"
-              >
-                oke
-              </p>  
-            </div>
+              </div>
+              <div class="my-2">
+                <label
+                  for="password konfirmasi"
+                  class="text-sm font-medium dark:text-white"
+                  >Ulangi Password</label
+                >
+                <input
+                  v-model="repeatPass"
+                  type="password"
+                  class="w-full border text-black px-4 py-2 col-span-2"
+                  placeholder="Masukkan Password Ulang"
+                  required
+                />
+                <p
+                  v-if="repeatpassCorrect === false"
+                  class="text-sm text-red-500 mb-2"
+                >
+                  kata sandi anda tidak sesuai
+                </p>
+                <p
+                  v-if="repeatpassCorrect === true"
+                  class="text-sm text-green-500 mb-2"
+                >
+                  oke
+                </p>
+              </div>
             </div>
             <div class="mb-8 mt-1">
               Sudah punya akun?
