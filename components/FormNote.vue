@@ -330,7 +330,7 @@ export default {
       isOpen: false,
 
       items: [],
-      deskripsi: '',
+
       deadlines: [],
       // toggle: false,
       // toggletgl: false,
@@ -340,23 +340,23 @@ export default {
       subjectError: '',
       deskripsiError: '',
       emailError: '',
-      date: '',
+
       dateError: '',
       datetimeError: '',
       // repeat: '',
       // repeatError: '',
-
+      subject: '',
+      deskripsi: '',
+      email: '',
+      date: '',
+      datetime: '',
+      pengingat: '',
+      voice: '',
       voiceError: '',
       // dataNote: [],
       // note: [
       //   {
-      //     subject: '',
-      //     deskripsi: '',
-      //     email: '',
-      //     date: '',
-      //     datetime: '',
-      //     pengingat: '',
-      //     voice: '',
+
       //   },
       // ],
     }
