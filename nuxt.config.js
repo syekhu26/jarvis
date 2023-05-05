@@ -23,7 +23,13 @@ export default {
 
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
   plugins: [
-    { src: "@/plugins/vuetimeline.js" }
+    {
+      src: "@/plugins/vcalender.js", mode:"client",
+    } ,
+    { src: "@/plugins/timeline.js" },
+    { src: "@/plugins/datetime.js", mode:"client" },
+    // {src:"@/plugins/quasar.js"}
+    { src: "@/plugins/draggable.js" },
   ],
 
   // Auto import components: https://go.nuxtjs.dev/config-components

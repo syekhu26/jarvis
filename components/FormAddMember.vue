@@ -1,14 +1,6 @@
 <template>
   <div>
-    <ButtonCreateGrup @click="toggleModal = !toggleModal" />
-    <!-- <CardGroup
-      v-for="data in dataGrup"
-      :key="data"
-      :inputData="data.nama"
-      class=""
-    /> -->
     <div
-      v-if="toggleModal"
       class="fixed overflow-x-hidden overflow-y-auto inset-0 flex justify-center items-center"
     >
       <div>
@@ -16,31 +8,19 @@
       </div>
       <div class="relative mx-auto w-full max-w-2xl">
         <div class="bg-white w-full rounded shadow-2xl flex flex-col px-8">
-          <div class="font-bold mb-6 mt-2">Buat Tim</div>
+          <div class="flex items-center justify-between mt-5">
+            <div class="font-bold mb-6 mt-2">Tambah Anggota</div>
+            <div @click="toggleModal = false">
+              <iconSilangIcon class="cursor-pointer" />
+            </div>
+          </div>
+
           <!-- <p>{{ tim }}</p> -->
-          <form @submit.prevent="addData">
+          <form @submit.prevent="addGroup">
             <div>
-              <!-- <label for="nama" class="text-sm font-medium dark:text-black"
-                >Nama tim</label
-              >
-              <input
-                class="border text-black px-4 py-2 col-span-2"
-                placeholder="masukkan nama tim"
-                required
-              /> -->
-              <div>
-                <label for="nama" class="mb-2 block text-sm"> Nama Tim</label>
-                <input
-                  type="text"
-                  name="nama"
-                  placeholder="Masukkan Nama Tim"
-                  required
-                  class="border text-black px-4 py-2 w-full mb-3 focus:outline-none focus:border-blue-500"
-                />
-              </div>
               <div>
                 <label for="email" class="mb-2 block text-sm">
-                  Pilih Bagian Yang Terlibat</label
+                  Masukkan Email Anggota</label
                 >
               </div>
               <div class="relative text-gray-600 border">
@@ -50,9 +30,9 @@
                 <input
                   type="email"
                   name="email"
-                  v-model="input"
+                  v-model="email"
                   class="py-2 border text-black pl-10 w-full focus:outline-none focus:border-blue-500"
-                  placeholder="Masukkan Email"
+                  placeholder="Masukkan Email Anggota"
                   required
                 />
               </div>
@@ -91,9 +71,8 @@
                 type="submit"
                 value="Submit"
                 class="mt-5 mb-6 bg-blue-600 hover:bg-blue-800 px-4 py-2 text-white font-bold w-full rounded-lg float-right"
-                @click="toggleModal = false"
               >
-                Buat Grup
+                Tambah Anggota
               </button>
             </div>
           </form>
@@ -108,54 +87,20 @@ export default {
   data() {
     return {
       toggleModal: false,
-      input: '',
-      items: [''],
-      // tim: [
-      //   {
-      //     nama: " ",
-      //     email: " ",
-      //   },
-      // ],
-      tim: {
-        nama: '',
-        email: '',
-      },
+      email: '',
+      items: [],
     }
   },
   methods: {
-    // pushNewData() {
-    //   this.$emit("addNewData", this.nama, this.email);
-    //   this.$refs.form.reset();
-    //   this.nama = "";
-    //   this.email = "";
-    // },
-    // confirmInput() {
-    //   this.output = this.nama;
-    // },
-    // addNewData(){
-    //   this.
-    // }
     addEmail() {
-      if (!this.input) {
+      if (!this.email) {
         return
       }
-      this.items.push(this.input)
-      this.input = ''
+      this.items.push(this.email)
+      this.email = ''
     },
     remove(i) {
       this.items.splice(i, 1)
-    },
-    addGroup() {
-      console.warn(this.tim)
-    },
-    test() {
-      console.log('click')
-    },
-    addData() {
-      this.$emit('add-data', this.grup)
-    },
-    addData() {
-      this.$emit('add-data', this.grup)
     },
   },
 }

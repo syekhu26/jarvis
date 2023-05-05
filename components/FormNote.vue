@@ -1,6 +1,6 @@
 <template>
   <div>
-    <ButtonGlobal @click="isOpen = !isOpen" />
+    <!-- <ButtonGlobal @click="isOpen = !isOpen" /> -->
     <div>
       <div
         v-if="isOpen"
@@ -10,7 +10,7 @@
           <div class="fixed inset-0 bg-black bg-opacity-50"></div>
         </div>
         <div
-          class="my-8 inline-block w-full max-w-2xl transform overflow-hidden rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all"
+          class="bg-opacity-50 bg-black fixed inset-0 justify-center items-center overflow-y-auto overflow-x-hidden"
         >
           <h3 class="text-lg font-medium leading-6 text-gray-900">
             Buat Catatan
@@ -178,18 +178,26 @@
                 ></vue-timepicker>
               </div> -->
 
-              <div>
-                <label for="voice" class="mb-2 block text-sm">
-                  Pilih Voice Reminder</label
-                >
-                <input
-                  type="text"
-                  name="voice"
-                  placeholder="Pilih Voice"
-                  required
-                  class="border text-black px-4 py-2 w-full mb-3 focus:outline-none focus:border-blue-500"
-                />
-              </div>
+                  <div>
+                    <label for="voice" class="mb-2 block text-sm">
+                      Pilih Voice Reminder</label
+                    >
+                    <div>
+                      <select
+                        v-model="voice"
+                        @change="voiceValidate"
+                        class="border w-full h-10 mb-3 focus:border-blue-500"
+                      >
+                        <option>Pilih Ringtone</option>
+                        <option>hahahihi</option>
+                        <option>aiyaaiya</option>
+                        <option>oke</option>
+                      </select>
+                      <div v-if="voiceError" class="text-red-500">
+                        {{ voiceError }}
+                      </div>
+                    </div>
+                  </div>
 
               <div class="">
                 <div>
@@ -224,18 +232,25 @@ export default {
     return {
       isOpen: false,
       deskripsi: '',
-      input: '',
-      items: [''],
-      remainder: '',
-      deadlines: [''],
-      // seting: [
-      //   {
-      //     'jam:menit': {
-      //       HH: '',
-      //       mm: '',
-      //     },
-      //   },
-      // ],
+      email: '',
+      items: [],
+      datetime: '',
+      deadlines: [],
+      // toggle: false,
+      // toggletgl: false,
+      // date: null,
+      // form input
+      subject: '',
+      subjectError: '',
+      deskripsiError: '',
+      emailError: '',
+      date: '',
+      dateError: '',
+      datetimeError: '',
+      // repeat: '',
+      // repeatError: '',
+      voice: '',
+      voiceError: '',
     }
   },
 
