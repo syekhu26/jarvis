@@ -1,20 +1,34 @@
 <template>
   <div>
-    <NuxtLink to="/detailPoint">
-      <div
-        class="group relative rounded-md border-b border-gray-300 bg-slate-500 p-3 shadow hover:bg-gray-50"
-      >
-        <div>
-          <div class="">
-            <p>
-              Lorem ipsum, dolor sit amet consectetur adipisicing elit. Quos
-              asperiores Lorem, ipsum dolor sit amet consectetur adipisicing
-              elit. Fugit repellat reprehenderit itaque nulla vel qui vero,
-              voluptatum voluptatibus asperiores dolorum!
-            </p>
+    <div
+      class="overflow-x-hidden overflow-y-auto inset-0 absolute left-0 top-0 mx-5 mt-32"
+    >
+      <div class="relative w-full max-w-[290px]">
+        <div
+          class="bg-white w-full rounded shadow-md py-5 px-8 border border-slate-300"
+        >
+          <div class="-mx-4">
+            <div class="flex">
+              <img
+                class="h-5 w-5 mx-2"
+                src="../assets/img/logoipsum-245 1.png"
+                alt=""
+              />
+              <p class="text-sm text-blue-600">Bisa.in point :</p>
+            </div>
+            <p class="text-sm font-bold mx-3 mt-2">2500</p>
           </div>
         </div>
       </div>
-    </NuxtLink>
+    </div>
   </div>
 </template>
+<script>
+export default {
+  name: 'Modal',
+  data() {
+    return {}
+  },
+  methods: {},
+}
+</script>

@@ -6,10 +6,10 @@
       <div class="flex h-full flex-col">
         <!-- nama grup -->
         <div
-          class="flex shrink-0 items-center justify-between p-4 bg-slate-200 w-full"
+          class="flex shrink-0 items-center absolute justify-between p-4 bg-slate-200 w-full"
         >
           <h1 class="text-2xl font-bold text-black">Tim 4 qatros</h1>
-          <div class="flex items-center">
+          <div @click="show" class="flex items-center">
             <iconMemberIcon />
             <div class="flex my-1 relative">
               <img
@@ -31,7 +31,7 @@
           </div>
         </div>
         <!-- <CardGroup class="w-full w-72 h-72" /> -->
-        <div class="flex-1 overflow-x-auto mt-6">
+        <div class="flex-1 overflow-x-auto mt-[80px]">
           <div class="inline-flex h-full items-start space-x-4 px-4 pb-4">
             <BoxList
               v-for="(data, index) in dataList"
@@ -58,6 +58,7 @@
             </div>
           </div>
         </div>
+        <PopupAllMember :show="isOpen" @close="hide" />
       </div>
     </div>
   </div>
@@ -90,6 +91,12 @@ export default {
       //   this.newData = ''
       // }
       this.dataList.push(value)
+    },
+    show() {
+      this.isOpen = true
+    },
+    hide() {
+      this.isOpen = false
     },
   },
 }
