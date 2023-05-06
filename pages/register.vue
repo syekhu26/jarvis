@@ -304,7 +304,7 @@ export default {
           phone: this.phone,
           job: this.job,
           password: this.password,
-          password_confirmation: this.passwordconfirmation,
+          password_confirmation: this.password_confirmation,
         })
 
         // await this.$auth.loginWith('local', {

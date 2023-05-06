@@ -49,19 +49,19 @@
                 >
                   Password
                 </label>
-                <div class="flex items-center justify-between">
+                <div class="flex items-center justify-between relative">
                   <input
                     :type="inputTypeIcon"
                     @input="passwordValidate"
                     v-model="password"
-                    class="w-full border text-black px-4 py-2 col-span-2"
+                    class="w-full bg-transparent text-black px-4 outline-none border py-2"
                     placeholder="Masukkan Password"
                     required
                   />
 
                   <div
-                    class="absolute inset-y-0 right-0 flex items-center pr-[450px] -top-24"
                     @click.prevent="ToggleIcon"
+                    class="absolute inset-y-0 flex items-center right-2"
                   >
                     <i v-if="inputTypeIcon == 'password'"><iconEyeShow /></i>
                     <i v-else><iconEyeHide /></i>
