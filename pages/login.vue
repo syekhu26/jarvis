@@ -19,12 +19,16 @@
                   Email
                 </label>
                 <input
+                  @input="emailValidate"
                   v-model="email"
                   type="email"
                   class="w-full border text-black px-4 py-2 col-span-2"
                   placeholder="Masukkan Email"
                   required
                 />
+                <span v-if="emailError" class="text-red-500">{{
+                  emailError
+                }}</span>
                 <!-- <p
                   v-if="usernameLoginCorrect === false"
                   class="text-sm text-red-500 mb-2"
@@ -45,20 +49,28 @@
                 >
                   Password
                 </label>
-                <input
-                  :type="inputTypeIcon"
-                  v-model="password"
-                  class="w-full border text-black px-4 py-2 col-span-2"
-                  placeholder="Masukkan Password"
-                  required
-                />
-                <div
-                  class="absolute inset-y-0 right-0 flex items-center pr-[470px] -top-9"
-                  @click.prevent="ToggleIcon"
-                >
-                  <i v-if="inputTypeIcon == 'password'"><iconEyeShow /></i>
-                  <i v-else><iconEyeHide /></i>
+                <div class="flex items-center justify-between">
+                  <input
+                    :type="inputTypeIcon"
+                    @input="passwordValidate"
+                    v-model="password"
+                    class="w-full border text-black px-4 py-2 col-span-2"
+                    placeholder="Masukkan Password"
+                    required
+                  />
+
+                  <div
+                    class="absolute inset-y-0 right-0 flex items-center pr-[450px] -top-24"
+                    @click.prevent="ToggleIcon"
+                  >
+                    <i v-if="inputTypeIcon == 'password'"><iconEyeShow /></i>
+                    <i v-else><iconEyeHide /></i>
+                  </div>
                 </div>
+                <span v-if="passwordError" class="text-red-500">{{
+                  passwordError
+                }}</span>
+
                 <!-- <p
                   v-if="passwordLoginCorrect === false"
                   class="text-sm text-red-500 mb-2"
@@ -85,6 +97,7 @@
                 >Silahkan daftar</NuxtLink
               >
             </div> -->
+            <Message :message="error" v-if="error" />
             <div class="mt-20">
               <button
                 type="submit"
@@ -108,16 +121,37 @@
 export default {
   data() {
     return {
+      error: null,
       inputTypeIcon: 'password',
       // userName: '',
       email: '',
       // regexName: /^.{1,20}$/,
+      emailError: '',
 
       password: '',
       // regexPass: /^.*(?=.{8,})(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z]).*$/,
     }
   },
   methods: {
+    emailValidate() {
+      // Regular expression for email validation
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+      if (!this.email.match(emailRegex)) {
+        this.emailError = 'Email yang anda masukkan tidak valid'
+      } else {
+        this.emailError = ''
+      }
+    },
+    passwordValidate() {
+      const regex =
+        /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/
+      if (!regex.test(this.password)) {
+        this.passwordError =
+          ' minimal 8 karakter terdiri atas huruf kapital, huruf kecil, symbol dan angka'
+      } else {
+        this.passwordError = ''
+      }
+    },
     ToggleIcon() {
       this.inputTypeIcon =
         this.inputTypeIcon === 'password' ? 'text' : 'password'

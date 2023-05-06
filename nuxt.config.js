@@ -78,7 +78,8 @@ export default {
     redirect: {
       login: '/login',
       home: '/',
-      logout: '/login'
+      logout: '/login',
+      callback:'/login'
     },
     strategies: {
       local: {
@@ -107,6 +108,15 @@ export default {
           //   url: '/api/logout',
           //   method: 'post'
           // }
+        },
+        errorHandler: {
+          // handler error 401
+          401: function () {
+            // menampilkan pesan error
+            alert('Login gagal, email atau password salah')
+            // redirect ke halaman login
+            this.$auth.redirect('login')
+          }
         }
       }
     },

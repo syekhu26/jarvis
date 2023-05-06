@@ -41,6 +41,7 @@
 
 <script>
 export default {
+  auth: false,
   data() {
     return {
       email: '',

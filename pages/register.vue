@@ -4,7 +4,7 @@
       <div class="bg-white shadow-lg border rounded px-8 pt-6 pb-8 mb-4">
         <h1 class="text-2xl font-bold mb-6 mt-3 text-center">Daftar Akun</h1>
         <div>
-          <form action="">
+          <form action="" @submit.prevent="register">
             <div class="w-full my-3">
               <div class="my-2">
                 <label
@@ -13,13 +13,17 @@
                   >Username</label
                 >
                 <input
-                  v-model="userName"
+                  v-model="username"
+                  @input="usernameValidate"
                   type="text"
                   class="w-full border text-black px-4 py-2 col-span-2"
                   placeholder="Masukkan Username"
                   required
                 />
-                <p
+                <span v-if="usernameError" class="text-red-500">{{
+                  usernameError
+                }}</span>
+                <!-- <p
                   v-if="usernameCorrect === false"
                   class="text-sm text-red-500 mb-2"
                 >
@@ -30,20 +34,24 @@
                   class="text-sm text-green-500 mb-2"
                 >
                   oke
-                </p>
+                </p> -->
               </div>
               <div class="my-2">
                 <label for="email" class="text-sm font-medium dark:text-white"
                   >Email</label
                 >
                 <input
-                  v-model="userEmail"
+                  v-model="email"
+                  @input="emailValidate"
                   type="email"
                   class="w-full border text-black px-4 py-2 col-span-2"
                   placeholder="Masukkan Email"
                   required
                 />
-                <p
+                <span v-if="emailError" class="text-red-500">{{
+                  emailError
+                }}</span>
+                <!-- <p
                   v-if="emailCorrect === false"
                   class="text-sm text-red-500 mb-2"
                 >
@@ -54,20 +62,24 @@
                   class="text-sm text-green-500 mb-2"
                 >
                   oke
-                </p>
+                </p> -->
               </div>
               <div class="my-2">
                 <label for="no hp" class="text-sm font-medium dark:text-white"
                   >No HP</label
                 >
                 <input
-                  v-model="userPhone"
+                  @input="numberValidate"
+                  v-model="phone"
                   type="number"
                   class="w-full border text-black px-4 py-2 col-span-2"
                   placeholder="Masukkan No HP"
                   required
                 />
-                <p
+                <span v-if="numberError" class="text-red-500">{{
+                  numberError
+                }}</span>
+                <!-- <p
                   v-if="phoneCorrect === false"
                   class="text-sm text-red-500 mb-2"
                 >
@@ -78,8 +90,35 @@
                   class="text-sm text-green-500 mb-2"
                 >
                   oke
-                </p>
+                </p> -->
               </div>
+              <div class="my-2">
+                <label for="job" class="text-sm font-medium dark:text-white"
+                  >Pekerjaan</label
+                >
+                <input
+                  v-model="job"
+                  @input="jobValidate"
+                  type="text"
+                  class="w-full border text-black px-4 py-2 col-span-2"
+                  placeholder="Masukkan Pekerjaan"
+                  required
+                />
+                <span v-if="jobError" class="text-red-500">{{ jobError }}</span>
+                <!-- <p
+                  v-if="usernameCorrect === false"
+                  class="text-sm text-red-500 mb-2"
+                >
+                  Nama pengguna harus diisi
+                </p>
+                <p
+                  v-if="usernameCorrect === true"
+                  class="text-sm text-green-500 mb-2"
+                >
+                  oke
+                </p> -->
+              </div>
+
               <div class="my-2">
                 <label
                   for="password"
@@ -87,13 +126,17 @@
                   >Password</label
                 >
                 <input
-                  v-model="passKey"
+                  @input="passwordValidate"
+                  v-model="password"
                   type="password"
                   class="w-full border text-black px-4 py-2 col-span-2"
                   placeholder="Masukkan Password"
                   required
                 />
-                <p
+                <span v-if="passwordError" class="text-red-500">{{
+                  passwordError
+                }}</span>
+                <!-- <p
                   v-if="passwordCorrect === false"
                   class="text-sm text-red-500 mb-2"
                 >
@@ -105,7 +148,7 @@
                   class="text-sm text-green-500 mb-2"
                 >
                   oke
-                </p>
+                </p> -->
               </div>
               <div class="my-2">
                 <label
@@ -114,13 +157,16 @@
                   >Ulangi Password</label
                 >
                 <input
-                  v-model="repeatPass"
+                  v-model="password_confirmation"
                   type="password"
                   class="w-full border text-black px-4 py-2 col-span-2"
                   placeholder="Masukkan Password Ulang"
                   required
                 />
-                <p
+                <span class="text-red-500" v-if="passwordMatch"
+                  >Konfirmasi password tidak sesuai</span
+                >
+                <!-- <p
                   v-if="repeatpassCorrect === false"
                   class="text-sm text-red-500 mb-2"
                 >
@@ -131,7 +177,7 @@
                   class="text-sm text-green-500 mb-2"
                 >
                   oke
-                </p>
+                </p> -->
               </div>
             </div>
             <div class="mb-8 mt-1">
@@ -153,40 +199,123 @@
 </template>
 <script>
 export default {
+  auth: false,
   data() {
     return {
-      userName: '',
-      regexName: /^.{1,20}$/,
+      username: '',
+      usernameError: '',
+      // regexName: /^.{1,20}$/,
 
-      userEmail: '',
-      regexEmail:
-        /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
+      email: '',
+      emailError: '',
+      // regexEmail:
+      //   /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
 
-      userPhone: '',
-      regexPhone: /^(62|0)[0-9]{9,12}$/,
+      phone: '',
+      numberError: '',
+      // regexPhone: /^(62|0)[0-9]{9,12}$/,
 
-      passKey: '',
-      regexPass: /^.*(?=.{8,})(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z]).*$/,
+      password: '',
+      passwordError: '',
+      job: '',
+      jobError: '',
+      // regexPass: /^.*(?=.{8,})(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z]).*$/,
 
-      repeatPass: '',
-      regexRepeatpass: /^.*(?=.{8,})(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z]).*$/,
+      password_confirmation: '',
+      // regexRepeatpass: /^.*(?=.{8,})(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z]).*$/,
     }
   },
   computed: {
-    usernameCorrect() {
-      return this.regexName.test(this.userName)
+    passwordMatch() {
+      return this.password !== this.password_confirmation
     },
-    emailCorrect() {
-      return this.regexEmail.test(this.userEmail)
+    // matchConfirmValidate() {
+    //   return this.confirmPasswordValidate()
+    // },
+    // usernameCorrect() {
+    //   return this.regexName.test(this.userName)
+    // },
+    // emailCorrect() {
+    //   return this.regexEmail.test(this.userEmail)
+    // },
+    // phoneCorrect() {
+    //   return this.regexPhone.test(this.userPhone)
+    // },
+    // passwordCorrect() {
+    //   return this.regexPass.test(this.passKey)
+    // },
+    // repeatpassCorrect() {
+    //   return this.regexRepeatpass.test(this.repeatPass)
+    // },
+  },
+  methods: {
+    usernameValidate() {
+      if (!this.username) {
+        this.usernameError = 'Anda wajib mengisi username.'
+      } else {
+        this.usernameError = ''
+      }
     },
-    phoneCorrect() {
-      return this.regexPhone.test(this.userPhone)
+    emailValidate() {
+      // Regular expression for email validation
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+      if (!this.email.match(emailRegex)) {
+        this.emailError = 'Email yang anda masukkan tidak valid'
+      } else {
+        this.emailError = ''
+      }
     },
-    passwordCorrect() {
-      return this.regexPass.test(this.passKey)
+    numberValidate() {
+      const validationRegex = /^\d{13}$/
+      if (this.phone.match(validationRegex)) {
+        this.numberError = 'No hp yang anda masukkan tidak valid'
+      } else {
+        this.numberError = ''
+      }
     },
-    repeatpassCorrect() {
-      return this.regexRepeatpass.test(this.repeatPass)
+    jobValidate() {
+      if (!this.job) {
+        this.jobError = 'Anda wajib mengisi pekerjaan.'
+      } else {
+        this.jobError = ''
+      }
+    },
+    passwordValidate() {
+      const regex =
+        /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/
+      if (!regex.test(this.password)) {
+        this.passwordError =
+          ' minimal 8 karakter terdiri atas huruf kapital, huruf kecil, symbol dan angka'
+      } else {
+        this.passwordError = ''
+      }
+    },
+    // confirmPasswordValidate() {
+    //   if (this.password !== this.Password_confirmation) {
+    //     return false
+    //   }
+    //   return true
+    // },
+    async register() {
+      try {
+        await this.$axios.post('register', {
+          username: this.username,
+          email: this.email,
+          phone: this.phone,
+          job: this.job,
+          password: this.password,
+          password_confirmation: this.passwordconfirmation,
+        })
+
+        // await this.$auth.loginWith('local', {
+        //   data: {
+        //     email: this.email,
+        //     password: this.password,
+        //   },
+        // })
+      } catch (e) {
+        this.error = e
+      }
     },
   },
 }
