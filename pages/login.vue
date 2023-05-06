@@ -129,6 +129,7 @@ export default {
       emailError: '',
 
       password: '',
+      passwordError: '',
       // regexPass: /^.*(?=.{8,})(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z]).*$/,
     }
   },
