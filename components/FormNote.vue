@@ -278,12 +278,13 @@
                     >
                     <div>
                       <select
+                        v-model="voice"
                         class="border w-full h-10 mb-3 focus:border-blue-500"
                       >
                         <option value="">Pilih Ringtone</option>
-                        <option>hahahihi</option>
-                        <option>aiyaaiya</option>
-                        <option>oke</option>
+                        <option value="1">hahahihi</option>
+                        <option value="2">aiyaaiya</option>
+                        <option value="3">oke</option>
                       </select>
                       <div v-if="voiceError" class="text-red-500">
                         {{ voiceError }}
