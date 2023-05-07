@@ -123,16 +123,25 @@
                 <label
                   for="password"
                   class="text-sm font-medium dark:text-white"
-                  >Password</label
+                  >Kata Sandi</label
                 >
-                <input
-                  @input="passwordValidate"
-                  v-model="password"
-                  type="password"
-                  class="w-full border text-black px-4 py-2 col-span-2"
-                  placeholder="Masukkan Password"
-                  required
-                />
+                <div class="flex items-center justify-between relative">
+                  <input
+                    @input="passwordValidate"
+                    v-model="password"
+                    :type="inputTypeIcon"
+                    class="w-full border text-black px-4 py-2 col-span-2 outline-none bg-transparent"
+                    placeholder="Masukkan Kata Sandi"
+                    required
+                  />
+                  <div
+                    @click.prevent="ToggleIcon"
+                    class="absolute inset-y-0 flex items-center right-2"
+                  >
+                    <i v-if="inputTypeIcon == 'password'"><iconEyeShow /></i>
+                    <i v-else><iconEyeHide /></i>
+                  </div>
+                </div>
                 <span v-if="passwordError" class="text-red-500">{{
                   passwordError
                 }}</span>
@@ -154,15 +163,24 @@
                 <label
                   for="password konfirmasi"
                   class="text-sm font-medium dark:text-white"
-                  >Ulangi Password</label
+                  >Konfirmasi Kata Sandi</label
                 >
-                <input
-                  v-model="password_confirmation"
-                  type="password"
-                  class="w-full border text-black px-4 py-2 col-span-2"
-                  placeholder="Masukkan Password Ulang"
-                  required
-                />
+                <div class="flex items-center justify-between relative">
+                  <input
+                    v-model="password_confirmation"
+                    :type="inputType"
+                    class="w-full border text-black px-4 py-2 col-span-2"
+                    placeholder="Masukkan konfirmasi Kata Sandi"
+                    required
+                  />
+                  <div
+                    @click.prevent="Toggle"
+                    class="absolute inset-y-0 flex items-center right-2"
+                  >
+                    <i v-if="inputType == 'password'"><iconEyeShow /></i>
+                    <i v-else><iconEyeHide /></i>
+                  </div>
+                </div>
                 <span class="text-red-500" v-if="passwordMatch"
                   >Konfirmasi password tidak sesuai</span
                 >
@@ -204,7 +222,9 @@ export default {
   data() {
     return {
       error: null,
-      succes: false,
+      inputTypeIcon: 'password',
+      inputType: 'password',
+      // succes: false,
       username: '',
       usernameError: '',
       // regexName: /^.{1,20}$/,
@@ -295,12 +315,14 @@ export default {
         this.passwordError = ''
       }
     },
-    // confirmPasswordValidate() {
-    //   if (this.password !== this.Password_confirmation) {
-    //     return false
-    //   }
-    //   return true
-    // },
+
+    ToggleIcon() {
+      this.inputTypeIcon =
+        this.inputTypeIcon === 'password' ? 'text' : 'password'
+    },
+    Toggle() {
+      this.inputType = this.inputType === 'password' ? 'text' : 'password'
+    },
     async register() {
       try {
         await this.$axios

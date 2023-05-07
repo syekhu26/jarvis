@@ -55,7 +55,7 @@
                     @input="passwordValidate"
                     v-model="password"
                     class="w-full bg-transparent text-black px-4 outline-none border py-2"
-                    placeholder="Masukkan Password"
+                    placeholder="Masukkan Kata Sandi"
                     required
                   />
 
@@ -159,18 +159,17 @@ export default {
     },
     async login() {
       try {
-        await this.$auth
-          .loginWith('local', {
-            data: {
-              email: this.email,
-              password: this.password,
-            },
-          })
-          // .then((response) => {
-          //   console.log(response.data)
+        await this.$auth.loginWith('local', {
+          data: {
+            email: this.email,
+            password: this.password,
+          },
+        })
+        // .then((response) => {
+        //   console.log(response.data)
 
-          //   alert('Selamat Login Anda Berhasil')
-          // })
+        //   alert('Selamat Login Anda Berhasil')
+        // })
       } catch (e) {
         this.error = e
       }
