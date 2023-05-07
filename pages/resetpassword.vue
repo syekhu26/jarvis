@@ -7,7 +7,7 @@
           <p>Masukan email anda dibawah untuk mereset kata sandi anda.</p>
         </div>
         <div>
-          <form action="">
+          <form action="" @submit.prevent="reset">
             <div class="">
               <label
                 for="email"
@@ -58,6 +58,36 @@ export default {
         this.emailError = ''
       }
     },
+    // async reset() {
+    //   const response = await this.$axios.post(
+    //     `https://bantuin.fly.dev/api/forgot_password`
+    //   )
+    //   console.log(response.data)
+    // },
+    async reset() {
+      try {
+        await this.$axios.post('https://bantuin.fly.dev/api/forgot_password', {
+          email: this.email,
+        })
+        alert('Permintaan reset password berhasil dikirimkan ke email Anda.')
+      } catch (error) {
+        alert('Terjadi error saat mengirimkan permintaan reset password.')
+      }
+    },
+    // reset() {
+    //   axios
+    //     .get('/api/forgot-password', {
+    //       params: {
+    //         email: this.email,
+    //       },
+    //     })
+    //     .then(() => {
+    //       alert('Email has been sent!')
+    //     })
+    //     .catch((error) => {
+    //       console.error(error)
+    //     })
+    // },
   },
 }
 </script>

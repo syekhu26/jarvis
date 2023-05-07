@@ -79,7 +79,8 @@ export default {
       login: '/login',
       home: '/',
       logout: '/login',
-      callback:'/login'
+      callback:'/login',
+      register:'/login'
     },
     strategies: {
       local: {
@@ -109,15 +110,7 @@ export default {
           //   method: 'post'
           // }
         },
-        errorHandler: {
-          // handler error 401
-          401: function () {
-            // menampilkan pesan error
-            alert('Login gagal, email atau password salah')
-            // redirect ke halaman login
-            this.$auth.redirect('login')
-          }
-        }
+    
       }
     },
     cookie: {

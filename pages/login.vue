@@ -159,12 +159,18 @@ export default {
     },
     async login() {
       try {
-        await this.$auth.loginWith('local', {
-          data: {
-            email: this.email,
-            password: this.password,
-          },
-        })
+        await this.$auth
+          .loginWith('local', {
+            data: {
+              email: this.email,
+              password: this.password,
+            },
+          })
+          // .then((response) => {
+          //   console.log(response.data)
+
+          //   alert('Selamat Login Anda Berhasil')
+          // })
       } catch (e) {
         this.error = e
       }

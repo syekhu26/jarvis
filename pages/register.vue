@@ -71,7 +71,7 @@
                 <input
                   @input="numberValidate"
                   v-model="phone"
-                  type="number"
+                  type="text"
                   class="w-full border text-black px-4 py-2 col-span-2"
                   placeholder="Masukkan No HP"
                   required
@@ -180,6 +180,7 @@
                 </p> -->
               </div>
             </div>
+            <p v-if="error" class="text-red-500">{{ error }}</p>
             <div class="mb-8 mt-1">
               Sudah punya akun?
               <NuxtLink to="/login" class="text-blue-500"
@@ -202,6 +203,8 @@ export default {
   auth: false,
   data() {
     return {
+      error: null,
+      succes: false,
       username: '',
       usernameError: '',
       // regexName: /^.{1,20}$/,
@@ -213,6 +216,7 @@ export default {
 
       phone: '',
       numberError: '',
+      validPhone: null,
       // regexPhone: /^(62|0)[0-9]{9,12}$/,
 
       password: '',
@@ -266,8 +270,9 @@ export default {
       }
     },
     numberValidate() {
-      const validationRegex = /^\d{13}$/
-      if (this.phone.match(validationRegex)) {
+      const validationRegex = /^\d{10,13}$/
+      // this.validPhone = phoneRegex.test(this.phone)
+      if (!validationRegex.test(this.phone)) {
         this.numberError = 'No hp yang anda masukkan tidak valid'
       } else {
         this.numberError = ''
@@ -298,23 +303,42 @@ export default {
     // },
     async register() {
       try {
-        await this.$axios.post('register', {
-          username: this.username,
-          email: this.email,
-          phone: this.phone,
-          job: this.job,
-          password: this.password,
-          password_confirmation: this.password_confirmation,
-        })
+        await this.$axios
+          .post('register', {
+            username: this.username,
+            email: this.email,
+            phone: this.phone,
+            job: this.job,
+            password: this.password,
+            password_confirmation: this.password_confirmation,
+          })
+          .then((response) => {
+            console.log(response.data)
 
+            alert(
+              'Selamat Anda berhasil melakukan pendaftaran, silahkan cek email'
+            )
+          })
+        // return {
+        //   success: true,
+        //   message: 'Registrasi berhasil!',
+        // }
         // await this.$auth.loginWith('local', {
         //   data: {
         //     email: this.email,
         //     password: this.password,
         //   },
         // })
-      } catch (e) {
-        this.error = e
+      } catch (error) {
+        if (error.response.status === 422) {
+          this.usernameError = 'Username Telah Terpakai'
+          this.emailError = 'Email Telah Terpakai'
+          this.numberError = 'No hp Telah Terpakai'
+        }
+        // this.error = error.response.data.message.email
+        // // this.error = e
+        this.error = 'Terjadi kesalahan saat memuat data'
+        console.log(error)
       }
     },
   },
