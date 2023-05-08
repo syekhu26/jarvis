@@ -78,7 +78,9 @@ export default {
     redirect: {
       login: '/login',
       home: '/',
-      logout: '/login'
+      logout: '/login',
+      callback:'/login',
+      register:'/login'
     },
     strategies: {
       local: {
@@ -107,7 +109,8 @@ export default {
           //   url: '/api/logout',
           //   method: 'post'
           // }
-        }
+        },
+    
       }
     },
     cookie: {

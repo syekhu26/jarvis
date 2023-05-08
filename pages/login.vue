@@ -15,17 +15,21 @@
           <form action="" @submit.prevent="login">
             <div class="w-full my-3">
               <div class="my-2">
-                <p for="email" class="text-sm font-medium dark:text-white">
+                <label for="email" class="text-sm font-medium dark:text-white">
                   Email
-                </p>
+                </label>
                 <input
+                  @input="emailValidate"
                   v-model="email"
-                  type="text"
+                  type="email"
                   class="w-full border text-black px-4 py-2 col-span-2"
                   placeholder="Masukkan Email"
                   required
                 />
-                <p
+                <span v-if="emailError" class="text-red-500">{{
+                  emailError
+                }}</span>
+                <!-- <p
                   v-if="usernameLoginCorrect === false"
                   class="text-sm text-red-500 mb-2"
                 >
@@ -36,27 +40,38 @@
                   class="text-sm text-green-500 mb-2"
                 >
                   oke
-                </p>
+                </p> -->
               </div>
               <div class="my-2">
-                <p for="password" class="text-sm font-medium dark:text-white">
-                  Password
-                </p>
-                <input
-                  :type="inputTypeIcon"
-                  v-model="password"
-                  class="w-full border text-black px-4 py-2 col-span-2"
-                  placeholder="Masukkan Password"
-                  required
-                />
-                <div
-                  class="absolute inset-y-0 right-0 flex items-center pr-[470px] -top-9"
-                  @click.prevent="ToggleIcon"
+                <label
+                  for="password"
+                  class="text-sm font-medium dark:text-white"
                 >
-                  <i v-if="inputTypeIcon == 'password'"><iconEyeShow /></i>
-                  <i v-else><iconEyeHide /></i>
+                  Password
+                </label>
+                <div class="flex items-center justify-between relative">
+                  <input
+                    :type="inputTypeIcon"
+                    @input="passwordValidate"
+                    v-model="password"
+                    class="w-full bg-transparent text-black px-4 outline-none border py-2"
+                    placeholder="Masukkan Kata Sandi"
+                    required
+                  />
+
+                  <div
+                    @click.prevent="ToggleIcon"
+                    class="absolute inset-y-0 flex items-center right-2"
+                  >
+                    <i v-if="inputTypeIcon == 'password'"><iconEyeShow /></i>
+                    <i v-else><iconEyeHide /></i>
+                  </div>
                 </div>
-                <p
+                <span v-if="passwordError" class="text-red-500">{{
+                  passwordError
+                }}</span>
+
+                <!-- <p
                   v-if="passwordLoginCorrect === false"
                   class="text-sm text-red-500 mb-2"
                 >
@@ -68,7 +83,7 @@
                   class="text-sm text-green-500 mb-2"
                 >
                   oke
-                </p>
+                </p> -->
               </div>
               <NuxtLink to="/resetpassword">
                 <div class="text-sky-500 float-right cursor-pointer">
@@ -82,6 +97,7 @@
                 >Silahkan daftar</NuxtLink
               >
             </div> -->
+            <Message :message="error" v-if="error" />
             <div class="mt-20">
               <button
                 type="submit"
@@ -105,16 +121,38 @@
 export default {
   data() {
     return {
+      error: null,
       inputTypeIcon: 'password',
-      userName: '',
+      // userName: '',
       email: '',
-      regexName: /^.{1,20}$/,
+      // regexName: /^.{1,20}$/,
+      emailError: '',
 
       password: '',
-      regexPass: /^.*(?=.{8,})(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z]).*$/,
+      passwordError: '',
+      // regexPass: /^.*(?=.{8,})(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z]).*$/,
     }
   },
   methods: {
+    emailValidate() {
+      // Regular expression for email validation
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+      if (!this.email.match(emailRegex)) {
+        this.emailError = 'Email yang anda masukkan tidak valid'
+      } else {
+        this.emailError = ''
+      }
+    },
+    passwordValidate() {
+      const regex =
+        /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/
+      if (!regex.test(this.password)) {
+        this.passwordError =
+          ' minimal 8 karakter terdiri atas huruf kapital, huruf kecil, symbol dan angka'
+      } else {
+        this.passwordError = ''
+      }
+    },
     ToggleIcon() {
       this.inputTypeIcon =
         this.inputTypeIcon === 'password' ? 'text' : 'password'
@@ -127,18 +165,23 @@ export default {
             password: this.password,
           },
         })
+        // .then((response) => {
+        //   console.log(response.data)
+
+        //   alert('Selamat Login Anda Berhasil')
+        // })
       } catch (e) {
         this.error = e
       }
     },
   },
   computed: {
-    usernameLoginCorrect() {
-      return this.regexName.test(this.userName)
-    },
-    passwordLoginCorrect() {
-      return this.regexPass.test(this.password)
-    },
+    // usernameLoginCorrect() {
+    //   return this.regexName.test(this.userName)
+    // },
+    // passwordLoginCorrect() {
+    //   return this.regexPass.test(this.password)
+    // },
   },
 }
 </script>

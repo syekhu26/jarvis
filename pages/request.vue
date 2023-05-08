@@ -1,5 +1,5 @@
 <template>
-  <div class="w-full mt-[99px]">
+  <div class="w-full">
     <div>
       <div class="flex items-center justify-between mt-6 px-8">
         <h1 class="text-2xl font-bold mb-3">Permintaan</h1>

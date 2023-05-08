@@ -42,7 +42,9 @@
         alt=""
       />
       <div class="m-2">
-        <p class="text-lg font-bold">Nama User</p>
+        <p class="text-lg font-bold" v-if="isAuthenticated">
+          {{ loggedInUser.username }}
+        </p>
       </div>
     </div>
     <div class="w-[260px] h-px bg-gray-300 mx-2"></div>
@@ -89,6 +91,7 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
 export default {
   methods: {
     async logout() {
@@ -99,6 +102,9 @@ export default {
         console.log(err)
       }
     },
+  },
+  computed: {
+    ...mapGetters(['isAuthenticated', 'loggedInUser']),
   },
 }
 </script>

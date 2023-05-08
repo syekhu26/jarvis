@@ -8,20 +8,22 @@
       <ul
         class="border-b border-slate-200 space-x-6 flex whitespace-nowrap dark:border-slate-200"
       >
-        <li @click="active = 'CardListNote'">
+        <button @click="active = 'CardListNote'">
           <h2
-            class="flex text-md leading-6 font-semibold pt-3 pb-2.5 border-b-2 border-transparent cursor-pointer dark:hover:border-slate-700 -mb-px active:text-sky-500 border-current"
+            :class="isActive('CardListNote')"
+            class="flex text-md leading-6 font-semibold pt-3 pb-2.5 border-b-2 cursor-pointer dark:hover:border-slate-700 -mb-px active:text-sky-500 border-current"
           >
             Berjalan
           </h2>
-        </li>
-        <li @click="active = 'DetailNote'">
+        </button>
+        <button @click="active = 'DetailNote'">
           <h2
-            class="flex text-md leading-6 font-semibold pt-3 pb-2.5 border-b-2 -mb-px text-black border-transparent hover:border-slate-300 dark:hover:border-slate-700 cursor-pointer"
+            :class="isActive('DetailNote')"
+            class="flex text-md leading-6 font-semibold pt-3 pb-2.5 border-b-2 cursor-pointer dark:hover:border-slate-700 -mb-px active:text-sky-500 border-current"
           >
             Berlalu
           </h2>
-        </li>
+        </button>
       </ul>
     </div>
     <div v-if="active === 'CardListNote'">
@@ -33,12 +35,12 @@
     /> -->
       <DetailPersonal class="mx-8" />
       <DetailNoteCollab class="mx-8" />
-      <CardListNote
+      <!-- <CardListNote
         v-for="data in dataNote"
         :key="data"
         :inputData="data.subject"
         class="mx-8"
-      />
+      /> -->
     </div>
 
     <div v-if="active === 'DetailNote'">
@@ -65,6 +67,12 @@ export default {
     },
     hide() {
       this.isOpen = false
+    },
+    isActive(section) {
+      return {
+        'border-b-blue': this.active === section,
+        'border-b-transparent': this.active !== section,
+      }
     },
   },
 }

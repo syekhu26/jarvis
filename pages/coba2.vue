@@ -47,5 +47,6 @@ export default {
         this.inputTypeIcon === 'password' ? 'text' : 'password'
     },
   },
+  computed: {},
 }
 </script>
