@@ -15,7 +15,7 @@
       </div>
       <div class="min-w-full px-8 items-center mb-8">
         <!-- <CardListNote/> -->
-        <DetailPersonal />
+        <!-- <DetailPersonal /> -->
       </div>
     </div>
     <FormNote :show="isOpen" @close="hide" />

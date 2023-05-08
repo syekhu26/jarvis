@@ -1,8 +1,7 @@
 <template>
   <div>
-    <CardListNote @click="toggleModal = !toggleModal" />
+    <!-- <CardListNote @click="toggleModal = !toggleModal" /> -->
     <div
-      v-if="toggleModal"
       class="fixed inset-0 z-10 overflow-y-auto justify-center items-center overflow-x-hidden"
     >
       <div class="min-h-screen px-4 text-center">
@@ -19,14 +18,14 @@
             <div class="-mt-7">
               <div class="flex items-center justify-between">
                 <div
-                  @click="toggleModal = false"
+                  @click="$emit('close')"
                   class="w-10 h-10 rounded-full flex absolute mt-7 top-5 right-5 cursor-pointer"
                 >
                   <iconSilangIcon />
                 </div>
               </div>
               <div class="flex items-center justify-between mt-24 mb-3">
-                <h1 class="font-bold text-xl">Beli Tiket Pesawat</h1>
+                <h1 class="font-bold text-xl">{{ itemDetail.subject }}</h1>
                 <div class="flex items-center">
                   <div @click="show" class="p-2 text-blue-500 cursor-pointer">
                     Edit
@@ -83,6 +82,12 @@
 </template>
 <script>
 export default {
+  props: {
+    itemDetail: {
+      type: Object,
+      default: () => ({}),
+    },
+  },
   data() {
     return {
       isOpen: false,

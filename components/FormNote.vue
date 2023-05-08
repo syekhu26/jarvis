@@ -25,7 +25,7 @@
               </div>
 
               <div class="mt-4">
-                <form action="" class="w-full">
+                <form action="" @submit.prevent="handleSubmit" class="w-full">
                   <div>
                     <label for="subjek" class="mb-2 block text-sm">
                       Subjek</label
@@ -54,14 +54,14 @@
                     </div>
                     <div class="mb-3">
                       <textarea
-                        v-model="deskripsi"
-                        @input="deskripsiValidate"
+                        v-model="description"
+                        @input="descriptionValidate"
                         name="deskripsi"
                         placeholder="Masukkan Deskripsi"
                         class="border text-black px-4 py-2 w-full focus:outline-none focus:border-blue-500"
                       />
-                      <span v-if="deskripsiError" class="text-red-500">{{
-                        deskripsiError
+                      <span v-if="descriptionError" class="text-red-500">{{
+                        descriptionError
                       }}</span>
                     </div>
                   </div>
@@ -339,7 +339,7 @@ export default {
       // form input
 
       subjectError: '',
-      deskripsiError: '',
+      descriptionError: '',
       emailError: '',
 
       dateError: '',
@@ -347,7 +347,7 @@ export default {
       // repeat: '',
       // repeatError: '',
       subject: '',
-      deskripsi: '',
+      description: '',
       email: '',
       date: '',
       datetime: '',
@@ -394,11 +394,11 @@ export default {
         this.subjectError = ''
       }
     },
-    deskripsiValidate() {
-      if (!this.deskripsi) {
-        this.deskripsiError = 'Anda belum mengisi deskripsi.'
+    descriptionValidate() {
+      if (!this.description) {
+        this.descriptionError = 'Anda belum mengisi deskripsi.'
       } else {
-        this.deskripsiError = ''
+        this.descriptionError = ''
       }
     },
     emailValidate() {
@@ -431,27 +431,41 @@ export default {
         this.voiceError = ''
       }
     },
-    // addNote() {
-    //   if (!this.note) {
-    //     return
+    async handleSubmit() {
+      await this.$store.dispatch('notes/addNote', {
+        subject: this.subject,
+        description: this.description,
+        event_date: this.date,
+        reminder: this.datetime,
+        ringtone_id: this.voice,
+      })
+    },
+    // async addNote() {
+    //   try {
+    //     await this.$axios
+    //       .post('https://bantuin.fly.dev/api/notes', {
+    //         data: {
+    //           subject: this.subject,
+    //           description: this.description,
+    //           event_date: this.date,
+    //           reminder: this.datetime,
+    //           ringtone_id: this.voice,
+    //         },
+    //       })
+
+    //       .then((response) => {
+    //         console.log(response.data)
+    //         alert('Catatan berhasil disimpan!')
+    //       })
+    //   } catch (error) {
+    //     console.error(error)
+    //     alert('Terjadi kesalahan saat menyimpan catatan.')
     //   }
-    //   this.dataNote.push(this.note)
-    //   this.note = [
-    //     {
-    //       subject: '',
-    //       deskripsi: '',
-    //       email: '',
-    //       date: '',
-    //       datetime: '',
-    //       pengingat: '',
-    //       voice: '',
-    //     },
-    //   ]
     // },
   },
   computed: {
     tambahAngka() {
-      return this.deskripsi.length
+      return this.description.length
     },
     getTime() {
       // return this.date.split(' ')
@@ -462,7 +476,6 @@ export default {
     //   return this.$moment(this.remainder).format('MMM DD,YYYY hh:mm A')
     // },
     remainderDisabled() {
-      // Kondisi untuk mengatur datetime dalam keadaan disabled atau tidak
       return this.date === ''
     },
   },

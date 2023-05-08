@@ -33,8 +33,15 @@
       :inputData="data.nama"
       class=""
     /> -->
-      <DetailPersonal class="mx-8" />
-      <DetailNoteCollab class="mx-8" />
+      <CardListNote
+        v-for="note in notes"
+        :key="note.id"
+        :item="note"
+        class="mx-8"
+      />
+
+      <!-- <DetailPersonal :showDetail="detail" @close="hideDetail" /> -->
+      <!-- <DetailNoteCollab class="mx-8" /> -->
       <!-- <CardListNote
         v-for="data in dataNote"
         :key="data"
@@ -53,13 +60,23 @@
 
 <script>
 export default {
+  // import { mapState } from 'vuex';
   layout: 'home',
   // middleware: 'auth',
   data() {
     return {
       isOpen: false,
+      detail: false,
       active: 'CardListNote',
     }
+  },
+  computed: {
+    notes() {
+      return this.$store.state.notes.notes
+    },
+  },
+  mounted() {
+    this.$store.dispatch('notes/fetchNotes')
   },
   methods: {
     show() {
@@ -67,6 +84,12 @@ export default {
     },
     hide() {
       this.isOpen = false
+    },
+    showDetail() {
+      this.detail = true
+    },
+    hideDetail() {
+      this.detail = false
     },
     isActive(section) {
       return {
