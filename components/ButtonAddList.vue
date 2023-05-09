@@ -6,9 +6,16 @@
     <div @click="buttonInput">
       {{ buttonText }}
     </div>
+    <input
+      class="border-b-2 border-slate-500"
+      placeholder="Nama list"
+      v-if="showInput"
+      v-model="newData"
+      @keyup.enter="addData"
+      @blur="buttonInput"
+    />
   </div>
 </template>
-
 <script>
 export default {
   // props: {
@@ -19,7 +26,10 @@ export default {
   // },
   data() {
     return {
-      isOpen: false,
+      newData: '',
+      dataList: [],
+      showInput: false,
+      buttonText: 'Tambah list',
     }
   },
   methods: {
@@ -37,5 +47,3 @@ export default {
   },
 }
 </script>
-
-<style></style>

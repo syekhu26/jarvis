@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <!-- <div>
     <div class="mx-2 my-3" @click="showDetail">
       <div
         @click="$emit('click')"
@@ -10,6 +10,7 @@
           <p class="text-xl place-self-center">Bulan</p>
         </div>
         <div class="h-[80px] w-[1px] bg-gray-300 mx-2"></div>
+
         <div class="flex justify-between p-3">
           <div>
             <p class="text-xl font-bold">{{ item.subject }}</p>
@@ -24,10 +25,52 @@
                 src="https://cdn-icons-png.flaticon.com/512/3135/3135715.png"
                 alt=""
               />
-              <p class="text-gray-500 mx-1 text-sm">Mbabro</p>
+              <p class="text-gray-500 mx-1 text-sm">{{ item.member }}</p>
             </div>
           </div>
-          <div class="bg-green-400 rounded-full text-[12px] h-6 px-3">100%</div>
+          <div class="bg-green-400 rounded-full text-[12px] h-6 px-3">
+            {{ item.status }}
+          </div>
+        </div>
+      </div>
+    </div>
+    <DetailPersonal v-if="detail" @close="hideDetail" :itemDetail="item" />
+  </div> -->
+  <div>
+    <div @click="showDetail" class="">
+      <div
+        @click="$emit('click')"
+        class="flex bg-white border border-slate-300 w-full mt-5 max-w-xl mx-5 rounded h-[124px]"
+      >
+        <div class="border-r-2 border-slate-300 px-3 h-24 mt-3">
+          <!-- icon -->
+          <iconUserIcon class="mt-7" />
+        </div>
+        <div class="px-3 w-full mt-3">
+          <!-- keterangan -->
+          <div class="flex items-center justify-between w-full">
+            <div>
+              <p class="font-bold">Beli Tiket Pesawat</p>
+            </div>
+            <div class="bg-green-400 rounded-full text-[12px] h-6 px-3">
+              100%
+            </div>
+          </div>
+          <p class="mt-2">
+            Belikan saya tiket pesawat untuk tgl 2 april ke Solo dan pulangnya
+            tgl 4 april.
+          </p>
+          <div class="flex items-center justify-between">
+            <div class="flex">
+              <img
+                class="rounded-full w-5 h-5"
+                src="https://cdn-icons-png.flaticon.com/512/3135/3135715.png"
+                alt=""
+              />
+              <p class="text-gray-500 mx-1 text-sm">MbaBro</p>
+            </div>
+            <div>1 Maret 2023</div>
+          </div>
         </div>
       </div>
     </div>

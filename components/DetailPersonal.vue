@@ -19,12 +19,12 @@
               <div class="flex items-center justify-between">
                 <div
                   @click="$emit('close')"
-                  class="w-10 h-10 rounded-full flex absolute mt-7 top-5 right-5 cursor-pointer"
+                  class="w-10 h-10 rounded-full flex absolute top-5 right-5 cursor-pointer"
                 >
                   <iconSilangIcon />
                 </div>
               </div>
-              <div class="flex items-center justify-between mt-24 mb-3">
+              <div class="flex items-center justify-between mt-11 mb-3">
                 <h1 class="font-bold text-xl">{{ itemDetail.subject }}</h1>
                 <div class="flex items-center">
                   <div @click="show" class="p-2 text-blue-500 cursor-pointer">
@@ -35,30 +35,31 @@
                 </div>
               </div>
               <p class="font-sans mb-3">
-                Beli tiket pesawat untuk tgl 13 Maret 2023 dari Jogja ke
+                <!-- Beli tiket pesawat untuk tgl 13 Maret 2023 dari Jogja ke
                 Jakarta. Pulang tanggal 5 Maret. Segera untuk dipesan. Jangan
-                sampai lupa
+                sampai lupa -->
+                {{ itemDetail.description }}
               </p>
 
               <div class="mb-4">
                 <div class="flex">
                   <p>Tanggal Acara :</p>
-                  <p>13/03/2021</p>
+                  <p>{{ itemDetail.event_date }}</p>
                 </div>
                 <div class="flex">
                   <p>Reminder :</p>
-                  <p>H-2 - 11/03/2021</p>
+                  <p>{{ itemDetail.reminder }}</p>
                 </div>
                 <div class="flex">
                   <p>Ringtone :</p>
-                  <p class="text-sky-500">Aiyaiyaiya</p>
+                  <p class="text-sky-500">{{ itemDetail.ringtone }}</p>
                 </div>
               </div>
               <div class="mb-4">
                 <h5>Pembuat catatan :</h5>
                 <div class="flex items-center">
                   <iconPotoIcon />
-                  <p class="px-2">Masbro</p>
+                  <p class="px-2">{{ itemDetail.member }}</p>
                 </div>
               </div>
               <div>

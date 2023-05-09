@@ -7,7 +7,14 @@
     <hr />
     <p class="p-8">Belum ada tim yang dibuat</p>
 
-    <CardGroup />
+    <CardGroup
+      v-for="data in dataGrup"
+      :key="data"
+      :inputData="data.nama"
+      class=""
+    />
+
+    <!-- <CardGroup v-for="item in grup" :key="item.id" :item="item" /> -->
 
     <!-- <p>{{ output }}</p> -->
 
@@ -18,6 +25,22 @@
   </div>
 </template>
 
+<!-- <script>
+export default {
+  layout: 'home',
+  data() {
+    return {
+      grup: [
+        {
+          id: 0,
+          nama: '',
+          email: [''],
+        },
+      ],
+    }
+  },
+}
+</script> -->
 <script>
 export default {
   layout: 'home',

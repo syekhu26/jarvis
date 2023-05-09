@@ -11,7 +11,7 @@
         <button @click="active = 'CardListNote'">
           <h2
             :class="isActive('CardListNote')"
-            class="flex text-md leading-6 font-semibold pt-3 pb-2.5 border-b-2 cursor-pointer dark:hover:border-slate-700 -mb-px active:text-sky-500 border-current"
+            class="flex text-md leading-6 font-semibold pt-3 pb-2.5 border-b-2 cursor-pointer -mb-px active:text-sky-500 border-current"
           >
             Berjalan
           </h2>
@@ -19,7 +19,7 @@
         <button @click="active = 'DetailNote'">
           <h2
             :class="isActive('DetailNote')"
-            class="flex text-md leading-6 font-semibold pt-3 pb-2.5 border-b-2 cursor-pointer dark:hover:border-slate-700 -mb-px active:text-sky-500 border-current"
+            class="flex text-md leading-6 font-semibold pt-3 pb-2.5 border-b-2 cursor-pointer -mb-px active:text-sky-500 border-current"
           >
             Berlalu
           </h2>
@@ -37,11 +37,11 @@
         v-for="note in notes"
         :key="note.id"
         :item="note"
-        class="mx-8"
+        class="mx-3"
       />
 
       <!-- <DetailPersonal :showDetail="detail" @close="hideDetail" /> -->
-      <!-- <DetailNoteCollab class="mx-8" /> -->
+      <DetailNoteCollab class="mx-8" />
       <!-- <CardListNote
         v-for="data in dataNote"
         :key="data"
