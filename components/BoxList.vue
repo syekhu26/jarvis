@@ -1,11 +1,8 @@
 <template>
-  <div>
-    <div
-      class="flex items-center justify-between px-3 py-2 bg-gray-200 rounded"
-    >
-      <h3 class="text-sm font-semibold text-gray-700">
-        {{ inputData }}
-      </h3>
+  <div class="flex max-h-full w-72 flex-col rounded-md bg-gray-200">
+    <!-- daftar judul -->
+    <div class="flex items-center justify-between px-3 py-2">
+      <h3 class="text-sm font-semibold text-gray-700">Before</h3>
       <!-- <button class="grid h-8 w-8 place-content-center rounded-md hover:bg-gray-300" @click="removeList(list.id)">
 				<XIcon class="h-5 w-5 text-gray-400" />
 			</button> -->

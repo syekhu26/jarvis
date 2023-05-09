@@ -1,5 +1,5 @@
 <template>
-  <div :style="image" class="h-screen">
+  <div>
     <!-- navbar top -->
 
     <div class="flex-1 overflow-hidden">
@@ -39,7 +39,23 @@
               :inputData="data"
               class="mt-5 px-5"
             />
-            <ButtonAddList @add-data="addData" />
+
+            <div
+              class="flex items-center justify-center mt-2 mb-3 cursor-pointer bg-gray-200 w-44 mt-6"
+            >
+              <iconTambahIcon />
+              <div @click="buttonInput">
+                {{ buttonText }}
+              </div>
+              <input
+                class="border-b-2 border-slate-500"
+                placeholder="Nama list"
+                v-if="showInput"
+                v-model="newData"
+                @keyup.enter="addData"
+                @blur="buttonInput"
+              />
+            </div>
           </div>
         </div>
         <PopupAllMember :show="isOpen" @close="hide" />

@@ -14,29 +14,6 @@ export default {
     link: [{ rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }],
   },
 
-  // quasar: {
-  //   animations: ["fadeIn", "fadeOut"],
-  //   extras: ["fontawesome-v5"],
-  //   framework: {
-  //     config: {
-  //       brand: {
-  //         primary: "#ffffff",
-  //         // ...
-  //       },
-  //     },
-  //     components: [
-  //       "QAvatar",
-  //       "QBtn",
-  //       // ...
-  //     ],
-  //     directives: ["ClosePopup"],
-  //     plugins: ["Cookies"],
-  //     iconSet: "fontawesome-v5",
-  //     cssAddon: true
-  //   },
-  //   supportIE: true
-  // },
-
   // Global CSS: https://go.nuxtjs.dev/config-css
   css: [
     '@/assets/css/main.css',
@@ -62,7 +39,6 @@ export default {
   buildModules: [
     // https://go.nuxtjs.dev/eslint
     '@nuxtjs/eslint-module',
-    '@nuxtjs/moment',
   ],
 
   // Modules: https://go.nuxtjs.dev/config-modules
@@ -100,7 +76,7 @@ export default {
             method: 'post',
           },
           user: {
-            url: 'https://bantuin.fly.dev/api/users/{id}',
+            url: 'users/{id}',
             method: 'get',
             // propertyName: 'user'
           },

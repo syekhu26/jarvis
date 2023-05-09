@@ -88,24 +88,21 @@
                   </li>
                 </ul>
                 <div class="mb-32"></div>
-              </div> -->
+              </div>
             </div>
           </div>
         </div>
-        <!-- ok -->
+        <-- ok -->
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </div>
 </template>
 
 <script>
-import { Timeline, TimelineItem } from 'vue-cute-timeline'
-import 'vue-cute-timeline/dist/index.css'
 export default {
-  components: {
-    timeline: Timeline,
-    'timeline-item': TimelineItem,
-  },
   data() {
     return {
       isOpen: false,

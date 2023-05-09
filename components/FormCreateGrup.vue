@@ -16,22 +16,23 @@
       </div>
       <div class="relative mx-auto w-full max-w-2xl">
         <div class="bg-white w-full rounded shadow-2xl flex flex-col px-8">
-          <div class="flex items-center justify-between">
-            <div class="font-bold mb-6 mt-2">Buat Tim</div>
-            <div @click="toggleModal = false">
-              <iconSilangIcon class="cursor-pointer" />
-            </div>
-          </div>
-
+          <div class="font-bold mb-6 mt-2">Buat Tim</div>
           <!-- <p>{{ tim }}</p> -->
           <form @submit.prevent="addData">
             <div>
+              <!-- <label for="nama" class="text-sm font-medium dark:text-black"
+                >Nama tim</label
+              >
+              <input
+                class="border text-black px-4 py-2 col-span-2"
+                placeholder="masukkan nama tim"
+                required
+              /> -->
               <div>
                 <label for="nama" class="mb-2 block text-sm"> Nama Tim</label>
                 <input
                   type="text"
                   name="nama"
-                  v-model="grup.nama"
                   placeholder="Masukkan Nama Tim"
                   required
                   class="border text-black px-4 py-2 w-full mb-3 focus:outline-none focus:border-blue-500"
@@ -49,7 +50,7 @@
                 <input
                   type="email"
                   name="email"
-                  v-model="email"
+                  v-model="input"
                   class="py-2 border text-black pl-10 w-full focus:outline-none focus:border-blue-500"
                   placeholder="Masukkan Email"
                   required
@@ -58,7 +59,7 @@
               <div>
                 <div>
                   <div
-                    v-for="item in grup.email"
+                    v-for="item in items"
                     :key="item"
                     class="bg-slate-200 rounded mb-2 px-2 flex items-center"
                   >
@@ -90,6 +91,7 @@
                 type="submit"
                 value="Submit"
                 class="mt-5 mb-6 bg-blue-600 hover:bg-blue-800 px-4 py-2 text-white font-bold w-full rounded-lg float-right"
+                @click="toggleModal = false"
               >
                 Buat Grup
               </button>
@@ -106,21 +108,18 @@ export default {
   data() {
     return {
       toggleModal: false,
-      email: '',
-      items: [],
+      input: '',
+      items: [''],
       // tim: [
       //   {
       //     nama: " ",
       //     email: " ",
       //   },
       // ],
-      dataGrup: [],
-      grup: [
-        {
-          nama: '',
-          email: [],
-        },
-      ],
+      tim: {
+        nama: '',
+        email: '',
+      },
     }
   },
   methods: {
@@ -137,21 +136,23 @@ export default {
     //   this.
     // }
     addEmail() {
-      if (!this.email) {
+      if (!this.input) {
         return
       }
-      this.grup.email.push(this.email)
-      this.email = ''
+      this.items.push(this.input)
+      this.input = ''
     },
     remove(i) {
       this.items.splice(i, 1)
     },
     addGroup() {
-      if (!this.grup) {
-        return
-      }
-      this.dataGrup.push(this.grup)
-      this.grup = [{ nama: '', email: '' }]
+      console.warn(this.tim)
+    },
+    test() {
+      console.log('click')
+    },
+    addData() {
+      this.$emit('add-data', this.grup)
     },
     addData() {
       this.$emit('add-data', this.grup)
