@@ -2,7 +2,13 @@
   <div>
     <!-- <ButtonGlobal @click="isOpen = !isOpen" /> -->
     <div>
-      <div class="">
+      <div
+        v-if="isOpen"
+        class="fixed inset-0 z-10 overflow-y-auto justify-center items-center overflow-x-hidden px-96"
+      >
+        <div>
+          <div class="fixed inset-0 bg-black bg-opacity-50"></div>
+        </div>
         <div
           v-if="show"
           class="bg-opacity-50 bg-black fixed inset-0 justify-center items-center overflow-y-auto overflow-x-hidden z-20"
@@ -251,26 +257,37 @@
                   </div>
 
                   <div
-                    @click="addRemainder"
-                    class="flex items-center mb-3 text-blue-600 cursor-pointer mt-6"
+                    @click="addReminder"
+                    class="flex items-center mb-3 text-blue-600 cursor-pointer"
                   >
                     <iconPlusIcon />
                     <span class="px-1">Tambah reminder</span>
                   </div>
                   <div>
                     <label class="mb-2 block text-sm" for="date">
-                      Pilih pengingat ulangan
+                      Pilih Waktu
                     </label>
-                    <div>
-                      <select
-                        class="border w-full h-10 mb-3 focus:border-blue-500"
-                      >
-                        <option>Tidak Diulang</option>
-                        <option>Ulangi</option>
-                        <option>Tidak Tahu</option>
+                    <div class="flex items-center">
+                      <input
+                        step="1"
+                        name="waktu"
+                        type="time-local"
+                        placeholder="Jam : Menit"
+                        class="border text-black px-4 py-2 w-full mb-3 focus:outline-none focus:border-blue-500"
+                      />
+                      <select class="border h-11 -mt-3">
+                        <option>AM</option>
+                        <option>PM</option>
                       </select>
                     </div>
                   </div>
+
+                  <!-- <div>
+                <vue-timepicker
+                  input-width="w-4"
+                  placeholder="jam:menit"
+                ></vue-timepicker>
+              </div> -->
 
                   <div>
                     <label for="voice" class="mb-2 block text-sm">
@@ -325,8 +342,6 @@ export default {
     },
   },
   data() {
-    const date = new Date()
-    date.setMinutes(0, 0, 0)
     return {
       isOpen: false,
 
@@ -365,34 +380,24 @@ export default {
 
   methods: {
     addEmail() {
-      if (!this.email) {
+      if (!this.input) {
         return
       }
-      this.items.push(this.email)
-      this.email = ''
+      this.items.push(this.input)
+      this.input = ''
     },
     remove(i) {
       this.items.splice(i, 1)
     },
-    addRemainder() {
-      if (!this.datetime) {
-        return
-      }
-      this.deadlines.push(
-        this.$moment(this.datetime).format('MMM DD,YYYY hh:mm A')
-      )
-
-      this.datetime = ''
-    },
-    removeDeadlines(i) {
+    removeDeadline(i) {
       this.deadlines.splice(i, 1)
     },
-    subjectValidate() {
-      if (!this.subject) {
-        this.subjectError = 'Anda belum mengisi subject.'
-      } else {
-        this.subjectError = ''
+    addReminder() {
+      if (!this.remainder) {
+        return
       }
+      this.deadlines.push(this.remainder)
+      this.remainder = ''
     },
     descriptionValidate() {
       if (!this.description) {
@@ -431,6 +436,23 @@ export default {
         this.voiceError = ''
       }
     },
+    //     addNote() {
+    //       if (!this.note) {
+    //         return
+    //       }
+    //       this.dataNote.push(this.note)
+    //       this.note = [
+    //         {
+    //           subject: '',
+    //           deskripsi: '',
+    //           email: '',
+    //           date: '',
+    //           datetime: '',
+    //           pengingat: '',
+    //           voice: '',
+    //         },
+    //       ]
+    //     },
     async handleSubmit() {
       await this.$store.dispatch('notes/addNote', {
         subject: this.subject,
@@ -481,14 +503,3 @@ export default {
   },
 }
 </script>
-
-<style>
-.editableDiv2 {
-  border-bottom: 1px solid gray;
-  outline: none;
-  margin-top: 20px;
-}
-.editableDiv2[contentEditable='true']:empty:before {
-  content: attr(placeholder);
-}
-</style>
