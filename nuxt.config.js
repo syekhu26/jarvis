@@ -74,7 +74,7 @@ export default {
             method: 'post',
           },
           user: {
-            url: 'https://bantuin.fly.dev/api/users/{id}',
+            url: 'users/{id}',
             method: 'get',
             // propertyName: 'user'
           },
