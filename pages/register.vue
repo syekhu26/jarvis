@@ -20,9 +20,9 @@
                   placeholder="Masukkan Username"
                   required
                 />
-                <span v-if="usernameError" class="text-red-500">{{
-                  usernameError
-                }}</span>
+                <span v-if="error.username" class="text-red-500"
+                  >username {{ error.username[0] }}</span
+                >
                 <!-- <p
                   v-if="usernameCorrect === false"
                   class="text-sm text-red-500 mb-2"
@@ -48,8 +48,8 @@
                   placeholder="Masukkan Email"
                   required
                 />
-                <span v-if="emailError" class="text-red-500">{{
-                  emailError
+                <span v-if="error.email" class="text-red-500">{{
+                  error.email[0]
                 }}</span>
                 <!-- <p
                   v-if="emailCorrect === false"
@@ -76,8 +76,8 @@
                   placeholder="Masukkan No HP"
                   required
                 />
-                <span v-if="numberError" class="text-red-500">{{
-                  numberError
+                <span v-if="error.number" class="text-red-500">{{
+                  error.phone[0]
                 }}</span>
                 <!-- <p
                   v-if="phoneCorrect === false"
@@ -198,7 +198,7 @@
                 </p> -->
               </div>
             </div>
-            <p v-if="error" class="text-red-500">{{ error }}</p>
+            <p v-if="errorMessage" class="text-red-500">{{ errorMessage }}</p>
             <div class="mb-8 mt-1">
               Sudah punya akun?
               <NuxtLink to="/login" class="text-blue-500"
@@ -221,7 +221,8 @@ export default {
   auth: false,
   data() {
     return {
-      error: null,
+      error: {},
+      errorMessage: null,
       inputTypeIcon: 'password',
       inputType: 'password',
       // succes: false,
@@ -352,15 +353,16 @@ export default {
         //   },
         // })
       } catch (error) {
-        if (error.response.status === 422) {
-          this.usernameError = 'Username Telah Terpakai'
-          this.emailError = 'Email Telah Terpakai'
-          this.numberError = 'No hp Telah Terpakai'
-        }
+        // if (error.response.status === 422) {
+        //   this.usernameError = 'Username Telah Terpakai'
+        //   this.emailError = 'Email Telah Terpakai'
+        //   this.numberError = 'No hp Telah Terpakai'
+        // }
         // this.error = error.response.data.message.email
         // // this.error = e
-        this.error = 'Terjadi kesalahan saat memuat data'
-        console.log(error)
+        this.error = error.response.data.data
+        this.errorMessage = error.response.data.message
+        // console.log(error)
       }
     },
   },

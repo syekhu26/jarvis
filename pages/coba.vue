@@ -1,10 +1,6 @@
+<!-- <template></template> -->
 <template>
-  <!-- <PopupRedeem /> -->
-  <!-- <HeaderViewMember /> -->
-  <!-- <DeleteMember /> -->
-  <!-- <CardPoint /> -->
-  <!-- <CardMember /> -->
-  <!-- <Loading /> -->
-  <!-- <DetailNoteCollab /> -->
-  <DetailPersonal />
+  <div>
+    <iconCameraIcon />
+  </div>
 </template>

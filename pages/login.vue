@@ -110,7 +110,7 @@
         </div>
         <div class="mb-8 mt-8 justify-center items-center flex">
           Belum punya akun?
-          <NuxtLink to="/register" class="text-blue-500">Daftar</NuxtLink>
+          <NuxtLink to="/register" class="text-blue-500 px-2">Daftar</NuxtLink>
         </div>
       </div>
     </div>

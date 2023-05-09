@@ -1,12 +1,12 @@
 <template>
-  <div>
+  <div :style="image" class="h-screen">
     <!-- navbar top -->
 
     <div class="flex-1 overflow-hidden">
       <div class="flex h-full flex-col">
         <!-- nama grup -->
         <div
-          class="flex shrink-0 items-center absolute justify-between p-4 bg-slate-200 w-full"
+          class="flex shrink-0 items-center absolute justify-between p-4 bg-slate-200 w-full bg-transparent bg-opacity-50"
         >
           <h1 class="text-2xl font-bold text-black">Tim 4 qatros</h1>
           <div @click="show" class="flex items-center">
@@ -39,23 +39,7 @@
               :inputData="data"
               class="mt-5 px-5"
             />
-
-            <div
-              class="flex items-center justify-center mt-2 mb-3 cursor-pointer bg-gray-200 w-44 mt-6"
-            >
-              <iconTambahIcon />
-              <div @click="buttonInput">
-                {{ buttonText }}
-              </div>
-              <input
-                class="border-b-2 border-slate-500"
-                placeholder="Nama list"
-                v-if="showInput"
-                v-model="newData"
-                @keyup.enter="addData"
-                @blur="buttonInput"
-              />
-            </div>
+            <ButtonAddList @add-data="addData" />
           </div>
         </div>
         <PopupAllMember :show="isOpen" @close="hide" />

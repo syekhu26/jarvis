@@ -1,6 +1,6 @@
 <template>
   <button
-    class="text-base bg-sky-500 text-white font-semibold py-2 mb-2 px-8 rounded hover:shadow-lg hover:bg-sky-700"
+    class="my-4 right-3 w-[150px] h-9 text-[14px] text-white bg-blue-500 rounded md:w-[328px]"
     @click="$emit('click')"
   >
     Buat Grup
