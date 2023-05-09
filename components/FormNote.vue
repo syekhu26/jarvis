@@ -31,7 +31,7 @@
               </div>
 
               <div class="mt-4">
-                <form action="" class="w-full" @submit.prevent="addNote">
+                <form action="" class="w-full">
                   <div>
                     <label for="subjek" class="mb-2 block text-sm">
                       Subjek</label
@@ -295,12 +295,13 @@
                     >
                     <div>
                       <select
+                        v-model="voice"
                         class="border w-full h-10 mb-3 focus:border-blue-500"
                       >
                         <option value="">Pilih Ringtone</option>
-                        <option>hahahihi</option>
-                        <option>aiyaaiya</option>
-                        <option>oke</option>
+                        <option value="1">hahahihi</option>
+                        <option value="2">aiyaaiya</option>
+                        <option value="3">oke</option>
                       </select>
                       <div v-if="voiceError" class="text-red-500">
                         {{ voiceError }}
@@ -345,7 +346,7 @@ export default {
       isOpen: false,
 
       items: [],
-      deskripsi: '',
+
       deadlines: [],
       // toggle: false,
       // toggletgl: false,
@@ -355,25 +356,25 @@ export default {
       subjectError: '',
       deskripsiError: '',
       emailError: '',
-      date: '',
+
       dateError: '',
       datetimeError: '',
       // repeat: '',
       // repeatError: '',
-
+      subject: '',
+      deskripsi: '',
+      email: '',
+      date: '',
+      datetime: '',
+      pengingat: '',
+      voice: '',
       voiceError: '',
-      dataNote: [],
-      note: [
-        {
-          subject: '',
-          deskripsi: '',
-          email: '',
-          date: '',
-          datetime: '',
-          pengingat: '',
-          voice: '',
-        },
-      ],
+      // dataNote: [],
+      // note: [
+      //   {
+
+      //   },
+      // ],
     }
   },
 
@@ -415,23 +416,23 @@ export default {
         },
       ]
     },
-    addNote() {
-      if (!this.note) {
-        return
-      }
-      this.dataNote.push(this.note)
-      this.note = [
-        {
-          subject: '',
-          deskripsi: '',
-          email: '',
-          date: '',
-          datetime: '',
-          pengingat: '',
-          voice: '',
-        },
-      ]
-    },
+    // addNote() {
+    //   if (!this.note) {
+    //     return
+    //   }
+    //   this.dataNote.push(this.note)
+    //   this.note = [
+    //     {
+    //       subject: '',
+    //       deskripsi: '',
+    //       email: '',
+    //       date: '',
+    //       datetime: '',
+    //       pengingat: '',
+    //       voice: '',
+    //     },
+    //   ]
+    // },
   },
   computed: {
     tambahAngka() {
