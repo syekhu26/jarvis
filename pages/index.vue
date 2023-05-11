@@ -6,7 +6,14 @@
         <ButtonGlobal @click="show" />
       </div>
       <div class="min-w-full px-8 items-center mb-8">
-        <p class="text-lg">Belum catatan masuk atau undangan grub</p>
+        <p class="text-lg mb-4">Belum catatan masuk atau undangan grub</p>
+        <CardRequest />
+        <div class="flex items-center mt-3">
+          <div>3 permintaan lagi.</div>
+          <NuxtLink to="/request" class="font-bold text-blue-600 px-1"
+            >Lihat Semua</NuxtLink
+          >
+        </div>
       </div>
     </div>
     <div>

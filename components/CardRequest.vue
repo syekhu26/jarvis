@@ -1,7 +1,7 @@
 <template>
   <div>
     <div
-      class="border border-slate-300 bg-slate-100 w-full rounded max-w-xl h-[244px]"
+      class="border border-slate-300 bg-slate-100 w-full rounded max-w-xl h-[145px]"
     >
       <div class="flex items-center">
         <div>
@@ -20,19 +20,19 @@
         </div>
       </div>
       <div class="flex items-center px-12">
-        <iconDocumentIcon />
+        <iconTaskIcon />
         <div class="font-bold text-blue-600">Membeli Tiket Pesawat</div>
       </div>
       <div class="flex justify-end">
         <button
           class="border border-red-500 hover:bg-red-300 bg-white px-5 py-1 mx-2 rounded"
         >
-          tolak
+          Tolak
         </button>
         <button
           class="bg-[#0F62FE] hover:bg-blue-400 text-white hover:text-black px-5 py-1 mx-2 rounded"
         >
-          terima
+          Terima
         </button>
       </div>
     </div>
