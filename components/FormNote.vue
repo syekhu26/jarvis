@@ -36,6 +36,7 @@
                         name="subjek"
                         v-model="subject"
                         @input="subjectValidate"
+                        @change="updateNote(note)"
                         placeholder="Masukkan Subjek"
                         required
                         class="border text-black px-4 py-2 w-full focus:outline-none focus:border-blue-500"
@@ -56,6 +57,7 @@
                       <textarea
                         v-model="description"
                         @input="descriptionValidate"
+                        @change="updateNote(note)"
                         name="deskripsi"
                         placeholder="Masukkan Deskripsi"
                         class="border text-black px-4 py-2 w-full focus:outline-none focus:border-blue-500"
@@ -81,6 +83,7 @@
                       name="email"
                       v-model="email"
                       @input="emailValidate"
+                      @change="updateNote(note)"
                       class="py-2 border text-black pl-10 w-full focus:outline-none focus:border-blue-500"
                       placeholder="Masukkan Email"
                     />
@@ -158,6 +161,7 @@
                           class=""
                           v-model="date"
                           @input="kalenderValidate"
+                          @change="updateNote(note)"
                           :min-date="new Date()"
                           mode="dateTime"
                           :minute-increment="5"
@@ -204,6 +208,7 @@
                       <vc-date-picker
                         v-model="datetime"
                         @input="remainderValidate"
+                        @change="updateNote(note)"
                         mode="dateTime"
                         :max-date="date"
                         :min-date="new Date()"
@@ -279,6 +284,7 @@
                     <div>
                       <select
                         v-model="voice"
+                        @change="updateNote(note)"
                         class="border w-full h-10 mb-3 focus:border-blue-500"
                       >
                         <option value="">Pilih Ringtone</option>
@@ -439,6 +445,9 @@ export default {
         reminder: this.datetime,
         ringtone_id: this.voice,
       })
+    },
+    async updateNote(note) {
+      await this.$store.dispatch('notes/updateNote', note)
     },
     // async addNote() {
     //   try {

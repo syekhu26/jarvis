@@ -50,17 +50,16 @@
           <!-- keterangan -->
           <div class="flex items-center justify-between w-full">
             <div>
-              <p class="font-bold">Beli Tiket Pesawat</p>
+              <p class="font-bold">{{ item.subject }}</p>
             </div>
             <div class="bg-green-400 rounded-full text-[12px] h-6 px-3">
               100%
             </div>
           </div>
           <p class="mt-2">
-            Belikan saya tiket pesawat untuk tgl 2 april ke Solo dan pulangnya
-            tgl 4 april.
+            {{ item.description }}
           </p>
-          <div class="flex items-center justify-between">
+          <div class="flex items-center justify-between mt-5">
             <div class="flex">
               <img
                 class="rounded-full w-5 h-5"
@@ -69,7 +68,7 @@
               />
               <p class="text-gray-500 mx-1 text-sm">MbaBro</p>
             </div>
-            <div>1 Maret 2023</div>
+            <div>{{ item.event_date }}</div>
           </div>
         </div>
       </div>

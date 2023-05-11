@@ -108,6 +108,13 @@ export default {
     API_URL: process.env.API_URL || 'https://bantuin.fly.dev/api'
   },
   // loading: '~/components/Loading.vue',
+  extendRoutes(routes, resolve) {
+    routes.push({
+      name: 'reset_password',
+      path: '/reset_password/:token',
+      component: resolve(__dirname, 'pages/reset_password.vue')
+    })
+  },
 
   // Build Configuration: https://go.nuxtjs.dev/config-build
   build: {

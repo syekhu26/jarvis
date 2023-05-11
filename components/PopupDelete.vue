@@ -19,7 +19,21 @@
       <button class="w-1/2 border border-gray-500 mr-1 p-2 rounded">
         Batal
       </button>
-      <button class="w-1/2 bg-red-600 text-white ml-1 p-2 rounded">Ya</button>
+      <button
+        @click="deleteNote(note.id)"
+        class="w-1/2 bg-red-600 text-white ml-1 p-2 rounded"
+      >
+        Ya
+      </button>
     </div>
   </div>
 </template>
+<script>
+export default {
+  methods: {
+    deleteNote(noteId) {
+      this.$store.dispatch('deleteNote', noteId)
+    },
+  },
+}
+</script>

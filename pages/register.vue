@@ -7,9 +7,7 @@
           <form action="" @submit.prevent="register">
             <div class="w-full my-3">
               <div class="my-2">
-                <label
-                  for="username"
-                  class="text-sm font-medium dark:text-white"
+                <label for="username" class="text-sm font-medium"
                   >Username</label
                 >
                 <input
@@ -37,9 +35,7 @@
                 </p> -->
               </div>
               <div class="my-2">
-                <label for="email" class="text-sm font-medium dark:text-white"
-                  >Email</label
-                >
+                <label for="email" class="text-sm font-medium">Email</label>
                 <input
                   v-model="email"
                   @input="emailValidate"
@@ -65,9 +61,7 @@
                 </p> -->
               </div>
               <div class="my-2">
-                <label for="no hp" class="text-sm font-medium dark:text-white"
-                  >No HP</label
-                >
+                <label for="no hp" class="text-sm font-medium">No HP</label>
                 <input
                   @input="numberValidate"
                   v-model="phone"
@@ -93,9 +87,7 @@
                 </p> -->
               </div>
               <div class="my-2">
-                <label for="job" class="text-sm font-medium dark:text-white"
-                  >Pekerjaan</label
-                >
+                <label for="job" class="text-sm font-medium">Pekerjaan</label>
                 <input
                   v-model="job"
                   @input="jobValidate"
@@ -120,9 +112,7 @@
               </div>
 
               <div class="my-2">
-                <label
-                  for="password"
-                  class="text-sm font-medium dark:text-white"
+                <label for="password" class="text-sm font-medium"
                   >Kata Sandi</label
                 >
                 <div class="flex items-center justify-between relative">
@@ -160,9 +150,7 @@
                 </p> -->
               </div>
               <div class="my-2">
-                <label
-                  for="password konfirmasi"
-                  class="text-sm font-medium dark:text-white"
+                <label for="password konfirmasi" class="text-sm font-medium"
                   >Konfirmasi Kata Sandi</label
                 >
                 <div class="flex items-center justify-between relative">

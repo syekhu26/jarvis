@@ -30,8 +30,11 @@
                   <div @click="show" class="p-2 text-blue-500 cursor-pointer">
                     Edit
                   </div>
-                  <DeleteNote />
-                  <!-- <a href="" class="text-red-500">Hapus</a> -->
+                  <!-- <DeleteNote /> -->
+                  <div @click="showDelete" class="text-red-500 cursor-pointer">
+                    Hapus
+                  </div>
+                  <DeleteNote :showDelete="del" @close="hideDelete" />
                 </div>
               </div>
               <p class="font-sans mb-3">
@@ -94,6 +97,7 @@ export default {
       isOpen: false,
       toggleModal: false,
       modal: false,
+      del: false,
     }
   },
   methods: {
@@ -108,6 +112,12 @@ export default {
     },
     hideModal() {
       this.modal = false
+    },
+    showDelete() {
+      this.del = true
+    },
+    hideDelete() {
+      this.del = false
     },
   },
 }

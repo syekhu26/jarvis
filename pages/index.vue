@@ -13,9 +13,15 @@
       <div class="flex items-center justify-between mt-6 px-8">
         <h1 class="text-2xl font-bold mb-3">Daftar catatan</h1>
       </div>
-      <div class="min-w-full px-8 items-center mb-8">
+      <div class="min-w-full px-4 items-center mb-8">
         <!-- <CardListNote/> -->
         <!-- <DetailPersonal /> -->
+        <CardListNote
+          v-for="note in notes"
+          :key="note.id"
+          :item="note"
+          class=""
+        />
       </div>
     </div>
     <FormNote :show="isOpen" @close="hide" />
@@ -37,6 +43,14 @@ export default {
     hide() {
       this.isOpen = false
     },
+  },
+  computed: {
+    notes() {
+      return this.$store.state.notes.notes
+    },
+  },
+  mounted() {
+    this.$store.dispatch('notes/fetchNotes')
   },
 }
 </script>

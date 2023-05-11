@@ -6,7 +6,7 @@
       <div class="flex h-full flex-col">
         <!-- nama grup -->
         <div
-          class="flex shrink-0 items-center absolute justify-between p-4 bg-slate-200 w-full bg-transparent bg-opacity-50"
+          class="flex shrink-0 items-center absolute justify-between p-4 bg-slate-100 w-full bg-transparent backdrop-blur"
         >
           <h1 class="text-2xl font-bold text-black">Tim 4 qatros</h1>
           <div @click="show" class="flex items-center">

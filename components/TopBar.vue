@@ -13,10 +13,7 @@
       </li>
       <div class="float-right flex place-items-center">
         <li>
-          <NuxtLink
-            to="#"
-            class="mx-2 hover:text-gray-600 block py-3 px-4"
-          >
+          <NuxtLink to="#" class="mx-2 hover:text-gray-600 block py-3 px-4">
             <img
               class="w-[20.31px] h-[22.66px]"
               src="https://cdn-icons-png.flaticon.com/512/3239/3239952.png"
@@ -26,10 +23,7 @@
           </NuxtLink>
         </li>
         <li>
-          <NuxtLink
-            to="#"
-            class="mx-2 hover:text-black block py-3 px-4"
-          >
+          <NuxtLink to="#" class="mx-2 hover:text-black block py-3 px-4">
             <img
               class="w-[43px] h-[43px] bg-gray-600 rounded-full"
               src="https://cdn-icons-png.flaticon.com/512/4140/4140051.png"

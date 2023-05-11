@@ -1,39 +1,44 @@
 <template>
   <NuxtLink to="/screenGroup">
-    <div
-      class="w-72 border border-slate-200 rounded-xl m-8 p-5 shadow-md font-sans"
-    >
-      <div class="flex items-center">
-        <div>
-          <img
-            :src="randomImageUrl"
-            width="50"
-            height="150"
-            alt="Random Image"
-            class="rounded"
-          />
-        </div>
-        <div class="px-3">
-          <h1 class="text-2xl font-bold text-black">{{ inputData }}</h1>
-          <div class="flex items-center">
-            <div class="flex my-1 relative">
-              <img
-                class="rounded-full w-5 h-5 mx-1 top-0 left-0"
-                src="https://cdn-icons-png.flaticon.com/512/3135/3135715.png"
-                alt=""
-              />
-              <img
-                src=" https://cdn-icons-png.flaticon.com/512/3135/3135715.png"
-                alt="Gambar 1"
-                class="rounded-full w-5 h-5 mx-1 top-0 left-0 -ml-3"
-              />
-              <img
-                src="https://cdn-icons-png.flaticon.com/512/3135/3135715.png"
-                alt="Gambar 2"
-                class="rounded-full w-5 h-5 mx-1 -ml-3"
-              />
+    <div>
+      <div
+        class="mx-5 mt-5 border border-slate-300 h-20 w-80 rounded shadow-sm"
+      >
+        <!-- gambar -->
+        <div class="mt-2 flex items-center">
+          <div class="px-5">
+            <img
+              :src="randomImageUrl"
+              width="50"
+              height="150"
+              alt="Random Image"
+              class="rounded"
+            />
+          </div>
+
+          <div>
+            <!-- judul -->
+            <h1 class="text-2xl font-bold text-black mb-1">{{ inputData }}</h1>
+            <div class="flex items-center">
+              <div class="flex my-1 relative">
+                <img
+                  class="rounded-full w-5 h-5 mx-1 top-0 left-0"
+                  src="https://cdn-icons-png.flaticon.com/512/3135/3135715.png"
+                  alt=""
+                />
+                <img
+                  src=" https://cdn-icons-png.flaticon.com/512/3135/3135715.png"
+                  alt="Gambar 1"
+                  class="rounded-full w-5 h-5 mx-1 top-0 left-0 -ml-3"
+                />
+                <img
+                  src="https://cdn-icons-png.flaticon.com/512/3135/3135715.png"
+                  alt="Gambar 2"
+                  class="rounded-full w-5 h-5 mx-1 -ml-3"
+                />
+              </div>
+              <p class="text-black">+4</p>
             </div>
-            <p class="text-black">+4</p>
           </div>
         </div>
       </div>
