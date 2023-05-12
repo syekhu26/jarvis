@@ -32,7 +32,7 @@
           >
             <img
               class="w-[43px] h-[43px] bg-gray-600 rounded-full"
-              src="https://cdn-icons-png.flaticon.com/512/4140/4140051.png"
+              :src="$store.state.profile.dataUser.photo"
               alt=""
               @click="profileOpen = !profileOpen"
             />
@@ -50,6 +50,9 @@
 </template>
 <script>
 export default {
+  async asyncData({ store }) {
+    await store.dispatch('profile/getdataUser', store.state.auth.user.id)
+  },
   data() {
     return {
       profileOpen: false,
