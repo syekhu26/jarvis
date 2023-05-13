@@ -44,7 +44,8 @@
       >
         <div class="border-r-2 border-slate-300 px-3 h-24 mt-3">
           <!-- icon -->
-          <iconUserIcon class="mt-7" />
+          <iconUserIcon v-if="item.note_type === 'personal'" class="mt-7" />
+          <iconGroupIcon v-else class="mt-7" />
         </div>
         <div class="px-3 w-full mt-3">
           <!-- keterangan -->
@@ -66,7 +67,7 @@
                 src="https://cdn-icons-png.flaticon.com/512/3135/3135715.png"
                 alt=""
               />
-              <p class="text-gray-500 mx-1 text-sm">MbaBro</p>
+              <p class="text-gray-500 mx-1 text-sm">{{ item.member }}</p>
             </div>
             <div>{{ item.event_date }}</div>
           </div>
@@ -82,6 +83,9 @@ export default {
   data() {
     return {
       detail: false,
+      active: 'iconUserIcon',
+      // personal: this.item.note_type,
+      // personal: this.item.note_type,
     }
   },
   props: {
@@ -99,6 +103,12 @@ export default {
     },
     // handleDetail() {
     //   this.detail = !this.detail
+    // },
+    // isActive(section) {
+    //   return {
+    //     personal: this.active === section,
+    //     kolaboration: this.active !== section,
+    //   }
     // },
   },
 }

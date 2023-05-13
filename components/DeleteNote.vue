@@ -29,7 +29,7 @@
                 Batal
               </button>
               <button
-                @click="deleteNote(note.id)"
+                @click="deleteNote(id)"
                 class="w-1/2 bg-red-600 text-white ml-1 p-2 rounded"
               >
                 Ya
@@ -49,8 +49,10 @@ export default {
       default: false,
     },
     id: {
-      type: [Number, String],
-      required: true,
+      // type: [Number, String],
+      // required: true,
+      type: Object,
+      default: () => ({}),
     },
   },
   data() {

@@ -25,9 +25,9 @@
               </div>
 
               <div class="mt-4">
-                <form action="" @submit.prevent="handleSubmit" class="w-full">
+                <form action="" @submit="handleSubmit" class="w-full">
                   <div>
-                    <label for="subjek" class="mb-2 block text-sm">
+                    <label for="subjek" class="mb-2 block text-sm float-left">
                       Subjek</label
                     >
                     <div class="mb-3">
@@ -36,7 +36,6 @@
                         name="subjek"
                         v-model="subject"
                         @input="subjectValidate"
-                        @change="updateNote(note)"
                         placeholder="Masukkan Subjek"
                         required
                         class="border text-black px-4 py-2 w-full focus:outline-none focus:border-blue-500"
@@ -57,7 +56,6 @@
                       <textarea
                         v-model="description"
                         @input="descriptionValidate"
-                        @change="updateNote(note)"
                         name="deskripsi"
                         placeholder="Masukkan Deskripsi"
                         class="border text-black px-4 py-2 w-full focus:outline-none focus:border-blue-500"
@@ -67,12 +65,12 @@
                       }}</span>
                     </div>
                   </div>
-                  <div>
-                    <label for="email" class="mb-2 block text-sm">
-                      Pilih Bagian Yang Terlibat</label
-                    >
-                  </div>
-                  <div class="relative text-gray-600 border">
+
+                  <label for="email" class="text-sm float-left -mt-3">
+                    Pilih Bagian Yang Terlibat</label
+                  >
+
+                  <div class="relative text-gray-600 border mt-6">
                     <span
                       class="absolute inset-y-0 left-0 flex items-center pl-2"
                     >
@@ -83,7 +81,6 @@
                       name="email"
                       v-model="email"
                       @input="emailValidate"
-                      @change="updateNote(note)"
                       class="py-2 border text-black pl-10 w-full focus:outline-none focus:border-blue-500"
                       placeholder="Masukkan Email"
                     />
@@ -114,61 +111,31 @@
 
                   <div
                     @click="addEmail"
-                    class="flex items-center mt-2 mb-3 text-blue-600 cursor-pointer"
+                    class="flex items-center mt-2 mb-11 text-blue-600 cursor-pointer"
                   >
                     <iconPlusIcon />
                     <span class="px-1">Tambah email</span>
                   </div>
                   <div>
-                    <label class="mb-2 block text-sm" for="date">
+                    <label
+                      class="mb-2 block text-sm float-left -mt-6"
+                      for="date"
+                    >
                       Tanggal Acara
                     </label>
-                    <!-- <div>
-                      <div
-                        @click="toggletgl = !toggletgl"
-                        class="border-2 w-10 h-10 w-full focus:outline-none focus:border-blue-500 mb-3"
-                        contentEditable="true"
-                        placeholder="yyyy-mm-d"
-                      >
-                    
-                      </div>
-                    </div> -->
-                    <!-- <div
-                      class="mt-2 px-2 border-2 w-10 h-10 w-full focus:outline-none focus:border-blue-500 mb-3"
-                    >
-                      <div class="flex item-center">
-                        <iconKalenderIcon class="mt-3" />
-                        <div v-if="date" class="px-4">
-                            {{ getTime }}
-                          </div>
-                        <div>
-                          <datetime
-                            class="mt-2 px-4"
-                            type="datetime"
-                            v-model="date"
-                            @input="kalenderValidate"
-                            placeholder="yyyy-mm-d"
-                          ></datetime>
-                        </div>
-                        <span v-if="kalenderError" class="text-red-500">{{
-                          kalenderError
-                        }}</span>
-                      </div>
-                    </div> -->
-                    <div class="border w-full w-10 h-10 px-2">
+                    <div class="border w-full h-10 mt-6 mb-11">
                       <div class="">
                         <vc-date-picker
                           class=""
                           v-model="date"
                           @input="kalenderValidate"
-                          @change="updateNote(note)"
                           :min-date="new Date()"
                           mode="dateTime"
                           :minute-increment="5"
                         >
                           <template #default="{ inputValue, inputEvents }">
-                            <div class="flex item-center">
-                              <iconKalenderIcon class="mt-3" />
+                            <div class="flex">
+                              <iconKalenderIcon class="mt-3 float-left" />
 
                               <input
                                 :value="inputValue"
@@ -184,31 +151,42 @@
                         </vc-date-picker>
                       </div>
                     </div>
+                    <!-- <input
+                        type="text"
+                        name="subjek"
+                        v-model="date"
+                        @input="kalenderValidate"
+                        placeholder="Masukkan tanggal"
+                        required
+                        class="border text-black px-4 py-2 w-full focus:outline-none focus:border-blue-500"
+                      /> -->
                   </div>
                   <div>
-                    <label for="remainder" class="mb-2 block text-sm mt-6">
+                    <label
+                      for="remainder"
+                      class="mb-2 block text-sm -mt-6 float-left"
+                    >
                       Tambahkan Pengingat</label
                     >
                     <!-- 
-                    <div
-                      class="mt-2 px-2 border-2 w-10 h-10 w-full focus:outline-none focus:border-blue-500 mb-3"
-                    >
-                      <div class="flex item-center">
-                        <iconAlarmIcon class="mt-3" />
-                       
-                        <datetime
-                          type="datetime"
-                          v-model="datetime"
-                          class="mt-2 px-4"
-                          placeholder="Pilih Waktu Remainder"
-                        ></datetime>
-                      </div>
-                    </div> -->
-                    <div class="border w-full w-10 h-10 px-2">
+                      <div
+                        class="mt-2 px-2 border-2 w-10 h-10 w-full focus:outline-none focus:border-blue-500 mb-3"
+                      >
+                        <div class="flex item-center">
+                          <iconAlarmIcon class="mt-3" />
+                         
+                          <datetime
+                            type="datetime"
+                            v-model="datetime"
+                            class="mt-2 px-4"
+                            placeholder="Pilih Waktu Remainder"
+                          ></datetime>
+                        </div>
+                      </div> -->
+                    <div class="border w-full w-10 h-10 px-2 mt-6">
                       <vc-date-picker
                         v-model="datetime"
                         @input="remainderValidate"
-                        @change="updateNote(note)"
                         mode="dateTime"
                         :max-date="date"
                         :min-date="new Date()"
@@ -233,6 +211,15 @@
                       </vc-date-picker>
                     </div>
                   </div>
+                  <!-- <input
+                        type="text"
+                        name="subjek"
+                        v-model="datetime"
+                        @input="remainderValidate"
+                        placeholder="Masukkan reminder"
+                        required
+                        class="border text-black px-4 py-2 w-full focus:outline-none focus:border-blue-500"
+                      /> -->
 
                   <div>
                     <div
@@ -263,7 +250,7 @@
                     <span class="px-1">Tambah reminder</span>
                   </div>
                   <div>
-                    <label class="mb-2 block text-sm" for="date">
+                    <label class="mb-2 block text-sm float-left" for="date">
                       Pilih pengingat ulangan
                     </label>
                     <div>
@@ -278,13 +265,12 @@
                   </div>
 
                   <div>
-                    <label for="voice" class="mb-2 block text-sm">
+                    <label for="voice" class="mb-2 block text-sm float-left">
                       Pilih Voice Reminder</label
                     >
                     <div>
                       <select
                         v-model="voice"
-                        @change="updateNote(note)"
                         class="border w-full h-10 mb-3 focus:border-blue-500"
                       >
                         <option value="">Pilih Ringtone</option>
@@ -305,7 +291,7 @@
                         value="submit"
                         class="float-right text-base bg-sky-500 text-white font-semibold py-2 px-5 rounded hover:shadow-lg hover:bg-sky-700"
                       >
-                        Buat Catatan
+                        {{ this.edit ? 'Edit Catatan' : 'Buat Catatan' }}
                       </button>
                     </div>
                   </div>
@@ -327,6 +313,14 @@ export default {
   props: {
     show: {
       type: Boolean,
+      default: false,
+    },
+    item: {
+      type: Object,
+      default: () => ({}),
+    },
+    edit: {
+      Boolean,
       default: false,
     },
   },
@@ -352,13 +346,14 @@ export default {
       datetimeError: '',
       // repeat: '',
       // repeatError: '',
-      subject: '',
-      description: '',
-      email: '',
-      date: '',
-      datetime: '',
-      pengingat: '',
-      voice: '',
+      subject: this.item.subject,
+      description: this.item.description ?? '',
+      email: this.item.email ?? '',
+      date: this.item.event_date ?? '',
+      datetime: this.item.reminder ?? '',
+      pengingat: this.item.pengingat ?? '',
+      voice: this.item.ringtone ?? '',
+
       voiceError: '',
       // dataNote: [],
       // note: [
@@ -438,17 +433,30 @@ export default {
       }
     },
     async handleSubmit() {
-      await this.$store.dispatch('notes/addNote', {
-        subject: this.subject,
-        description: this.description,
-        event_date: this.date,
-        reminder: this.datetime,
-        ringtone_id: this.voice,
-      })
+      if (this.edit) {
+        await this.$store.dispatch('notes/updateNote', {
+          idNote: this.item.id,
+          data: {
+            subject: this.subject,
+            description: this.description,
+            event_date: this.date,
+            reminder: this.datetime,
+            ringtone_id: this.voice,
+          },
+        })
+      } else {
+        await this.$store.dispatch('notes/addNote', {
+          subject: this.subject,
+          description: this.description,
+          event_date: this.date,
+          reminder: this.datetime,
+          ringtone_id: this.voice,
+        })
+      }
     },
-    async updateNote(note) {
-      await this.$store.dispatch('notes/updateNote', note)
-    },
+    // async updateNote(note) {
+    //   await this.$store.dispatch('notes/updateNote', note)
+    // },
     // async addNote() {
     //   try {
     //     await this.$axios
@@ -478,7 +486,7 @@ export default {
     },
     getTime() {
       // return this.date.split(' ')
-      return this.$moment(this.date).format('MMM DD,YYYY hh:mm A')
+      return this.$moment(this.date).format('typeMMM DD,YYYY hh:mm A')
     },
     // getAlarm() {
     //   // return this.date.split(' ')

@@ -30,6 +30,7 @@ export default {
     { src: "@/plugins/datetime.js", mode:"client" },
     // {src:"@/plugins/quasar.js"}
     { src: "@/plugins/draggable.js" },
+    { src: "@/plugins/moment.js" },
   ],
 
   // Auto import components: https://go.nuxtjs.dev/config-components
@@ -39,6 +40,7 @@ export default {
   buildModules: [
     // https://go.nuxtjs.dev/eslint
     '@nuxtjs/eslint-module',
+    '@nuxtjs/moment',
   ],
 
   // Modules: https://go.nuxtjs.dev/config-modules

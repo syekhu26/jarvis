@@ -9,10 +9,10 @@ export const state = () => ({
     deleteNote(state, noteId) {
       state.notes = state.notes.filter(note => note.id !== noteId)
     },
-    updateNote(state, updatedNote) {
-      const index = state.notes.findIndex(note => note.id === updatedNote.id)
-      state.notes.splice(index, 1, updatedNote)
-    }
+    // updateNote(state, updatedNote) {
+    //   const index = state.notes.findIndex(note => note.id === updatedNote.id)
+    //   state.notes.splice(index, 1, updatedNote)
+    // }
   }
   
   export const actions = {
@@ -28,8 +28,8 @@ export const state = () => ({
         await this.$axios.delete(`https://bantuin.fly.dev/api/notes/${noteId}`)
         commit('deleteNote', noteId)
     },
-    async updateNote({ commit }, updatedNote) {
-      const notes = await this.$axios.put(`https://bantuin.fly.dev/api/notes/${updatedNote.id}`, updatedNote)
-      commit('updateNote', notes.data)
+    async updateNote(ctx, {idNote,data}) {
+       await this.$axios.put(`https://bantuin.fly.dev/api/notes/${idNote}`, data)
+      
     }
   }

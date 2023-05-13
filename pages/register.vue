@@ -186,7 +186,7 @@
                 </p> -->
               </div>
             </div>
-            <p v-if="errorMessage" class="text-red-500">{{ errorMessage }}</p>
+            <!-- <p v-if="errorMessage" class="text-red-500">{{ errorMessage }}</p> -->
             <div class="mb-8 mt-1">
               Sudah punya akun?
               <NuxtLink to="/login" class="text-blue-500"
@@ -216,6 +216,7 @@ export default {
       // succes: false,
       username: '',
       usernameError: '',
+
       // regexName: /^.{1,20}$/,
 
       email: '',

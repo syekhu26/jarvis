@@ -34,7 +34,11 @@
                   <div @click="showDelete" class="text-red-500 cursor-pointer">
                     Hapus
                   </div>
-                  <DeleteNote :showDelete="del" @close="hideDelete" />
+                  <DeleteNote
+                    :id="itemDetail.id"
+                    :showDelete="del"
+                    @close="hideDelete"
+                  />
                 </div>
               </div>
               <p class="font-sans mb-3">
@@ -47,15 +51,15 @@
               <div class="mb-4">
                 <div class="flex">
                   <p>Tanggal Acara :</p>
-                  <p>{{ itemDetail.event_date }}</p>
+                  <p class="px-2">{{ itemDetail.event_date }}</p>
                 </div>
                 <div class="flex">
                   <p>Reminder :</p>
-                  <p>{{ itemDetail.reminder }}</p>
+                  <p class="px-2">{{ itemDetail.reminder }}</p>
                 </div>
                 <div class="flex">
                   <p>Ringtone :</p>
-                  <p class="text-sky-500">{{ itemDetail.ringtone }}</p>
+                  <p class="text-sky-500 px-2">{{ itemDetail.ringtone }}</p>
                 </div>
               </div>
               <div class="mb-4">
@@ -76,7 +80,12 @@
               </div>
             </div>
           </div>
-          <FormNote :show="isOpen" @close="hide" />
+          <FormNote
+            :item="itemDetail"
+            edit="true"
+            :show="isOpen"
+            @close="hide"
+          />
           <FinishNote :showModal="modal" @close="hideModal" />
         </div>
         <!-- ok -->
