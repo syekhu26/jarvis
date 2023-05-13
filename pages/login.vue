@@ -1,5 +1,5 @@
 <template>
-  <div class="flex justify-center items-center mt-24">
+  <div class="container flex justify-center items-center mt-24">
     <div class="w-full max-w-lg">
       <div class="bg-white shadow-lg border rounded px-8 pt-6 pb-8 mb-4">
         <div class="flex item-center justify-center mb-5">
@@ -15,9 +15,7 @@
           <form action="" @submit.prevent="login">
             <div class="w-full my-3">
               <div class="my-2">
-                <label for="email" class="text-sm font-medium dark:text-white">
-                  Email
-                </label>
+                <label for="email" class="text-sm font-medium"> Email </label>
                 <input
                   @input="emailValidate"
                   v-model="email"
@@ -43,10 +41,7 @@
                 </p> -->
               </div>
               <div class="my-2">
-                <label
-                  for="password"
-                  class="text-sm font-medium dark:text-white"
-                >
+                <label for="password" class="text-sm font-medium">
                   Password
                 </label>
                 <div class="flex items-center justify-between relative">
@@ -85,7 +80,7 @@
                   oke
                 </p> -->
               </div>
-              <NuxtLink to="/resetpassword">
+              <NuxtLink to="/forgotpassword">
                 <div class="text-sky-500 float-right cursor-pointer">
                   Lupa Kata Sandi
                 </div>

@@ -40,18 +40,18 @@
                 }}</span>
                 <span>Minimal 8 karakter, 1 huruf besar dan 1 angka.</span>
                 <!-- <p
-                  v-if="passwordCorrect === false"
-                  class="text-sm text-red-500 mb-2"
-                >
-                  minimal 8 karakter terdiri atas huruf kapital, huruf kecil,
-                  dan angka
-                </p>
-                <p
-                  v-if="passwordCorrect === true"
-                  class="text-sm text-green-500 mb-2"
-                >
-                  oke
-                </p> -->
+                    v-if="passwordCorrect === false"
+                    class="text-sm text-red-500 mb-2"
+                  >
+                    minimal 8 karakter terdiri atas huruf kapital, huruf kecil,
+                    dan angka
+                  </p>
+                  <p
+                    v-if="passwordCorrect === true"
+                    class="text-sm text-green-500 mb-2"
+                  >
+                    oke
+                  </p> -->
               </div>
               <div class="my-2">
                 <label for="password konfirmasi" class="text-sm font-medium"
@@ -78,30 +78,30 @@
                   >Konfirmasi password tidak sesuai</span
                 >
                 <!-- <p
-                  v-if="repeatpassCorrect === false"
-                  class="text-sm text-red-500 mb-2"
-                >
-                  kata sandi anda tidak sesuai
-                </p>
-                <p
-                  v-if="repeatpassCorrect === true"
-                  class="text-sm text-green-500 mb-2"
-                >
-                  oke
-                </p> -->
+                    v-if="repeatpassCorrect === false"
+                    class="text-sm text-red-500 mb-2"
+                  >
+                    kata sandi anda tidak sesuai
+                  </p>
+                  <p
+                    v-if="repeatpassCorrect === true"
+                    class="text-sm text-green-500 mb-2"
+                  >
+                    oke
+                  </p> -->
               </div>
               <!-- <NuxtLink to="/forgotpassword">
-                <div class="text-sky-500 float-right cursor-pointer">
-                  Lupa Kata Sandi
-                </div>
-              </NuxtLink> -->
+                  <div class="text-sky-500 float-right cursor-pointer">
+                    Lupa Kata Sandi
+                  </div>
+                </NuxtLink> -->
             </div>
             <!-- <div class="mb-8 mt-1">
-                Belum punya akun?
-                <NuxtLink to="/register" class="text-blue-500"
-                  >Silahkan daftar</NuxtLink
-                >
-              </div> -->
+                  Belum punya akun?
+                  <NuxtLink to="/register" class="text-blue-500"
+                    >Silahkan daftar</NuxtLink
+                  >
+                </div> -->
             <!-- <Message :message="error" v-if="error" /> -->
             <div class="mt-12 mb-9">
               <button
@@ -114,9 +114,9 @@
           </form>
         </div>
         <!-- <div class="mb-8 mt-8 justify-center items-center flex">
-          Belum punya akun?
-          <NuxtLink to="/register" class="text-blue-500 px-2">Daftar</NuxtLink>
-        </div> -->
+            Belum punya akun?
+            <NuxtLink to="/register" class="text-blue-500 px-2">Daftar</NuxtLink>
+          </div> -->
       </div>
     </div>
   </div>
