@@ -38,7 +38,7 @@
     <div class="flex">
       <img
         class="rounded-full h-9 w-9 m-3"
-        src="https://images.unsplash.com/photo-1633332755192-727a05c4013d?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8dXNlcnxlbnwwfHwwfHw%3D&auto=format&fit=crop&w=500&q=60"
+        :src="$store.state.profile.dataUser.photo"
         alt=""
       />
       <div class="m-2">
@@ -73,11 +73,11 @@
       </div>
     </div>
     <div class="mt-6">
-      <NuxtLink to="/editProfile">
+      <NuxtLink to="/profile">
         <button
           class="w-[260px] bg-blue-500 text-white text-sm justify-center p-2 mx-2 my-2 rounded"
         >
-          Edit profil
+          Lihat profil
         </button>
       </NuxtLink>
       <button
@@ -102,6 +102,9 @@ export default {
         console.log(err)
       }
     },
+    async asyncData({ store }) {
+    await store.dispatch('profile/getdataUser', store.state.auth.user.id)
+  },
   },
   computed: {
     ...mapGetters(['isAuthenticated', 'loggedInUser']),
