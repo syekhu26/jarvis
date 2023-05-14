@@ -64,6 +64,13 @@
 
               <div v-if="itemDetail.note_type === 'collaboration'" class="mb-4">
                 <div
+                  v-for="itemDetail in items"
+                  :key="itemDetail"
+                  class="my-3 bg-sky-500 px-5 py-2 rounded-full text-white font-semibold font-sans"
+                >
+                  {{ itemDetail.member }}
+                </div>
+                <div
                   class="my-3 bg-sky-500 px-5 py-2 rounded-full text-white font-semibold font-sans block max-w-[100px]"
                 >
                   Kak Lea
@@ -168,9 +175,17 @@ export default {
       doc: false,
       del: false,
       story: false,
+      items: [],
     }
   },
   methods: {
+    addMember() {
+      if (!this.email) {
+        return
+      }
+      this.items.push(this.email)
+      this.email = ''
+    },
     show() {
       this.isOpen = true
     },
