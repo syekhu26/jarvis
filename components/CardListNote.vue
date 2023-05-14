@@ -53,8 +53,11 @@
             <div>
               <p class="font-bold">{{ item.subject }}</p>
             </div>
-            <div class="bg-green-400 rounded-full text-[12px] h-6 px-3">
-              100%
+            <div
+              v-if="item.note_type === 'collaboration'"
+              class="bg-red-400 rounded-full text-[12px] h-6 px-3"
+            >
+              {{ item.status }}
             </div>
           </div>
           <p class="mt-2">
@@ -64,7 +67,7 @@
             <div class="flex">
               <img
                 class="rounded-full w-5 h-5"
-                src="https://cdn-icons-png.flaticon.com/512/3135/3135715.png"
+                :src="$store.state.profile.dataUser.photo"
                 alt=""
               />
               <p class="text-gray-500 mx-1 text-sm">{{ item.member }}</p>

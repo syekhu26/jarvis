@@ -25,7 +25,7 @@
               </div>
 
               <div class="mt-4">
-                <form action="" @submit="handleSubmit" class="w-full">
+                <form action="" @submit.prevent="handleSubmit" class="w-full">
                   <div>
                     <label for="subjek" class="mb-2 block text-sm float-left">
                       Subjek</label
@@ -277,6 +277,13 @@
                         <option value="1">hahahihi</option>
                         <option value="2">aiyaaiya</option>
                         <option value="3">oke</option>
+                        <!-- <option
+                          v-for="option in options"
+                          :key="option.value"
+                          :value="option.value"
+                        >
+                          {{ option.name }}
+                        </option> -->
                       </select>
                       <div v-if="voiceError" class="text-red-500">
                         {{ voiceError }}
@@ -323,6 +330,10 @@ export default {
       Boolean,
       default: false,
     },
+    // label: {
+    //   type: String,
+    //   required: true,
+    // },
   },
   data() {
     const date = new Date()
@@ -331,6 +342,7 @@ export default {
       isOpen: false,
 
       items: [],
+      options: [],
 
       deadlines: [],
       // toggle: false,
@@ -352,7 +364,7 @@ export default {
       date: this.item.event_date ?? '',
       datetime: this.item.reminder ?? '',
       pengingat: this.item.pengingat ?? '',
-      voice: this.item.ringtone ?? '',
+      voice: this.item.ringtone ?? null,
 
       voiceError: '',
       // dataNote: [],
@@ -363,6 +375,9 @@ export default {
       // ],
     }
   },
+  // async created() {
+  //   await this.ringtone()
+  // },
 
   methods: {
     addEmail() {
@@ -439,6 +454,7 @@ export default {
           data: {
             subject: this.subject,
             description: this.description,
+            email: this.email,
             event_date: this.date,
             reminder: this.datetime,
             ringtone_id: this.voice,
@@ -448,12 +464,23 @@ export default {
         await this.$store.dispatch('notes/addNote', {
           subject: this.subject,
           description: this.description,
+          email: this.items,
           event_date: this.date,
           reminder: this.datetime,
           ringtone_id: this.voice,
         })
       }
     },
+    // async ringtone() {
+    //   try {
+    //     const response = await this.$axios.$get(
+    //       'https://bantuin.fly.dev/api/ringtone'
+    //     )
+    //     this.options = response.data
+    //   } catch (error) {
+    //     console.log(error)
+    //   }
+    // },
     // async updateNote(note) {
     //   await this.$store.dispatch('notes/updateNote', note)
     // },

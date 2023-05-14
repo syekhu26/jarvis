@@ -15,16 +15,30 @@
           <div
             class="my-5 inline-block w-full max-w-xl transform overflow-hidden rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all"
           >
-            <div class="-mt-7">
+            <div class="">
               <div class="flex items-center justify-between">
                 <div
-                  @click="$emit('close')"
-                  class="w-10 h-10 rounded-full flex absolute top-5 right-5 cursor-pointer"
+                  v-if="itemDetail.note_type === 'collaboration'"
+                  class="flex"
                 >
+                  <div class="bg-red-400 rounded-full text-[12px] h-6 px-3">
+                    {{ itemDetail.status }}
+                  </div>
+
+                  <div>
+                    <span
+                      @click="showStory"
+                      class="text-blue-500 px-2 cursor-pointer"
+                      >lihat</span
+                    >
+                  </div>
+                  <History :showStory="story" @close="hideStory" />
+                </div>
+                <div @click="$emit('close')" class="cursor-pointer">
                   <iconSilangIcon />
                 </div>
               </div>
-              <div class="flex items-center justify-between mt-11 mb-3">
+              <div class="flex items-center justify-between mt-5 mb-3">
                 <h1 class="font-bold text-xl">{{ itemDetail.subject }}</h1>
                 <div class="flex items-center">
                   <div @click="show" class="p-2 text-blue-500 cursor-pointer">
@@ -48,6 +62,46 @@
                 {{ itemDetail.description }}
               </p>
 
+              <div v-if="itemDetail.note_type === 'collaboration'" class="mb-4">
+                <div
+                  class="my-3 bg-sky-500 px-5 py-2 rounded-full text-white font-semibold font-sans block max-w-[100px]"
+                >
+                  Kak Lea
+                </div>
+                <div
+                  class="bg-sky-500 px-5 py-2 rounded-full text-white font-semibold font-sans block max-w-[130px]"
+                >
+                  Kak Jasmine
+                </div>
+
+                <div class="flex items-center mt-2">
+                  <p>dan 3 orang lagi.</p>
+                  <div
+                    @click="showMember"
+                    class="text-sky-500 px-1 cursor-pointer"
+                  >
+                    Lihat semua
+                  </div>
+                  <PopupMemberCollab :showMember="member" @close="hideMember" />
+                </div>
+              </div>
+
+              <div v-if="itemDetail.note_type === 'collaboration'" class="mb-4">
+                <div>File Dokumen :</div>
+                <div class="text-sky-500 underline">Bukti transaksi.png</div>
+                <div class="text-sky-500 underline">Tiket pesawat.pdf</div>
+                <div class="flex items-center mt-2">
+                  <p>dan 3 dokument lagi.</p>
+                  <div
+                    @click="showDoc"
+                    class="text-sky-500 px-1 cursor-pointer"
+                  >
+                    Lihat semua
+                  </div>
+                  <PopupDocumentCollab :showDoc="doc" @close="hideDoc" />
+                </div>
+              </div>
+
               <div class="mb-4">
                 <div class="flex">
                   <p>Tanggal Acara :</p>
@@ -65,7 +119,11 @@
               <div class="mb-4">
                 <h5>Pembuat catatan :</h5>
                 <div class="flex items-center">
-                  <iconPotoIcon />
+                  <img
+                    class="rounded-full w-5 h-5"
+                    :src="$store.state.profile.dataUser.photo"
+                    alt=""
+                  />
                   <p class="px-2">{{ itemDetail.member }}</p>
                 </div>
               </div>
@@ -106,7 +164,10 @@ export default {
       isOpen: false,
       toggleModal: false,
       modal: false,
+      member: false,
+      doc: false,
       del: false,
+      story: false,
     }
   },
   methods: {
@@ -128,6 +189,85 @@ export default {
     hideDelete() {
       this.del = false
     },
+    showMember() {
+      this.member = true
+    },
+    hideMember() {
+      this.member = false
+    },
+    showDoc() {
+      this.doc = true
+    },
+    hideDoc() {
+      this.doc = false
+    },
+    showStory() {
+      this.story = true
+    },
+    hideStory() {
+      this.story = false
+    },
   },
 }
 </script>
+
+<!-- column
+: 
+null
+description
+: 
+"woke mantap"
+event_date
+: 
+"2023-05-29T23:25:22.760+07:00"
+id
+: 
+172
+member
+: 
+[]
+note_type
+: 
+"collaboration"
+owner
+: 
+[,…]
+0
+: 
+{id: 31, username: "azwar", email: "stevennorman101@gmail.com", phone: "0895641564", job: "gabut",…}
+email
+: 
+"stevennorman101@gmail.com"
+id
+: 
+31
+job
+: 
+"gabut"
+phone
+: 
+"0895641564"
+photo
+: 
+"https://res-5.cloudinary.com/dis2k0keq/image/upload/v1683939492/public/profile_picture/fdeb4fb13b.png"
+username
+: 
+"azwar"
+reminder
+: 
+"2023-05-28T23:30:13.432+07:00"
+ringtone
+: 
+"Destiny"
+status
+: 
+"in_progress"
+subject
+: 
+"tetap dijalan keputus asaan"
+status
+: 
+200
+success
+: 
+true -->

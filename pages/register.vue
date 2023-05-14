@@ -18,9 +18,14 @@
                   placeholder="Masukkan Username"
                   required
                 />
-                <span v-if="error.username" class="text-red-500"
+                <!-- <span v-if="error.username" class="text-red-500"
                   >username {{ error.username[0] }}</span
+                > -->
+                <span v-if="usernameError" class="text-red-500">
+                  {{ usernameError }}</span
                 >
+
+                <!-- <span></span> -->
                 <!-- <p
                   v-if="usernameCorrect === false"
                   class="text-sm text-red-500 mb-2"
@@ -44,9 +49,12 @@
                   placeholder="Masukkan Email"
                   required
                 />
-                <span v-if="error.email" class="text-red-500">{{
+                <!-- <span v-if="error.email" class="text-red-500">{{
                   error.email[0]
-                }}</span>
+                }}</span> -->
+                <span v-if="emailError" class="text-red-500">
+                  {{ emailError }}</span
+                >
                 <!-- <p
                   v-if="emailCorrect === false"
                   class="text-sm text-red-500 mb-2"
@@ -70,9 +78,12 @@
                   placeholder="Masukkan No HP"
                   required
                 />
-                <span v-if="error.number" class="text-red-500">{{
+                <!-- <span v-if="error.number" class="text-red-500">{{
                   error.phone[0]
-                }}</span>
+                }}</span> -->
+                <span v-if="numberError" class="text-red-500">
+                  {{ numberError }}</span
+                >
                 <!-- <p
                   v-if="phoneCorrect === false"
                   class="text-sm text-red-500 mb-2"
@@ -296,8 +307,7 @@ export default {
       }
     },
     passwordValidate() {
-      const regex =
-        /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/
+      const regex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/
       if (!regex.test(this.password)) {
         this.passwordError =
           ' minimal 8 karakter terdiri atas huruf kapital, huruf kecil, symbol dan angka'
