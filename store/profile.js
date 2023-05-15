@@ -25,12 +25,12 @@ export const actions = {
     const headers = { 'Content-Type': 'multipart/form-data' }
     const data = new FormData()
 
-    if(user.photo){
-        data.append('photo', user.photo)
-    }else {
+    if (user.photo) {
+      data.append('photo', user.photo)
+    } else {
       data.append('username', user.username)
       data.append('email', user.email)
-      data.append('phone', user.phone) 
+      data.append('phone', user.phone)
       data.append('job', user.job)
     }
     return this.$axios.$put(`users/${user.id}`, data, { headers })
