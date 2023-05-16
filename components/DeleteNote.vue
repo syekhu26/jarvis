@@ -21,6 +21,29 @@
             <p class="text-sm text-center opacity-50">
               Anda tidak dapat mengembalikan pesan ini setelah dihapus
             </p>
+            <p
+              v-if="pesan.note_type === 'collaboration'"
+              class="text-sm text-center opacity-50"
+            >
+              Pesan yang dilaporkan untuk orang yang dilibatkan
+            </p>
+            <div v-if="pesan.note_type === 'collaboration'" class="px-3">
+              <div class="flex justify-between my-2">
+                <p>Pesan <strong class="text-red-600">*</strong></p>
+                <p class="text-sm text-gray-500 items-end">
+                  {{ tambahAngka }}/100
+                </p>
+              </div>
+              <textarea
+                v-model="description"
+                @input="descriptionValidate"
+                class="w-full border border-gray-500 p-3"
+                placeholder="Tulis pesan"
+              ></textarea>
+              <span v-if="descriptionError" class="text-red-500">{{
+                descriptionError
+              }}</span>
+            </div>
             <div class="flex justify-center my-4">
               <button
                 @click="$emit('close')"
@@ -54,18 +77,36 @@ export default {
       type: Object,
       default: () => ({}),
     },
+    pesan: {
+      type: Object,
+      default: () => ({}),
+    },
   },
   data() {
     return {
       isOpen: false,
+      description: '',
+      descriptionError: '',
     }
   },
   // mounted() {
   //   this.$store.dispatch('notes/fetchNotes')
   // },
+  computed: {
+    tambahAngka() {
+      return this.description.length
+    },
+  },
   methods: {
     deleteNote(noteId) {
       this.$store.dispatch('notes/deleteNote', noteId)
+    },
+    descriptionValidate() {
+      if (!this.description) {
+        this.descriptionError = 'Anda belum mengisi deskripsi.'
+      } else {
+        this.descriptionError = ''
+      }
     },
   },
 }
