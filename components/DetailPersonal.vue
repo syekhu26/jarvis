@@ -74,7 +74,7 @@
                 <div
                   class="my-3 bg-sky-500 px-5 py-2 rounded-full text-white font-semibold font-sans block max-w-[100px]"
                 >
-                  Kak Lea
+                  {{ itemDetail.member }}
                 </div>
                 <div
                   class="bg-sky-500 px-5 py-2 rounded-full text-white font-semibold font-sans block max-w-[130px]"
