@@ -17,11 +17,11 @@ export const state = () => ({
   
   export const actions = {
     async fetchNotes({ commit }) {
-      const notes = await this.$axios.$get('https://bantuin.fly.dev/api/notes')
+      const notes = await this.$axios.$get('https://bantuin.fly.dev/api/notes?note=upcoming')
       commit('setNotes', notes.data)
     },
     async addNote({ dispatch }, note) {
-        await this.$axios.$post('https://bantuin.fly.dev/api/notes', note)
+        await this.$axios.$post('https://bantuin.fly.dev/api/notes?note=upcoming', note)
         dispatch('fetchNotes')
       },
     async deleteNote({ commit }, noteId) {
