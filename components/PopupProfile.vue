@@ -42,8 +42,11 @@
         alt=""
       />
       <div class="m-2">
-        <p class="text-lg font-bold" v-if="isAuthenticated">
+        <!-- <p class="text-lg font-bold" v-if="isAuthenticated">
           {{ loggedInUser.username }}
+        </p> -->
+        <p class="text-lg font-bold">
+          {{ $store.state.profile.dataUser.username }}
         </p>
       </div>
     </div>
@@ -93,6 +96,9 @@
 <script>
 import { mapGetters } from 'vuex'
 export default {
+  // async asyncData({ store }) {
+  //   await store.dispatch('profile/getdataUser', store.state.auth.user.id)
+  // },
   methods: {
     async logout() {
       try {
@@ -102,9 +108,6 @@ export default {
         console.log(err)
       }
     },
-    async asyncData({ store }) {
-    await store.dispatch('profile/getdataUser', store.state.auth.user.id)
-  },
   },
   computed: {
     ...mapGetters(['isAuthenticated', 'loggedInUser']),

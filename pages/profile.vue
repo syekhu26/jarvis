@@ -5,113 +5,85 @@
         <center>
           <img
             :src="$store.state.profile.dataUser.photo"
-            alt=""
-            class="w-[100px] h-[100px] rounded-full"
+            alt="photo"
+            class="h-[100px] w-[100px] rounded-full"
           />
-          <input type="file" @input="updatePhoto" />
-          <!-- <a href="#" class="text-gray-500 ml-2">Edit Foto Profil</a> -->
+          <label
+            for="myPhoto"
+            class="cursor-pointer text-gray-500 inline-block text my-2"
+            >Ubah Foto</label
+          >
+          <a href="#">
+            <input
+              type="file"
+              name="myPhoto"
+              id="myPhoto"
+              class="text-gray-500 bg-none"
+              @change="updatePhoto"
+              hidden
+            />
+          </a>
         </center>
-        <p class="text-xl font-bold mt-4">Informasi Personal</p>
-        <div class="my-2">
-          <p class="text-sm mt-2 mb-2">Nama pengguna</p>
+        <div class="flex justify-between mt-4">
+          <p class="text-xl font-bold">Informasi Personal</p>
+          <a href="/editprofile" class="text-blue-500 my-auto">Ubah</a>
+        </div>
+        <div class="my-4">
+          <p class="text-sm text-gray-500 my-1">Nama pengguna</p>
           <input
             v-model="userName"
             type="text"
-            class="border border-gray-300 bg-gray-200 text-sm w-full p-1 rounded-md px-2"
-            placeholder="Nama anda"
+            class="text-sm w-full"
             disabled
-            @input="usernameValidate"
           />
-          <span v-if="usernameError" class="text-red-500">{{
-            usernameError
-          }}</span>
         </div>
-        <div class="my-2">
-          <p class="text-sm mt-2 mb-2">Pekerjaan</p>
+        <div class="my-4">
+          <p class="text-sm text-gray-500 my-1">Pekerjaan</p>
           <input
             v-model="userWork"
             type="text"
-            class="border border-gray-300 bg-gray-200 text-sm w-full p-1 rounded-md px-2"
-            placeholder="Pekerjaan anda"
+            class="text-sm w-full"
             disabled
           />
         </div>
-        <div class="my-2">
-          <p class="text-sm mt-2 mb-2">Email</p>
+        <div class="my-4">
+          <p class="text-sm text-gray-500 my-1">Email</p>
           <input
             v-model="userEmail"
             type="email"
-            class="border border-gray-300 bg-gray-200 text-sm w-full p-1 rounded-md px-2"
-            placeholder="Email anda"
+            class="text-sm w-full"
             disabled
-            @input="emailValidate"
           />
-          <span v-if="emailError" class="text-red-500">{{ emailError }}</span>
         </div>
-        <div class="my-2">
-          <p class="text-sm mt-2 mb-2">Nomor telepon</p>
+        <div class="my-4">
+          <p class="text-sm text-gray-500 my-1">Nomor telepon</p>
           <input
             v-model="userPhone"
             type="number"
-            class="border border-gray-300 bg-gray-200 text-sm w-full p-1 rounded-md px-2"
-            placeholder="Nama anda"
+            class="text-sm w-full"
             disabled
-            @input="phoneValidate"
           />
-          <span v-if="phoneError" class="text-red-500">{{ phoneError }}</span>
         </div>
-        <div class="my-2">
-          <div>
-            <p class="text-sm mt-2 mb-2">Kata Sandi</p>
-            <p></p>
+        <div class="h-[1px] w-full bg-gray-300 my-2"></div>
+        <div class="my-4">
+          <div class="flex justify-between my-1">
+            <p class="text-sm text-gray-500">Kata Sandi</p>
+            <a href="/editpassword" class="text-blue-500 my-auto">Ubah</a>
           </div>
           <div class="flex items-center justify-between relative">
             <input
               v-model="passKey"
-              :type="inputTypeIcon"
-              class="border border-gray-300 bg-gray-200 text-sm w-full p-1 rounded-md px-2"
-              placeholder="Buat kata sandi anda"
-              @input="passValidate"
+              type="text"
+              class="text-sm w-full text-black"
+              disabled
             />
-            <div
-              class="absolute inset-y-0 flex items-center right-2"
-              @click.prevent="ToggleIcon"
-            >
-              <i v-if="inputTypeIcon == 'passKey'"><iconEyeShow /></i>
-              <i v-else><iconEyeHide /></i>
-            </div>
           </div>
-          <span v-if="passError">{{ passError }}</span>
-          <!-- <p v-if="passwordCorrect === false" class="text-sm text-red-500 mb-2">
-            minimal 8 karakter terdiri atas huruf kapital, huruf kecil, dan
-            angka
-          </p>
-          <p
-            v-if="passwordCorrect === true"
-            class="text-sm text-green-500 mb-2"
-          >
-            oke
-          </p> -->
-        </div>
-        <div class="flex justify-end">
-          <!-- <button class="absolute w-1/4 bg-blue-500 text-white my-4 ml-14 p-2 rounded-md">
-            ubah profil
-          </button> -->
-          <a
-            href="/editprofile"
-            class="absolute w-1/4 bg-blue-500 text-white my-4 ml-14 p-2 rounded-md"
-            >ubah profil</a
-          >
-          <!-- <NuxtLink to="/changePassword" class="absolute w-1/4 bg-blue-500 text-white my-4 ml-14 p-2 rounded-md">
-            ganti password
-          </NuxtLink> -->
         </div>
       </form>
     </div>
   </div>
 </template>
 <script>
-// import {mapState} from 'vuex'
 export default {
   layout: 'navbar',
   async asyncData({ store }) {
@@ -119,43 +91,19 @@ export default {
   },
   data() {
     return {
-      // userPhoto: this.$store.state.profile.dataUser.photo,
       photoUpdate: null,
 
       userName: this.$store.state.profile.dataUser.username,
-      usernameError: '',
 
       userWork: this.$store.state.profile.dataUser.job,
-      // regexWork: /^[a-zA-Z]{1,50}$/,
 
       userEmail: this.$store.state.profile.dataUser.email,
-      emailError: '',
 
       userPhone: this.$store.state.profile.dataUser.phone,
-      phoneError: '',
 
       inputTypeIcon: 'passKey',
-      passKey: '',
-      passError: '',
+      passKey: '***',
     }
-  },
-  computed: {
-    // ...mapState('profile', ['dataUser']),
-    // usernameCorrect() {
-    //   return this.regexName.test(this.userName)
-    // },
-    // workCorrect() {
-    //   return this.regexWork.test(this.userWork)
-    // },
-    // emailCorrect() {
-    //   return this.regexEmail.test(this.userEmail)
-    // },
-    // phoneCorrect() {
-    //   return this.regexPhone.test(this.userPhone)
-    // },
-    // passwordCorrect() {
-    //   return this.regexPass.test(this.passKey)
-    // },
   },
   methods: {
     ToggleIcon() {
@@ -172,45 +120,50 @@ export default {
           this.$store.dispatch('profile/getdataUser', this.$auth.user.id)
           // this.$route.go()
         })
-        .catch(() => alert('gagal'))
+        .catch((err) => { alert(err.res.message) })
     },
-    // usernamelValidate() {
-    //   const regexName = /^.{1,20}$/
-    //   if (!this.userName.match(regexName)) {
-    //     this.usernameError = 'Username anda terlalu panjang'
-    //   } else {
-    //     this.usernameError = ''
+    // handleFileChange(event) {
+    //   const file = event.target.files[0]
+    //   const reader = new FileReader()
+    //   reader.readAsDataURL(file)
+    //   reader.onload = (event) => {
+    //     const img = new Image()
+    //     img.src = event.target.result
+    //     img.onload = () => {
+    //       const canvas = document.createElement('canvas')
+    //       const MAX_WIDTH = 100 // ubah sesuai dengan kebutuhan aplikasi Anda
+    //       const MAX_HEIGHT = 100 // ubah sesuai dengan kebutuhan aplikasi Anda
+    //       let width = img.width
+    //       let height = img.height
+    //       if (width > height) {
+    //         if (width > MAX_WIDTH) {
+    //           height *= MAX_WIDTH / width
+    //           width = MAX_WIDTH
+    //         }
+    //       } else if (height > MAX_HEIGHT) {
+    //         width *= MAX_HEIGHT / height
+    //         height = MAX_HEIGHT
+    //       }
+    //       canvas.width = width
+    //       canvas.height = height
+    //       const ctx = canvas.getContext('2d')
+    //       ctx.drawImage(img, 0, 0, width, height)
+    //       canvas.toBlob((blob) => {
+    //         this.$store
+    //           .dispatch('profile/updateProfile', {
+    //             id: this.$auth.user.id,
+    //             photo: event.target.files[0],
+    //           })
+    //           .then((res) => {
+    //             alert(res.message)
+    //             this.$store.dispatch('profile/getdataUser', this.$auth.user.id)
+    //             // this.$route.go()
+    //           })
+    //           .catch(() => alert('gagal'))
+    //       }, file.type)
+    //     }
     //   }
     // },
-    // emailValidate() {
-    //   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
-    //   if (!this.userEmail.match(emailRegex)) {
-    //     this.emailError = 'Email yang anda masukkan tidak valid'
-    //   } else {
-    //     this.emailError = ''
-    //   }
-    // },
-    // phoneValidate() {
-    //   const regexPhone = /^(62|0)[0-9]{9,12}$/
-    //   if (!this.userPhone.match(regexPhone)) {
-    //     this.phoneError = 'number yang anda masukkan tidak valid'
-    //   } else {
-    //     this.phoneError = ''
-    //   }
-    // },
-    // passValidate() {
-    //   const passRegex =
-    //     /^.*(?=.{8,})(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[\W_]).*$/
-    //   if (!this.passKey.match(passRegex)) {
-    //     this.passError = 'pass yang anda masukkan tidak valid'
-    //   } else {
-    //     this.passError = ''
-    //   }
-    // },
-    // check(type, regex) {
-    //   this.error = regex.test(type)
-    // },
-    // updateProfil() {},
   },
 }
 </script>

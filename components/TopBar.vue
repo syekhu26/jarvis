@@ -34,10 +34,10 @@
         </li>
       </div>
     </ul>
-    <div v-if="profileOpen" class="absolute right-[2%]">
+    <div v-if="profileOpen" class="absolute right-[2%] z-10">
       <PopupProfile />
     </div>
-    <div v-if="notifOpen" class="absolute right-[2%]">
+    <div v-if="notifOpen" class="absolute right-[2%] z-10">
       <PopupNotif />
     </div>
   </div>
