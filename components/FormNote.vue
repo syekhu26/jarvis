@@ -43,6 +43,9 @@
                       <span v-if="subjectError" class="text-red-500">{{
                         subjectError
                       }}</span>
+                      <span v-if="error.subject" class="text-red-500"
+                        >username {{ error.subject[0] }}</span
+                      >
                     </div>
                   </div>
                   <div>
@@ -62,6 +65,9 @@
                       />
                       <span v-if="descriptionError" class="text-red-500">{{
                         descriptionError
+                      }}</span>
+                      <span v-if="error.description" class="text-red-500">{{
+                        error.description
                       }}</span>
                     </div>
                   </div>
@@ -273,7 +279,7 @@
                         v-model="voice"
                         class="border w-full h-10 mb-3 focus:border-blue-500"
                       >
-                        <option value="">Pilih Ringtone</option>
+                        <option value="disabled hidden">Pilih Ringtone</option>
                         <option value="1">hahahihi</option>
                         <option value="2">aiyaaiya</option>
                         <option value="3">oke</option>
@@ -340,6 +346,8 @@ export default {
     date.setMinutes(0, 0, 0)
     return {
       isOpen: false,
+      error: {},
+      errorMessage: null,
 
       items: [],
       options: [],
@@ -356,28 +364,20 @@ export default {
 
       dateError: '',
       datetimeError: '',
-      // repeat: '',
-      // repeatError: '',
       subject: this.item.subject,
       description: this.item.description ?? '',
-      email: this.item.email ?? '',
+      email: this.item.items ?? '',
       date: this.item.event_date ?? '',
       datetime: this.item.reminder ?? '',
       pengingat: this.item.pengingat ?? '',
-      voice: this.item.ringtone ?? null,
+      voice: this.item.ringtone ?? '',
 
       voiceError: '',
-      // dataNote: [],
-      // note: [
-      //   {
-
-      //   },
-      // ],
     }
   },
-  // async created() {
-  //   await this.ringtone()
-  // },
+  async created() {
+    await this.ringtone()
+  },
 
   methods: {
     addEmail() {
@@ -454,33 +454,39 @@ export default {
           data: {
             subject: this.subject,
             description: this.description,
-            email: this.email,
+            email: this.items,
             event_date: this.date,
             reminder: this.datetime,
             ringtone_id: this.voice,
           },
         })
       } else {
-        await this.$store.dispatch('notes/addNote', {
-          subject: this.subject,
-          description: this.description,
-          email: this.items,
-          event_date: this.date,
-          reminder: this.datetime,
-          ringtone_id: this.voice,
-        })
+        try {
+          await this.$store.dispatch('notes/addNote', {
+            subject: this.subject,
+            description: this.description,
+            email: this.items,
+            event_date: this.date,
+            reminder: this.datetime,
+            ringtone_id: this.voice,
+          })
+        } catch (error) {
+          this.error = error.response.data.data
+          this.errorMessage = error.response.data.message
+          console.log(error)
+        }
       }
     },
-    // async ringtone() {
-    //   try {
-    //     const response = await this.$axios.$get(
-    //       'https://bantuin.fly.dev/api/ringtone'
-    //     )
-    //     this.options = response.data
-    //   } catch (error) {
-    //     console.log(error)
-    //   }
-    // },
+    async ringtone() {
+      try {
+        const response = await this.$axios.$get(
+          'https://bantuin.fly.dev/api/ringtones'
+        )
+        this.options = response.data
+      } catch (error) {
+        console.log(error)
+      }
+    },
     // async updateNote(note) {
     //   await this.$store.dispatch('notes/updateNote', note)
     // },

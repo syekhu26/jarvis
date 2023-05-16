@@ -49,6 +49,7 @@
                     Hapus
                   </div>
                   <DeleteNote
+                    :pesan="itemDetail"
                     :id="itemDetail.id"
                     :showDelete="del"
                     @close="hideDelete"
@@ -95,8 +96,15 @@
 
               <div v-if="itemDetail.note_type === 'collaboration'" class="mb-4">
                 <div>File Dokumen :</div>
-                <div class="text-sky-500 underline">Bukti transaksi.png</div>
-                <div class="text-sky-500 underline">Tiket pesawat.pdf</div>
+                <!-- <div class="text-sky-500 underline">Bukti transaksi.png</div>
+                <div class="text-sky-500 underline">Tiket pesawat.pdf</div> -->
+                <div v-for="file in files" :key="file.name" class="flex">
+                  <div class="text-sky-500 underline">
+                    <p class="px-3" :title="file.name">
+                      {{ makeName(file.name) }}
+                    </p>
+                  </div>
+                </div>
                 <div class="flex items-center mt-2">
                   <p>dan 3 dokument lagi.</p>
                   <div
@@ -131,8 +139,11 @@
                     :src="$store.state.profile.dataUser.photo"
                     alt=""
                   />
-                  <p class="px-2">{{ itemDetail.member }}</p>
+                  <p class="px-2">{{ itemDetail.owner[0].username }}</p>
                 </div>
+              </div>
+              <div v-if="itemDetail.note_type === 'collaboration'">
+                <Upload />
               </div>
               <div>
                 <button
@@ -226,63 +237,12 @@ export default {
 }
 </script>
 
-<!-- column
-: 
-null
-description
-: 
-"woke mantap"
-event_date
-: 
-"2023-05-29T23:25:22.760+07:00"
-id
-: 
-172
-member
-: 
-[]
-note_type
-: 
-"collaboration"
-owner
-: 
-[,…]
-0
-: 
-{id: 31, username: "azwar", email: "stevennorman101@gmail.com", phone: "0895641564", job: "gabut",…}
-email
-: 
-"stevennorman101@gmail.com"
-id
-: 
-31
-job
-: 
-"gabut"
-phone
-: 
-"0895641564"
-photo
-: 
+<!-- column : null description : "woke mantap" event_date :
+"2023-05-29T23:25:22.760+07:00" id : 172 member : [] note_type : "collaboration"
+owner : [,…] 0 : {id: 31, username: "azwar", email: "stevennorman101@gmail.com",
+phone: "0895641564", job: "gabut",…} email : "stevennorman101@gmail.com" id : 31
+job : "gabut" phone : "0895641564" photo :
 "https://res-5.cloudinary.com/dis2k0keq/image/upload/v1683939492/public/profile_picture/fdeb4fb13b.png"
-username
-: 
-"azwar"
-reminder
-: 
-"2023-05-28T23:30:13.432+07:00"
-ringtone
-: 
-"Destiny"
-status
-: 
-"in_progress"
-subject
-: 
-"tetap dijalan keputus asaan"
-status
-: 
-200
-success
-: 
-true -->
+username : "azwar" reminder : "2023-05-28T23:30:13.432+07:00" ringtone :
+"Destiny" status : "in_progress" subject : "tetap dijalan keputus asaan" status
+: 200 success : true -->

@@ -21,6 +21,7 @@
         <h1 class="text-2xl font-bold mb-3">Daftar catatan</h1>
       </div>
 
+      <div>Belum Ada Catatan</div>
       <div class="min-w-full px-4 items-center mb-8">
         <!-- <CardListNote/> -->
         <!-- <DetailPersonal /> -->
@@ -31,7 +32,7 @@
           class=""
         />
       </div>
-      <div>Belum Ada Catatan</div>
+      <!-- <div v-else>Belum Ada Catatan</div> -->
     </div>
     <FormNote :show="isOpen" @close="hide" />
   </div>

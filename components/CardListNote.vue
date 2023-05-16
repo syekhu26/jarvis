@@ -70,7 +70,9 @@
                 :src="$store.state.profile.dataUser.photo"
                 alt=""
               />
-              <p class="text-gray-500 mx-1 text-sm">{{ item.member }}</p>
+              <p class="text-gray-500 mx-1 text-sm">
+                {{ item.owner[0].username }}
+              </p>
             </div>
             <div>{{ item.event_date }}</div>
           </div>

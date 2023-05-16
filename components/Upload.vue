@@ -1,18 +1,24 @@
 <template>
   <div>
+    <div class="mb-2">
+      <label for="" class="font-bold"> Upload File</label>
+      <p>File yang support adalah .jpg , .png atau .pdf</p>
+    </div>
     <div>
-      <input
-        type="file"
-        multiple
-        name="file"
-        id="fileInput"
-        class="overflow-hidden absolute opacity-0"
-        @change="onChange"
-        ref="file"
-        accept=".pdf,.jpg,.jpeg,.png"
-      />
+      <form action="">
+        <input
+          type="file"
+          multiple
+          name="file"
+          id="fileInput"
+          class="overflow-hidden absolute opacity-0"
+          @change="onChange"
+          ref="file"
+          accept=".pdf,.jpg,.jpeg,.png"
+        />
+      </form>
       <div
-        class="text-base bg-slate-500 text-white font-semibold py-2 px-5 hover:shadow-lg hover:bg-slate-700 w-44 rounded cursor-pointer"
+        class="text-base bg-white text-black font-semibold py-2 px-5 border border-slate-300 w-44 rounded cursor-pointer"
       >
         <label for="fileInput" class="text-center">
           <div v-if="files">Upload file</div>
@@ -52,13 +58,27 @@
 export default {
   data() {
     return {
+      isOpen: false,
       files: [],
     }
   },
   methods: {
-    onChange() {
-      this.files = [...this.$refs.file.files]
+    onChange(e) {
+      this.files = [...this.files, ...this.$refs.file.files]
+
+      // const files = e.target.files
+      // for (let i = 0; i < files.length; i++) {
+      //   this.generate64(files[i])
+      // }
     },
+
+    // generate64(file) {
+    //   const reader = new FileReader()
+    //   reader.readAsDataURL(file)
+    //   reader.onload = () => {
+    //     this.files = [...this.files, reader.result]
+    //   }
+    // },
 
     generateThumbnail(file) {
       const fileSrc = URL.createObjectURL(file)
@@ -79,7 +99,26 @@ export default {
     remove(i) {
       this.files.splice(i, 1)
     },
+
+    upload(event) {
+      const files = event.target.files
+      const formData = new FormData()
+      for (let i = 0; i < files.length; i++) {
+        formData.append('files[]', files[i])
+      }
+      this.$store.dispatch('upload/uploadFiles', formData)
+    },
   },
+  computed: {
+    isButtonDisabled() {
+      return this.files.length > 0
+    },
+  },
+  // watch: {
+  //   files() {
+  //     console.log(this.files)
+  //   },
+  // },
 }
 </script>
 
