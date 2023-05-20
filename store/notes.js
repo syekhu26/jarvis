@@ -21,7 +21,7 @@ export const state = () => ({
       commit('setNotes', notes.data)
     },
     async addNote({ dispatch }, note) {
-        await this.$axios.$post('https://bantuin.fly.dev/api/notes?note=upcoming', note)
+        await this.$axios.$post('https://bantuin.fly.dev/api/notes', note)
         dispatch('fetchNotes')
       },
     async deleteNote({ commit }, noteId) {

@@ -1,19 +1,18 @@
 <template>
-  <timeline>
-    <timeline-item>item1</timeline-item>
-    <timeline-item :hollow="false">item2</timeline-item>
-    <timeline-item :hollow="false">item3</timeline-item>
-  </timeline>
+  <div>
+    <Mencoba />
+    <div v-for="file in uploadedFiles" :key="file.name">
+      <a :href="file.url">{{ file.name }}</a>
+    </div>
+  </div>
 </template>
 
 <script>
-import { Timeline, TimelineItem } from 'vue-cute-timeline'
-import 'vue-cute-timeline/dist/index.css'
-
 export default {
-  components: {
-    Timeline,
-    TimelineItem,
+  data() {
+    return {
+      uploadedFiles: [],
+    }
   },
 }
 </script>

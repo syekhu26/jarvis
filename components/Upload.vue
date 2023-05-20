@@ -51,6 +51,15 @@
         </div>
       </div>
     </div>
+    <div>
+      <button
+        type="submit"
+        @click="upload"
+        class="float-right inline-flex justify-center rounded border border-transparent bg-blue-500 px-4 py-2 text-sm font-medium text-white hover:bg-blue-600 focus:outline-none"
+      >
+        Simpan
+      </button>
+    </div>
   </div>
 </template>
 
@@ -65,20 +74,7 @@ export default {
   methods: {
     onChange(e) {
       this.files = [...this.files, ...this.$refs.file.files]
-
-      // const files = e.target.files
-      // for (let i = 0; i < files.length; i++) {
-      //   this.generate64(files[i])
-      // }
     },
-
-    // generate64(file) {
-    //   const reader = new FileReader()
-    //   reader.readAsDataURL(file)
-    //   reader.onload = () => {
-    //     this.files = [...this.files, reader.result]
-    //   }
-    // },
 
     generateThumbnail(file) {
       const fileSrc = URL.createObjectURL(file)
@@ -100,13 +96,32 @@ export default {
       this.files.splice(i, 1)
     },
 
-    upload(event) {
-      const files = event.target.files
+    // upload() {
+    //   const formData = new FormData()
+    //   for (let i = 0; i < this.files.length; i++) {
+    //     formData.append('files', this.files[i])
+    //   }
+    //   this.$store.dispatch('upload/uploadFiles', formData)
+    // },
+    upload() {
       const formData = new FormData()
-      for (let i = 0; i < files.length; i++) {
-        formData.append('files[]', files[i])
+      for (let i = 0; i < this.files.length; i++) {
+        const file = this.files[i]
+
+        formData.append('files[' + i + ']', file)
       }
-      this.$store.dispatch('upload/uploadFiles', formData)
+      this.$axios
+        .post('https://bantuin.fly.dev/api/attaches', formData, {
+          headers: {
+            'Content-Type': 'multipart/form-data',
+          },
+        })
+        .then(function () {
+          console.log('Upload File Success')
+        })
+        .catch(function () {
+          console.log('Upload File Failled')
+        })
     },
   },
   computed: {
@@ -114,11 +129,6 @@ export default {
       return this.files.length > 0
     },
   },
-  // watch: {
-  //   files() {
-  //     console.log(this.files)
-  //   },
-  // },
 }
 </script>
 

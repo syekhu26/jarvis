@@ -1,18 +1,20 @@
-export const state = () => ({});
+export const state = () => ({
+  uploadedFiles: []
+});
 
-export const mutations = {};
+export const mutations = {
+  setUploadedFiles(state, files) {
+    state.uploadedFiles = files;
+  }
+};
 
 export const actions = {
-  async uploadFiles({ ctx }, formData) {
+  async uploadFiles({ commit }, formData) {
     try {
-      const response = await this.$axios.post("https://bantuin.fly.dev/api/attaches", formData, {
-        headers: {
-          "Content-Type": "multipart/form-data",
-        },
-      });
-      console.log(response.data);
+      const response = await this.$axios.post('https://bantuin.fly.dev/api/attaches', formData);
+      commit('setUploadedFiles', response.data);
     } catch (error) {
-      console.log(error);
+      console.error(error);
     }
-  },
+  }
 };

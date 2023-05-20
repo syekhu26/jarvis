@@ -42,7 +42,7 @@
               </div>
               <div class="my-2">
                 <label for="password" class="text-sm font-medium">
-                  Password
+                  Kata Sandi
                 </label>
                 <div class="flex items-center justify-between relative">
                   <input
@@ -92,7 +92,8 @@
                 >Silahkan daftar</NuxtLink
               >
             </div> -->
-            <Message :message="error" v-if="error" />
+            <p class="text-red-500" v-if="errorMessage">{{ errorMessage }}</p>
+            <!-- <Message :message="error" v-if="error" /> -->
             <div class="mt-20">
               <button
                 type="submit"
@@ -117,6 +118,7 @@ export default {
   data() {
     return {
       error: null,
+      errorMessage: '',
       inputTypeIcon: 'password',
       // userName: '',
       email: '',
@@ -164,10 +166,23 @@ export default {
 
         //   alert('Selamat Login Anda Berhasil')
         // })
-      } catch (e) {
-        this.error = e
+      } catch (error) {
+        console.error(error)
+        // this.error = error
+        this.errorMessage = 'Maaf, email atau kata sandi anda salah.'
+        // const errorMessage =
+        //   'Terjadi kesalahan saat memuat data. Silakan coba lagi nanti.'
+        // console.error(error) // Tampilkan kesalahan lengkap pada konsol
+        // this.showError(errorMessage)
       }
     },
+    // showError(errorMessage) {
+    //   // Tampilkan pesan error ke pengguna, misalnya dengan menggunakan notifikasi atau komponen modal
+    //   this.$toast.error(errorMessage) // Contoh menggunakan paket notifikasi "vue-toastification"
+
+    //   // Atau, dapat memperbarui status di komponen untuk menampilkan pesan error di antarmuka pengguna
+    //   this.error = errorMessage
+    // },
   },
   computed: {
     // usernameLoginCorrect() {

@@ -21,8 +21,8 @@
         <h1 class="text-2xl font-bold mb-3">Daftar catatan</h1>
       </div>
 
-      <div>Belum Ada Catatan</div>
-      <div class="min-w-full px-4 items-center mb-8">
+      <!-- <div v-if="notes">Belum ada catatan</div> -->
+      <div v-if="notes.length > 0" class="min-w-full px-4 items-center mb-8">
         <!-- <CardListNote/> -->
         <!-- <DetailPersonal /> -->
         <CardListNote
@@ -32,7 +32,7 @@
           class=""
         />
       </div>
-      <!-- <div v-else>Belum Ada Catatan</div> -->
+      <div v-else>Belum Ada Catatan</div>
     </div>
     <FormNote :show="isOpen" @close="hide" />
   </div>
@@ -44,7 +44,7 @@ export default {
   data() {
     return {
       isOpen: false,
-      note: '',
+      note: false,
     }
   },
   methods: {

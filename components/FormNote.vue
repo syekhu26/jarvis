@@ -25,7 +25,7 @@
               </div>
 
               <div class="mt-4">
-                <form action="" @submit.prevent="handleSubmit" class="w-full">
+                <form action="" @submit="handleSubmit" class="w-full">
                   <div>
                     <label for="subjek" class="mb-2 block text-sm float-left">
                       Subjek</label
@@ -279,17 +279,19 @@
                         v-model="voice"
                         class="border w-full h-10 mb-3 focus:border-blue-500"
                       >
-                        <option value="disabled hidden">Pilih Ringtone</option>
-                        <option value="1">hahahihi</option>
+                        <option disabled selected value="">
+                          Pilih Ringtone
+                        </option>
+                        <!-- <option value="1">hahahihi</option>
                         <option value="2">aiyaaiya</option>
-                        <option value="3">oke</option>
-                        <!-- <option
+                        <option value="3">oke</option> -->
+                        <option
                           v-for="option in options"
-                          :key="option.value"
-                          :value="option.value"
+                          :key="option.id"
+                          :value="option.id"
                         >
                           {{ option.name }}
-                        </option> -->
+                        </option>
                       </select>
                       <div v-if="voiceError" class="text-red-500">
                         {{ voiceError }}
@@ -319,8 +321,6 @@
 </template>
 
 <script>
-// import VueTimepicker from 'vue2-timepicker/src/vue-timepicker.vue'
-// import 'vue2-timepicker/dist/VueTimepicker.css'
 export default {
   // components: { VueTimepicker },
   props: {
@@ -370,7 +370,7 @@ export default {
       date: this.item.event_date ?? '',
       datetime: this.item.reminder ?? '',
       pengingat: this.item.pengingat ?? '',
-      voice: this.item.ringtone ?? '',
+      voice: this.item.ringtone_id ?? '',
 
       voiceError: '',
     }
@@ -455,6 +455,7 @@ export default {
             subject: this.subject,
             description: this.description,
             email: this.items,
+            // email: (this.email = []),
             event_date: this.date,
             reminder: this.datetime,
             ringtone_id: this.voice,
@@ -466,6 +467,7 @@ export default {
             subject: this.subject,
             description: this.description,
             email: this.items,
+            // member: this.items,
             event_date: this.date,
             reminder: this.datetime,
             ringtone_id: this.voice,

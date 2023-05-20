@@ -40,7 +40,7 @@
     <div @click="showDetail" class="">
       <div
         @click="$emit('click')"
-        class="flex bg-white border border-slate-300 w-full mt-5 max-w-xl mx-5 rounded h-[124px]"
+        class="flex bg-white border border-slate-300 mt-5 max-w-xl mx-5 rounded h-[124px]"
       >
         <div class="border-r-2 border-slate-300 px-3 h-24 mt-3">
           <!-- icon -->

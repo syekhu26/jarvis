@@ -63,18 +63,25 @@
                 {{ itemDetail.description }}
               </p>
 
-              <div v-if="itemDetail.note_type === 'collaboration'" class="mb-4">
-                <div
-                  v-for="itemDetail in items"
+              <div
+                v-if="
+                  itemDetail.note_type === 'collaboration' &&
+                  $auth.user.id === itemDetail.owner[0]?.id
+                "
+                class="mb-4"
+              >
+                <!-- <div
+                  v-for="itemDetail in members"
                   :key="itemDetail"
                   class="my-3 bg-sky-500 px-5 py-2 rounded-full text-white font-semibold font-sans"
                 >
                   {{ itemDetail.member }}
-                </div>
+                </div> -->
                 <div
                   class="my-3 bg-sky-500 px-5 py-2 rounded-full text-white font-semibold font-sans block max-w-[100px]"
                 >
-                  {{ itemDetail.member }}
+                  <!-- {{ itemDetail.member[0].username }} -->
+                  Kak lea
                 </div>
                 <div
                   class="bg-sky-500 px-5 py-2 rounded-full text-white font-semibold font-sans block max-w-[130px]"
@@ -94,7 +101,13 @@
                 </div>
               </div>
 
-              <div v-if="itemDetail.note_type === 'collaboration'" class="mb-4">
+              <div
+                v-if="
+                  itemDetail.note_type === 'collaboration' &&
+                  $auth.user.id === itemDetail.owner[0]?.id
+                "
+                class="mb-4"
+              >
                 <div>File Dokumen :</div>
                 <!-- <div class="text-sky-500 underline">Bukti transaksi.png</div>
                 <div class="text-sky-500 underline">Tiket pesawat.pdf</div> -->
@@ -142,17 +155,18 @@
                   <p class="px-2">{{ itemDetail.owner[0].username }}</p>
                 </div>
               </div>
-              <div v-if="itemDetail.note_type === 'collaboration'">
-                <Upload />
+              <div v-if="itemDetail.member.length !== 0">
+                <Upload :id="itemDetail.id" />
               </div>
+              <!-- <Upload /> -->
               <div>
-                <button
+                <!-- <button
                   type="submit"
                   @click="showModal"
                   class="float-right inline-flex justify-center rounded border border-transparent bg-blue-500 px-4 py-2 text-sm font-medium text-white hover:bg-blue-600 focus:outline-none"
                 >
                   Selesaikan Catatan
-                </button>
+                </button> -->
               </div>
             </div>
           </div>
@@ -187,6 +201,7 @@ export default {
       del: false,
       story: false,
       items: [],
+      members: [],
     }
   },
   methods: {
