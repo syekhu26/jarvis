@@ -72,10 +72,10 @@ export default {
       default: false,
     },
     id: {
-      // type: [Number, String],
-      // required: true,
-      type: Object,
-      default: () => ({}),
+      type: Number,
+      required: true,
+      // type: Object,
+      // default: () => ({}),
     },
     pesan: {
       type: Object,

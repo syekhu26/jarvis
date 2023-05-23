@@ -37,7 +37,7 @@
     <DetailPersonal v-if="detail" @close="hideDetail" :itemDetail="item" />
   </div> -->
   <div>
-    <div @click="showDetail" class="">
+    <div @click="showDetail(item)" class="">
       <div
         @click="$emit('click')"
         class="flex bg-white border border-slate-300 mt-5 max-w-xl mx-5 rounded h-[124px]"
@@ -79,15 +79,14 @@
         </div>
       </div>
     </div>
-    <DetailPersonal v-if="detail" @close="hideDetail" :itemDetail="item" />
   </div>
 </template>
 
 <script>
+import { mapState } from 'vuex'
 export default {
   data() {
     return {
-      detail: false,
       active: 'iconUserIcon',
       // personal: this.item.note_type,
       // personal: this.item.note_type,
@@ -101,10 +100,12 @@ export default {
   },
   methods: {
     hideDetail() {
-      this.detail = false
+      this.$store.commit('notes/setShowDetail', false)
+      this.$store.commit('notes/detailNotes', null)
     },
-    showDetail() {
-      this.detail = true
+    showDetail(item) {
+      this.$store.commit('notes/detailNotes', item)
+      this.$store.commit('notes/setShowDetail', true)
     },
     // handleDetail() {
     //   this.detail = !this.detail
@@ -115,6 +116,11 @@ export default {
     //     kolaboration: this.active !== section,
     //   }
     // },
+  },
+  computed: {
+    ...mapState({
+      isShowDetail: (state) => state.notes.showDetail,
+    }),
   },
 }
 </script>

@@ -35,21 +35,38 @@
       :inputData="data.nama"
       class=""
     /> -->
-      <CardListNote
-        v-for="note in notes"
-        :key="note.id"
-        :item="note"
-        class="mx-3"
-      />
+      <div class="flex -mt-6">
+        <Setting class="mx-3" />
+        <Sorting />
+      </div>
+      <div v-if="notes.length > 0">
+        <CardListNote
+          v-for="note in notes"
+          :key="note.id"
+          :item="note"
+          class="mx-3"
+        />
+      </div>
+      <div
+        v-else
+        class="px-8 text-slate-400 font-bold flex items-center justify-center h-44"
+      >
+        Belum Ada Catatan
+      </div>
 
       <!-- <DetailPersonal :showDetail="detail" @close="hideDetail" /> -->
-      <DetailNoteCollab class="mx-8" />
+      <!-- <DetailNoteCollab class="mx-8" /> -->
       <!-- <CardListNote
         v-for="data in dataNote"
         :key="data"
         :inputData="data.subject"
         class="mx-8"
       /> -->
+      <DetailPersonal
+        v-if="isShowDetail && detailNotes !== null"
+        @close="hideDetail"
+        :itemDetail="detailNotes"
+      />
     </div>
 
     <div v-if="active === 'DetailNote'">
@@ -61,6 +78,8 @@
 </template>
 
 <script>
+import { mapState } from 'vuex'
+
 export default {
   // import { mapState } from 'vuex';
   layout: 'home',
@@ -76,6 +95,10 @@ export default {
     notes() {
       return this.$store.state.notes.notes
     },
+    ...mapState({
+      detailNotes: (state) => state.notes.detailNotes,
+      isShowDetail: (state) => state.notes.showDetail,
+    }),
   },
   mounted() {
     this.$store.dispatch('notes/fetchNotes')

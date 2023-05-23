@@ -16,9 +16,12 @@
             class="my-5 inline-block w-full max-w-xl transform overflow-hidden rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all"
           >
             <div class="">
-              <div class="flex items-center justify-between">
+              <div class="flex items-center mt-2">
                 <div
-                  v-if="itemDetail.note_type === 'collaboration'"
+                  v-if="
+                    itemDetail.note_type === 'collaboration' &&
+                    $auth.user.id === itemDetail.owner[0]?.id
+                  "
                   class="flex"
                 >
                   <div class="bg-red-400 rounded-full text-[12px] h-6 px-3">
@@ -34,13 +37,19 @@
                   </div>
                   <History :showStory="story" @close="hideStory" />
                 </div>
-                <div @click="$emit('close')" class="cursor-pointer">
-                  <iconSilangIcon />
-                </div>
+              </div>
+              <div
+                @click="handleClose"
+                class="flex cursor-pointer float-right -mt-2"
+              >
+                <iconSilangIcon />
               </div>
               <div class="flex items-center justify-between mt-5 mb-3">
                 <h1 class="font-bold text-xl">{{ itemDetail.subject }}</h1>
-                <div class="flex items-center">
+                <div
+                  v-if="$auth.user.id === itemDetail.owner[0]?.id"
+                  class="flex items-center"
+                >
                   <div @click="show" class="p-2 text-blue-500 cursor-pointer">
                     Edit
                   </div>
@@ -63,33 +72,26 @@
                 {{ itemDetail.description }}
               </p>
 
-              <div
-                v-if="
-                  itemDetail.note_type === 'collaboration' &&
-                  $auth.user.id === itemDetail.owner[0]?.id
-                "
-                class="mb-4"
-              >
-                <!-- <div
-                  v-for="itemDetail in members"
-                  :key="itemDetail"
+              <div class="mb-4">
+                <div
+                  v-for="member in members"
+                  :key="member"
                   class="my-3 bg-sky-500 px-5 py-2 rounded-full text-white font-semibold font-sans"
+                >
+                  {{ member }}
+                </div>
+                <!-- <div
+                  class="my-3 bg-sky-500 px-5 py-2 rounded-full text-white font-semibold font-sans block max-w-[100px]"
                 >
                   {{ itemDetail.member }}
                 </div> -->
-                <div
-                  class="my-3 bg-sky-500 px-5 py-2 rounded-full text-white font-semibold font-sans block max-w-[100px]"
-                >
-                  <!-- {{ itemDetail.member[0].username }} -->
-                  Kak lea
-                </div>
-                <div
+                <!-- <div
                   class="bg-sky-500 px-5 py-2 rounded-full text-white font-semibold font-sans block max-w-[130px]"
                 >
                   Kak Jasmine
-                </div>
+                </div> -->
 
-                <div class="flex items-center mt-2">
+                <!-- <div class="flex items-center mt-2">
                   <p>dan 3 orang lagi.</p>
                   <div
                     @click="showMember"
@@ -98,24 +100,19 @@
                     Lihat semua
                   </div>
                   <PopupMemberCollab :showMember="member" @close="hideMember" />
-                </div>
+                </div> -->
               </div>
 
-              <div
-                v-if="
-                  itemDetail.note_type === 'collaboration' &&
-                  $auth.user.id === itemDetail.owner[0]?.id
-                "
-                class="mb-4"
-              >
+              <div v-if="itemDetail.note_type === 'collaboration'" class="mb-4">
                 <div>File Dokumen :</div>
                 <!-- <div class="text-sky-500 underline">Bukti transaksi.png</div>
                 <div class="text-sky-500 underline">Tiket pesawat.pdf</div> -->
-                <div v-for="file in files" :key="file.name" class="flex">
+                <div v-for="file in getAllFileName" :key="file" class="flex">
                   <div class="text-sky-500 underline">
-                    <p class="px-3" :title="file.name">
+                    {{ file }}
+                    <!-- <p class="px-3" :title="file.name">
                       {{ makeName(file.name) }}
-                    </p>
+                    </p> -->
                   </div>
                 </div>
                 <div class="flex items-center mt-2">
@@ -156,17 +153,16 @@
                 </div>
               </div>
               <div v-if="itemDetail.member.length !== 0">
-                <Upload :id="itemDetail.id" />
+                <Upload :file="itemDetail.file" :idNote="itemDetail.id" />
               </div>
-              <!-- <Upload /> -->
-              <div>
-                <!-- <button
+              <div v-if="$auth.user.id === itemDetail.owner[0]?.id">
+                <button
                   type="submit"
                   @click="showModal"
                   class="float-right inline-flex justify-center rounded border border-transparent bg-blue-500 px-4 py-2 text-sm font-medium text-white hover:bg-blue-600 focus:outline-none"
                 >
                   Selesaikan Catatan
-                </button> -->
+                </button>
               </div>
             </div>
           </div>
@@ -191,6 +187,7 @@ export default {
       default: () => ({}),
     },
   },
+  emits: ['afterUpload'],
   data() {
     return {
       isOpen: false,
@@ -202,7 +199,20 @@ export default {
       story: false,
       items: [],
       members: [],
+      files: [],
     }
+  },
+  computed: {
+    getAllFileName() {
+      if (this.itemDetail.file.length > 0) {
+        return this.itemDetail.file.map((e) => {
+          const arr = e.split('/')
+          return arr[arr.length - 1]
+        })
+      }
+
+      return []
+    },
   },
   methods: {
     addMember() {
@@ -211,6 +221,13 @@ export default {
       }
       this.items.push(this.email)
       this.email = ''
+    },
+    hideDetail() {
+      this.$emit('afterUpload')
+    },
+    handleClose() {
+      this.$store.commit('notes/detailNotes', null)
+      this.$store.commit('notes/setShowDetail', false)
     },
     show() {
       this.isOpen = true

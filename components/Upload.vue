@@ -15,17 +15,18 @@
           @change="onChange"
           ref="file"
           accept=".pdf,.jpg,.jpeg,.png"
+          :disabled="isButtonDisabled"
         />
       </form>
       <div
-        class="text-base bg-white text-black font-semibold py-2 px-5 border border-slate-300 w-44 rounded cursor-pointer"
+        class="text-base bg-white text-black font-semibold py-2 px-5 border border-slate-300 w-44 rounded cursor-pointer disabled:bg-slate-500"
       >
         <label for="fileInput" class="text-center">
           <div v-if="files">Upload file</div>
         </label>
       </div>
 
-      <div class="mt-4" v-if="files.length">
+      <div class="mt-4" v-if="files.length && !isUpload">
         <div v-for="file in files" :key="file.name" class="flex">
           <div>
             <img
@@ -54,8 +55,9 @@
     <div>
       <button
         type="submit"
-        @click="upload"
-        class="float-right inline-flex justify-center rounded border border-transparent bg-blue-500 px-4 py-2 text-sm font-medium text-white hover:bg-blue-600 focus:outline-none"
+        :disabled="isButtonDisabled"
+        @click="upload(idNote)"
+        class="float-right inline-flex justify-center rounded border border-transparent bg-blue-500 px-4 py-2 text-sm font-medium disabled:bg-slate-500 text-white hover:bg-blue-600 focus:outline-none"
       >
         Simpan
       </button>
@@ -69,7 +71,24 @@ export default {
     return {
       isOpen: false,
       files: [],
+      isUpload: false,
+      // uploaded: false,
     }
+  },
+  emits: ['afterUpload'],
+  props: {
+    idNote: {
+      type: Number,
+      default: null,
+    },
+    file: {
+      type: Array,
+      default: () => [],
+    },
+    // id_note: {
+    //   type: Object,
+    //   default: () => ({}),
+    // },
   },
   methods: {
     onChange(e) {
@@ -103,30 +122,53 @@ export default {
     //   }
     //   this.$store.dispatch('upload/uploadFiles', formData)
     // },
-    upload() {
-      const formData = new FormData()
-      for (let i = 0; i < this.files.length; i++) {
-        const file = this.files[i]
+    async upload(idNote) {
+      try {
+        this.isUpload = true
+        const formData = new FormData()
+        for (let i = 0; i < this.files.length; i++) {
+          // const file = this.files[i]
 
-        formData.append('files[' + i + ']', file)
+          formData.append('path[]', this.files[i])
+        }
+        formData.append('note_id', idNote)
+
+        await this.$axios.post(
+          `https://bantuin.fly.dev/api/attaches`,
+          formData,
+          {
+            headers: {
+              'Content-Type': 'multipart/form-data',
+            },
+          }
+        )
+
+        alert('Selamat Anda berhasil upload')
+        this.$store.dispatch('notes/fetchNotes')
+        this.$store.commit('notes/setShowDetail', false)
+        this.$store.commit('notes/detailNotes', null)
+      } catch (e) {
+        console.log(e)
+        console.log('Upload File Failled')
+        alert('maaf file anda gagal upload')
       }
-      this.$axios
-        .post('https://bantuin.fly.dev/api/attaches', formData, {
-          headers: {
-            'Content-Type': 'multipart/form-data',
-          },
-        })
-        .then(function () {
-          console.log('Upload File Success')
-        })
-        .catch(function () {
-          console.log('Upload File Failled')
-        })
+
+      // .finally(() => {
+      //   this.isUpload = false
+      // })
     },
+
+    // upload() {
+    //   // Lakukan pengiriman file menggunakan aksi uploadFiles pada store
+    //   this.$store.dispatch('notes/upload', {
+    //     id: this.$store.state.id,
+    //     files: this.files,
+    //   })
+    // },
   },
   computed: {
     isButtonDisabled() {
-      return this.files.length > 0
+      return this.file.length > 0
     },
   },
 }

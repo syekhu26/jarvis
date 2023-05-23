@@ -25,9 +25,12 @@
               </div>
 
               <div class="mt-4">
-                <form action="" @submit="handleSubmit" class="w-full">
+                <form action="" @submit.prevent="handleSubmit" class="w-full">
                   <div>
-                    <label for="subjek" class="mb-2 block text-sm float-left">
+                    <label
+                      for="subjek"
+                      class="mb-2 block text-sm flex items-start"
+                    >
                       Subjek</label
                     >
                     <div class="mb-3">
@@ -72,11 +75,11 @@
                     </div>
                   </div>
 
-                  <label for="email" class="text-sm float-left -mt-3">
+                  <label for="email" class="text-sm mb-2 flex items-start">
                     Pilih Bagian Yang Terlibat</label
                   >
 
-                  <div class="relative text-gray-600 border mt-6">
+                  <div class="relative text-gray-600 border">
                     <span
                       class="absolute inset-y-0 left-0 flex items-center pl-2"
                     >
@@ -117,19 +120,19 @@
 
                   <div
                     @click="addEmail"
-                    class="flex items-center mt-2 mb-11 text-blue-600 cursor-pointer"
+                    class="flex items-center mt-2 text-blue-600 cursor-pointer"
                   >
                     <iconPlusIcon />
                     <span class="px-1">Tambah email</span>
                   </div>
                   <div>
                     <label
-                      class="mb-2 block text-sm float-left -mt-6"
+                      class="block text-sm flex items-start mt-3 mb-2"
                       for="date"
                     >
                       Tanggal Acara
                     </label>
-                    <div class="border w-full h-10 mt-6 mb-11">
+                    <div class="border w-full h-10">
                       <div class="">
                         <vc-date-picker
                           class=""
@@ -141,12 +144,12 @@
                         >
                           <template #default="{ inputValue, inputEvents }">
                             <div class="flex">
-                              <iconKalenderIcon class="mt-3 float-left" />
+                              <iconKalenderIcon class="mt-3 mx-2" />
 
                               <input
                                 :value="inputValue"
                                 v-on="inputEvents"
-                                class="w-full mt-2 border-hidden px-4 mb-2 outline-none"
+                                class="w-full mt-2 border-hidden px-2 mb-2 outline-none"
                                 placeholder="yyyy-mm-dd"
                               />
                             </div>
@@ -170,7 +173,7 @@
                   <div>
                     <label
                       for="remainder"
-                      class="mb-2 block text-sm -mt-6 float-left"
+                      class="block text-sm mt-3 mb-2 flex items-start"
                     >
                       Tambahkan Pengingat</label
                     >
@@ -189,7 +192,7 @@
                           ></datetime>
                         </div>
                       </div> -->
-                    <div class="border w-full w-10 h-10 px-2 mt-6">
+                    <div class="border w-full w-10 h-10 px-2">
                       <vc-date-picker
                         v-model="datetime"
                         @input="remainderValidate"
@@ -250,13 +253,16 @@
 
                   <div
                     @click="addRemainder"
-                    class="flex items-center mb-3 text-blue-600 cursor-pointer mt-6"
+                    class="flex items-center mb-3 text-blue-600 cursor-pointer mt-2"
                   >
                     <iconPlusIcon />
                     <span class="px-1">Tambah reminder</span>
                   </div>
                   <div>
-                    <label class="mb-2 block text-sm float-left" for="date">
+                    <label
+                      class="mb-2 block text-sm flex items-start"
+                      for="date"
+                    >
                       Pilih pengingat ulangan
                     </label>
                     <div>
@@ -271,13 +277,16 @@
                   </div>
 
                   <div>
-                    <label for="voice" class="mb-2 block text-sm float-left">
+                    <label
+                      for="voice"
+                      class="mb-2 block text-sm flex items-start"
+                    >
                       Pilih Voice Reminder</label
                     >
                     <div>
                       <select
                         v-model="voice"
-                        class="border w-full h-10 mb-3 focus:border-blue-500"
+                        class="border w-full h-10 mb-3 focus:border-blue-500 flex items-start"
                       >
                         <option disabled selected value="">
                           Pilih Ringtone
@@ -466,8 +475,8 @@ export default {
           await this.$store.dispatch('notes/addNote', {
             subject: this.subject,
             description: this.description,
+            // email: this.items && this.email,
             email: this.items,
-            // member: this.items,
             event_date: this.date,
             reminder: this.datetime,
             ringtone_id: this.voice,

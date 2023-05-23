@@ -25,7 +25,7 @@ export default {
       <div class="">
         <div
           v-if="showStory"
-          class="bg-opacity-50 bg-black fixed inset-0 justify-center items-center overflow-y-auto overflow-x-hidden z-20"
+          class="bg-opacity-50 bg-black fixed inset-0 justify-center items-center z-20"
         >
           <div class="mt-10 my-10">
             <div class="bg-white max-w-md w-full rounded p-6 mx-auto shadow-lg">
