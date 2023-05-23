@@ -72,7 +72,13 @@
                 {{ itemDetail.description }}
               </p>
 
-              <div class="mb-4">
+              <div
+                v-if="
+                  itemDetail.note_type === 'collaboration' &&
+                  $auth.user.id === itemDetail.owner[0]?.id
+                "
+                class="mb-4"
+              >
                 <div
                   v-for="member in members"
                   :key="member"
@@ -103,7 +109,13 @@
                 </div> -->
               </div>
 
-              <div v-if="itemDetail.note_type === 'collaboration'" class="mb-4">
+              <div
+                v-if="
+                  itemDetail.note_type === 'collaboration' &&
+                  $auth.user.id === itemDetail.owner[0]?.id
+                "
+                class="mb-4"
+              >
                 <div>File Dokumen :</div>
                 <!-- <div class="text-sky-500 underline">Bukti transaksi.png</div>
                 <div class="text-sky-500 underline">Tiket pesawat.pdf</div> -->
