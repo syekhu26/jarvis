@@ -25,7 +25,7 @@
               </div>
 
               <div class="mt-4">
-                <form action="" @submit.prevent="handleSubmit" class="w-full">
+                <form action="" @submit="handleSubmit" class="w-full">
                   <div>
                     <label
                       for="subjek"
