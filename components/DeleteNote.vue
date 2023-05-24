@@ -82,6 +82,7 @@ export default {
       default: () => ({}),
     },
   },
+  emits: ['afterDelete'],
   data() {
     return {
       isOpen: false,
@@ -100,6 +101,7 @@ export default {
   methods: {
     deleteNote(noteId) {
       this.$store.dispatch('notes/deleteNote', noteId)
+      this.$router.go()
     },
     descriptionValidate() {
       if (!this.description) {

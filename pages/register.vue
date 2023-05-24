@@ -7,20 +7,18 @@
           <form action="" @submit.prevent="register">
             <div class="w-full my-3">
               <div class="my-2">
-                <label for="username" class="text-sm font-medium"
-                  >Username</label
-                >
+                <label for="username" class="text-sm">Username</label>
                 <input
                   v-model="username"
                   @input="usernameValidate"
                   type="text"
-                  class="w-full border text-black px-4 py-2 col-span-2"
+                  class="w-full border text-black px-4 py-2 focus:outline-none focus:border-blue-500"
                   placeholder="Masukkan Username"
                   required
                 />
-                <!-- <span v-if="error.username" class="text-red-500"
+                <span v-if="error.username" class="text-red-500"
                   >username {{ error.username[0] }}</span
-                > -->
+                >
                 <span v-if="usernameError" class="text-red-500">
                   {{ usernameError }}</span
                 >
@@ -40,18 +38,18 @@
                 </p> -->
               </div>
               <div class="my-2">
-                <label for="email" class="text-sm font-medium">Email</label>
+                <label for="email" class="text-sm">Email</label>
                 <input
                   v-model="email"
                   @input="emailValidate"
                   type="email"
-                  class="w-full border text-black px-4 py-2 col-span-2"
+                  class="w-full border text-black px-4 py-2 focus:outline-none focus:border-blue-500"
                   placeholder="Masukkan Email"
                   required
                 />
-                <!-- <span v-if="error.email" class="text-red-500">{{
-                  error.email[0]
-                }}</span> -->
+                <span v-if="error.email" class="text-red-500"
+                  >Email {{ error.email[0] }}</span
+                >
                 <span v-if="emailError" class="text-red-500">
                   {{ emailError }}</span
                 >
@@ -69,18 +67,18 @@
                 </p> -->
               </div>
               <div class="my-2">
-                <label for="no hp" class="text-sm font-medium">No HP</label>
+                <label for="no hp" class="text-sm">No HP</label>
                 <input
                   @input="numberValidate"
                   v-model="phone"
                   type="text"
-                  class="w-full border text-black px-4 py-2 col-span-2"
+                  class="w-full border text-black px-4 py-2 focus:outline-none focus:border-blue-500"
                   placeholder="Masukkan No HP"
                   required
                 />
-                <!-- <span v-if="error.number" class="text-red-500">{{
-                  error.phone[0]
-                }}</span> -->
+                <span v-if="error.phone" class="text-red-500"
+                  >No Hp {{ error.phone[0] }}</span
+                >
                 <span v-if="numberError" class="text-red-500">
                   {{ numberError }}</span
                 >
@@ -98,12 +96,12 @@
                 </p> -->
               </div>
               <div class="my-2">
-                <label for="job" class="text-sm font-medium">Pekerjaan</label>
+                <label for="job" class="text-sm">Pekerjaan</label>
                 <input
                   v-model="job"
                   @input="jobValidate"
                   type="text"
-                  class="w-full border text-black px-4 py-2 col-span-2"
+                  class="w-full border text-black px-4 py-2 focus:outline-none focus:border-blue-500"
                   placeholder="Masukkan Pekerjaan"
                   required
                 />
@@ -123,15 +121,13 @@
               </div>
 
               <div class="my-2">
-                <label for="password" class="text-sm font-medium"
-                  >Kata Sandi</label
-                >
+                <label for="password" class="text-sm">Kata Sandi</label>
                 <div class="flex items-center justify-between relative">
                   <input
                     @input="passwordValidate"
                     v-model="password"
                     :type="inputTypeIcon"
-                    class="w-full border text-black px-4 py-2 col-span-2 outline-none bg-transparent"
+                    class="w-full border text-black px-4 py-2 focus:outline-none focus:border-blue-500 outline-none bg-transparent"
                     placeholder="Masukkan Kata Sandi"
                     required
                   />
@@ -142,6 +138,9 @@
                     <i v-if="inputTypeIcon == 'password'"><iconEyeShow /></i>
                     <i v-else><iconEyeHide /></i>
                   </div>
+                </div>
+                <div>
+                  Minimal terdiri 8 karakter, 1 huruf besar, dan 1 angka.
                 </div>
                 <span v-if="passwordError" class="text-red-500">{{
                   passwordError
@@ -161,14 +160,14 @@
                 </p> -->
               </div>
               <div class="my-2">
-                <label for="password konfirmasi" class="text-sm font-medium"
+                <label for="password konfirmasi" class="text-sm"
                   >Konfirmasi Kata Sandi</label
                 >
                 <div class="flex items-center justify-between relative">
                   <input
                     v-model="password_confirmation"
                     :type="inputType"
-                    class="w-full border text-black px-4 py-2 col-span-2"
+                    class="w-full border text-black px-4 py-2 focus:outline-none focus:border-blue-500"
                     placeholder="Masukkan konfirmasi Kata Sandi"
                     required
                   />
@@ -198,14 +197,14 @@
               </div>
             </div>
             <!-- <p v-if="errorMessage" class="text-red-500">{{ errorMessage }}</p> -->
-            <div class="mb-8 mt-1">
+            <!-- <div class="mb-8 mt-1">
               Sudah punya akun?
               <NuxtLink to="/login" class="text-blue-500"
                 >Silahkan login</NuxtLink
               >
-            </div>
+            </div> -->
             <button
-              class="text-base bg-blue-600 text-white font-semibold py-3 px-8 w-full rounded hover:shadow-lg hover:bg-slate-700"
+              class="text-base bg-blue-600 text-white font-semibold py-3 px-8 w-full rounded hover:shadow-lg"
             >
               Daftar
             </button>
@@ -276,7 +275,9 @@ export default {
   methods: {
     usernameValidate() {
       if (!this.username) {
-        this.usernameError = 'Anda wajib mengisi username.'
+        this.usernameError = 'Maaf, anda belum memasukan username anda.'
+      } else if (this.error.username) {
+        this.error.username = null
       } else {
         this.usernameError = ''
       }
@@ -286,6 +287,8 @@ export default {
       const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
       if (!this.email.match(emailRegex)) {
         this.emailError = 'Email yang anda masukkan tidak valid'
+      } else if (this.error.email) {
+        this.error.email = null
       } else {
         this.emailError = ''
       }
@@ -295,6 +298,8 @@ export default {
       // this.validPhone = phoneRegex.test(this.phone)
       if (!validationRegex.test(this.phone)) {
         this.numberError = 'No hp yang anda masukkan tidak valid'
+      } else if (this.error.phone) {
+        this.error.phone = null
       } else {
         this.numberError = ''
       }
@@ -310,7 +315,7 @@ export default {
       const regex = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}$/
       if (!regex.test(this.password)) {
         this.passwordError =
-          ' minimal 8 karakter terdiri atas huruf kapital, huruf kecil, symbol dan angka'
+          ' minimal 8 karakter terdiri atas huruf kapital, huruf kecil, dan angka'
       } else {
         this.passwordError = ''
       }
@@ -359,6 +364,7 @@ export default {
         // }
         // this.error = error.response.data.message.email
         // // this.error = e
+        alert('Maaf anda gagal melakukan pendaftaran')
         this.error = error.response.data.data
         this.errorMessage = error.response.data.message
         // console.log(error)

@@ -80,11 +80,11 @@
                 class="mb-4"
               >
                 <div
-                  v-for="member in members"
-                  :key="member"
+                  v-for="(member, index) in itemDetail.member"
+                  :key="index"
                   class="my-3 bg-sky-500 px-5 py-2 rounded-full text-white font-semibold font-sans"
                 >
-                  {{ member }}
+                  {{ member.username }}
                 </div>
                 <!-- <div
                   class="my-3 bg-sky-500 px-5 py-2 rounded-full text-white font-semibold font-sans block max-w-[100px]"
@@ -164,7 +164,7 @@
                   <p class="px-2">{{ itemDetail.owner[0].username }}</p>
                 </div>
               </div>
-              <div v-if="itemDetail.member.length !== 0">
+              <div v-if="itemDetail.owner[0]?.id !== $auth.user.id">
                 <Upload :file="itemDetail.file" :idNote="itemDetail.id" />
               </div>
               <div v-if="$auth.user.id === itemDetail.owner[0]?.id">
@@ -199,7 +199,7 @@ export default {
       default: () => ({}),
     },
   },
-  emits: ['afterUpload'],
+  emits: ['afterUpload', 'afterDelete'],
   data() {
     return {
       isOpen: false,

@@ -25,7 +25,7 @@
               </div>
 
               <div class="mt-4">
-                <form action="" @submit="handleSubmit" class="w-full">
+                <form action="" @submit.prevent="handleSubmit" class="w-full">
                   <div>
                     <label
                       for="subjek"
@@ -39,7 +39,7 @@
                         name="subjek"
                         v-model="subject"
                         @input="subjectValidate"
-                        placeholder="Masukkan Subjek"
+                        placeholder="Tulis Subjek"
                         required
                         class="border text-black px-4 py-2 w-full focus:outline-none focus:border-blue-500"
                       />
@@ -54,16 +54,16 @@
                   <div>
                     <div class="flex items-center justify-between">
                       <label for="deskripsi" class="mb-2 block text-sm"
-                        >Tulis Deskripsi
+                        >Deskripsi
                       </label>
-                      <p class="font-sans">{{ tambahAngka }}/100</p>
+                      <p class="font-sans">{{ tambahAngka }}/250</p>
                     </div>
                     <div class="mb-3">
                       <textarea
                         v-model="description"
                         @input="descriptionValidate"
                         name="deskripsi"
-                        placeholder="Masukkan Deskripsi"
+                        placeholder="Tulis Deskripsi Catatan"
                         class="border text-black px-4 py-2 w-full focus:outline-none focus:border-blue-500"
                       />
                       <span v-if="descriptionError" class="text-red-500">{{
@@ -76,7 +76,7 @@
                   </div>
 
                   <label for="email" class="text-sm mb-2 flex items-start">
-                    Pilih Bagian Yang Terlibat</label
+                    Masukkan Email Anggota</label
                   >
 
                   <div class="relative text-gray-600 border">
@@ -150,7 +150,7 @@
                                 :value="inputValue"
                                 v-on="inputEvents"
                                 class="w-full mt-2 border-hidden px-2 mb-2 outline-none"
-                                placeholder="yyyy-mm-dd"
+                                placeholder="mm-dd-yyyy"
                               />
                             </div>
                             <span v-if="dateError" class="text-red-500">{{
@@ -210,7 +210,7 @@
                               v-on="inputEvents"
                               :disabled="remainderDisabled"
                               class="w-full mt-2 px-4 outline-none"
-                              placeholder="Pilih Waktu Remainder"
+                              placeholder="Pilih Waktu Reminder"
                             />
                           </div>
                           <span v-if="datetimeError" class="text-red-500">{{
@@ -263,7 +263,7 @@
                       class="mb-2 block text-sm flex items-start"
                       for="date"
                     >
-                      Pilih pengingat ulangan
+                      Tambahkan pengingat ulangan
                     </label>
                     <div>
                       <select
@@ -273,6 +273,9 @@
                         <option>Ulangi</option>
                         <option>Tidak Tahu</option>
                       </select>
+                    </div>
+                    <div class="-mt-4 mb-4 text-sm">
+                      Disesuaikan tanggal acara
                     </div>
                   </div>
 
@@ -308,16 +311,14 @@
                     </div>
                   </div>
 
-                  <div class="mb-10">
-                    <div>
-                      <button
-                        type="submit"
-                        value="submit"
-                        class="float-right text-base bg-sky-500 text-white font-semibold py-2 px-5 rounded hover:shadow-lg hover:bg-sky-700"
-                      >
-                        {{ this.edit ? 'Edit Catatan' : 'Buat Catatan' }}
-                      </button>
-                    </div>
+                  <div class="flex justify-end mt-8">
+                    <button
+                      type="submit"
+                      value="submit"
+                      class="text-base w-[300px] bg-blue-500 text-white font-semibold py-2 px-5 rounded"
+                    >
+                      {{ this.edit ? 'Edit Catatan' : 'Buat Catatan' }}
+                    </button>
                   </div>
                 </form>
               </div>
