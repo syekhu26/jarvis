@@ -92,7 +92,7 @@
                 >Silahkan daftar</NuxtLink
               >
             </div> -->
-            <p class="text-red-500" v-if="errorMessage">{{ errorMessage }}</p>
+            <!-- <p class="text-red-500" v-if="errorMessage">{{ errorMessage }}</p> -->
             <!-- <Message :message="error" v-if="error" /> -->
             <div class="mt-20">
               <button
