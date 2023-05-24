@@ -15,7 +15,7 @@
           <form action="" @submit.prevent="login">
             <div class="w-full my-3">
               <div class="my-2">
-                <label for="email" class="text-sm font-medium"> Email </label>
+                <label for="email" class="text-sm"> Email </label>
                 <input
                   @input="emailValidate"
                   v-model="email"
@@ -41,7 +41,7 @@
                 </p> -->
               </div>
               <div class="my-2">
-                <label for="password" class="text-sm font-medium">
+                <label for="password" class="text-sm">
                   Kata Sandi
                 </label>
                 <div class="flex items-center justify-between relative">
