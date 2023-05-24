@@ -8,7 +8,7 @@
             alt="logo"
             class="rounded-full w-[52px] h-[41px] mx-3 my-auto"
           />
-          <h1 class="text-2xl text-[#0F62FE] font-[IBM Plex Sans]">Bantu.in</h1>
+          <h1 class="text-2xl text-[#0F62FE] font-bold">Bantu.in</h1>
         </div>
         <!-- <h1 class="text-lg font-bold mb-6 mt-3">Masuk</h1> -->
         <div>
@@ -81,7 +81,7 @@
                 </p> -->
               </div>
               <NuxtLink to="/forgotpassword">
-                <div class="text-sky-500 float-right cursor-pointer">
+                <div class="text-blue-600 float-right cursor-pointer">
                   Lupa Kata Sandi
                 </div>
               </NuxtLink>
@@ -106,7 +106,9 @@
         </div>
         <div class="mb-8 mt-8 justify-center items-center flex">
           Belum punya akun?
-          <NuxtLink to="/register" class="text-blue-500 px-2">Daftar</NuxtLink>
+          <NuxtLink to="/register" class="text-blue-500 px-2 font-bold"
+            >Daftar</NuxtLink
+          >
         </div>
       </div>
     </div>
@@ -144,7 +146,7 @@ export default {
       const regex = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}$/
       if (!regex.test(this.password)) {
         this.passwordError =
-          ' minimal 8 karakter terdiri atas huruf kapital, huruf kecil, symbol dan angka'
+          ' minimal 8 karakter terdiri atas huruf kapital, huruf kecil, dan angka'
       } else {
         this.passwordError = ''
       }
@@ -155,21 +157,24 @@ export default {
     },
     async login() {
       try {
-        await this.$auth.loginWith('local', {
-          data: {
-            email: this.email,
-            password: this.password,
-          },
-        })
-        // .then((response) => {
-        //   console.log(response.data)
+        await this.$auth
+          .loginWith('local', {
+            data: {
+              email: this.email,
+              password: this.password,
+            },
+          })
+          .then((response) => {
+            console.log(response.data)
 
-        //   alert('Selamat Login Anda Berhasil')
-        // })
+            alert('Selamat Login Anda Berhasil')
+          })
       } catch (error) {
         console.error(error)
         // this.error = error
+        alert('Maaf, anda gagal login')
         this.errorMessage = 'Maaf, email atau kata sandi anda salah.'
+
         // const errorMessage =
         //   'Terjadi kesalahan saat memuat data. Silakan coba lagi nanti.'
         // console.error(error) // Tampilkan kesalahan lengkap pada konsol
