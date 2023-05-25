@@ -14,7 +14,7 @@
               <!-- fixed overflow-x-hidden overflow-y-auto inset-0 flex justify-center items-center -->
               <div class="flex items-center justify-between">
                 <h3 class="text-lg font-medium leading-6 text-gray-900">
-                  Buat Catatan
+                  Buat catatan
                 </h3>
                 <div
                   @click="$emit('close')"
@@ -58,7 +58,7 @@
                       </label>
                       <p class="font-sans">{{ tambahAngka }}/250</p>
                     </div>
-                    
+
                     <div class="mb-3">
                       <textarea
                         v-model="description"
@@ -80,7 +80,7 @@
                   </div>
 
                   <label for="email" class="text-sm mb-2 flex items-start">
-                    Masukkan Email Anggota</label
+                    Masukan email anggota</label
                   >
 
                   <div class="relative text-gray-600 border">
@@ -95,7 +95,7 @@
                       v-model="email"
                       @input="emailValidate"
                       class="py-2 border text-black pl-10 w-full focus:outline-none focus:border-blue-500"
-                      placeholder="Masukkan Email"
+                      placeholder="Masukan email"
                     />
                   </div>
                   <span v-if="emailError" class="text-red-500">{{
@@ -134,7 +134,7 @@
                       class="block text-sm flex items-start mt-3 mb-2"
                       for="date"
                     >
-                      Tanggal Acara
+                      Tanggal acara
                     </label>
                     <div class="border w-full h-10">
                       <div class="">
@@ -164,22 +164,13 @@
                         </vc-date-picker>
                       </div>
                     </div>
-                    <!-- <input
-                        type="text"
-                        name="subjek"
-                        v-model="date"
-                        @input="kalenderValidate"
-                        placeholder="Masukkan tanggal"
-                        required
-                        class="border text-black px-4 py-2 w-full focus:outline-none focus:border-blue-500"
-                      /> -->
                   </div>
                   <div>
                     <label
                       for="remainder"
                       class="block text-sm mt-3 mb-2 flex items-start"
                     >
-                      Tambahkan Pengingat</label
+                      Tambahkan pengingat</label
                     >
                     <!-- 
                       <div
@@ -214,7 +205,7 @@
                               v-on="inputEvents"
                               :disabled="remainderDisabled"
                               class="w-full mt-2 px-4 outline-none"
-                              placeholder="Pilih Waktu Reminder"
+                              placeholder="Pilih waktu reminder"
                             />
                           </div>
                           <span v-if="datetimeError" class="text-red-500">{{
@@ -278,7 +269,7 @@
                         <option>Tidak Tahu</option>
                       </select>
                     </div>
-                    <div class="-mt-4 mb-4 text-sm">
+                    <div class="-mt-4 mb-4 text-sm flex items-start">
                       Disesuaikan tanggal acara
                     </div>
                   </div>
@@ -288,7 +279,7 @@
                       for="voice"
                       class="mb-2 block text-sm flex items-start"
                     >
-                      Pilih Voice Reminder</label
+                      Pilih ringtone</label
                     >
                     <div>
                       <select
@@ -296,7 +287,7 @@
                         class="border w-full h-10 mb-3 focus:border-blue-500 flex items-start"
                       >
                         <option disabled selected value="">
-                          Pilih Ringtone
+                          Pilih ringtone
                         </option>
                         <!-- <option value="1">hahahihi</option>
                         <option value="2">aiyaaiya</option>
@@ -480,7 +471,6 @@ export default {
             reminder: this.datetime,
             ringtone_id: this.voice,
           },
-          
         })
       } else {
         try {
@@ -497,6 +487,7 @@ export default {
           this.error = error.response.data.data
           this.errorMessage = error.response.data.message
           console.log(error)
+          alert('maaf catatan anda gagal dibuat')
         }
       }
       this.$router.go()

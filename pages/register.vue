@@ -139,7 +139,7 @@
                     <i v-else><iconEyeHide /></i>
                   </div>
                 </div>
-                <div>
+                <div class="text-[#697077]">
                   Minimal terdiri 8 karakter, 1 huruf besar, dan 1 angka.
                 </div>
                 <span v-if="passwordError" class="text-red-500">{{
