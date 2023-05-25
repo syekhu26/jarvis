@@ -2,7 +2,7 @@
   <div class="flex justify-center mx-auto my-3">
     <div class="w-1/2">
       <form class="h-screen m-4" @submit.prevent="updateProfile">
-        <p class="text-xl font-bold mt-4">Ubah Informasi Personal</p>
+        <p class="text-xl font-bold mt-4">Informasi Personal</p>
         <div class="my-4">
           <p class="text-sm text-gray-500 my-2">Nama pengguna</p>
           <input
@@ -25,10 +25,8 @@
             placeholder="Pekerjaan anda"
             @input="workValidate"
           />
+          <span v-if="workError" class="text-red-500">{{ workError }}</span>
         </div>
-        <span v-if="workError" class="text-red-500">{{
-            workError
-          }}</span>
         <div class="my-4">
           <p class="text-sm text-gray-500 my-2">Email</p>
           <input
@@ -44,7 +42,7 @@
           <p class="text-sm text-gray-500 my-2">Nomor telepon</p>
           <input
             v-model="userPhone"
-            type="number"
+            type="text"
             class="border border-gray-300 bg-gray-100 text-sm w-full p-1 rounded-md px-3"
             placeholder="Nama anda"
             @input="phoneValidate"
@@ -81,7 +79,6 @@ export default {
 
       userPhone: this.$store.state.profile.dataUser.phone,
       phoneError: '',
-
     }
   },
   methods: {
@@ -112,19 +109,27 @@ export default {
     phoneValidate() {
       const regexPhone = /^(62|0)[0-9]{9,12}$/
       if (!this.userPhone.match(regexPhone)) {
-        this.phoneError = 'number yang anda masukkan tidak valid'
+        this.phoneError = 'nomor yang anda masukkan tidak valid'
       } else {
         this.phoneError = ''
       }
     },
-    updateProfile(){
-        this.$store.dispatch('profile/updateProfile', {
-            id: this.$auth.user.id,
-            username: this.userName,
-            email: this.userEmail,
-            phone: this.userPhone,
-            job: this.userWork,
-        }).then((res) => alert(res.message)).catch(() => alert('gagal'))
+    updateProfile() {
+      this.$store
+        .dispatch('profile/updateProfile', {
+          id: this.$auth.user.id,
+          username: this.userName,
+          email: this.userEmail,
+          phone: this.userPhone,
+          job: this.userWork,
+        })
+        .then((res) => {
+            alert(res.message)
+            this.$router.push('/profile')
+        })
+        .catch(() => {
+          alert('profile updated unsuccessfully')
+        })
     },
   },
 }
