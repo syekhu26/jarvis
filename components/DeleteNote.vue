@@ -31,7 +31,7 @@
               <div class="flex justify-between my-2">
                 <p>Pesan <strong class="text-red-600">*</strong></p>
                 <p class="text-sm text-gray-500 items-end">
-                  {{ tambahAngka }}/100
+                  {{ tambahAngka }}/250
                 </p>
               </div>
               <textarea
@@ -106,6 +106,9 @@ export default {
     descriptionValidate() {
       if (!this.description) {
         this.descriptionError = 'Anda belum mengisi deskripsi.'
+      }
+      if (this.description.length > 250) {
+        this.description = this.description.slice(0, 250)
       } else {
         this.descriptionError = ''
       }

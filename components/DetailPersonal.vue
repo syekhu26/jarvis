@@ -82,7 +82,7 @@
                 <div
                   v-for="(member, index) in itemDetail.member"
                   :key="index"
-                  class="my-3 bg-sky-500 px-5 py-2 rounded-full text-white font-semibold font-sans"
+                  class="my-3 bg-sky-500 px-5 py-2 rounded-full text-white font-semibold font-sans max-w-[130px]"
                 >
                   {{ member.username }}
                 </div>

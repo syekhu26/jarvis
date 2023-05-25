@@ -81,6 +81,9 @@
 import { mapState } from 'vuex'
 
 export default {
+  async asyncData({ store }) {
+    await store.dispatch('profile/getdataUser', store.state.auth.user.id)
+  },
   // import { mapState } from 'vuex';
   layout: 'home',
   // middleware: 'auth',

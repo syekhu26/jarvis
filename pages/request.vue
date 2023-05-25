@@ -15,6 +15,9 @@
 import CardRequest from '~/components/CardRequest.vue'
 
 export default {
+  async asyncData({ store }) {
+    await store.dispatch('profile/getdataUser', store.state.auth.user.id)
+  },
   layout: 'home',
   components: {
     CardRequest,

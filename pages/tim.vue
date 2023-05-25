@@ -43,6 +43,9 @@ export default {
 </script> -->
 <script>
 export default {
+  async asyncData({ store }) {
+    await store.dispatch('profile/getdataUser', store.state.auth.user.id)
+  },
   layout: 'home',
   name: 'Modal',
   // props: {
