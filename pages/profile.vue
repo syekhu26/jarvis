@@ -59,7 +59,7 @@
           <p class="text-sm text-gray-500 my-1">Nomor telepon</p>
           <input
             v-model="userPhone"
-            type="number"
+            type="text"
             class="text-sm w-full"
             disabled
           />

@@ -4,7 +4,7 @@
       <form class="h-screen m-4" @submit.prevent="submit">
         <p class="text-xl font-bold mt-4">Ubah Kata Sandi</p>
         <div class="my-4">
-          <p class="text-sm text-gray-500 my-2">Kata Sandi lama</p>
+          <p class="text-sm text-gray-600 my-2">Kata Sandi lama</p>
           <div class="flex items-center justify-between relative">
             <input
               v-model="oldPass"
@@ -27,7 +27,7 @@
         </div>
         <div class="h-[1px] w-full bg-gray-300 my-2"></div>
         <div class="my-4">
-          <p class="text-sm text-gray-500 my-2">Kata Sandi Baru</p>
+          <p class="text-sm text-gray-600 my-2">Kata Sandi Baru</p>
           <div class="flex items-center justify-between relative">
             <input
               v-model="newPass"
@@ -44,12 +44,13 @@
               <i v-else><iconEyeHide /></i>
             </div>
           </div>
+          <p class="text-gray-500 text-sm">Kata sandi harus terdiri 8 kata, 1 huruf besar, 1 angka.</p>
           <span v-if="newPassError" class="text-red-500">{{
             newPassError
           }}</span>
         </div>
         <div class="my-4">
-          <p class="text-sm text-gray-500 my-2">Ulangi Kata Sandi Baru</p>
+          <p class="text-sm text-gray-600 my-2">Ulangi Kata Sandi Baru</p>
           <div class="flex items-center justify-between relative">
             <input
               v-model="repeatNewPass"
@@ -132,7 +133,7 @@ export default {
       const regex = /^.*(?=.{8,})(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*\d).*$/
       if (!regex.test(this.newPass)) {
         this.newPassError =
-          ' Kata sandi harus terdiri 8 kata, 1 huruf besar, 1 angka. '
+          ' Kata sandi tidak memenuhi syarat '
       } else {
         this.newPassError = ''
       }
@@ -154,8 +155,8 @@ export default {
           })
           .then((response) => {
             console.log(response.data)
-
-            alert(response.data.message, 'Kata sandi')
+            alert(response.data.message)
+            this.$router.push('/profile');
           })
       } catch (error) {
         this.error = error.response.data.data
