@@ -73,7 +73,7 @@
                   v-model="phone"
                   type="text"
                   class="w-full border text-black px-4 py-2 focus:outline-none focus:border-blue-500"
-                  placeholder="Masukan No HP"
+                  placeholder="Masukan nomor HP"
                   required
                 />
                 <span v-if="error.phone" class="text-red-500"
@@ -128,7 +128,7 @@
                     v-model="password"
                     :type="inputTypeIcon"
                     class="w-full border text-black px-4 py-2 focus:outline-none focus:border-blue-500 outline-none bg-transparent"
-                    placeholder="Masukan Kata Sandi"
+                    placeholder="Masukan kata sandi"
                     required
                   />
                   <div

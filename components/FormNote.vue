@@ -480,6 +480,7 @@ export default {
             reminder: this.datetime,
             ringtone_id: this.voice,
           },
+          
         })
       } else {
         try {
@@ -498,6 +499,7 @@ export default {
           console.log(error)
         }
       }
+      this.$router.go()
     },
     async ringtone() {
       try {
