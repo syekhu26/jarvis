@@ -312,15 +312,19 @@ export default {
       }
     },
     passwordValidate() {
-      const regex = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}$/
-      if (!regex.test(this.password)) {
-        this.passwordError =
-          ' minimal 8 karakter terdiri atas huruf kapital, huruf kecil, dan angka'
+      // const regex = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}$/
+      // if (!regex.test(this.password)) {
+      //   this.passwordError =
+      //     ' minimal 8 karakter terdiri atas huruf kapital, huruf kecil, dan angka'
+      // } else {
+      //   this.passwordError = ''
+      // }
+      if (!this.password) {
+        this.passwordError = 'Maaf, anda belum memasukan kata sandi anda.'
       } else {
         this.passwordError = ''
       }
     },
-
     ToggleIcon() {
       this.inputTypeIcon =
         this.inputTypeIcon === 'password' ? 'text' : 'password'
