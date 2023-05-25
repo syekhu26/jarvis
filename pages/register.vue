@@ -2,7 +2,7 @@
   <div class="flex justify-center items-center mt-12">
     <div class="w-full max-w-lg">
       <div class="bg-white shadow-lg border rounded px-8 pt-6 pb-8 mb-4">
-        <h1 class="text-2xl font-bold mb-6 mt-3 text-center">Daftar Akun</h1>
+        <h1 class="text-2xl font-bold mb-6 mt-3 text-center">Daftar akun</h1>
         <div>
           <form action="" @submit.prevent="register">
             <div class="w-full my-3">
@@ -13,7 +13,7 @@
                   @input="usernameValidate"
                   type="text"
                   class="w-full border text-black px-4 py-2 focus:outline-none focus:border-blue-500"
-                  placeholder="Masukkan Username"
+                  placeholder="Masukan Username"
                   required
                 />
                 <span v-if="error.username" class="text-red-500"
@@ -44,7 +44,7 @@
                   @input="emailValidate"
                   type="email"
                   class="w-full border text-black px-4 py-2 focus:outline-none focus:border-blue-500"
-                  placeholder="Masukkan Email"
+                  placeholder="Masukan Email"
                   required
                 />
                 <span v-if="error.email" class="text-red-500"
@@ -67,17 +67,17 @@
                 </p> -->
               </div>
               <div class="my-2">
-                <label for="no hp" class="text-sm">No HP</label>
+                <label for="no hp" class="text-sm">Nomor HP</label>
                 <input
                   @input="numberValidate"
                   v-model="phone"
                   type="text"
                   class="w-full border text-black px-4 py-2 focus:outline-none focus:border-blue-500"
-                  placeholder="Masukkan No HP"
+                  placeholder="Masukan No HP"
                   required
                 />
                 <span v-if="error.phone" class="text-red-500"
-                  >No Hp {{ error.phone[0] }}</span
+                  >Nomor Hp {{ error.phone[0] }}</span
                 >
                 <span v-if="numberError" class="text-red-500">
                   {{ numberError }}</span
@@ -102,7 +102,7 @@
                   @input="jobValidate"
                   type="text"
                   class="w-full border text-black px-4 py-2 focus:outline-none focus:border-blue-500"
-                  placeholder="Masukkan Pekerjaan"
+                  placeholder="Masukan Pekerjaan"
                   required
                 />
                 <span v-if="jobError" class="text-red-500">{{ jobError }}</span>
@@ -121,14 +121,14 @@
               </div>
 
               <div class="my-2">
-                <label for="password" class="text-sm">Kata Sandi</label>
+                <label for="password" class="text-sm">Kata sandi</label>
                 <div class="flex items-center justify-between relative">
                   <input
                     @input="passwordValidate"
                     v-model="password"
                     :type="inputTypeIcon"
                     class="w-full border text-black px-4 py-2 focus:outline-none focus:border-blue-500 outline-none bg-transparent"
-                    placeholder="Masukkan Kata Sandi"
+                    placeholder="Masukan Kata Sandi"
                     required
                   />
                   <div
@@ -161,14 +161,14 @@
               </div>
               <div class="my-2">
                 <label for="password konfirmasi" class="text-sm"
-                  >Konfirmasi Kata Sandi</label
+                  >Ulangi kata sandi</label
                 >
                 <div class="flex items-center justify-between relative">
                   <input
                     v-model="password_confirmation"
                     :type="inputType"
                     class="w-full border text-black px-4 py-2 focus:outline-none focus:border-blue-500"
-                    placeholder="Masukkan konfirmasi Kata Sandi"
+                    placeholder="Masukan kata sandi lagi"
                     required
                   />
                   <div
@@ -180,7 +180,7 @@
                   </div>
                 </div>
                 <span class="text-red-500" v-if="passwordMatch"
-                  >Konfirmasi password tidak sesuai</span
+                  >Ulangi kata sandi tidak sesuai</span
                 >
                 <!-- <p
                   v-if="repeatpassCorrect === false"

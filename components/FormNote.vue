@@ -58,6 +58,7 @@
                       </label>
                       <p class="font-sans">{{ tambahAngka }}/250</p>
                     </div>
+                    
                     <div class="mb-3">
                       <textarea
                         v-model="description"
@@ -72,6 +73,9 @@
                       <span v-if="error.description" class="text-red-500">{{
                         error.description
                       }}</span>
+                      <!-- <p v-if="teksDeskripsi" class="text-red-500">
+                        Maaf, inputan anda melewati batas.
+                      </p> -->
                     </div>
                   </div>
 
@@ -383,6 +387,7 @@ export default {
       voice: this.item.ringtone_id ?? '',
 
       voiceError: '',
+      // teksDeskripsi: false,
     }
   },
   async created() {
@@ -423,6 +428,11 @@ export default {
     descriptionValidate() {
       if (!this.description) {
         this.descriptionError = 'Anda belum mengisi deskripsi.'
+      }
+      if (this.description.length > 250) {
+        // this.teksDeskripsi = true
+        // Menghapus karakter ke-101 dan seterusnya
+        this.description = this.description.slice(0, 250)
       } else {
         this.descriptionError = ''
       }

@@ -15,13 +15,13 @@
           <form action="" @submit.prevent="login">
             <div class="w-full my-3">
               <div class="my-2">
-                <label for="email" class="text-sm"> Email </label>
+                <label for="email" class="text-sm"> E-mail </label>
                 <input
                   @input="emailValidate"
                   v-model="email"
                   type="email"
                   class="w-full border text-black px-4 py-2 col-span-2"
-                  placeholder="Masukkan Email"
+                  placeholder="Masukan email"
                   required
                 />
                 <span v-if="emailError" class="text-red-500">{{
@@ -42,7 +42,7 @@
               </div>
               <div class="my-2">
                 <label for="password" class="text-sm">
-                  Kata Sandi
+                  Kata sandi
                 </label>
                 <div class="flex items-center justify-between relative">
                   <input
@@ -50,7 +50,7 @@
                     @input="passwordValidate"
                     v-model="password"
                     class="w-full bg-transparent text-black px-4 outline-none border py-2"
-                    placeholder="Masukkan Kata Sandi"
+                    placeholder="Masukan Kata Sandi"
                     required
                   />
 
@@ -82,7 +82,7 @@
               </div>
               <NuxtLink to="/forgotpassword">
                 <div class="text-blue-600 float-right cursor-pointer">
-                  Lupa Kata Sandi
+                  Lupa kata sandi?
                 </div>
               </NuxtLink>
             </div>

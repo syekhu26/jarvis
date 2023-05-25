@@ -1,9 +1,14 @@
-<!-- <template>
+<template>
   <div>
-    <Mencoba />
-    <div v-for="file in uploadedFiles" :key="file.name">
-      <a :href="file.url">{{ file.name }}</a>
-    </div>
+    <input
+      type="text"
+      v-model="inputValue"
+      @input="handleInput"
+      class="border flex items-center mx-auto mt-5 w-full h-10"
+    />
+    <p v-if="isInputTooLong" style="color: red">
+      Input melebihi batas karakter.
+    </p>
   </div>
 </template>
 
@@ -11,31 +16,20 @@
 export default {
   data() {
     return {
-      uploadedFiles: [],
+      inputValue: '',
+      isInputTooLong: false,
     }
   },
+  methods: {
+    handleInput() {
+      if (this.inputValue.length > 100) {
+        this.isInputTooLong = true
+        // Menghapus karakter ke-101 dan seterusnya
+        this.inputValue = this.inputValue.slice(0, 100)
+      } else {
+        this.isInputTooLong = false
+      }
+    },
+  },
 }
-</script> -->
-
-<template>
-  <div>
-    <div class="lg:flex lg:flex-row-reverse lg:min-h-screen">
-      <!-- Sidebar -->
-      <div class="lg:w-1/4 bg-gray-200">
-        <!-- Konten Sidebar -->
-        <div>woke</div>
-      </div>
-
-      <!-- Konten Utama -->
-      <div class="lg:w-3/4">
-        <!-- Konten Utama -->
-        <div>selamat pagi</div>
-      </div>
-    </div>
-
-    <!-- Navbar Bottom -->
-    <div class="lg:hidden fixed inset-x-0 bottom-0 z-10 bg-gray-200">
-      <!-- Konten Navbar Bottom -->
-    </div>
-  </div>
-</template>
+</script>
