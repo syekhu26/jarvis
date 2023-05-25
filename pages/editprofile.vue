@@ -23,8 +23,12 @@
             type="text"
             class="border border-gray-300 bg-gray-100 text-sm w-full p-1 rounded-md px-3"
             placeholder="Pekerjaan anda"
+            @input="workValidate"
           />
         </div>
+        <span v-if="workError" class="text-red-500">{{
+            workError
+          }}</span>
         <div class="my-4">
           <p class="text-sm text-gray-500 my-2">Email</p>
           <input
@@ -82,15 +86,15 @@ export default {
   },
   methods: {
     usernameValidate() {
-      const regexName = /^.{1,20}$/
+      const regexName = /^[a-zA-Z\s]{1,50}$/
       if (!this.userName.match(regexName)) {
-        this.usernameError = 'Username anda terlalu panjang'
+        this.usernameError = 'Nama pengguna yang anda masukkan tidak valid'
       } else {
         this.usernameError = ''
       }
     },
     workValidate() {
-      const regexWork = /^[a-zA-Z]{1,50}$/
+      const regexWork = /^[a-zA-Z\s]{1,50}$/
       if (!this.userWork.match(regexWork)) {
         this.workError = 'Nama pekerjaan yang anda masukkan tidak valid'
       } else {
