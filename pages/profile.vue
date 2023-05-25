@@ -120,7 +120,7 @@ export default {
           this.$store.dispatch('profile/getdataUser', this.$auth.user.id)
           // this.$route.go()
         })
-        .catch((err) => { alert(err.res.message) })
+        .catch(() => { alert('File size should be less than 1 MB') })
     },
     // handleFileChange(event) {
     //   const file = event.target.files[0]
