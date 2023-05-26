@@ -31,7 +31,7 @@
               />
 
               <div class="mt-4">
-                <form action="" @submit="handleSubmit" class="w-full">
+                <form action="" @submit.prevent="handleSubmit" class="w-full">
                   <div>
                     <label
                       for="subjek"
@@ -332,6 +332,7 @@
                       {{ this.edit ? 'Edit Catatan' : 'Buat Catatan' }}
                     </button>
                   </div>
+                  <!-- <EditNote v-if="isShowEdit" /> -->
                   <!-- coba -->
                   <!-- <div class="flex justify-end mt-8">
                     <button
@@ -379,7 +380,7 @@ export default {
     const date = new Date()
     date.setMinutes(0, 0, 0)
     return {
-      isShowEdit:false,
+      isShowEdit: false,
       isShowCancelEdit: false,
       error: {},
       errorMessage: null,
@@ -490,7 +491,7 @@ export default {
     },
     async handleSubmit() {
       if (this.edit) {
-        // this.isShowEdit = true
+        this.isShowEdit = true
         await this.$store.dispatch('notes/updateNote', {
           idNote: this.item.id,
           data: {
@@ -514,6 +515,7 @@ export default {
             reminder: this.datetime,
             ringtone_id: this.voice,
           })
+          this.$router.go()
         } catch (error) {
           this.error = error.response.data.data
           this.errorMessage = error.response.data.message
