@@ -82,7 +82,7 @@
                 <div
                   v-for="(member, index) in itemDetail.member"
                   :key="index"
-                  class="my-3 bg-sky-500 px-5 py-2 rounded-full text-white font-semibold font-sans max-w-[130px]"
+                  class="my-3 bg-sky-500 px-5 py-2 rounded-full text-white text-center font-semibold font-sans max-w-[130px]"
                 >
                   {{ member.username }}
                 </div>
@@ -109,23 +109,21 @@
                 </div> -->
               </div>
 
-              <div
-                v-if="
-                  itemDetail.note_type === 'collaboration' &&
-                  $auth.user.id === itemDetail.owner[0]?.id
-                "
-                class="mb-4"
-              >
+              <div v-if="itemDetail.note_type === 'collaboration'" class="mb-4">
                 <div>File Dokumen :</div>
                 <!-- <div class="text-sky-500 underline">Bukti transaksi.png</div>
                 <div class="text-sky-500 underline">Tiket pesawat.pdf</div> -->
-                <div v-for="file in getAllFileName" :key="file" class="flex">
-                  <div class="text-sky-500 underline">
-                    {{ file }}
+                <div
+                  v-for="(file, index) in itemDetail.file"
+                  :key="index"
+                  class="flex"
+                >
+                  <a :href="file" class="text-sky-500 underline">
+                    {{ getAllFileName[index] }}
                     <!-- <p class="px-3" :title="file.name">
                       {{ makeName(file.name) }}
                     </p> -->
-                  </div>
+                  </a>
                 </div>
                 <div class="flex items-center mt-2">
                   <p>dan 3 dokument lagi.</p>

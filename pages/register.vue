@@ -349,6 +349,7 @@ export default {
             alert(
               'Selamat Anda berhasil melakukan pendaftaran, silahkan cek email'
             )
+            // this.$router.push('/login')
           })
         // return {
         //   success: true,

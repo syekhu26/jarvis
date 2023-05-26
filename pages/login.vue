@@ -41,9 +41,7 @@
                 </p> -->
               </div>
               <div class="my-2">
-                <label for="password" class="text-sm">
-                  Kata sandi
-                </label>
+                <label for="password" class="text-sm"> Kata sandi </label>
                 <div class="flex items-center justify-between relative">
                   <input
                     :type="inputTypeIcon"
@@ -92,7 +90,7 @@
                 >Silahkan daftar</NuxtLink
               >
             </div> -->
-            <!-- <p class="text-red-500" v-if="errorMessage">{{ errorMessage }}</p> -->
+            <p class="text-red-500" v-if="errorMessage">{{ errorMessage }}</p>
             <!-- <Message :message="error" v-if="error" /> -->
             <div class="mt-20">
               <button
@@ -167,12 +165,12 @@ export default {
           .then((response) => {
             console.log(response.data)
 
-            alert('Selamat Login Anda Berhasil')
+            // alert('Selamat Login Anda Berhasil')
           })
       } catch (error) {
         console.error(error)
         // this.error = error
-        alert('Maaf, anda gagal login')
+        // alert('Maaf, anda gagal login')
         this.errorMessage = 'Maaf, email atau kata sandi anda salah.'
 
         // const errorMessage =
