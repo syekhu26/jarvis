@@ -15,15 +15,15 @@
           <div
             class="my-5 inline-block w-full max-w-xl transform overflow-hidden rounded-md bg-white p-6 text-left align-middle shadow-xl transition-all"
           >
-            <p class="text-lg font-semibold text-center">
+            <p class="text-lg font-semibold text-center mb-4">
               Apakah anda yakin menghapus catatan ini?
             </p>
-            <p class="text-sm text-center opacity-50">
+            <p class="text-sm text-center opacity-50 mb-4">
               Anda tidak dapat mengembalikan pesan ini setelah dihapus
             </p>
             <p
               v-if="pesan.note_type === 'collaboration'"
-              class="text-sm text-center opacity-50"
+              class="text-lg text-center font-semibold"
             >
               Pesan yang dilaporkan untuk orang yang dilibatkan
             </p>
@@ -31,7 +31,7 @@
               <div class="flex justify-between my-2">
                 <p>Pesan <strong class="text-red-600">*</strong></p>
                 <p class="text-sm text-gray-500 items-end">
-                  {{ tambahAngka }}/100
+                  {{ tambahAngka }}/250
                 </p>
               </div>
               <textarea
@@ -39,21 +39,32 @@
                 @input="descriptionValidate"
                 class="w-full border border-gray-500 p-3"
                 placeholder="Tulis pesan"
+                required
               ></textarea>
               <span v-if="descriptionError" class="text-red-500">{{
                 descriptionError
               }}</span>
             </div>
-            <div class="flex justify-center my-4">
+            <div class="flex my-4">
               <button
                 @click="$emit('close')"
                 class="bg-white border rounded w-[200px] py-2 mx-2"
               >
                 Batal
               </button>
+
               <button
+                v-if="pesan.note_type === 'personal'"
                 @click="deleteNote(id)"
                 class="w-1/2 bg-red-600 text-white ml-1 p-2 rounded"
+              >
+                Ya
+              </button>
+              <button
+                v-if="pesan.note_type === 'collaboration'"
+                @click="deleteNote(id)"
+                :disabled="!description"
+                class="w-1/2 bg-red-600 text-white ml-1 p-2 rounded disabled:bg-slate-500"
               >
                 Ya
               </button>
@@ -72,16 +83,17 @@ export default {
       default: false,
     },
     id: {
-      // type: [Number, String],
-      // required: true,
-      type: Object,
-      default: () => ({}),
+      type: Number,
+      required: true,
+      // type: Object,
+      // default: () => ({}),
     },
     pesan: {
       type: Object,
       default: () => ({}),
     },
   },
+  emits: ['afterDelete'],
   data() {
     return {
       isOpen: false,
@@ -100,10 +112,13 @@ export default {
   methods: {
     deleteNote(noteId) {
       this.$store.dispatch('notes/deleteNote', noteId)
+      this.$router.go()
     },
     descriptionValidate() {
       if (!this.description) {
         this.descriptionError = 'Anda belum mengisi deskripsi.'
+      } else if (this.description.length > 250) {
+        this.description = this.description.slice(0, 250)
       } else {
         this.descriptionError = ''
       }

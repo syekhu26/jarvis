@@ -8,20 +8,20 @@
             alt="logo"
             class="rounded-full w-[52px] h-[41px] mx-3 my-auto"
           />
-          <h1 class="text-2xl text-[#0F62FE] font-[IBM Plex Sans]">Bantu.in</h1>
+          <h1 class="text-2xl text-[#0F62FE] font-bold">Bantu.in</h1>
         </div>
         <!-- <h1 class="text-lg font-bold mb-6 mt-3">Masuk</h1> -->
         <div>
           <form action="" @submit.prevent="login">
             <div class="w-full my-3">
               <div class="my-2">
-                <label for="email" class="text-sm font-medium"> Email </label>
+                <label for="email" class="text-sm"> E-mail </label>
                 <input
                   @input="emailValidate"
                   v-model="email"
                   type="email"
                   class="w-full border text-black px-4 py-2 col-span-2"
-                  placeholder="Masukkan Email"
+                  placeholder="Masukan email"
                   required
                 />
                 <span v-if="emailError" class="text-red-500">{{
@@ -41,16 +41,14 @@
                 </p> -->
               </div>
               <div class="my-2">
-                <label for="password" class="text-sm font-medium">
-                  Password
-                </label>
+                <label for="password" class="text-sm"> Kata sandi </label>
                 <div class="flex items-center justify-between relative">
                   <input
                     :type="inputTypeIcon"
                     @input="passwordValidate"
                     v-model="password"
                     class="w-full bg-transparent text-black px-4 outline-none border py-2"
-                    placeholder="Masukkan Kata Sandi"
+                    placeholder="Masukan Kata Sandi"
                     required
                   />
 
@@ -81,8 +79,8 @@
                 </p> -->
               </div>
               <NuxtLink to="/forgotpassword">
-                <div class="text-sky-500 float-right cursor-pointer">
-                  Lupa Kata Sandi
+                <div class="text-blue-600 float-right cursor-pointer">
+                  Lupa kata sandi?
                 </div>
               </NuxtLink>
             </div>
@@ -92,11 +90,12 @@
                 >Silahkan daftar</NuxtLink
               >
             </div> -->
-            <Message :message="error" v-if="error" />
+            <p class="text-red-500" v-if="errorMessage">{{ errorMessage }}</p>
+            <!-- <Message :message="error" v-if="error" /> -->
             <div class="mt-20">
               <button
                 type="submit"
-                class="text-base bg-blue-600 text-white font-semibold py-3 px-8 w-full rounded hover:shadow-lg hover:bg-slate-700"
+                class="text-base bg-blue-600 text-white font-semibold py-3 px-8 w-full rounded hover:shadow-lg"
               >
                 Masuk
               </button>
@@ -105,7 +104,9 @@
         </div>
         <div class="mb-8 mt-8 justify-center items-center flex">
           Belum punya akun?
-          <NuxtLink to="/register" class="text-blue-500 px-2">Daftar</NuxtLink>
+          <NuxtLink to="/register" class="text-blue-500 px-2 font-bold"
+            >Daftar</NuxtLink
+          >
         </div>
       </div>
     </div>
@@ -117,6 +118,7 @@ export default {
   data() {
     return {
       error: null,
+      errorMessage: '',
       inputTypeIcon: 'password',
       // userName: '',
       email: '',
@@ -142,7 +144,7 @@ export default {
       const regex = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}$/
       if (!regex.test(this.password)) {
         this.passwordError =
-          ' minimal 8 karakter terdiri atas huruf kapital, huruf kecil, symbol dan angka'
+          ' minimal 8 karakter terdiri atas huruf kapital, huruf kecil, dan angka'
       } else {
         this.passwordError = ''
       }
@@ -153,21 +155,37 @@ export default {
     },
     async login() {
       try {
-        await this.$auth.loginWith('local', {
-          data: {
-            email: this.email,
-            password: this.password,
-          },
-        })
-        // .then((response) => {
-        //   console.log(response.data)
+        await this.$auth
+          .loginWith('local', {
+            data: {
+              email: this.email,
+              password: this.password,
+            },
+          })
+          .then((response) => {
+            console.log(response.data)
 
-        //   alert('Selamat Login Anda Berhasil')
-        // })
-      } catch (e) {
-        this.error = e
+            // alert('Selamat Login Anda Berhasil')
+          })
+      } catch (error) {
+        console.error(error)
+        // this.error = error
+        // alert('Maaf, anda gagal login')
+        this.errorMessage = 'Maaf, email atau kata sandi anda salah.'
+
+        // const errorMessage =
+        //   'Terjadi kesalahan saat memuat data. Silakan coba lagi nanti.'
+        // console.error(error) // Tampilkan kesalahan lengkap pada konsol
+        // this.showError(errorMessage)
       }
     },
+    // showError(errorMessage) {
+    //   // Tampilkan pesan error ke pengguna, misalnya dengan menggunakan notifikasi atau komponen modal
+    //   this.$toast.error(errorMessage) // Contoh menggunakan paket notifikasi "vue-toastification"
+
+    //   // Atau, dapat memperbarui status di komponen untuk menampilkan pesan error di antarmuka pengguna
+    //   this.error = errorMessage
+    // },
   },
   computed: {
     // usernameLoginCorrect() {

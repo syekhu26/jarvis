@@ -1,6 +1,6 @@
 <template>
   <div>
-    <!-- <ButtonGlobal @click="isOpen = !isOpen" /> -->
+    <!-- <ButtonGlobal @click="isShowCancelEdit = !isShowCancelEdit" /> -->
     <div>
       <div class="">
         <div
@@ -14,20 +14,29 @@
               <!-- fixed overflow-x-hidden overflow-y-auto inset-0 flex justify-center items-center -->
               <div class="flex items-center justify-between">
                 <h3 class="text-lg font-medium leading-6 text-gray-900">
-                  Buat Catatan
+                  {{ this.edit ? 'Edit Catatan' : 'Buat Catatan' }}
                 </h3>
                 <div
-                  @click="$emit('close')"
+                  @click="showCancel"
                   class="w-10 h-10 rounded-full flex mt-3 top-5 right-5 cursor-pointer"
                 >
                   <iconSilangIcon />
                 </div>
               </div>
 
+              <CancelEdit
+                v-if="isShowCancelEdit"
+                @close="hideCancel"
+                @delete="handleBuang"
+              />
+
               <div class="mt-4">
-                <form action="" @submit.prevent="handleSubmit" class="w-full">
+                <form action="" @submit="handleSubmit" class="w-full">
                   <div>
-                    <label for="subjek" class="mb-2 block text-sm float-left">
+                    <label
+                      for="subjek"
+                      class="mb-2 block text-sm flex items-start"
+                    >
                       Subjek</label
                     >
                     <div class="mb-3">
@@ -36,7 +45,7 @@
                         name="subjek"
                         v-model="subject"
                         @input="subjectValidate"
-                        placeholder="Masukkan Subjek"
+                        placeholder="Tulis Subjek"
                         required
                         class="border text-black px-4 py-2 w-full focus:outline-none focus:border-blue-500"
                       />
@@ -51,16 +60,17 @@
                   <div>
                     <div class="flex items-center justify-between">
                       <label for="deskripsi" class="mb-2 block text-sm"
-                        >Tulis Deskripsi
+                        >Deskripsi
                       </label>
-                      <p class="font-sans">{{ tambahAngka }}/100</p>
+                      <p class="font-sans">{{ tambahAngka }}/250</p>
                     </div>
+
                     <div class="mb-3">
                       <textarea
                         v-model="description"
                         @input="descriptionValidate"
                         name="deskripsi"
-                        placeholder="Masukkan Deskripsi"
+                        placeholder="Tulis Deskripsi Catatan"
                         class="border text-black px-4 py-2 w-full focus:outline-none focus:border-blue-500"
                       />
                       <span v-if="descriptionError" class="text-red-500">{{
@@ -69,14 +79,17 @@
                       <span v-if="error.description" class="text-red-500">{{
                         error.description
                       }}</span>
+                      <!-- <p v-if="teksDeskripsi" class="text-red-500">
+                        Maaf, inputan anda melewati batas.
+                      </p> -->
                     </div>
                   </div>
 
-                  <label for="email" class="text-sm float-left -mt-3">
-                    Pilih Bagian Yang Terlibat</label
+                  <label for="email" class="text-sm mb-2 flex items-start">
+                    Masukan email anggota</label
                   >
 
-                  <div class="relative text-gray-600 border mt-6">
+                  <div class="relative text-gray-600 border">
                     <span
                       class="absolute inset-y-0 left-0 flex items-center pl-2"
                     >
@@ -88,8 +101,15 @@
                       v-model="email"
                       @input="emailValidate"
                       class="py-2 border text-black pl-10 w-full focus:outline-none focus:border-blue-500"
-                      placeholder="Masukkan Email"
+                      placeholder="Masukan email"
                     />
+                  </div>
+                  <div
+                    v-for="member in item.member"
+                    :key="member"
+                    class="bg-slate-200 rounded mb-2 px-2 flex items-center"
+                  >
+                    {{ member.email }}
                   </div>
                   <span v-if="emailError" class="text-red-500">{{
                     emailError
@@ -117,19 +137,19 @@
 
                   <div
                     @click="addEmail"
-                    class="flex items-center mt-2 mb-11 text-blue-600 cursor-pointer"
+                    class="flex items-center mt-2 text-blue-600 cursor-pointer"
                   >
                     <iconPlusIcon />
                     <span class="px-1">Tambah email</span>
                   </div>
                   <div>
                     <label
-                      class="mb-2 block text-sm float-left -mt-6"
+                      class="block text-sm flex items-start mt-3 mb-2"
                       for="date"
                     >
-                      Tanggal Acara
+                      Tanggal acara
                     </label>
-                    <div class="border w-full h-10 mt-6 mb-11">
+                    <div class="border w-full h-10">
                       <div class="">
                         <vc-date-picker
                           class=""
@@ -141,13 +161,13 @@
                         >
                           <template #default="{ inputValue, inputEvents }">
                             <div class="flex">
-                              <iconKalenderIcon class="mt-3 float-left" />
+                              <iconKalenderIcon class="mt-3 mx-2" />
 
                               <input
                                 :value="inputValue"
                                 v-on="inputEvents"
-                                class="w-full mt-2 border-hidden px-4 mb-2 outline-none"
-                                placeholder="yyyy-mm-dd"
+                                class="w-full mt-2 border-hidden px-2 mb-2 outline-none"
+                                placeholder="mm-dd-yyyy"
                               />
                             </div>
                             <span v-if="dateError" class="text-red-500">{{
@@ -157,22 +177,13 @@
                         </vc-date-picker>
                       </div>
                     </div>
-                    <!-- <input
-                        type="text"
-                        name="subjek"
-                        v-model="date"
-                        @input="kalenderValidate"
-                        placeholder="Masukkan tanggal"
-                        required
-                        class="border text-black px-4 py-2 w-full focus:outline-none focus:border-blue-500"
-                      /> -->
                   </div>
                   <div>
                     <label
                       for="remainder"
-                      class="mb-2 block text-sm -mt-6 float-left"
+                      class="block text-sm mt-3 mb-2 flex items-start"
                     >
-                      Tambahkan Pengingat</label
+                      Tambahkan pengingat</label
                     >
                     <!-- 
                       <div
@@ -189,7 +200,7 @@
                           ></datetime>
                         </div>
                       </div> -->
-                    <div class="border w-full w-10 h-10 px-2 mt-6">
+                    <div class="border w-full w-10 h-10 px-2">
                       <vc-date-picker
                         v-model="datetime"
                         @input="remainderValidate"
@@ -207,7 +218,7 @@
                               v-on="inputEvents"
                               :disabled="remainderDisabled"
                               class="w-full mt-2 px-4 outline-none"
-                              placeholder="Pilih Waktu Remainder"
+                              placeholder="Pilih waktu reminder"
                             />
                           </div>
                           <span v-if="datetimeError" class="text-red-500">{{
@@ -250,46 +261,61 @@
 
                   <div
                     @click="addRemainder"
-                    class="flex items-center mb-3 text-blue-600 cursor-pointer mt-6"
+                    class="flex items-center mb-3 text-blue-600 cursor-pointer mt-2"
                   >
                     <iconPlusIcon />
-                    <span class="px-1">Tambah reminder</span>
+                    <span class="px-1">Tambah pengingat</span>
                   </div>
                   <div>
-                    <label class="mb-2 block text-sm float-left" for="date">
-                      Pilih pengingat ulangan
+                    <label
+                      class="mb-2 block text-sm flex items-start"
+                      for="date"
+                    >
+                      Tambahkan pengingat ulangan
                     </label>
                     <div>
                       <select
                         class="border w-full h-10 mb-3 focus:border-blue-500"
                       >
                         <option>Tidak Diulang</option>
-                        <option>Ulangi</option>
+                        <option>Setiap hari</option>
+                        <option>Mingguan pada hari selasa</option>
+                        <option>Bulanan pada selasa pertama</option>
+                        <option>Tiap tahun pada 4 april</option>
+                        <option>Setiap hari kerja (senin sampai jumat)</option>
                         <option>Tidak Tahu</option>
                       </select>
+                    </div>
+                    <div class="-mt-4 mb-4 text-sm flex items-start">
+                      Disesuaikan tanggal acara
                     </div>
                   </div>
 
                   <div>
-                    <label for="voice" class="mb-2 block text-sm float-left">
-                      Pilih Voice Reminder</label
+                    <label
+                      for="voice"
+                      class="mb-2 block text-sm flex items-start"
+                    >
+                      Pilih ringtone</label
                     >
                     <div>
                       <select
                         v-model="voice"
-                        class="border w-full h-10 mb-3 focus:border-blue-500"
+                        class="border w-full h-10 mb-3 focus:border-blue-500 flex items-start"
                       >
-                        <option value="disabled hidden">Pilih Ringtone</option>
-                        <option value="1">hahahihi</option>
+                        <option disabled selected value="">
+                          Pilih ringtone
+                        </option>
+                        <!-- <option value="1">hahahihi</option>
                         <option value="2">aiyaaiya</option>
-                        <option value="3">oke</option>
-                        <!-- <option
+                        <option value="3">oke</option> -->
+                        <option
                           v-for="option in options"
-                          :key="option.value"
-                          :value="option.value"
+                          :key="option.id"
+                          :value="option.id"
                         >
                           {{ option.name }}
-                        </option> -->
+                        </option>
                       </select>
                       <div v-if="voiceError" class="text-red-500">
                         {{ voiceError }}
@@ -297,17 +323,27 @@
                     </div>
                   </div>
 
-                  <div class="mb-10">
-                    <div>
-                      <button
-                        type="submit"
-                        value="submit"
-                        class="float-right text-base bg-sky-500 text-white font-semibold py-2 px-5 rounded hover:shadow-lg hover:bg-sky-700"
-                      >
-                        {{ this.edit ? 'Edit Catatan' : 'Buat Catatan' }}
-                      </button>
-                    </div>
+                  <div class="flex justify-end mt-8">
+                    <button
+                      type="submit"
+                      value="submit"
+                      class="text-base w-[300px] bg-blue-500 text-white font-semibold py-2 px-5 rounded"
+                    >
+                      {{ this.edit ? 'Edit Catatan' : 'Buat Catatan' }}
+                    </button>
                   </div>
+                  <!-- coba -->
+                  <!-- <div class="flex justify-end mt-8">
+                    <button
+                      @click="showEdit"
+                      type="submit"
+                      value="submit"
+                      class="text-base w-[300px] bg-blue-500 text-white font-semibold py-2 px-5 rounded"
+                    >
+                      Edit Catatan
+                    </button>
+                  </div>
+                  <EditNote/> -->
                 </form>
               </div>
             </div>
@@ -319,8 +355,6 @@
 </template>
 
 <script>
-// import VueTimepicker from 'vue2-timepicker/src/vue-timepicker.vue'
-// import 'vue2-timepicker/dist/VueTimepicker.css'
 export default {
   // components: { VueTimepicker },
   props: {
@@ -345,7 +379,8 @@ export default {
     const date = new Date()
     date.setMinutes(0, 0, 0)
     return {
-      isOpen: false,
+      isShowEdit:false,
+      isShowCancelEdit: false,
       error: {},
       errorMessage: null,
 
@@ -370,9 +405,10 @@ export default {
       date: this.item.event_date ?? '',
       datetime: this.item.reminder ?? '',
       pengingat: this.item.pengingat ?? '',
-      voice: this.item.ringtone ?? '',
+      voice: this.item.ringtone_id ?? '',
 
       voiceError: '',
+      // teksDeskripsi: false,
     }
   },
   async created() {
@@ -413,6 +449,11 @@ export default {
     descriptionValidate() {
       if (!this.description) {
         this.descriptionError = 'Anda belum mengisi deskripsi.'
+      }
+      if (this.description.length > 250) {
+        // this.teksDeskripsi = true
+        // Menghapus karakter ke-101 dan seterusnya
+        this.description = this.description.slice(0, 250)
       } else {
         this.descriptionError = ''
       }
@@ -449,12 +490,14 @@ export default {
     },
     async handleSubmit() {
       if (this.edit) {
+        // this.isShowEdit = true
         await this.$store.dispatch('notes/updateNote', {
           idNote: this.item.id,
           data: {
             subject: this.subject,
             description: this.description,
             email: this.items,
+            // email: (this.email = []),
             event_date: this.date,
             reminder: this.datetime,
             ringtone_id: this.voice,
@@ -465,6 +508,7 @@ export default {
           await this.$store.dispatch('notes/addNote', {
             subject: this.subject,
             description: this.description,
+            // email: this.items && this.email,
             email: this.items,
             event_date: this.date,
             reminder: this.datetime,
@@ -474,8 +518,10 @@ export default {
           this.error = error.response.data.data
           this.errorMessage = error.response.data.message
           console.log(error)
+          alert('maaf catatan anda gagal dibuat')
         }
       }
+      // this.$router.go()
     },
     async ringtone() {
       try {
@@ -487,6 +533,28 @@ export default {
         console.log(error)
       }
     },
+
+    showCancel() {
+      if (this.edit) {
+        this.isShowCancelEdit = true
+      } else {
+        this.$emit('close')
+      }
+    },
+    hideCancel() {
+      this.isShowCancelEdit = false
+    },
+    handleBuang() {
+      if (this.edit) this.$emit('close')
+    },
+
+    // showEdit() {
+    //   if (this.edit) {
+    //     this.isShowEdit = true
+    //   } else {
+    //     this.$emit('close')
+    //   }
+    // },
     // async updateNote(note) {
     //   await this.$store.dispatch('notes/updateNote', note)
     // },

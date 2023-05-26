@@ -1,19 +1,35 @@
 <template>
-  <timeline>
-    <timeline-item>item1</timeline-item>
-    <timeline-item :hollow="false">item2</timeline-item>
-    <timeline-item :hollow="false">item3</timeline-item>
-  </timeline>
+  <div>
+    <input
+      type="text"
+      v-model="inputValue"
+      @input="handleInput"
+      class="border flex items-center mx-auto mt-5 w-full h-10"
+    />
+    <p v-if="isInputTooLong" style="color: red">
+      Input melebihi batas karakter.
+    </p>
+  </div>
 </template>
 
 <script>
-import { Timeline, TimelineItem } from 'vue-cute-timeline'
-import 'vue-cute-timeline/dist/index.css'
-
 export default {
-  components: {
-    Timeline,
-    TimelineItem,
+  data() {
+    return {
+      inputValue: '',
+      isInputTooLong: false,
+    }
+  },
+  methods: {
+    handleInput() {
+      if (this.inputValue.length > 100) {
+        this.isInputTooLong = true
+        // Menghapus karakter ke-101 dan seterusnya
+        this.inputValue = this.inputValue.slice(0, 100)
+      } else {
+        this.isInputTooLong = false
+      }
+    },
   },
 }
 </script>
