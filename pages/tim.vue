@@ -8,9 +8,9 @@
     <p class="p-8">Belum ada tim yang dibuat</p>
 
     <CardGroup
-      v-for="data in dataGrup"
+      v-for="data in teams"
       :key="data"
-      :inputData="data.nama"
+      :item="data"
       class=""
     />
 
@@ -42,9 +42,11 @@ export default {
 }
 </script> -->
 <script>
+import { mapState } from 'vuex'
 export default {
   async asyncData({ store }) {
     await store.dispatch('profile/getdataUser', store.state.auth.user.id)
+    await store.dispatch('team/fetchGroupList')
   },
   layout: 'home',
   name: 'Modal',
@@ -58,7 +60,18 @@ export default {
     return {
       // toggleModal: false,
       // email: '',
-      // items: [],
+      items: [
+        {
+          id: 1,
+          name: 'biru',
+          path: './asset/biru.jpg'
+        },
+        {
+          id: 2,
+          name: 'biru',
+          path: './asset/biru.jpg'
+        },
+      ],
       dataGrup: [],
       // grup: [
       //   {
@@ -67,6 +80,9 @@ export default {
       //   },
       // ],
     }
+  },
+  computed : {
+    ...mapState('team',['teams'])
   },
   methods: {
     // pushNewData() {
