@@ -6,7 +6,7 @@
         <ButtonGlobal @click="show" />
       </div>
       <div class="min-w-full px-8 items-center mb-8">
-        <p class="text-lg mb-4">Belum catatan masuk atau undangan grub</p>
+        <p class="text-lg mb-4">Daftar catatan dan undangan grub masuk</p>
         <CardRequest />
         <div class="flex items-center mt-3">
           <div>3 permintaan lagi.</div>
@@ -21,8 +21,8 @@
         <h1 class="text-2xl font-bold mb-3">Daftar catatan</h1>
       </div>
 
-      <div>Belum Ada Catatan</div>
-      <div class="min-w-full px-4 items-center mb-8">
+      <div v-if="notes.length > 0" class="px-8">Mendekati Tanggal Acara</div>
+      <div v-if="notes.length > 0" class="min-w-full px-4 items-center mb-8">
         <!-- <CardListNote/> -->
         <!-- <DetailPersonal /> -->
         <CardListNote
@@ -32,19 +32,33 @@
           class=""
         />
       </div>
-      <!-- <div v-else>Belum Ada Catatan</div> -->
+      <div
+        v-else
+        class="px-8 text-slate-400 font-bold flex items-center justify-center h-44"
+      >
+        Belum Ada Catatan
+      </div>
+      <DetailPersonal
+        v-if="isShowDetail && detailNotes !== null"
+        @close="hideDetail"
+        :itemDetail="detailNotes"
+      />
     </div>
     <FormNote :show="isOpen" @close="hide" />
   </div>
 </template>
 
 <script>
+import { mapState } from 'vuex'
 export default {
+  async asyncData({ store }) {
+    await store.dispatch('profile/getdataUser', store.state.auth.user.id)
+  },
   layout: 'home',
   data() {
     return {
       isOpen: false,
-      note: '',
+      note: false,
     }
   },
   methods: {
@@ -59,6 +73,10 @@ export default {
     notes() {
       return this.$store.state.notes.notes
     },
+    ...mapState({
+      detailNotes: (state) => state.notes.detailNotes,
+      isShowDetail: (state) => state.notes.showDetail,
+    }),
     chek() {
       return Boolean(this.note)
     },
