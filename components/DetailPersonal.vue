@@ -16,19 +16,18 @@
             class="my-5 inline-block w-full max-w-xl transform overflow-hidden rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all"
           >
             <div class="">
-              <div class="flex items-center mt-2">
-                <div
-                  v-if="
-                    itemDetail.note_type === 'collaboration' &&
-                    $auth.user.id === itemDetail.owner[0]?.id
-                  "
-                  class="flex"
-                >
+              <div class="flex items-center justify-between mt-2">
+                <div class="flex">
                   <div class="bg-red-400 rounded-full text-[12px] h-6 px-3">
                     {{ itemDetail.status }}
                   </div>
 
-                  <div>
+                  <div
+                    v-if="
+                      itemDetail.note_type === 'collaboration' &&
+                      $auth.user.id === itemDetail.owner[0]?.id
+                    "
+                  >
                     <span
                       @click="showStory"
                       class="text-blue-500 px-2 cursor-pointer"
@@ -41,12 +40,9 @@
                     @close="hideStory"
                   />
                 </div>
-              </div>
-              <div
-                @click="handleClose"
-                class="flex cursor-pointer float-right -mt-2"
-              >
-                <iconSilangIcon />
+                <div @click="handleClose" class="cursor-pointer">
+                  <iconSilangIcon />
+                </div>
               </div>
               <div class="flex items-center justify-between mt-5 mb-3">
                 <h1 class="font-bold text-xl">{{ itemDetail.subject }}</h1>

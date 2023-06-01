@@ -7,27 +7,28 @@
       </div>
       <div class="min-w-full px-8 items-center mb-8">
         <p class="text-lg mb-4">Daftar catatan dan undangan grub masuk</p>
-        <div>
+        <div v-if="reqlist.data">
           <CardRequest
             v-for="request in reqlist.data"
             :key="request.id"
             :request="request"
+            class="mb-2"
           />
 
-          <div class="flex items-center mt-3">
-            <div>3 permintaan lagi.</div>
+          <div v-if="reqlist.data.length > 2" class="flex items-center mt-3">
+            <div>{{ sisaReqlist }} permintaan lagi.</div>
             <NuxtLink to="/request" class="font-bold text-blue-600 px-1"
               >Lihat Semua</NuxtLink
             >
           </div>
         </div>
 
-        <!-- <div
+        <div
           v-else
           class="px-8 text-slate-400 font-bold flex items-center justify-center h-44"
         >
           Belum Ada Undangan
-        </div> -->
+        </div>
       </div>
     </div>
     <div>
@@ -94,8 +95,11 @@ export default {
       detailNotes: (state) => state.notes.detailNotes,
       isShowDetail: (state) => state.notes.showDetail,
     }),
-    chek() {
-      return Boolean(this.note)
+    // chek() {
+    //   return Boolean(this.note)
+    // },
+    sisaReqlist() {
+      return this.reqlist.data.length - 2
     },
   },
   mounted() {

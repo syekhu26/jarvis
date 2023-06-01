@@ -13,17 +13,22 @@
         </div>
         <div class="flex item-center w-full">
           <!-- history.data.note_created_at -->
-          <div class="font-bold text-md">Nadhime Makarime</div>
+          <!-- {{ reqlist.data.from }} -->
+          <!-- <div v-for="request in reqlist.data" :key="request.id">
+            {{ request.from }}
+          </div> -->
+          <p class="font-bold text-md">
+            {{ request.from }}
+          </p>
           <div class="text-black px-1">
-            melibatkan anda pada sebuah catatan.
-            <!-- {{ reqlist.data.message }} -->
+            {{ request.message }}
           </div>
           <div class="text-slate-400">5 menit lalu</div>
         </div>
       </div>
       <div class="flex items-center px-12">
         <iconTaskIcon />
-        <div class="font-bold text-blue-600">Membeli Tiket Pesawat</div>
+        <div class="font-bold text-blue-600">{{ request.note }}</div>
       </div>
       <div class="flex justify-end">
         <button
@@ -34,8 +39,23 @@
         <button
           class="bg-[#0F62FE] hover:bg-blue-400 text-white hover:text-black px-5 py-1 mx-2 rounded"
         >
+          <!-- <a :href="request.url">Terima</a>  -->
           Terima
         </button>
+        <!-- <div class="border border-red-500 hover:bg-red-300 bg-white px-5 py-1 mx-2 rounded" v-for="request in request.actions" :key="request.id">
+          {{ request.action }}
+        </div> -->
+        <!-- {{ request.action }} -->
+        <!-- <button
+            class="border border-red-500 hover:bg-red-300 bg-white px-5 py-1 mx-2 rounded"
+          >
+            <a :href="request.url">Tolak</a> 
+          </button>
+          <button
+            class="bg-[#0F62FE] hover:bg-blue-400 text-white hover:text-black px-5 py-1 mx-2 rounded"
+          >
+          <a :href="request.url">Terima</a> 
+          </button> -->
       </div>
     </div>
   </div>
@@ -89,3 +109,5 @@ export default {
   },
 }
 </script>
+
+reqlist.data.from reqlist.data[1].from

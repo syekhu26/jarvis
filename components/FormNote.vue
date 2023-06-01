@@ -109,7 +109,7 @@
                 class="bg-slate-200 rounded mb-2 px-2 flex items-center"
               >
                 {{ member.email }}
-                <div>
+                <!-- <div>
                   <button
                     v-if="item"
                     class="ml-2 mt-2"
@@ -119,7 +119,7 @@
                   >
                     <iconSilangIcon class="w-3 h-3" />
                   </button>
-                </div>
+                </div> -->
               </div>
               <span v-if="emailError" class="text-red-500">{{
                 emailError
@@ -340,15 +340,15 @@
                   value="submit"
                   class="text-base w-[300px] bg-blue-500 text-white font-semibold py-2 px-5 rounded"
                 >
-                  {{ this.edit ? 'Edit Catatan' : 'Buat Catatan' }}
+                  {{ this.edit ? 'Simpan Catatan' : 'Buat Catatan' }}
                 </button>
               </div>
-              <!-- <EditNote
+              <EditNote
                 :form="item"
                 v-if="isShowEdit"
                 @close="hideEdit"
-                @delete="handleEdit"
-              /> -->
+                @edit="confirmEdit"
+              />
               <!-- coba -->
               <!-- <div class="flex justify-end mt-8">
                     <button
@@ -505,8 +505,10 @@ export default {
       }
     },
     async handleSubmit() {
-      if (this.edit) {
-        // this.isShowEdit = true
+      if (this.edit && this.item.note_type === 'collaboration') {
+        this.isShowEdit = true
+      }
+      if (this.edit && this.item.note_type !== 'collaboration') {
         await this.$store.dispatch('notes/updateNote', {
           idNote: this.item.id,
           data: {
@@ -518,8 +520,10 @@ export default {
             reminder: this.datetime,
             ringtone_id: this.voice,
           },
-        })
-      } else {
+        }).
+        finally(()=> this.$router.go())
+      } 
+      if (!this.edit) {
         try {
           await this.$store.dispatch('notes/addNote', {
             subject: this.subject,
@@ -567,6 +571,20 @@ export default {
         this.$emit('close')
       }
     },
+    confirmEdit() {
+      this.$store.dispatch('notes/updateNote', {
+        idNote: this.item.id,
+        data: {
+          subject: this.subject,
+          description: this.description,
+          email: this.items,
+          // email: (this.email = []),
+          event_date: this.date,
+          reminder: this.datetime,
+          ringtone_id: this.voice,
+        },
+      })
+    },
     hideCancel() {
       this.isShowCancelEdit = false
     },
@@ -583,7 +601,6 @@ export default {
     // },
     hideEdit() {
       this.isShowEdit = false
-      this.$router.go()
     },
     handleEdit() {
       if (this.edit) this.$emit('close')

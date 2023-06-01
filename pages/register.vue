@@ -273,11 +273,13 @@ export default {
     // },
   },
   methods: {
+    // const username = /^[a-zA-Z]+$/
+    //   if (!this.username.match(username)) {
+    //     this.usernameError = 'Maaf, username belum sesuai'
+    //   }
     usernameValidate() {
       if (!this.username) {
         this.usernameError = 'Maaf, anda belum memasukan username anda.'
-      } else if (this.error.username) {
-        this.error.username = null
       } else {
         this.usernameError = ''
       }

@@ -46,17 +46,16 @@ export default {
           </p>
           <div class="flex justify-center my-2">
             <button
-              @click="$emit('close')"
+              @click="$emit('delete')"
               class="bg-white border rounded w-[200px] py-2 mx-2"
             >
-              Kembali
+              Buang
             </button>
-
             <button
-              @click="$emit('delete')"
+              @click="$emit('close')"
               class="w-1/2 bg-red-600 text-white ml-1 p-2 rounded"
             >
-              Buang
+              Kembali
             </button>
           </div>
         </div>

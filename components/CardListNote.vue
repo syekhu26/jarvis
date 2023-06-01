@@ -53,10 +53,7 @@
           <div>
             <p class="font-bold">{{ item.subject }}</p>
           </div>
-          <div
-            v-if="item.note_type === 'collaboration'"
-            class="bg-red-400 rounded-full text-[12px] h-6 px-3"
-          >
+          <div class="bg-red-400 rounded-full text-[12px] h-6 px-3">
             {{ item.status }}
           </div>
         </div>

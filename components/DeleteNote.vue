@@ -13,7 +13,7 @@
         </div>
         <div>
           <div
-            class="my-5 inline-block w-full max-w-xl transform overflow-hidden rounded-md bg-white p-6 text-left align-middle shadow-xl transition-all"
+            class="my-5 inline-block w-full max-w-md transform overflow-hidden rounded-md bg-white p-6 text-left align-middle shadow-xl transition-all"
           >
             <p class="text-lg font-semibold text-center mb-4">
               Apakah anda yakin menghapus catatan ini?
@@ -25,7 +25,7 @@
               v-if="pesan.note_type === 'collaboration'"
               class="text-lg text-center font-semibold"
             >
-              Pesan yang dilaporkan untuk orang yang dilibatkan
+              Pesan untuk dilaporkan kepada orang yang dilibatkan
             </p>
             <div v-if="pesan.note_type === 'collaboration'" class="px-3">
               <div class="flex justify-between my-2">
@@ -47,26 +47,25 @@
             </div>
             <div class="flex my-4">
               <button
-                @click="$emit('close')"
-                class="bg-white border rounded w-[200px] py-2 mx-2"
-              >
-                Batal
-              </button>
-
-              <button
                 v-if="pesan.note_type === 'personal'"
                 @click="deleteNote(id)"
-                class="w-1/2 bg-red-600 text-white ml-1 p-2 rounded"
+                class="bg-white border rounded w-[200px] py-2 mx-2"
               >
-                Ya
+                Hapus
               </button>
               <button
                 v-if="pesan.note_type === 'collaboration'"
                 @click="deleteNote(id)"
                 :disabled="!description"
-                class="w-1/2 bg-red-600 text-white ml-1 p-2 rounded disabled:bg-slate-500"
+                class="bg-white border rounded w-[200px] py-2 mx-2 disabled:bg-slate-300"
               >
-                Ya
+                Hapus
+              </button>
+              <button
+                @click="$emit('close')"
+                class="w-1/2 bg-red-600 text-white ml-1 p-2 rounded"
+              >
+                Batal
               </button>
             </div>
           </div>
