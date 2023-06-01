@@ -36,46 +36,45 @@
     </div>
     <DetailPersonal v-if="detail" @close="hideDetail" :itemDetail="item" />
   </div> -->
-  <div>
-    <div @click="showDetail(item)" class="">
-      <div
-        @click="$emit('click')"
-        class="flex bg-white border border-slate-300 mt-5 max-w-xl mx-5 rounded h-[124px]"
-      >
-        <div class="border-r-2 border-slate-300 px-3 h-24 mt-3">
-          <!-- icon -->
-          <iconUserIcon v-if="item.note_type === 'personal'" class="mt-7" />
-          <iconGroupIcon v-else class="mt-7" />
+
+  <div class="">
+    <div
+      @click="showDetail(item)"
+      class="flex w-auto h-auto bg-white border border-slate-300 mt-5 max-w-xl mx-5 rounded"
+    >
+      <div class="border-r-2 border-slate-300 px-3 h-24 mt-auto mb-auto">
+        <!-- icon -->
+        <iconUserIcon v-if="item.note_type === 'personal'" class="mt-7" />
+        <iconGroupIcon v-else class="mt-7" />
+      </div>
+      <div class="px-3 w-full mt-3">
+        <!-- keterangan -->
+        <div class="flex items-center justify-between w-full">
+          <div>
+            <p class="font-bold">{{ item.subject }}</p>
+          </div>
+          <div
+            v-if="item.note_type === 'collaboration'"
+            class="bg-red-400 rounded-full text-[12px] h-6 px-3"
+          >
+            {{ item.status }}
+          </div>
         </div>
-        <div class="px-3 w-full mt-3">
-          <!-- keterangan -->
-          <div class="flex items-center justify-between w-full">
-            <div>
-              <p class="font-bold">{{ item.subject }}</p>
-            </div>
-            <div
-              v-if="item.note_type === 'collaboration'"
-              class="bg-red-400 rounded-full text-[12px] h-6 px-3"
-            >
-              {{ item.status }}
-            </div>
+        <div class="mt-2 max-w-xl break-all">
+          {{ item.description }}
+        </div>
+        <div class="flex items-center justify-between mt-5">
+          <div class="flex">
+            <img
+              class="rounded-full w-5 h-5"
+              :src="$store.state.profile.dataUser.photo"
+              alt=""
+            />
+            <p class="text-gray-500 mx-1 text-sm">
+              {{ item.owner[0].username }}
+            </p>
           </div>
-          <p class="mt-2">
-            {{ item.description }}
-          </p>
-          <div class="flex items-center justify-between mt-5">
-            <div class="flex">
-              <img
-                class="rounded-full w-5 h-5"
-                :src="$store.state.profile.dataUser.photo"
-                alt=""
-              />
-              <p class="text-gray-500 mx-1 text-sm">
-                {{ item.owner[0].username }}
-              </p>
-            </div>
-            <div>{{ item.event_date }}</div>
-          </div>
+          <div>{{ formatDate }}</div>
         </div>
       </div>
     </div>
@@ -107,6 +106,7 @@ export default {
       this.$store.commit('notes/detailNotes', item)
       this.$store.commit('notes/setShowDetail', true)
     },
+
     // handleDetail() {
     //   this.detail = !this.detail
     // },
@@ -121,6 +121,9 @@ export default {
     ...mapState({
       isShowDetail: (state) => state.notes.showDetail,
     }),
+    formatDate() {
+      return this.$moment(this.item.event_date).format('DD MMM YYYY')
+    },
   },
 }
 </script>

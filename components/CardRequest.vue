@@ -12,9 +12,11 @@
           />
         </div>
         <div class="flex item-center w-full">
-          <div class="font-bold text-md">Nadiem Makarim</div>
+          <!-- history.data.note_created_at -->
+          <div class="font-bold text-md">Nadhime Makarime</div>
           <div class="text-black px-1">
             melibatkan anda pada sebuah catatan.
+            <!-- {{ reqlist.data.message }} -->
           </div>
           <div class="text-slate-400">5 menit lalu</div>
         </div>
@@ -65,3 +67,25 @@
       </div>
     </div> -->
 </template>
+<script>
+import { mapActions, mapState } from 'vuex'
+export default {
+  props: {
+    request: {
+      // type: Number,
+      // default: null,
+      type: Object,
+      default: () => ({}),
+    },
+  },
+  computed: {
+    ...mapState('notes', ['reqlist']),
+  },
+  mounted() {
+    this.$store.dispatch('notes/reqlist', this.request.id)
+  },
+  method: {
+    ...mapActions('notes', ['reqlist']),
+  },
+}
+</script>

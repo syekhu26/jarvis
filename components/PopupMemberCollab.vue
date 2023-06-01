@@ -33,7 +33,22 @@
             </div>
           </div>
           <div class="mt-5">
-            <CardMemberCollab />
+            <div
+              v-for="(member, index) in memberCollab.member"
+              :key="index"
+              class="bg-white py-3 rounded px-5 border-slate-400 border w-full mb-4"
+            >
+              <div class="flex items-center">
+                <img
+                  class="rounded-full w-10 h-10 mx-1"
+                  :src="member.photo"
+                  alt=""
+                />
+                <div class="px-2">
+                  {{ member.username }}
+                </div>
+              </div>
+            </div>
           </div>
         </div>
 
@@ -49,6 +64,10 @@ export default {
     showMember: {
       type: Boolean,
       default: false,
+    },
+    memberCollab: {
+      type: Object,
+      default: () => ({}),
     },
   },
 }

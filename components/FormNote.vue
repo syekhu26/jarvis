@@ -1,191 +1,207 @@
 <template>
-  <div>
-    <!-- <ButtonGlobal @click="isShowCancelEdit = !isShowCancelEdit" /> -->
-    <div>
-      <div class="">
-        <div
-          v-if="show"
-          class="bg-opacity-50 bg-black fixed inset-0 justify-center items-center overflow-y-auto overflow-x-hidden z-20"
-        >
-          <div class="mt-10 my-10">
+  <div class="">
+    <div
+      v-if="show"
+      class="bg-opacity-50 bg-black fixed inset-0 justify-center items-center overflow-y-auto overflow-x-hidden z-20"
+    >
+      <div class="mt-10 my-10">
+        <div class="bg-white max-w-2xl w-full rounded p-6 mx-auto shadow-lg">
+          <!-- fixed overflow-x-hidden overflow-y-auto inset-0 flex justify-center items-center -->
+          <div class="flex items-center justify-between">
+            <h3 class="text-lg font-medium leading-6 text-gray-900">
+              {{ this.edit ? 'Edit Catatan' : 'Buat Catatan' }}
+            </h3>
             <div
-              class="bg-white max-w-2xl w-full rounded p-6 mx-auto shadow-lg"
+              @click="showCancel"
+              class="w-10 h-10 rounded-full flex mt-3 top-5 right-5 cursor-pointer"
             >
-              <!-- fixed overflow-x-hidden overflow-y-auto inset-0 flex justify-center items-center -->
-              <div class="flex items-center justify-between">
-                <h3 class="text-lg font-medium leading-6 text-gray-900">
-                  {{ this.edit ? 'Edit Catatan' : 'Buat Catatan' }}
-                </h3>
-                <div
-                  @click="showCancel"
-                  class="w-10 h-10 rounded-full flex mt-3 top-5 right-5 cursor-pointer"
-                >
-                  <iconSilangIcon />
+              <iconSilangIcon />
+            </div>
+          </div>
+
+          <CancelEdit
+            v-if="isShowCancelEdit"
+            @close="hideCancel"
+            @delete="handleBuang"
+          />
+
+          <div class="mt-4">
+            <form action="" @submit.prevent="handleSubmit" class="w-full">
+              <div>
+                <div class="flex">
+                  <label
+                    for="subjek"
+                    class="mb-2 block text-sm flex items-start"
+                  >
+                    Subjek</label
+                  >
+                  <div class="text-red-500 px-1">*</div>
+                </div>
+                <div class="mb-3">
+                  <input
+                    type="text"
+                    name="subjek"
+                    v-model="subject"
+                    @input="subjectValidate"
+                    placeholder="Tulis Subjek"
+                    required
+                    class="border text-black px-4 py-2 w-full focus:outline-none focus:border-blue-500"
+                  />
+                  <span v-if="subjectError" class="text-red-500">{{
+                    subjectError
+                  }}</span>
+                  <span v-if="error.subject" class="text-red-500"
+                    >username {{ error.subject[0] }}</span
+                  >
+                </div>
+              </div>
+              <div>
+                <div class="flex items-center justify-between">
+                  <div class="flex">
+                    <label for="deskripsi" class="mb-2 block text-sm"
+                      >Deskripsi
+                    </label>
+                    <div class="text-red-500 px-1">*</div>
+                  </div>
+                  <p class="font-sans">{{ tambahAngka }}/250</p>
+                </div>
+
+                <div class="mb-3">
+                  <textarea
+                    v-model="description"
+                    @input="descriptionValidate"
+                    name="deskripsi"
+                    placeholder="Tulis Deskripsi Catatan"
+                    class="border text-black px-4 py-2 w-full focus:outline-none focus:border-blue-500"
+                  />
+                  <span v-if="descriptionError" class="text-red-500">{{
+                    descriptionError
+                  }}</span>
+                  <span v-if="error.description" class="text-red-500">{{
+                    error.description
+                  }}</span>
+                  <!-- <p v-if="teksDeskripsi" class="text-red-500">
+                        Maaf, inputan anda melewati batas.
+                      </p> -->
                 </div>
               </div>
 
-              <CancelEdit
-                v-if="isShowCancelEdit"
-                @close="hideCancel"
-                @delete="handleBuang"
-              />
+              <label for="email" class="text-sm mb-2 flex items-start">
+                Masukan email anggota</label
+              >
 
-              <div class="mt-4">
-                <form action="" @submit.prevent="handleSubmit" class="w-full">
-                  <div>
-                    <label
-                      for="subjek"
-                      class="mb-2 block text-sm flex items-start"
-                    >
-                      Subjek</label
-                    >
-                    <div class="mb-3">
-                      <input
-                        type="text"
-                        name="subjek"
-                        v-model="subject"
-                        @input="subjectValidate"
-                        placeholder="Tulis Subjek"
-                        required
-                        class="border text-black px-4 py-2 w-full focus:outline-none focus:border-blue-500"
-                      />
-                      <span v-if="subjectError" class="text-red-500">{{
-                        subjectError
-                      }}</span>
-                      <span v-if="error.subject" class="text-red-500"
-                        >username {{ error.subject[0] }}</span
-                      >
-                    </div>
-                  </div>
-                  <div>
-                    <div class="flex items-center justify-between">
-                      <label for="deskripsi" class="mb-2 block text-sm"
-                        >Deskripsi
-                      </label>
-                      <p class="font-sans">{{ tambahAngka }}/250</p>
-                    </div>
-
-                    <div class="mb-3">
-                      <textarea
-                        v-model="description"
-                        @input="descriptionValidate"
-                        name="deskripsi"
-                        placeholder="Tulis Deskripsi Catatan"
-                        class="border text-black px-4 py-2 w-full focus:outline-none focus:border-blue-500"
-                      />
-                      <span v-if="descriptionError" class="text-red-500">{{
-                        descriptionError
-                      }}</span>
-                      <span v-if="error.description" class="text-red-500">{{
-                        error.description
-                      }}</span>
-                      <!-- <p v-if="teksDeskripsi" class="text-red-500">
-                        Maaf, inputan anda melewati batas.
-                      </p> -->
-                    </div>
-                  </div>
-
-                  <label for="email" class="text-sm mb-2 flex items-start">
-                    Masukan email anggota</label
+              <div class="relative text-gray-600 border">
+                <span class="absolute inset-y-0 left-0 flex items-center pl-2">
+                  <iconInviteIcon />
+                </span>
+                <input
+                  type="email"
+                  name="email"
+                  v-model="email"
+                  @input="emailValidate"
+                  class="py-2 border text-black pl-10 w-full focus:outline-none focus:border-blue-500"
+                  placeholder="Masukan email"
+                />
+              </div>
+              <div
+                v-for="member in item.member"
+                :key="member"
+                class="bg-slate-200 rounded mb-2 px-2 flex items-center"
+              >
+                {{ member.email }}
+                <div>
+                  <button
+                    v-if="item"
+                    class="ml-2 mt-2"
+                    type="button"
+                    @click="hapus"
+                    title="Remove"
                   >
-
-                  <div class="relative text-gray-600 border">
-                    <span
-                      class="absolute inset-y-0 left-0 flex items-center pl-2"
+                    <iconSilangIcon class="w-3 h-3" />
+                  </button>
+                </div>
+              </div>
+              <span v-if="emailError" class="text-red-500">{{
+                emailError
+              }}</span>
+              <div>
+                <div
+                  v-for="item in items"
+                  :key="item"
+                  class="bg-slate-200 rounded mb-2 px-2 flex items-center"
+                >
+                  {{ item }}
+                  <div>
+                    <button
+                      v-if="item"
+                      class="ml-2 mt-2"
+                      type="button"
+                      @click="remove"
+                      title="Remove"
                     >
-                      <iconInviteIcon />
-                    </span>
-                    <input
-                      type="email"
-                      name="email"
-                      v-model="email"
-                      @input="emailValidate"
-                      class="py-2 border text-black pl-10 w-full focus:outline-none focus:border-blue-500"
-                      placeholder="Masukan email"
-                    />
+                      <iconSilangIcon class="w-3 h-3" />
+                    </button>
                   </div>
-                  <div
-                    v-for="member in item.member"
-                    :key="member"
-                    class="bg-slate-200 rounded mb-2 px-2 flex items-center"
+                </div>
+              </div>
+
+              <div
+                @click="addEmail"
+                class="flex items-center mt-2 text-blue-600 cursor-pointer"
+              >
+                <iconPlusIcon />
+                <span class="px-1">Tambah email</span>
+              </div>
+              <div>
+                <div class="flex">
+                  <label
+                    class="block text-sm flex items-start mt-3 mb-2"
+                    for="date"
                   >
-                    {{ member.email }}
-                  </div>
-                  <span v-if="emailError" class="text-red-500">{{
-                    emailError
-                  }}</span>
-                  <div>
-                    <div
-                      v-for="item in items"
-                      :key="item"
-                      class="bg-slate-200 rounded mb-2 px-2 flex items-center"
+                    Tanggal acara
+                  </label>
+                  <div class="text-red-500 px-1 mt-3">*</div>
+                </div>
+                <div class="border w-full h-10">
+                  <div class="">
+                    <vc-date-picker
+                      class=""
+                      v-model="date"
+                      @input="kalenderValidate"
+                      :min-date="new Date()"
+                      mode="dateTime"
+                      :minute-increment="1"
                     >
-                      {{ item }}
-                      <div>
-                        <button
-                          v-if="item"
-                          class="ml-2 mt-2"
-                          type="button"
-                          @click="remove"
-                          title="Remove"
-                        >
-                          <iconSilangIcon class="w-3 h-3" />
-                        </button>
-                      </div>
-                    </div>
-                  </div>
+                      <template #default="{ inputValue, inputEvents }">
+                        <div class="flex">
+                          <iconKalenderIcon class="mt-3 mx-2" />
 
-                  <div
-                    @click="addEmail"
-                    class="flex items-center mt-2 text-blue-600 cursor-pointer"
+                          <input
+                            :value="inputValue"
+                            v-on="inputEvents"
+                            class="w-full mt-2 border-hidden px-2 mb-2 outline-none"
+                            placeholder="mm-dd-yyyy"
+                          />
+                        </div>
+                        <span v-if="dateError" class="text-red-500">{{
+                          dateError
+                        }}</span>
+                      </template>
+                    </vc-date-picker>
+                  </div>
+                </div>
+              </div>
+              <div>
+                <div class="flex">
+                  <label
+                    for="remainder"
+                    class="block text-sm mt-3 mb-2 flex items-start"
                   >
-                    <iconPlusIcon />
-                    <span class="px-1">Tambah email</span>
-                  </div>
-                  <div>
-                    <label
-                      class="block text-sm flex items-start mt-3 mb-2"
-                      for="date"
-                    >
-                      Tanggal acara
-                    </label>
-                    <div class="border w-full h-10">
-                      <div class="">
-                        <vc-date-picker
-                          class=""
-                          v-model="date"
-                          @input="kalenderValidate"
-                          :min-date="new Date()"
-                          mode="dateTime"
-                          :minute-increment="5"
-                        >
-                          <template #default="{ inputValue, inputEvents }">
-                            <div class="flex">
-                              <iconKalenderIcon class="mt-3 mx-2" />
-
-                              <input
-                                :value="inputValue"
-                                v-on="inputEvents"
-                                class="w-full mt-2 border-hidden px-2 mb-2 outline-none"
-                                placeholder="mm-dd-yyyy"
-                              />
-                            </div>
-                            <span v-if="dateError" class="text-red-500">{{
-                              dateError
-                            }}</span>
-                          </template>
-                        </vc-date-picker>
-                      </div>
-                    </div>
-                  </div>
-                  <div>
-                    <label
-                      for="remainder"
-                      class="block text-sm mt-3 mb-2 flex items-start"
-                    >
-                      Tambahkan pengingat</label
-                    >
-                    <!-- 
+                    Tambahkan pengingat</label
+                  >
+                  <div class="text-red-500 px-1 mt-3">*</div>
+                </div>
+                <!-- 
                       <div
                         class="mt-2 px-2 border-2 w-10 h-10 w-full focus:outline-none focus:border-blue-500 mb-3"
                       >
@@ -200,35 +216,35 @@
                           ></datetime>
                         </div>
                       </div> -->
-                    <div class="border w-full w-10 h-10 px-2">
-                      <vc-date-picker
-                        v-model="datetime"
-                        @input="remainderValidate"
-                        mode="dateTime"
-                        :max-date="date"
-                        :min-date="new Date()"
-                        :minute-increment="5"
-                      >
-                        <template #default="{ inputValue, inputEvents }">
-                          <div class="flex item-center">
-                            <iconAlarmIcon class="mt-3" />
+                <div class="border w-full w-10 h-10 px-2">
+                  <vc-date-picker
+                    v-model="datetime"
+                    @input="remainderValidate"
+                    mode="dateTime"
+                    :max-date="date"
+                    :min-date="new Date()"
+                    :minute-increment="1"
+                  >
+                    <template #default="{ inputValue, inputEvents }">
+                      <div class="flex item-center">
+                        <iconAlarmIcon class="mt-3" />
 
-                            <input
-                              :value="inputValue"
-                              v-on="inputEvents"
-                              :disabled="remainderDisabled"
-                              class="w-full mt-2 px-4 outline-none"
-                              placeholder="Pilih waktu reminder"
-                            />
-                          </div>
-                          <span v-if="datetimeError" class="text-red-500">{{
-                            datetimeError
-                          }}</span>
-                        </template>
-                      </vc-date-picker>
-                    </div>
-                  </div>
-                  <!-- <input
+                        <input
+                          :value="inputValue"
+                          v-on="inputEvents"
+                          :disabled="remainderDisabled"
+                          class="w-full mt-2 px-4 outline-none"
+                          placeholder="Pilih waktu reminder"
+                        />
+                      </div>
+                      <span v-if="datetimeError" class="text-red-500">{{
+                        datetimeError
+                      }}</span>
+                    </template>
+                  </vc-date-picker>
+                </div>
+              </div>
+              <!-- <input
                         type="text"
                         name="subjek"
                         v-model="datetime"
@@ -238,103 +254,103 @@
                         class="border text-black px-4 py-2 w-full focus:outline-none focus:border-blue-500"
                       /> -->
 
+              <div>
+                <div
+                  v-for="deadline in deadlines"
+                  :key="deadline"
+                  class="bg-slate-200 rounded mb-2 px-2 flex items-center"
+                >
+                  {{ deadline }}
                   <div>
-                    <div
-                      v-for="deadline in deadlines"
-                      :key="deadline"
-                      class="bg-slate-200 rounded mb-2 px-2 flex items-center"
-                    >
-                      {{ deadline }}
-                      <div>
-                        <button
-                          v-if="deadline"
-                          class="ml-2 mt-2"
-                          type="button"
-                          @click="removeDeadlines"
-                          title="Remove"
-                        >
-                          <iconSilangIcon class="w-3 h-3" />
-                        </button>
-                      </div>
-                    </div>
-                  </div>
-
-                  <div
-                    @click="addRemainder"
-                    class="flex items-center mb-3 text-blue-600 cursor-pointer mt-2"
-                  >
-                    <iconPlusIcon />
-                    <span class="px-1">Tambah pengingat</span>
-                  </div>
-                  <div>
-                    <label
-                      class="mb-2 block text-sm flex items-start"
-                      for="date"
-                    >
-                      Tambahkan pengingat ulangan
-                    </label>
-                    <div>
-                      <select
-                        class="border w-full h-10 mb-3 focus:border-blue-500"
-                      >
-                        <option>Tidak Diulang</option>
-                        <option>Setiap hari</option>
-                        <option>Mingguan pada hari selasa</option>
-                        <option>Bulanan pada selasa pertama</option>
-                        <option>Tiap tahun pada 4 april</option>
-                        <option>Setiap hari kerja (senin sampai jumat)</option>
-                        <option>Tidak Tahu</option>
-                      </select>
-                    </div>
-                    <div class="-mt-4 mb-4 text-sm flex items-start">
-                      Disesuaikan tanggal acara
-                    </div>
-                  </div>
-
-                  <div>
-                    <label
-                      for="voice"
-                      class="mb-2 block text-sm flex items-start"
-                    >
-                      Pilih ringtone</label
-                    >
-                    <div>
-                      <select
-                        v-model="voice"
-                        class="border w-full h-10 mb-3 focus:border-blue-500 flex items-start"
-                      >
-                        <option disabled selected value="">
-                          Pilih ringtone
-                        </option>
-                        <!-- <option value="1">hahahihi</option>
-                        <option value="2">aiyaaiya</option>
-                        <option value="3">oke</option> -->
-                        <option
-                          v-for="option in options"
-                          :key="option.id"
-                          :value="option.id"
-                        >
-                          {{ option.name }}
-                        </option>
-                      </select>
-                      <div v-if="voiceError" class="text-red-500">
-                        {{ voiceError }}
-                      </div>
-                    </div>
-                  </div>
-
-                  <div class="flex justify-end mt-8">
                     <button
-                      type="submit"
-                      value="submit"
-                      class="text-base w-[300px] bg-blue-500 text-white font-semibold py-2 px-5 rounded"
+                      v-if="deadline"
+                      class="ml-2 mt-2"
+                      type="button"
+                      @click="removeDeadlines"
+                      title="Remove"
                     >
-                      {{ this.edit ? 'Edit Catatan' : 'Buat Catatan' }}
+                      <iconSilangIcon class="w-3 h-3" />
                     </button>
                   </div>
-                  <!-- <EditNote v-if="isShowEdit" /> -->
-                  <!-- coba -->
-                  <!-- <div class="flex justify-end mt-8">
+                </div>
+              </div>
+
+              <div
+                @click="addRemainder"
+                class="flex items-center mb-3 text-blue-600 cursor-pointer mt-2"
+              >
+                <iconPlusIcon />
+                <span class="px-1">Tambah pengingat</span>
+              </div>
+              <div>
+                <label class="mb-2 block text-sm flex items-start" for="date">
+                  Tambahkan pengingat ulangan
+                </label>
+                <div>
+                  <select class="border w-full h-10 mb-3 focus:border-blue-500">
+                    <option>Tidak Diulang</option>
+                    <option>Setiap hari</option>
+                    <option>Mingguan pada hari selasa</option>
+                    <option>Bulanan pada selasa pertama</option>
+                    <option>Tiap tahun pada 4 april</option>
+                    <option>Setiap hari kerja (senin sampai jumat)</option>
+                  </select>
+                </div>
+                <div class="-mt-4 mb-4 text-sm flex items-start">
+                  Disesuaikan tanggal acara
+                </div>
+              </div>
+
+              <div>
+                <div class="flex">
+                  <label
+                    for="voice"
+                    class="mb-2 block text-sm flex items-start"
+                  >
+                    Pilih ringtone</label
+                  >
+                  <div class="text-red-500 px-1">*</div>
+                </div>
+                <div>
+                  <select
+                    v-model="voice"
+                    class="border w-full h-10 mb-3 focus:border-blue-500 flex items-start"
+                  >
+                    <option disabled selected value="">Pilih ringtone</option>
+                    <!-- <option value="1">hahahihi</option>
+                        <option value="2">aiyaaiya</option>
+                        <option value="3">oke</option> -->
+                    <option
+                      v-for="option in options"
+                      :key="option.id"
+                      :value="option.id"
+                    >
+                      {{ option.name }}
+                    </option>
+                  </select>
+                  <div v-if="voiceError" class="text-red-500">
+                    {{ voiceError }}
+                  </div>
+                </div>
+              </div>
+
+              <div class="flex justify-end mt-8">
+                <button
+                  type="submit"
+                  value="submit"
+                  class="text-base w-[300px] bg-blue-500 text-white font-semibold py-2 px-5 rounded"
+                >
+                  {{ this.edit ? 'Edit Catatan' : 'Buat Catatan' }}
+                </button>
+              </div>
+              <!-- <EditNote
+                :form="item"
+                v-if="isShowEdit"
+                @close="hideEdit"
+                @delete="handleEdit"
+              /> -->
+              <!-- coba -->
+              <!-- <div class="flex justify-end mt-8">
                     <button
                       @click="showEdit"
                       type="submit"
@@ -345,9 +361,7 @@
                     </button>
                   </div>
                   <EditNote/> -->
-                </form>
-              </div>
-            </div>
+            </form>
           </div>
         </div>
       </div>
@@ -418,11 +432,12 @@ export default {
 
   methods: {
     addEmail() {
-      if (!this.email) {
-        return
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+
+      if (emailRegex.test(this.email)) {
+        this.items.push(this.email)
+        this.email = ''
       }
-      this.items.push(this.email)
-      this.email = ''
     },
     remove(i) {
       this.items.splice(i, 1)
@@ -491,7 +506,7 @@ export default {
     },
     async handleSubmit() {
       if (this.edit) {
-        this.isShowEdit = true
+        // this.isShowEdit = true
         await this.$store.dispatch('notes/updateNote', {
           idNote: this.item.id,
           data: {
@@ -515,7 +530,7 @@ export default {
             reminder: this.datetime,
             ringtone_id: this.voice,
           })
-          this.$router.go()
+          this.$router.push('/catatan')
         } catch (error) {
           this.error = error.response.data.data
           this.errorMessage = error.response.data.message
@@ -524,6 +539,15 @@ export default {
         }
       }
       // this.$router.go()
+    },
+    async hapus() {
+      try {
+        await this.$store.dispatch('notes/remove', this.item.id, {
+          email: this.item.member,
+        })
+      } catch (error) {
+        console.log(error)
+      }
     },
     async ringtone() {
       try {
@@ -557,6 +581,13 @@ export default {
     //     this.$emit('close')
     //   }
     // },
+    hideEdit() {
+      this.isShowEdit = false
+      this.$router.go()
+    },
+    handleEdit() {
+      if (this.edit) this.$emit('close')
+    },
     // async updateNote(note) {
     //   await this.$store.dispatch('notes/updateNote', note)
     // },
@@ -589,7 +620,7 @@ export default {
     },
     getTime() {
       // return this.date.split(' ')
-      return this.$moment(this.date).format('typeMMM DD,YYYY hh:mm A')
+      return this.$moment(this.date).format('type MMM DD,YYYY hh:mm A')
     },
     // getAlarm() {
     //   // return this.date.split(' ')

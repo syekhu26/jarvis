@@ -35,7 +35,11 @@
                       >lihat</span
                     >
                   </div>
-                  <History :showStory="story" @close="hideStory" />
+                  <History
+                    :idNoteToHistory="itemDetail"
+                    :showStory="story"
+                    @close="hideStory"
+                  />
                 </div>
               </div>
               <div
@@ -65,7 +69,7 @@
                   />
                 </div>
               </div>
-              <p class="font-sans mb-3">
+              <p class="font-sans mb-3 break-all">
                 <!-- Beli tiket pesawat untuk tgl 13 Maret 2023 dari Jogja ke
                 Jakarta. Pulang tanggal 5 Maret. Segera untuk dipesan. Jangan
                 sampai lupa -->
@@ -80,12 +84,13 @@
                 class="mb-4"
               >
                 <div
-                  v-for="(member, index) in itemDetail.member"
+                  v-for="(member, index) in itemDetail.member.slice(0, 2)"
                   :key="index"
                   class="my-3 bg-sky-500 px-5 py-2 rounded-full text-white text-center font-semibold font-sans max-w-[130px]"
                 >
                   {{ member.username }}
                 </div>
+
                 <!-- <div
                   class="my-3 bg-sky-500 px-5 py-2 rounded-full text-white font-semibold font-sans block max-w-[100px]"
                 >
@@ -97,54 +102,74 @@
                   Kak Jasmine
                 </div> -->
 
-                <!-- <div class="flex items-center mt-2">
-                  <p>dan 3 orang lagi.</p>
+                <div
+                  v-if="itemDetail.member.length > 2"
+                  class="flex items-center mt-2"
+                >
+                  <p>dan {{ sisaMember }} orang lagi.</p>
                   <div
                     @click="showMember"
                     class="text-sky-500 px-1 cursor-pointer"
                   >
                     Lihat semua
                   </div>
-                  <PopupMemberCollab :showMember="member" @close="hideMember" />
-                </div> -->
+                  <PopupMemberCollab
+                    :memberCollab="itemDetail"
+                    :showMember="member"
+                    @close="hideMember"
+                  />
+                </div>
               </div>
 
               <div v-if="itemDetail.note_type === 'collaboration'" class="mb-4">
                 <div>File Dokumen :</div>
                 <!-- <div class="text-sky-500 underline">Bukti transaksi.png</div>
                 <div class="text-sky-500 underline">Tiket pesawat.pdf</div> -->
-                <div
-                  v-for="(file, index) in itemDetail.file"
-                  :key="index"
-                  class="flex"
-                >
-                  <a :href="file" class="text-sky-500 underline">
-                    {{ getAllFileName[index] }}
-                    <!-- <p class="px-3" :title="file.name">
+                <div v-if="itemDetail.file.length > 0">
+                  <div
+                    v-for="(file, index) in itemDetail.file.slice(0, 2)"
+                    :key="index"
+                    class="flex"
+                  >
+                    <a :href="file" class="text-sky-500 underline">
+                      {{ getAllFileName[index] }}
+                      <!-- <p class="px-3" :title="file.name">
                       {{ makeName(file.name) }}
                     </p> -->
-                  </a>
+                    </a>
+                  </div>
                 </div>
-                <div class="flex items-center mt-2">
-                  <p>dan 3 dokument lagi.</p>
+                <div v-else>Belum ada document</div>
+                <div
+                  v-if="itemDetail.file.length > 2"
+                  class="flex items-center mt-2"
+                >
+                  <p>dan {{ sisaDoc }} dokument lagi.</p>
                   <div
                     @click="showDoc"
                     class="text-sky-500 px-1 cursor-pointer"
                   >
                     Lihat semua
                   </div>
-                  <PopupDocumentCollab :showDoc="doc" @close="hideDoc" />
+                  <PopupDocumentCollab
+                    :docCollab="itemDetail"
+                    :showDoc="doc"
+                    @close="hideDoc"
+                  />
                 </div>
               </div>
 
               <div class="mb-4">
                 <div class="flex">
                   <p>Tanggal Acara :</p>
-                  <p class="px-2">{{ itemDetail.event_date }}</p>
+                  <p class="px-2">{{ formatDate(itemDetail.event_date) }}</p>
                 </div>
                 <div class="flex">
                   <p>Reminder :</p>
-                  <p class="px-2">{{ itemDetail.reminder }}</p>
+                  <p class="px-2">
+                    {{ formatToH(itemDetail.reminder) }} -
+                    {{ formatDate(itemDetail.reminder) }}
+                  </p>
                 </div>
                 <div class="flex">
                   <p>Ringtone :</p>
@@ -223,6 +248,12 @@ export default {
 
       return []
     },
+    sisaMember() {
+      return this.itemDetail.member.length - 2
+    },
+    sisaDoc() {
+      return this.itemDetail.file.length - 2
+    },
   },
   methods: {
     addMember() {
@@ -239,6 +270,34 @@ export default {
       this.$store.commit('notes/detailNotes', null)
       this.$store.commit('notes/setShowDetail', false)
     },
+    formatDate(date) {
+      return this.$moment(date).format('DD/MM/YYYY')
+    },
+    // formatToH() {
+    //   const formattedDate = this.$moment(this.itemDetail.event_date).format('h')
+
+    //   return formattedDate
+    // },
+    // formatToH(date) {
+    //   const eventDate = this.$moment().subtract(1, 'day') // Tanggal sebelumnya
+    //   const reminder = this.$moment(date, 'YYYY-MM-DD') // Tanggal inputan kedua
+
+    //   const diffInDays = eventDate.diff(reminder, 'days') // Perbandingan dalam hari
+
+    //   return `h${diffInDays}`
+    // },
+
+    formatToH() {
+      if (this.itemDetail.event_date && this.itemDetail.reminder) {
+        const date1 = new Date(this.itemDetail.event_date)
+        const date2 = new Date(this.itemDetail.reminder)
+        const diffTime = Math.abs(date2 - date1)
+        const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24))
+        return `h-${diffDays}`
+      }
+      return ''
+    },
+
     show() {
       this.isOpen = true
     },
