@@ -1,16 +1,7 @@
 <template>
   <div>
     <ButtonCreateGrup @click="toggleModal = !toggleModal" />
-    <!-- <CardGroup
-      v-for="data in dataGrup"
-      :key="data"
-      :inputData="data.nama"
-      class=""
-    /> -->
-    <div
-      v-if="toggleModal"
-      class="fixed overflow-x-hidden overflow-y-auto inset-0 flex justify-center items-center z-10"
-    >
+    <div v-if="toggleModal" class="fixed overflow-x-hidden overflow-y-auto inset-0 flex justify-center items-center z-10">
       <div>
         <div class="fixed inset-0 bg-black bg-opacity-50"></div>
       </div>
@@ -25,10 +16,30 @@
               <iconSilangIcon />
             </div>
           </div>
-
-          <!-- <p>{{ tim }}</p> -->
           <form @submit.prevent="addData">
             <div>
+              <center>
+                <img
+                  :src="photoUrl"
+                  alt="photo"
+                  class="h-[100px] w-[100px] rounded-full"
+                />
+                <label
+                  for="photoGroup"
+                  class="cursor-pointer text-gray-500 inline-block text my-2"
+                  >Ubah Foto</label
+                >
+                <a href="#">
+                  <input
+                    type="file"
+                    name="photoGroup"
+                    id="photoGroup"
+                    class="text-gray-500 bg-none"
+                    @change="updatePhotoGroup"
+                    hidden
+                  />
+                </a>
+              </center>
               <div>
                 <label for="nama" class="mb-2 block text-sm"> Nama Tim</label>
                 <input
@@ -62,7 +73,6 @@
                   name="email"
                   class="py-2 border text-black pl-10 w-full focus:outline-none focus:border-blue-500"
                   placeholder="Masukkan Email"
-                  required
                   @input="emailValidate"
                 />
               </div>
@@ -114,7 +124,6 @@
 </template>
 <script>
 export default {
-  // name: 'Modal',
   props: {
     show: {
       type: Boolean,
@@ -128,69 +137,35 @@ export default {
   data() {
     return {
       toggleModal: false,
-      // email: '',
-      // tim: [
-      //   {
-      //     nama: " ",
-      //     email: " ",
-      //   },
-      // ],
       items: [],
       err: {},
       errMessage: null,
-      // grup: [
-      //   {
-      //     nama: '',
-      //     email: [],
-      //   },
-      // ],
 
       title: this.item.title,
       titleError: '',
       email: this.item.items ?? '',
       emailError: '',
-      photo: null,
+      photo: this.item.photo ?? '',
+      photoForAPI: null
+    }
+  },
+  computed: {
+    photoUrl() {
+      return this.photo || require('@/assets/img/Ellipse 1.png');
     }
   },
   methods: {
-    // pushNewData() {
-    //   this.$emit("addNewData", this.nama, this.email);
-    //   this.$refs.form.reset();
-    //   this.nama = "";
-    //   this.email = "";
-    // },
-    // confirmInput() {
-    //   this.output = this.nama;
-    // },
-    // addNewData(){
-    //   this.
-    // }
-    // addEmail() {
-    //   if (!this.email) {
-    //     return
-    //   }
-    //   this.grup.email.push(this.email)
-    //   this.email = ''
-    // },
-    // remove(i) {
-    //   this.items.splice(i, 1)
-    // },
-    // addGroup() {
-    //   if (!this.grup) {
-    //     return
-    //   }
-    //   this.dataGrup.push(this.grup)
-    //   this.grup = [{ nama: '', email: '' }]
-    // },
-    // addData() {
-    //   this.$emit('add-data', this.grup)
-    // },
+    updatePhotoGroup(event) {
+      const file = event.target.files[0]
+      this.photoForAPI = file
+      this.photo = URL.createObjectURL(file)
+    },
     addEmail() {
-      if (!this.email) {
-        return
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+      if (emailRegex.test(this.email)) {
+        this.items.push(this.email)
+        this.email = ''      
       }
-      this.items.push(this.email)
-      this.email = ''
     },
     remove(index) {
       this.items.splice(index, 1)
@@ -212,29 +187,20 @@ export default {
         this.emailError = ''
       }
     },
-    async addData() {
-      try {
-        await this.$store.dispatch('team/addGroup', {
+    addData() {
+        this.$store.dispatch('team/addGroup', {
           title: this.title,
           email: this.items,
-          photo: this.photo
+          photo: this.photoForAPI,
         })
-      } catch (err) {
-        // this.err = err.response.data
-        // this.errMessage = err.response.data.message
-        alert('ggl')
-        // console.log(err)
-      }
+        this.items = []
+        this.title = ''
+        this.email = ''
+        this.photo = ''
+        this.photoForAPI = null
+        this.toggleModal = false
+      
     },
-    // addData() {
-    //   this.$store.dispatch('team/addGroup', {
-    //     title: this.title,
-    //     email: this.items,
-    //     photo: this.photo,
-    //   }).then((res) => alert(res.errMessage)).catch(() => alert('gagal'))
-    // }
   },
 }
 </script>
-
-<!-- v-model="grup.nama" -->

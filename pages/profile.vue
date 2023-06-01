@@ -4,9 +4,9 @@
       <form class="h-screen m-4">
         <center>
           <img
-            :src="$store.state.profile.dataUser.photo"
+            :src="avatar"
             alt="photo"
-            class="h-[100px] w-[100px] rounded-full"
+            class="h-[100px] w-[100px] rounded-full object-contain bg-gray-200"
           />
           <label
             for="myPhoto"
@@ -105,6 +105,11 @@ export default {
       passKey: '***',
     }
   },
+  computed: {
+    avatar() {
+      return this.$store.state.profile.dataUser.photo || require('@/assets/img/profile-user-svgrepo-com.png')
+    }
+  },
   methods: {
     ToggleIcon() {
       this.inputTypeIcon = this.inputTypeIcon === 'passKey' ? 'text' : 'passKey'
@@ -118,52 +123,9 @@ export default {
         .then((res) => {
           alert(res.message)
           this.$store.dispatch('profile/getdataUser', this.$auth.user.id)
-          // this.$route.go()
         })
         .catch(() => { alert('File size should be less than 1 MB') })
     },
-    // handleFileChange(event) {
-    //   const file = event.target.files[0]
-    //   const reader = new FileReader()
-    //   reader.readAsDataURL(file)
-    //   reader.onload = (event) => {
-    //     const img = new Image()
-    //     img.src = event.target.result
-    //     img.onload = () => {
-    //       const canvas = document.createElement('canvas')
-    //       const MAX_WIDTH = 100 // ubah sesuai dengan kebutuhan aplikasi Anda
-    //       const MAX_HEIGHT = 100 // ubah sesuai dengan kebutuhan aplikasi Anda
-    //       let width = img.width
-    //       let height = img.height
-    //       if (width > height) {
-    //         if (width > MAX_WIDTH) {
-    //           height *= MAX_WIDTH / width
-    //           width = MAX_WIDTH
-    //         }
-    //       } else if (height > MAX_HEIGHT) {
-    //         width *= MAX_HEIGHT / height
-    //         height = MAX_HEIGHT
-    //       }
-    //       canvas.width = width
-    //       canvas.height = height
-    //       const ctx = canvas.getContext('2d')
-    //       ctx.drawImage(img, 0, 0, width, height)
-    //       canvas.toBlob((blob) => {
-    //         this.$store
-    //           .dispatch('profile/updateProfile', {
-    //             id: this.$auth.user.id,
-    //             photo: event.target.files[0],
-    //           })
-    //           .then((res) => {
-    //             alert(res.message)
-    //             this.$store.dispatch('profile/getdataUser', this.$auth.user.id)
-    //             // this.$route.go()
-    //           })
-    //           .catch(() => alert('gagal'))
-    //       }, file.type)
-    //     }
-    //   }
-    // },
   },
 }
 </script>

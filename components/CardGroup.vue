@@ -1,6 +1,6 @@
 <template>
   <NuxtLink to="/screenGroup">
-    <div>
+    <div @click="emitData">
       <div
       class="mx-5 mt-5 border border-slate-300 h-20 w-80 rounded shadow-sm"
       >
@@ -21,9 +21,9 @@
             <h1 class="text-sm font-bold text-black mb-1">
               {{ item.title }}
             </h1>
-            <h1 class="text-sm font-bold text-black mb-1">
+            <!-- <h1 class="text-sm font-bold text-black mb-1">
               {{ item.owner.username }}
-            </h1>
+            </h1> -->
             <div class="flex items-center">
               <div class="flex my-1 relative">
                 <img
@@ -86,6 +86,9 @@ export default {
     getRandomImageUrl() {
       const randomIndex = Math.floor(Math.random() * this.imageUrls.length)
       return this.imageUrls[randomIndex]
+    },
+    emitData(){
+      this.$emit('shareTeam', this.item)
     },
     // hideDetail() {
     //   this.detail = false

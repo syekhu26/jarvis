@@ -6,7 +6,7 @@
           <img
             src="../assets/img/logoipsum-245 1.png"
             alt="logo"
-            class="rounded-full w-[52px] h-[41px] mx-3 my-auto"
+            class="rounded-full w-[52px] h-[41px] mx-3 my-auto object-contain bg-gray-200"
           />
           <h1 class="text-2xl text-[#0F62FE] font-[IBM Plex Sans]">Bantu.in</h1>
         </NuxtLink>
@@ -25,8 +25,8 @@
         <li>
           <NuxtLink to="#" class="mx-2 hover:text-black block py-3 px-4">
             <img
-              class="w-[43px] h-[43px] bg-gray-600 rounded-full"
-              :src="$store.state.profile.dataUser.photo"
+              class="w-[43px] h-[43px] rounded-full object-contain bg-gray-200"
+              :src="avatar"
               alt=""
               @click="profileOpen = !profileOpen"
             />
@@ -53,5 +53,10 @@ export default {
       notifOpen: false,
     }
   },
+  computed: {
+    avatar(){
+      return this.$store.state.profile.dataUser.photo || require('@/assets/img/profile-user-svgrepo-com.png')
+    }
+  }
 }
 </script>
