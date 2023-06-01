@@ -1,14 +1,14 @@
 <template>
   <div>
-    <input
-      type="text"
-      v-model="inputValue"
-      @input="handleInput"
-      class="border flex items-center mx-auto mt-5 w-full h-10"
-    />
-    <p v-if="isInputTooLong" style="color: red">
-      Input melebihi batas karakter.
-    </p>
+    <label for="filter">Filter:</label>
+    <input type="text" id="filter" v-model="filterValue" @input="applyFilter" />
+
+    <label for="sort">Sort:</label>
+    <select id="sort" v-model="sortValue" @change="applySort">
+      <option value="">None</option>
+      <option value="asc">Ascending</option>
+      <option value="desc">Descending</option>
+    </select>
   </div>
 </template>
 
@@ -16,20 +16,17 @@
 export default {
   data() {
     return {
-      inputValue: '',
-      isInputTooLong: false,
-    }
+      filterValue: '',
+      sortValue: '',
+    };
   },
   methods: {
-    handleInput() {
-      if (this.inputValue.length > 100) {
-        this.isInputTooLong = true
-        // Menghapus karakter ke-101 dan seterusnya
-        this.inputValue = this.inputValue.slice(0, 100)
-      } else {
-        this.isInputTooLong = false
-      }
+    applyFilter() {
+      this.$emit('filter', this.filterValue);
+    },
+    applySort() {
+      this.$emit('sort', this.sortValue);
     },
   },
-}
+};
 </script>

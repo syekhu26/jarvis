@@ -1,9 +1,6 @@
 <template>
   <div>
-    <div
-      v-if="showDoc"
-      class="fixed inset-0 z-10 overflow-y-auto justify-center items-center overflow-x-hidden"
-    >
+    <div v-if="showDoc" class="fixed inset-0 z-10 justify-center items-center">
       <div class="min-h-screen px-4 text-center">
         <!-- membuat bg gelap -->
         <div>
@@ -13,7 +10,7 @@
         <!-- popup form -->
 
         <div
-          class="my-5 inline-block w-full max-w-xl transform overflow-hidden rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all"
+          class="my-5 inline-block w-full max-w-xl transform rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all"
         >
           <div class="mt-4">
             <div class="flex justify-between items-center">
@@ -33,7 +30,19 @@
             </div>
           </div>
           <div class="mt-5">
-            <CardDocument />
+            <!-- <CardDocument /> -->
+            <div
+              v-for="(file, index) in docCollab.file"
+              :key="index"
+              class="bg-white py-3 rounded px-5 border-slate-400 border mb-4"
+            >
+              <div class="flex items-center">
+                <iconDocumentIcon />
+                <a :href="file" class="text-sky-500 underline px-2">
+                  {{ getAllFileName[index] }}
+                </a>
+              </div>
+            </div>
           </div>
         </div>
 
@@ -49,6 +58,22 @@ export default {
     showDoc: {
       type: Boolean,
       default: false,
+    },
+    docCollab: {
+      type: Object,
+      default: () => ({}),
+    },
+  },
+  computed: {
+    getAllFileName() {
+      if (this.docCollab.file.length > 0) {
+        return this.docCollab.file.map((e) => {
+          const arr = e.split('/')
+          return arr[arr.length - 1]
+        })
+      }
+
+      return []
     },
   },
 }

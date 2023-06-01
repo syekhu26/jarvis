@@ -118,6 +118,12 @@ export default {
     })
   },
 
+  // modules.exports = {
+  //   // ...
+  //   components: true,
+  //   // ...
+  // },
+
   // Build Configuration: https://go.nuxtjs.dev/config-build
   build: {
     postcss: {

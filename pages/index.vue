@@ -7,13 +7,27 @@
       </div>
       <div class="min-w-full px-8 items-center mb-8">
         <p class="text-lg mb-4">Daftar catatan dan undangan grub masuk</p>
-        <CardRequest />
-        <div class="flex items-center mt-3">
-          <div>3 permintaan lagi.</div>
-          <NuxtLink to="/request" class="font-bold text-blue-600 px-1"
-            >Lihat Semua</NuxtLink
-          >
+        <div>
+          <CardRequest
+            v-for="request in reqlist.data"
+            :key="request.id"
+            :request="request"
+          />
+
+          <div class="flex items-center mt-3">
+            <div>3 permintaan lagi.</div>
+            <NuxtLink to="/request" class="font-bold text-blue-600 px-1"
+              >Lihat Semua</NuxtLink
+            >
+          </div>
         </div>
+
+        <!-- <div
+          v-else
+          class="px-8 text-slate-400 font-bold flex items-center justify-center h-44"
+        >
+          Belum Ada Undangan
+        </div> -->
       </div>
     </div>
     <div>
@@ -22,7 +36,7 @@
       </div>
 
       <div v-if="notes.length > 0" class="px-8">Mendekati Tanggal Acara</div>
-      <div v-if="notes.length > 0" class="min-w-full px-4 items-center mb-8">
+      <div v-if="notes.length > 0" class="px-4 items-center mb-8">
         <!-- <CardListNote/> -->
         <!-- <DetailPersonal /> -->
         <CardListNote
@@ -70,6 +84,9 @@ export default {
     },
   },
   computed: {
+    reqlist() {
+      return this.$store.state.notes.reqlist
+    },
     notes() {
       return this.$store.state.notes.notes
     },
@@ -83,6 +100,7 @@ export default {
   },
   mounted() {
     this.$store.dispatch('notes/fetchNotes')
+    this.$store.dispatch('notes/reqlist')
   },
 }
 </script>

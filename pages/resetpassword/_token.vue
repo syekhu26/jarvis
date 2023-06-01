@@ -35,10 +35,11 @@
                     <i v-else><iconEyeHide /></i>
                   </div>
                 </div>
+
+                <span>Minimal 8 karakter, 1 huruf besar dan 1 angka.</span>
                 <span v-if="passwordError" class="text-red-500">{{
                   passwordError
                 }}</span>
-                <span>Minimal 8 karakter, 1 huruf besar dan 1 angka.</span>
               </div>
               <div class="my-2">
                 <label for="password konfirmasi" class="text-sm font-medium"
@@ -61,8 +62,9 @@
                   </div>
                 </div>
                 <span>Kedua kata sandi harus sama.</span>
+                <br />
                 <span class="text-red-500" v-if="passwordMatch"
-                  >Konfirmasi password tidak sesuai</span
+                  >Konfirmasi password tidak sama</span
                 >
               </div>
             </div>
@@ -70,7 +72,7 @@
             <div class="mt-12 mb-9">
               <button
                 type="submit"
-                class="text-base bg-blue-600 text-white font-semibold py-3 px-8 w-full rounded hover:shadow-lg hover:bg-slate-700"
+                class="text-base bg-blue-600 text-white font-semibold py-3 px-8 w-full rounded hover:shadow-lg "
               >
                 Reset Kata Sandi
               </button>
@@ -121,7 +123,7 @@ export default {
       const regex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/
       if (!regex.test(this.password)) {
         this.passwordError =
-          ' minimal 8 karakter terdiri atas huruf kapital, huruf kecil, symbol dan angka'
+          ' Kata sandi belum sesuai'
       } else {
         this.passwordError = ''
       }
@@ -146,7 +148,7 @@ export default {
       //   const token = params.token
       try {
         await this.$axios
-          .patch(`https://bantuin.fly.dev/api/reset_password/${this.token}`, {
+          .put(`https://bantuin.fly.dev/api/resetpassword/${this.token}`, {
             // token: this.$route.params.token,
             password: this.password,
             password_confirmation: this.password_confirmation,

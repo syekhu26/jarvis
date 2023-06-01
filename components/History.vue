@@ -42,18 +42,55 @@ export default {
                 </div>
                 <div class="">
                   <timeline>
-                    <timeline-item :hollow="false"
-                      >CEO membuat catatan untuk bag.sekretaris dan
-                      keuangan.</timeline-item
-                    >
-                    <timeline-item :hollow="false"
-                      >Bag.bendahara mengirim uang ke bag.sekretaris.
+                    <timeline-item
+                      ><div>
+                        {{ history.data.note_created_at }}
+                      </div>
+                      <div>
+                        telah membuat catatan untuk
+                        <!-- <div
+                          v-for="(member, index) in idNoteToHistory.member"
+                          :key="index"
+                          class="flex w-full"
+                        >
+                          <div class="flex items-center w-full">
+                            {{ member.username }}
+                            
+                          </div>
+                        </div> -->
+                      </div>
                     </timeline-item>
-                    <timeline-item :hollow="false">
-                      Bag.sekretaris memesan tiket pesawat. Tiket pesawat telah
-                      tersedia.
+                    <timeline-item
+                      v-for="(item, index) in timelineItem"
+                      :key="index"
+                    >
+                      <div>
+                        {{ idNoteToHistory.member.username }}
+                        sudah menyelesaikan tugas.
+                      </div>
                     </timeline-item>
                   </timeline>
+
+                  <!-- <timeline-item :hollow="false"
+                      >{{ idNoteToHistory.date }}
+                      <div>4/04/2023</div>
+                      <div>Kak Lea sudah menyelesaikan tugas.</div>
+                    </timeline-item>
+                    <timeline-item :hollow="false">
+                      <div>8/4/2023</div>
+                      <div>Kak Jasmin menyelesaikan tugas.</div>
+                    </timeline-item> -->
+
+                  <!-- <timeline>
+                    <timeline-item
+                      v-for="(item, index) in timelineItem"
+                      :key="index"
+                    >
+                    <div>
+                      {{ idNoteToHistory.member }}
+                    </div>
+                    </timeline-item>
+                  </timeline> -->
                 </div>
               </div>
             </div>
@@ -65,6 +102,7 @@ export default {
 </template>
 
 <script>
+import { mapActions, mapState } from 'vuex'
 import { Timeline, TimelineItem } from 'vue-cute-timeline'
 import 'vue-cute-timeline/dist/index.css'
 export default {
@@ -77,8 +115,50 @@ export default {
       type: Boolean,
       default: false,
     },
+    idNoteToHistory: {
+      // type: Number,
+      // default: null,
+      type: Object,
+      default: () => ({}),
+    },
+  },
+  data() {
+    return {
+      timelineItem: [],
+      note_id: this.idNoteToHistory.id,
+    }
+  },
+  // created(idNoteToHistory) {
+  //   this.$store.dispatch('notes/history', idNoteToHistory)
+  // },
+  // async created() {
+  //   await this.$store.dispatch('notes/history', {
+  //     note_id: this.idNoteToHistory,
+  //   })
+  // },
+  computed: {
+    formatDate() {
+      return this.$moment().format('DD/MM/YYYY')
+    },
+    ...mapState('notes', ['history']),
+  },
+  mounted() {
+    this.$store.dispatch('notes/history', this.idNoteToHistory.id)
+  },
+  method: {
+    ...mapActions('notes', ['history']),
   },
 }
 </script>
 
 <style></style>
+
+<!-- {status: 200, data: {,…}} data : {,…} histories : [{id: 718, note: "saya
+collab", user: "syekhuna",…}] 0 : {id: 718, note: "saya collab", user:
+"syekhuna",…} note_created_at : "2023-05-29T17:44:28.515+07:00" note_done_at :
+"2023-05-29T17:44:28.563+07:00" note_status : "in_progress" owner : {id: 31,
+username: "syekhu", email: "stevennorman101@gmail.com", phone: "0895641564",
+job: "gabut",…} email : "stevennorman101@gmail.com" id : 31 job : "gabut"
+notes_count : 14 phone : "0895641564" photo :
+"https://res-5.cloudinary.com/dis2k0keq/image/upload/v1683939492/public/profile_picture/fdeb4fb13b.png"
+point : 200 username : "syekhu" status : 200 -->

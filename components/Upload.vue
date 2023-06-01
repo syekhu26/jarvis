@@ -27,7 +27,7 @@
       </div>
 
       <div class="mt-4" v-if="files.length && !isUpload">
-        <div v-for="file in files" :key="file.name" class="flex">
+        <div v-for="file in files" :key="file.name" class="flex mb-5">
           <div>
             <img
               class="w-72 h-44 rounded border"
@@ -147,6 +147,7 @@ export default {
         this.$store.dispatch('notes/fetchNotes')
         this.$store.commit('notes/setShowDetail', false)
         this.$store.commit('notes/detailNotes', null)
+        this.$router.go()
       } catch (e) {
         console.log(e)
         console.log('Upload File Failled')

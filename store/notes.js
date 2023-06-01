@@ -1,5 +1,7 @@
 export const state = () => ({
     notes: [],
+    history:[],
+    reqlist:[],
     showDetail : false,
     detailNotes : null
   })
@@ -7,6 +9,12 @@ export const state = () => ({
   export const mutations = {
     setNotes(state, notes) {
       state.notes = notes
+    },
+    setReqlist(state, reqlist) {
+      state.reqlist = reqlist
+    },
+    setHistory(state, history) {
+      state.history = history
     },
     deleteNote(state, noteId) {
       state.notes = state.notes.filter(note => note.id !== noteId)
@@ -17,10 +25,6 @@ export const state = () => ({
     detailNotes(state,payload){
       state.detailNotes = payload
     }
-    // updateNote(state, updatedNote) {
-    //   const index = state.notes.findIndex(note => note.id === updatedNote.id)
-    //   state.notes.splice(index, 1, updatedNote)
-    // }
   }
   
   export const actions = {
@@ -40,20 +44,35 @@ export const state = () => ({
        await this.$axios.put(`https://bantuin.fly.dev/api/notes/${idNote}`, data)
       
     },
-
-    // async upload({ dispatch }, { id, files }) {
+    async history({ commit },id){
+      try {
+        const response = await this.$axios.get(`https://bantuin.fly.dev/api/notes/${id}/history`)
+        commit('setHistory', response.data);
+      }
+      catch (error) {
+        console.error(error);
+      }
+    },
+    async remove({ commit },id){
+        await this.$axios.post(`https://bantuin.fly.dev/api/notes/${id}/remove`)
+        commit('setNotes', id);
+    },
+    // async getData({ commit }) {
     //   try {
-    //     const formData = new FormData()
-    //     formData.append('id', id)
-    //     Array.from(files).forEach((file) => {
-    //       formData.append('files', file)
-    //     })
-    //     await this.$axios.$post('https://bantuin.fly.dev/api/attaches', formData)
-  
-        
-    //     dispatch('fetchNotes', id)
+    //     const response = await axios.get('https://example.com/api/data');
+    //     commit('setData', response.data);
     //   } catch (error) {
-    //     console.error(error)
+    //     console.error(error);
     //   }
     // }
+    async reqlist({ commit }) {
+      try {
+        const response = await this.$axios.get('https://bantuin.fly.dev/api/reqlist')
+        commit('setReqlist', response.data);
+      }
+      catch (error) {
+        console.error(error);
+      }
+    },
+
   }
