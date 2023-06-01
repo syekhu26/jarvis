@@ -37,14 +37,11 @@
   >
     <div class="flex">
       <img
-        class="rounded-full h-9 w-9 m-3"
-        :src="$store.state.profile.dataUser.photo"
+        class="rounded-full h-9 w-9 m-3 object-contain bg-gray-200"
+        :src="avatar"
         alt=""
       />
       <div class="m-2">
-        <!-- <p class="text-lg font-bold" v-if="isAuthenticated">
-          {{ loggedInUser.username }}
-        </p> -->
         <p class="text-lg font-bold">
           {{ $store.state.profile.dataUser.username }}
         </p>
@@ -84,8 +81,8 @@
         </button>
       </NuxtLink>
       <button
-        @click="logout"
-        class="w-[260px] border border-red-500 text-red-500 text-sm justify-center p-2 mx-2 my-2 rounded"
+      class="w-[260px] border border-red-500 text-red-500 text-sm justify-center p-2 mx-2 my-2 rounded"
+      @click="logout"
       >
         Keluar
       </button>
@@ -99,6 +96,11 @@ export default {
   // async asyncData({ store }) {
   //   await store.dispatch('profile/getdataUser', store.state.auth.user.id)
   // },
+  data() {
+    return{
+      photo: this.$store.state.profile.dataUser.photo
+    }
+  },
   methods: {
     async logout() {
       try {
@@ -111,6 +113,9 @@ export default {
   },
   computed: {
     ...mapGetters(['isAuthenticated', 'loggedInUser']),
+    avatar(){
+      return this.photo || require('@/assets/img/profile-user-svgrepo-com.png')
+    }
   },
 }
 </script>

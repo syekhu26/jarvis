@@ -1,8 +1,8 @@
 <template>
   <NuxtLink to="/screenGroup">
-    <div>
+    <div @click="emitData">
       <div
-        class="mx-5 mt-5 border border-slate-300 h-20 w-80 rounded shadow-sm"
+      class="mx-5 mt-5 border border-slate-300 h-20 w-80 rounded shadow-sm"
       >
         <!-- gambar -->
         <div class="mt-2 flex items-center">
@@ -18,7 +18,12 @@
 
           <div>
             <!-- judul -->
-            <h1 class="text-2xl font-bold text-black mb-1">{{ inputData }}</h1>
+            <h1 class="text-sm font-bold text-black mb-1">
+              {{ item.title }}
+            </h1>
+            <!-- <h1 class="text-sm font-bold text-black mb-1">
+              {{ item.owner.username }}
+            </h1> -->
             <div class="flex items-center">
               <div class="flex my-1 relative">
                 <img
@@ -49,13 +54,23 @@
 <script>
 export default {
   props: {
-    inputData: {
-      type: [String, Boolean, Number],
-      required: true,
+    // inputData: {
+    //   type: [String, Boolean, Number],
+    //   required: true,
+    // },
+    item: {
+      type: Object,
+      default: () => ({}),
+      required: true
     },
+    // ownerId: {
+    //   type: Number,
+    //   required: true
+    // },
   },
   data() {
     return {
+      // detail: false,
       imageUrls: [
         'https://images.unsplash.com/photo-1508182314998-3bd49473002f?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80',
         'https://images.unsplash.com/photo-1682016149111-b6f316f6133c?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=928&q=80',
@@ -72,6 +87,15 @@ export default {
       const randomIndex = Math.floor(Math.random() * this.imageUrls.length)
       return this.imageUrls[randomIndex]
     },
+    emitData(){
+      this.$emit('shareTeam', this.item)
+    },
+    // hideDetail() {
+    //   this.detail = false
+    // },
+    // showDetail() {
+    //   this.detail = true
+    // },
   },
 }
 </script>

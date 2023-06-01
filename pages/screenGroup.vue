@@ -1,6 +1,7 @@
 <template>
   <div :style="image" class="h-screen">
     <!-- navbar top -->
+    <!-- <div @shareTeam="dataTeam" >{{ item.title }}</div> -->
 
     <div class="flex-1 overflow-hidden">
       <div class="flex h-full flex-col">
@@ -8,8 +9,9 @@
         <div
           class="flex shrink-0 items-center absolute justify-between p-4 bg-slate-100 w-full bg-transparent backdrop-blur"
         >
-          <h1 class="text-2xl font-bold text-black">Tim 4 qatros</h1>
-          <div @click="show" class="flex items-center">
+          <!-- <h1 class="text-2xl font-bold text-black" @shareTeam="dataTeam(item)" v-for="(item, index) in dataList" :key="index" :item="item">{{ item.title }}</h1> -->
+          <h1>{{ this.title }}</h1>
+          <div class="flex items-center" @click="show">
             <iconMemberIcon />
             <div class="flex my-1 relative">
               <img
@@ -36,7 +38,7 @@
             <BoxList
               v-for="(data, index) in dataList"
               :key="index"
-              :inputData="data"
+              
               class="mt-5 px-5"
             />
             <ButtonAddList @add-data="addData" />
@@ -50,39 +52,46 @@
 
 <script>
 export default {
-  layout: 'navbar',
-  // props: {
-  //   inputData: {
-  //     type: String,
-  //     required: true,
-  //   },
-  // },
-  data() {
-    return {
-      image: {
-        backgroundImage:
-          'url(https://images.unsplash.com/photo-1557672172-298e090bd0f1?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1374&q=80)',
-      },
-
-      dataList: [],
-      isOpen: false,
-    }
-  },
-  methods: {
-    addData(value) {
-      // if (this.newData) {
-      //   this.dataList.push(this.newData)
-      //   this.newData = ''
-      // }
-      this.dataList.push(value)
+    layout: "navbar",
+    props: {
+        inputData: {
+            type: String,
+            required: true,
+        },
+        // item: {
+        //   type: String,
+        //   required: true,
+        // },
     },
-    show() {
-      this.isOpen = true
+    data() {
+        return {
+            image: {
+                backgroundImage: "url(https://images.unsplash.com/photo-1557672172-298e090bd0f1?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1374&q=80)",
+            },
+            dataList: [],
+            isOpen: false,
+            title: '',
+        };
     },
-    hide() {
-      this.isOpen = false
+    methods: {
+        addData(value) {
+            // if (this.newData) {
+            //   this.dataList.push(this.newData)
+            //   this.newData = ''
+            // }
+            this.dataList.push(value);
+        },
+        show() {
+            this.isOpen = true;
+        },
+        hide() {
+            this.isOpen = false;
+        },
+        dataTeam(data) {
+          this.title = data.title
+            // alert(data);
+        }
     },
-  },
 }
 </script>
 

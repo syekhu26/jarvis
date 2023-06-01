@@ -133,14 +133,14 @@ export default {
       const regex = /^.*(?=.{8,})(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*\d).*$/
       if (!regex.test(this.newPass)) {
         this.newPassError =
-          ' Kata sandi tidak memenuhi syarat '
+          ' Kata sandi tidak memenuhi syarat. '
       } else {
         this.newPassError = ''
       }
     },
     passRepeatValidate() {
       if (this.newPass !== this.repeatNewPass) {
-        this.repeatError = ' Kata sandi tidak sesuai '
+        this.repeatError = ' Ulang kata sandi baru tidak sesuai sebelumnya. '
       } else {
         this.repeatError = ''
       }
