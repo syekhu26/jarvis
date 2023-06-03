@@ -96,9 +96,9 @@ export default {
     },
     
   },
-  // generate: {
-  //   fallback:true
-  // },
+  generate: {
+    fallback:true
+  },
  
   router: {
     middleware: ['auth'],
