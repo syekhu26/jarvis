@@ -96,9 +96,13 @@ export default {
     },
     
   },
+  // generate: {
+  //   fallback:true
+  // },
  
   router: {
-    middleware: ['auth']
+    middleware: ['auth'],
+    mode: 'history'
   },
   // Axios module configuration: https://go.nuxtjs.dev/config-axios
   axios: {

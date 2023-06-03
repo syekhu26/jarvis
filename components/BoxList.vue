@@ -1,14 +1,20 @@
 <template>
   <div>
     <div
-      class="flex items-center justify-between px-3 py-2 bg-gray-200 rounded"
+      class="flex items-center justify-between px-3 py-2 bg-gray-200 rounded text-sm font-semibold text-gray-700 cursor-pointer"
     >
-      <h3 class="text-sm font-semibold text-gray-700">
-        {{ inputData }}
-      </h3>
-      <!-- <button class="grid h-8 w-8 place-content-center rounded-md hover:bg-gray-300" @click="removeList(list.id)">
-				<XIcon class="h-5 w-5 text-gray-400" />
-			</button> -->
+      <div @click="buttonInput">
+        {{ buttonText }}
+      </div>
+      <input
+        class="w-full outline-none"
+        placeholder="Nama list"
+        v-if="showInput"
+        :value="value"
+        @input="$emit('input', $event.target.value)"
+        @keyup.enter="editData"
+        @blur="buttonInput"
+      />
     </div>
     <div class="flex max-h-full w-72 flex-col rounded bg-white">
       <!-- daftar judul -->
@@ -40,23 +46,48 @@
 <script>
 export default {
   props: {
-    inputData: {
+    // inputData: {
+    //   type: String,
+    //   required: true,
+    // },
+    value: {
       type: String,
       required: true,
+    },
+    itemList: {
+      type: Object,
+      default: () => ({}),
     },
   },
   data() {
     return {
       isOpen: false,
+      showInput: false,
+      buttonText: this.itemList.title,
     }
   },
   methods: {
+    editData() {
+        this.$emit('edit-data', this.title)
+    },
     show() {
       this.isOpen = true
     },
     hide() {
       this.isOpen = false
     },
+    buttonInput() {
+      this.showInput = !this.showInput
+      if (this.showInput) {
+        this.buttonText = ''
+      } else {
+        this.buttonText = this.itemList.title
+      }
+    },
+  //   sendData() {
+  //   const data = this.itemList.id
+  //   this.$emit('itemList', data)
+  // }
   },
 }
 </script>

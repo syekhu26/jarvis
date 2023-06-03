@@ -7,10 +7,11 @@
       {{ buttonText }}
     </div>
     <input
-      class="border-b-2 border-slate-500"
+      class="border-b-2 border-slate-500 outline-none"
       placeholder="Nama list"
       v-if="showInput"
-      v-model="newData"
+      :value="value" 
+      @input="$emit('input', $event.target.value)"
       @keyup.enter="addData"
       @blur="buttonInput"
     />
@@ -19,22 +20,28 @@
 <script>
 export default {
   // props: {
-  //   inputData: {
+  //   judul: {
   //     type: String,
   //     required: true,
   //   },
   // },
+  props: ['value'],
+  // props: ['title'],
   data() {
     return {
-      newData: '',
+      title: '',
       dataList: [],
       showInput: false,
       buttonText: 'Tambah list',
     }
   },
   methods: {
+    // addData() {
+    //   this.$emit('add-data', this.newData)
+    // },
+
     addData() {
-      this.$emit('add-data', this.newData)
+        this.$emit('add-data', this.title)
     },
     buttonInput() {
       this.showInput = !this.showInput

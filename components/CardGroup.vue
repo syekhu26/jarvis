@@ -1,8 +1,9 @@
 <template>
-  <NuxtLink to="/screenGroup">
+  <!-- :to="{ name: 'screenGroup', params: { itemTeam: item } }" -->
+  <NuxtLink :to="{ path: '/screenGroup', query: { id: item.id, team: item.title } }">
     <div @click="emitData">
       <div
-      class="mx-5 mt-5 border border-slate-300 h-20 w-80 rounded shadow-sm"
+        class="mx-5 mt-5 border border-slate-300 h-20 w-80 rounded shadow-sm"
       >
         <!-- gambar -->
         <div class="mt-2 flex items-center">
@@ -61,7 +62,7 @@ export default {
     item: {
       type: Object,
       default: () => ({}),
-      required: true
+      required: true,
     },
     // ownerId: {
     //   type: Number,
@@ -87,7 +88,7 @@ export default {
       const randomIndex = Math.floor(Math.random() * this.imageUrls.length)
       return this.imageUrls[randomIndex]
     },
-    emitData(){
+    emitData() {
       this.$emit('shareTeam', this.item)
     },
     // hideDetail() {
