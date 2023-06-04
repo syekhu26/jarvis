@@ -161,11 +161,11 @@ export default {
       this.photo = URL.createObjectURL(file)
     },
     addEmail() {
-      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
-      if (emailRegex.test(this.email)) {
+      // const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+      // if (emailRegex.test(this.email)) {
         this.items.push(this.email)
         this.email = ''      
-      }
+      // }
     },
     remove(index) {
       this.items.splice(index, 1)

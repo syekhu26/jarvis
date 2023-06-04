@@ -10,7 +10,12 @@
           class="flex shrink-0 items-center absolute justify-between p-4 bg-slate-100 w-full bg-transparent backdrop-blur"
         >
           <!-- <h1 class="text-2xl font-bold text-black" @shareTeam="dataTeam(item)" v-for="(item, index) in dataList" :key="index" :item="item">{{ item.title }}</h1> -->
-          <h1>{{ this.title }}</h1>
+          <nuxt-link to="/editgroup">
+            <div class="flex">
+              <img :src="photoGroup" alt="" class="h-9 w-9" />
+              <h1 class="text-black font-bold my-auto mx-2">{{ $store.state.team.teams.data.title }}</h1>
+            </div>
+          </nuxt-link>
           <div class="flex items-center" @click="show">
             <iconMemberIcon />
             <div class="flex my-1 relative">
@@ -38,7 +43,6 @@
             <BoxList
               v-for="(data, index) in dataList"
               :key="index"
-              
               class="mt-5 px-5"
             />
             <ButtonAddList @add-data="addData" />
@@ -52,46 +56,48 @@
 
 <script>
 export default {
-    layout: "navbar",
-    props: {
-        inputData: {
-            type: String,
-            required: true,
-        },
-        // item: {
-        //   type: String,
-        //   required: true,
-        // },
+  async asyncData({ store, $axios, params, query }) {
+    const groupId = query.page // Mengambil ID dari query parameter "page"
+    await store.dispatch('team/getDataGroup', groupId) // Mengambil data grup berdasarkan ID
+  },
+  layout: 'navbar',
+  data() {
+    return {
+      image: {
+        backgroundImage:
+          'url(https://images.unsplash.com/photo-1557672172-298e090bd0f1?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1374&q=80)',
+      },
+      dataList: [],
+      isOpen: false,
+    }
+  },
+  computed: {
+    photoGroup() {
+      return (
+        this.$store.state.team.teams.photo ||
+        require('../assets/img/Ellipse 1.png')
+      )
     },
-    data() {
-        return {
-            image: {
-                backgroundImage: "url(https://images.unsplash.com/photo-1557672172-298e090bd0f1?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1374&q=80)",
-            },
-            dataList: [],
-            isOpen: false,
-            title: '',
-        };
+  },
+  methods: {
+    addData(value) {
+      // if (this.newData) {
+      //   this.dataList.push(this.newData)
+      //   this.newData = ''
+      // }
+      this.dataList.push(value)
     },
-    methods: {
-        addData(value) {
-            // if (this.newData) {
-            //   this.dataList.push(this.newData)
-            //   this.newData = ''
-            // }
-            this.dataList.push(value);
-        },
-        show() {
-            this.isOpen = true;
-        },
-        hide() {
-            this.isOpen = false;
-        },
-        dataTeam(data) {
-          this.title = data.title
-            // alert(data);
-        }
+    show() {
+      this.isOpen = true
     },
+    hide() {
+      this.isOpen = false
+    },
+    dataTeam(data) {
+      this.title = data.title
+      // alert(data);
+    },
+  },
 }
 </script>
 

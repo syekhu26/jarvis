@@ -34,6 +34,7 @@
             type="email"
             class="border border-gray-300 bg-gray-100 text-sm w-full p-1 rounded-md px-3"
             placeholder="Email anda"
+            disabled
             @input="emailValidate"
           />
           <span v-if="emailError" class="text-red-500">{{ emailError }}</span>
@@ -119,7 +120,7 @@ export default {
         .dispatch('profile/updateProfile', {
           id: this.$auth.user.id,
           username: this.userName,
-          email: this.userEmail,
+          // email: this.userEmail,
           phone: this.userPhone,
           job: this.userWork,
         })

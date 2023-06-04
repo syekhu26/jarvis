@@ -29,7 +29,7 @@ export const actions = {
       data.append('photo', user.photo)
     } else {
       data.append('username', user.username)
-      data.append('email', user.email)
+      // data.append('email', user.email)
       data.append('phone', user.phone)
       data.append('job', user.job)
     }
