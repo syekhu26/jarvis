@@ -4,6 +4,7 @@
       <div>
         <div
       class="mx-5 mt-5 border border-slate-300 h-20 w-80 rounded shadow-sm"
+
       >
         <!-- gambar -->
         <div class="mt-2 flex items-center">
@@ -66,7 +67,7 @@ export default {
     item: {
       type: Object,
       default: () => ({}),
-      required: true
+      required: true,
     },
     // ownerId: {
     //   type: Number,
@@ -100,6 +101,7 @@ export default {
     // emitData(){
     //   this.$emit('shareTeam', this.item)
     // },
+
     // hideDetail() {
     //   this.detail = false
     // },

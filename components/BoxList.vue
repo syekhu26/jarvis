@@ -1,14 +1,19 @@
 <template>
   <div>
     <div
-      class="flex items-center justify-between px-3 py-2 bg-gray-200 rounded"
+      class="flex items-center justify-between px-3 py-2 bg-gray-200 rounded text-sm font-semibold text-gray-700 cursor-pointer"
     >
-      <h3 class="text-sm font-semibold text-gray-700">
-        {{ inputData }}
-      </h3>
-      <!-- <button class="grid h-8 w-8 place-content-center rounded-md hover:bg-gray-300" @click="removeList(list.id)">
-				<XIcon class="h-5 w-5 text-gray-400" />
-			</button> -->
+      <div @click="buttonInput">
+        {{ buttonText }}
+      </div>
+      <input
+        class="w-full outline-none"
+        placeholder="Nama list"
+        v-if="showInput"
+        v-model="title"
+        @keyup.enter="editData"
+        @blur="buttonInput"
+      />
     </div>
     <div class="flex max-h-full w-72 flex-col rounded bg-white">
       <!-- daftar judul -->
@@ -17,9 +22,19 @@
       <div class="flex flex-col overflow-hidden pb-3">
         <div ref="listRef" class="flex-1 overflow-y-auto px-3"></div>
         <div class="px-3 mt-3">
-          <CardNoteTim />
-          <CardNoteTim class="mt-3" />
+          <CardNoteTim
+            v-for="team in itemList.note"
+            :key="team.id"
+            :itemTeam="team"
+            class=""
+          />
+          <!-- <CardNoteTim class="mt-3" /> -->
         </div>
+        <DetailNoteTeam
+          v-if="isShowDetail && detailNotes !== null"
+          @close="hideDetail"
+          :itemDetail="detailNotes"
+        />
         <div class="mt-3 px-3">
           <div @click="show" class="flex justify-center items-center mx-12">
             <iconPlusIcon />
@@ -33,30 +48,85 @@
         </div>
       </div>
     </div>
-    <FormNote :show="isOpen" @close="hide" />
+    <FormNoteTeam :colomn="itemList" :show="isOpen" @close="hide" />
   </div>
 </template>
 
 <script>
+import { mapState } from 'vuex'
 export default {
   props: {
-    inputData: {
-      type: String,
-      required: true,
+    // inputData: {
+    //   type: String,
+    //   required: true,
+    // },
+    itemList: {
+      type: Object,
+      default: () => ({}),
     },
   },
+  // asyncData(context) {
+  //   const queryData = context.query
+  //   console.log(queryData)
+  //   // Gunakan data query halaman sesuai kebutuhan
+  // },
   data() {
     return {
       isOpen: false,
+      showInput: false,
+      buttonText: this.itemList.title,
+      id: this.$route.query.id,
     }
   },
+  mounted() {
+    this.$store.dispatch('notesTeam/NotesTeam', this.$route.query.id)
+  },
+  computed: {
+    notesTeam() {
+      return this.$store.state.notesTeam.NotesTeam
+    },
+    ...mapState({
+      detailNotes: (state) => state.coloms.detailNotes,
+      isShowDetail: (state) => state.coloms.showDetail,
+    }),
+  },
   methods: {
+    async editData() {
+      try {
+        await this.$store.dispatch('coloms/updateColom', {
+          idColoms: this.itemList.id,
+          data: {
+            title: this.title,
+            team_id: this.$route.query.id,
+          },
+        })
+      } catch (error) {
+        console.log(error)
+      }
+
+      this.$router.go()
+    },
+    // editData() {
+    //   this.$emit('edit-data', this.title)
+    // },
     show() {
       this.isOpen = true
     },
     hide() {
       this.isOpen = false
     },
+    buttonInput() {
+      this.showInput = !this.showInput
+      if (this.showInput) {
+        this.buttonText = ''
+      } else {
+        this.buttonText = this.itemList.title
+      }
+    },
+    //   sendData() {
+    //   const data = this.itemList.id
+    //   this.$emit('itemList', data)
+    // }
   },
 }
 </script>

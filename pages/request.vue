@@ -5,7 +5,12 @@
         <h1 class="text-2xl font-bold mb-3">Permintaan</h1>
       </div>
       <div class="min-w-full px-8 items-center mb-8">
-        <CardRequest v-for="note in notes" :key="note.id" :reqlist="note" />
+        <CardRequest
+          v-for="request in reqlist.data"
+          :key="request.id"
+          :request="request"
+          class="mb-2"
+        />
       </div>
     </div>
   </div>
@@ -17,7 +22,10 @@ export default {
     await store.dispatch('profile/getdataUser', store.state.auth.user.id)
   },
   layout: 'home',
-  computed:{
+  computed: {
+    reqlist() {
+      return this.$store.state.notes.reqlist
+    },
     notes() {
       return this.$store.state.notes.notes
     },

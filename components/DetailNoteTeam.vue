@@ -19,37 +19,25 @@
               <div class="flex items-center justify-between mt-2">
                 <div class="flex">
                   <div class="bg-red-400 rounded-full text-[12px] h-6 px-3">
-                    {{ itemDetail.status }}
+                    0%
                   </div>
 
-                  <div
-                    v-if="
-                      itemDetail.note_type === 'collaboration' &&
-                      $auth.user.id === itemDetail.owner[0]?.id
-                    "
-                  >
+                  <div>
                     <span
-                      @click="showStory"
                       class="text-blue-500 px-2 cursor-pointer"
                       >lihat</span
                     >
                   </div>
-                  <History
-                    :idNoteToHistory="itemDetail"
-                    :showStory="story"
-                    @close="hideStory"
-                  />
+                  <!-- <History
+                  /> -->
                 </div>
                 <div @click="handleClose" class="cursor-pointer">
                   <iconSilangIcon />
                 </div>
               </div>
               <div class="flex items-center justify-between mt-5 mb-3">
-                <h1 class="font-bold text-xl">{{ itemDetail.subject }}</h1>
-                <div
-                  v-if="$auth.user.id === itemDetail.owner[0]?.id"
-                  class="flex items-center"
-                >
+                <h1 class="font-bold text-xl">Beli tiket pesawat</h1>
+                <div class="flex items-center">
                   <div @click="show" class="p-2 text-blue-500 cursor-pointer">
                     Edit
                   </div>
@@ -57,28 +45,17 @@
                   <div @click="showDelete" class="text-red-500 cursor-pointer">
                     Hapus
                   </div>
-                  <DeleteNote
-                    :pesan="itemDetail"
-                    :id="itemDetail.id"
-                    :showDelete="del"
-                    @close="hideDelete"
-                  />
+                  <DeleteNote />
                 </div>
               </div>
               <p class="font-sans mb-3 break-all">
-                <!-- Beli tiket pesawat untuk tgl 13 Maret 2023 dari Jogja ke
+                Beli tiket pesawat untuk tgl 13 Maret 2023 dari Jogja ke
                 Jakarta. Pulang tanggal 5 Maret. Segera untuk dipesan. Jangan
-                sampai lupa -->
-                {{ itemDetail.description }}
+                sampai lupa
+                <!-- {{ itemDetail.description }} -->
               </p>
 
-              <div
-                v-if="
-                  itemDetail.note_type === 'collaboration' &&
-                  $auth.user.id === itemDetail.owner[0]?.id
-                "
-                class="mb-4"
-              >
+              <div v-if="itemDetail.note_type === 'collaboration'" class="mb-4">
                 <div
                   v-for="(member, index) in itemDetail.member.slice(0, 2)"
                   :key="index"
@@ -88,15 +65,15 @@
                 </div>
 
                 <!-- <div
-                  class="my-3 bg-sky-500 px-5 py-2 rounded-full text-white font-semibold font-sans block max-w-[100px]"
-                >
-                  {{ itemDetail.member }}
-                </div> -->
+                    class="my-3 bg-sky-500 px-5 py-2 rounded-full text-white font-semibold font-sans block max-w-[100px]"
+                  >
+                    {{ itemDetail.member }}
+                  </div> -->
                 <!-- <div
-                  class="bg-sky-500 px-5 py-2 rounded-full text-white font-semibold font-sans block max-w-[130px]"
-                >
-                  Kak Jasmine
-                </div> -->
+                    class="bg-sky-500 px-5 py-2 rounded-full text-white font-semibold font-sans block max-w-[130px]"
+                  >
+                    Kak Jasmine
+                  </div> -->
 
                 <div
                   v-if="itemDetail.member.length > 2"
@@ -120,7 +97,7 @@
               <div v-if="itemDetail.note_type === 'collaboration'" class="mb-4">
                 <div>File Dokumen :</div>
                 <!-- <div class="text-sky-500 underline">Bukti transaksi.png</div>
-                <div class="text-sky-500 underline">Tiket pesawat.pdf</div> -->
+                  <div class="text-sky-500 underline">Tiket pesawat.pdf</div> -->
                 <div v-if="itemDetail.file.length > 0">
                   <div
                     v-for="(file, index) in itemDetail.file.slice(0, 2)"
@@ -130,8 +107,8 @@
                     <a :href="file" class="text-sky-500 underline">
                       {{ getAllFileName[index] }}
                       <!-- <p class="px-3" :title="file.name">
-                      {{ makeName(file.name) }}
-                    </p> -->
+                        {{ makeName(file.name) }}
+                      </p> -->
                     </a>
                   </div>
                 </div>
@@ -158,18 +135,15 @@
               <div class="mb-4">
                 <div class="flex">
                   <p>Tanggal Acara :</p>
-                  <p class="px-2">{{ formatDate(itemDetail.event_date) }}</p>
+                  <p class="px-2">13/03/2021</p>
                 </div>
                 <div class="flex">
                   <p>Reminder :</p>
-                  <p class="px-2">
-                    {{ formatToH(itemDetail.reminder) }} -
-                    {{ formatDate(itemDetail.reminder) }}
-                  </p>
+                  <p class="px-2">H-2 - 11/03/2021</p>
                 </div>
                 <div class="flex">
                   <p>Ringtone :</p>
-                  <p class="text-sky-500 px-2">{{ itemDetail.ringtone }}</p>
+                  <p class="text-sky-500 px-2">Aiyaiyaiya</p>
                 </div>
               </div>
               <div class="mb-4">
@@ -180,13 +154,13 @@
                     :src="$store.state.profile.dataUser.photo"
                     alt=""
                   />
-                  <p class="px-2">{{ itemDetail.owner[0].username }}</p>
+                  <p class="px-2"></p>
                 </div>
               </div>
-              <div v-if="itemDetail.owner[0]?.id !== $auth.user.id">
-                <Upload :file="itemDetail.file" :idNote="itemDetail.id" />
-              </div>
-              <div v-if="$auth.user.id === itemDetail.owner[0]?.id">
+              <!-- <div v-if="itemDetail.owner[0]?.id !== $auth.user.id">
+                  <Upload :file="itemDetail.file" :idNote="itemDetail.id" />
+                </div> -->
+              <div>
                 <button
                   type="submit"
                   @click="showModal"
@@ -216,6 +190,10 @@ export default {
     itemDetail: {
       type: Object,
       default: () => ({}),
+    },
+    showDetail: {
+      type: Boolean,
+      default: false,
     },
   },
   emits: ['afterUpload', 'afterDelete'],
@@ -263,8 +241,8 @@ export default {
       this.$emit('afterUpload')
     },
     handleClose() {
-      this.$store.commit('notes/detailNotes', null)
-      this.$store.commit('notes/setShowDetail', false)
+      this.$store.commit('coloms/detailnotes', null)
+      this.$store.commit('coloms/setShowDetail', false)
     },
     formatDate(date) {
       return this.$moment(date).format('DD/MM/YYYY')
@@ -333,13 +311,3 @@ export default {
   },
 }
 </script>
-
-<!-- column : null description : "woke mantap" event_date :
-"2023-05-29T23:25:22.760+07:00" id : 172 member : [] note_type : "collaboration"
-owner : [,…] 0 : {id: 31, username: "azwar", email: "stevennorman101@gmail.com",
-phone: "0895641564", job: "gabut",…} email : "stevennorman101@gmail.com" id : 31
-job : "gabut" phone : "0895641564" photo :
-"https://res-5.cloudinary.com/dis2k0keq/image/upload/v1683939492/public/profile_picture/fdeb4fb13b.png"
-username : "azwar" reminder : "2023-05-28T23:30:13.432+07:00" ringtone :
-"Destiny" status : "in_progress" subject : "tetap dijalan keputus asaan" status
-: 200 success : true -->

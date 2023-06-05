@@ -10,12 +10,13 @@
     <div>
       <div class="p-5 m-8">
         <h1 class="text-black text-4xl font-bold">
-          Berkah ramadan 10 Notes hanya 2300 points.
+          <!-- Berkah ramadan 10 Notes hanya 2300 points. -->
+          {{ name }}
         </h1>
       </div>
       <div class="max-w-2xl rounded-xl m-8 p-5 font-sans">
         <div class="font-bold">
-          <h1>Syarat & Ketentuan</h1>
+          <h1>{{ terms }}</h1>
         </div>
         <p class="mt-3">
           Lorem ipsum dolor sit amet consectetur adipisicing elit. Aperiam
@@ -52,6 +53,14 @@ export default {
   data() {
     return {
       isOpen: false,
+      id: this.$route.query.id,
+      name: this.$route.query.name,
+      notes_quantity: this.$route.query.notes_quantity,
+      photo_product: this.$route.query.photo_product,
+      price: this.$route.query.price,
+      reward: this.$route.query.reward,
+      status: this.$route.query.status,
+      terms: this.$route.query.terms,
     }
   },
   methods: {

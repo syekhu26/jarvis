@@ -273,6 +273,10 @@ export default {
     // },
   },
   methods: {
+    // const username = /^[a-zA-Z]+$/
+    //   if (!this.username.match(username)) {
+    //     this.usernameError = 'Maaf, username belum sesuai'
+    //   }
     usernameValidate() {
       const regexName = /^[a-zA-Z\s]{1,50}$/
       if (!this.username) {

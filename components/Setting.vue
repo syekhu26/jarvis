@@ -21,6 +21,22 @@
       </div>
     </div>
   </div>
+  <!-- <div>
+    <div>
+      
+    </div>
+    <label for="sort">Sort:</label>
+    <select
+      id="sort"
+      v-model="sortValue"
+      @change="applySort"
+      class="focus:outline-none focus:border-blue-500 border rounded"
+    >
+      <option value="">None</option>
+      <option value="asc">Ascending</option>
+      <option value="desc">Descending</option>
+    </select>
+  </div> -->
 </template>
 
 <script>

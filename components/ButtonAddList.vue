@@ -7,10 +7,10 @@
       {{ buttonText }}
     </div>
     <input
-      class="border-b-2 border-slate-500"
+      class="border-b-2 border-slate-500 outline-none"
       placeholder="Nama list"
       v-if="showInput"
-      v-model="newData"
+      v-model="title"
       @keyup.enter="addData"
       @blur="buttonInput"
     />
@@ -19,22 +19,42 @@
 <script>
 export default {
   // props: {
-  //   inputData: {
+  //   judul: {
   //     type: String,
   //     required: true,
   //   },
   // },
+  props: ['value'],
+  // props: ['title'],
   data() {
     return {
-      newData: '',
+      title: '',
       dataList: [],
       showInput: false,
       buttonText: 'Tambah list',
+      coba: this.$route.query.id
     }
   },
   methods: {
-    addData() {
-      this.$emit('add-data', this.newData)
+    // addData() {
+    //   this.$emit('add-data', this.newData)
+    // },
+
+    // addData() {
+    //     this.$emit('add-data', this.title)
+    // },
+    async addData() {
+      try {
+        await this.$store.dispatch('coloms/addColom', {
+          title: this.title,
+          team: this.$route.query.team,
+          team_id: this.$route.query.id,
+        })
+      } catch (error) {
+        console.log(error)
+      }
+
+      this.$router.go()
     },
     buttonInput() {
       this.showInput = !this.showInput

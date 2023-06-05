@@ -81,8 +81,8 @@
                     error.description
                   }}</span>
                   <!-- <p v-if="teksDeskripsi" class="text-red-500">
-                        Maaf, inputan anda melewati batas.
-                      </p> -->
+                          Maaf, inputan anda melewati batas.
+                        </p> -->
                 </div>
               </div>
 
@@ -110,16 +110,16 @@
               >
                 {{ member.email }}
                 <!-- <div>
-                  <button
-                    v-if="item"
-                    class="ml-2 mt-2"
-                    type="button"
-                    @click="hapus"
-                    title="Remove"
-                  >
-                    <iconSilangIcon class="w-3 h-3" />
-                  </button>
-                </div> -->
+                    <button
+                      v-if="item"
+                      class="ml-2 mt-2"
+                      type="button"
+                      @click="hapus"
+                      title="Remove"
+                    >
+                      <iconSilangIcon class="w-3 h-3" />
+                    </button>
+                  </div> -->
               </div>
               <span v-if="emailError" class="text-red-500">{{
                 emailError
@@ -202,20 +202,20 @@
                   <div class="text-red-500 px-1 mt-3">*</div>
                 </div>
                 <!-- 
-                      <div
-                        class="mt-2 px-2 border-2 w-10 h-10 w-full focus:outline-none focus:border-blue-500 mb-3"
-                      >
-                        <div class="flex item-center">
-                          <iconAlarmIcon class="mt-3" />
-                         
-                          <datetime
-                            type="datetime"
-                            v-model="datetime"
-                            class="mt-2 px-4"
-                            placeholder="Pilih Waktu Remainder"
-                          ></datetime>
-                        </div>
-                      </div> -->
+                        <div
+                          class="mt-2 px-2 border-2 w-10 h-10 w-full focus:outline-none focus:border-blue-500 mb-3"
+                        >
+                          <div class="flex item-center">
+                            <iconAlarmIcon class="mt-3" />
+                           
+                            <datetime
+                              type="datetime"
+                              v-model="datetime"
+                              class="mt-2 px-4"
+                              placeholder="Pilih Waktu Remainder"
+                            ></datetime>
+                          </div>
+                        </div> -->
                 <div class="border w-full w-10 h-10 px-2">
                   <vc-date-picker
                     v-model="datetime"
@@ -245,14 +245,14 @@
                 </div>
               </div>
               <!-- <input
-                        type="text"
-                        name="subjek"
-                        v-model="datetime"
-                        @input="remainderValidate"
-                        placeholder="Masukkan reminder"
-                        required
-                        class="border text-black px-4 py-2 w-full focus:outline-none focus:border-blue-500"
-                      /> -->
+                          type="text"
+                          name="subjek"
+                          v-model="datetime"
+                          @input="remainderValidate"
+                          placeholder="Masukkan reminder"
+                          required
+                          class="border text-black px-4 py-2 w-full focus:outline-none focus:border-blue-500"
+                        /> -->
 
               <div>
                 <div
@@ -318,8 +318,8 @@
                   >
                     <option disabled selected value="">Pilih ringtone</option>
                     <!-- <option value="1">hahahihi</option>
-                        <option value="2">aiyaaiya</option>
-                        <option value="3">oke</option> -->
+                          <option value="2">aiyaaiya</option>
+                          <option value="3">oke</option> -->
                     <option
                       v-for="option in options"
                       :key="option.id"
@@ -351,16 +351,16 @@
               />
               <!-- coba -->
               <!-- <div class="flex justify-end mt-8">
-                    <button
-                      @click="showEdit"
-                      type="submit"
-                      value="submit"
-                      class="text-base w-[300px] bg-blue-500 text-white font-semibold py-2 px-5 rounded"
-                    >
-                      Edit Catatan
-                    </button>
-                  </div>
-                  <EditNote/> -->
+                      <button
+                        @click="showEdit"
+                        type="submit"
+                        value="submit"
+                        class="text-base w-[300px] bg-blue-500 text-white font-semibold py-2 px-5 rounded"
+                      >
+                        Edit Catatan
+                      </button>
+                    </div>
+                    <EditNote/> -->
             </form>
           </div>
         </div>
@@ -384,6 +384,11 @@ export default {
     edit: {
       Boolean,
       default: false,
+    },
+
+    colomn: {
+      type: Object,
+      default: () => ({}),
     },
     // label: {
     //   type: String,
@@ -509,23 +514,25 @@ export default {
         this.isShowEdit = true
       }
       if (this.edit && this.item.note_type !== 'collaboration') {
-        await this.$store.dispatch('notes/updateNote', {
-          idNote: this.item.id,
-          data: {
-            subject: this.subject,
-            description: this.description,
-            email: this.items,
-            // email: (this.email = []),
-            event_date: this.date,
-            reminder: this.datetime,
-            ringtone_id: this.voice,
-          },
-        }).
-        finally(()=> this.$router.go())
-      } 
+        await this.$store
+          .dispatch('notes/updateNote', {
+            idNote: this.item.id,
+            data: {
+              subject: this.subject,
+              description: this.description,
+              email: this.items,
+              // email: (this.email = []),
+              event_date: this.date,
+              reminder: this.datetime,
+              ringtone_id: this.voice,
+            },
+          })
+          .finally(() => this.$router.go())
+      }
       if (!this.edit) {
         try {
-          await this.$store.dispatch('notes/addNote', {
+          await this.$store.dispatch('notesTeam/addNoteTeam', {
+            column_id: this.colomn.id,
             subject: this.subject,
             description: this.description,
             // email: this.items && this.email,
@@ -534,7 +541,8 @@ export default {
             reminder: this.datetime,
             ringtone_id: this.voice,
           })
-          this.$router.push('/catatan')
+          // this.$router.push('/catatan')
+          //   this.$router.go()
         } catch (error) {
           this.error = error.response.data.data
           this.errorMessage = error.response.data.message

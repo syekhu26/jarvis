@@ -1,13 +1,13 @@
 <template>
   <div
+    @click="showDetail(itemTeam)"
     class="group relative rounded-md border border-slate-400 bg-white p-3 shadow-lg hover:bg-gray-50"
   >
     <div>
       <div class="">
-        <h5 class="font-semibold text-gray-800">judul</h5>
+        <h5 class="font-semibold text-gray-800">{{ itemTeam.subject }}</h5>
         <p>
-          Lorem ipsum, dolor sit amet consectetur adipisicing elit. Quos
-          asperiores
+          {{ itemTeam.description }}
         </p>
         <div class="mt-2">
           <img
@@ -17,10 +17,51 @@
           />
         </div>
       </div>
+      <!-- <DetailNoteTeam :showDetail="isOpen" @close="hideDetail" /> -->
     </div>
   </div>
 </template>
 
-<script></script>
+<script>
+import { mapState } from 'vuex'
+export default {
+  props: {
+    itemTeam: {
+      type: Object,
+      default: () => ({}),
+    },
+  },
+  data() {
+    return {
+      isOpen: false,
+    }
+  },
+  computed: {
+    ...mapState({
+      isShowDetail: (state) => state.coloms.showDetail,
+    }),
+  },
+  methods: {
+    // showDetail() {
+    //   this.isOpen = true
+    // },
+
+    // showDetail() {
+    //   this.isOpen = true
+    // },
+    // hideDetail() {
+    //   this.isOpen = false
+    // },
+    hideDetail() {
+      this.$store.commit('coloms/setShowDetail', false)
+      this.$store.commit('coloms/detailNotes', null)
+    },
+    showDetail(itemTeam) {
+      this.$store.commit('coloms/detailNotes', itemTeam)
+      this.$store.commit('coloms/setShowDetail', true)
+    },
+  },
+}
+</script>
 
 <style></style>

@@ -44,30 +44,34 @@ export default {
                   <timeline>
                     <timeline-item
                       ><div>
-                        {{ history.data.note_created_at }}
+                        {{ formatDate }}
                       </div>
                       <div>
-                        telah membuat catatan untuk
-                        <!-- <div
+                        {{ history.data.owner.username }} telah membuat catatan
+                        untuk
+                        <div
                           v-for="(member, index) in idNoteToHistory.member"
                           :key="index"
                           class="flex w-full"
                         >
                           <div class="flex items-center w-full">
                             {{ member.username }}
-                            
                           </div>
-                        </div> -->
+                          <!-- {{ history.data.histories.username }}
+                        sudah menyelesaikan tugas. -->
+                        </div>
                       </div>
                     </timeline-item>
                     <timeline-item
-                      v-for="(item, index) in timelineItem"
+                      v-for="(item, index) in history.data.histories"
                       :key="index"
                     >
-                      <div>
+                      {{ $moment(item.date).format('DD/MM/YYYY') }}
+                      <div>{{ item.user }} sudah menyelesaikan tugas</div>
+                      <!-- <div>
                         {{ idNoteToHistory.member.username }}
                         sudah menyelesaikan tugas.
-                      </div>
+                      </div> -->
                     </timeline-item>
                   </timeline>
 
@@ -126,6 +130,7 @@ export default {
     return {
       timelineItem: [],
       note_id: this.idNoteToHistory.id,
+      date: [],
     }
   },
   // created(idNoteToHistory) {
@@ -138,7 +143,9 @@ export default {
   // },
   computed: {
     formatDate() {
-      return this.$moment().format('DD/MM/YYYY')
+      return this.$moment(this.history.data.note_created_at).format(
+        'DD/MM/YYYY'
+      )
     },
     ...mapState('notes', ['history']),
   },
@@ -146,6 +153,9 @@ export default {
     this.$store.dispatch('notes/history', this.idNoteToHistory.id)
   },
   method: {
+    // format() {
+    //   return this.$moment(this.item.date).format('DD/MM/YYYY')
+    // },
     ...mapActions('notes', ['history']),
   },
 }

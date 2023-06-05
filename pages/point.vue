@@ -5,10 +5,15 @@
       <h3 class="font-semibold">Tawaran Tersedia</h3>
       <div class="flex-1 overflow-x-auto mt-6">
         <div class="inline-flex h-full items-start space-x-4 pb-4">
+          <CardTawaran
+            v-for="tawaran in product.data"
+            :key="tawaran.id"
+            :itemTawaran="tawaran"
+            class="mb-2"
+          />
+          <!-- <CardTawaran />
           <CardTawaran />
-          <CardTawaran />
-          <CardTawaran />
-          <CardTawaran />
+          <CardTawaran /> -->
         </div>
       </div>
     </div>
@@ -29,6 +34,17 @@
 <script>
 export default {
   layout: 'navbar',
+  computed: {
+    product() {
+      return this.$store.state.product.product
+    },
+    notes() {
+      return this.$store.state.notes.notes
+    },
+  },
+  mounted() {
+    this.$store.dispatch('product/product')
+  },
 }
 </script>
 
