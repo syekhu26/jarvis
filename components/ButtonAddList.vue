@@ -10,8 +10,7 @@
       class="border-b-2 border-slate-500 outline-none"
       placeholder="Nama list"
       v-if="showInput"
-      :value="value" 
-      @input="$emit('input', $event.target.value)"
+      v-model="title"
       @keyup.enter="addData"
       @blur="buttonInput"
     />
@@ -33,6 +32,7 @@ export default {
       dataList: [],
       showInput: false,
       buttonText: 'Tambah list',
+      coba: this.$route.query.id
     }
   },
   methods: {
@@ -40,8 +40,21 @@ export default {
     //   this.$emit('add-data', this.newData)
     // },
 
-    addData() {
-        this.$emit('add-data', this.title)
+    // addData() {
+    //     this.$emit('add-data', this.title)
+    // },
+    async addData() {
+      try {
+        await this.$store.dispatch('coloms/addColom', {
+          title: this.title,
+          team: this.$route.query.team,
+          team_id: this.$route.query.id,
+        })
+      } catch (error) {
+        console.log(error)
+      }
+
+      this.$router.go()
     },
     buttonInput() {
       this.showInput = !this.showInput

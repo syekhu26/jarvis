@@ -10,8 +10,7 @@
         class="w-full outline-none"
         placeholder="Nama list"
         v-if="showInput"
-        :value="value"
-        @input="$emit('input', $event.target.value)"
+        v-model="title"
         @keyup.enter="editData"
         @blur="buttonInput"
       />
@@ -23,9 +22,19 @@
       <div class="flex flex-col overflow-hidden pb-3">
         <div ref="listRef" class="flex-1 overflow-y-auto px-3"></div>
         <div class="px-3 mt-3">
-          <CardNoteTim />
-          <CardNoteTim class="mt-3" />
+          <CardNoteTim
+            v-for="team in itemList.note"
+            :key="team.id"
+            :itemTeam="team"
+            class=""
+          />
+          <!-- <CardNoteTim class="mt-3" /> -->
         </div>
+        <DetailNoteTeam
+          v-if="isShowDetail && detailNotes !== null"
+          @close="hideDetail"
+          :itemDetail="detailNotes"
+        />
         <div class="mt-3 px-3">
           <div @click="show" class="flex justify-center items-center mx-12">
             <iconPlusIcon />
@@ -39,37 +48,67 @@
         </div>
       </div>
     </div>
-    <FormNote :show="isOpen" @close="hide" />
+    <FormNoteTeam :colomn="itemList" :show="isOpen" @close="hide" />
   </div>
 </template>
 
 <script>
+import { mapState } from 'vuex'
 export default {
   props: {
     // inputData: {
     //   type: String,
     //   required: true,
     // },
-    value: {
-      type: String,
-      required: true,
-    },
     itemList: {
       type: Object,
       default: () => ({}),
     },
   },
+  // asyncData(context) {
+  //   const queryData = context.query
+  //   console.log(queryData)
+  //   // Gunakan data query halaman sesuai kebutuhan
+  // },
   data() {
     return {
       isOpen: false,
       showInput: false,
       buttonText: this.itemList.title,
+      id: this.$route.query.id,
     }
   },
-  methods: {
-    editData() {
-        this.$emit('edit-data', this.title)
+  mounted() {
+    this.$store.dispatch('notesTeam/NotesTeam', this.$route.query.id)
+  },
+  computed: {
+    notesTeam() {
+      return this.$store.state.notesTeam.NotesTeam
     },
+    ...mapState({
+      detailNotes: (state) => state.coloms.detailNotes,
+      isShowDetail: (state) => state.coloms.showDetail,
+    }),
+  },
+  methods: {
+    async editData() {
+      try {
+        await this.$store.dispatch('coloms/updateColom', {
+          idColoms: this.itemList.id,
+          data: {
+            title: this.title,
+            team_id: this.$route.query.id,
+          },
+        })
+      } catch (error) {
+        console.log(error)
+      }
+
+      this.$router.go()
+    },
+    // editData() {
+    //   this.$emit('edit-data', this.title)
+    // },
     show() {
       this.isOpen = true
     },
@@ -84,10 +123,10 @@ export default {
         this.buttonText = this.itemList.title
       }
     },
-  //   sendData() {
-  //   const data = this.itemList.id
-  //   this.$emit('itemList', data)
-  // }
+    //   sendData() {
+    //   const data = this.itemList.id
+    //   this.$emit('itemList', data)
+    // }
   },
 }
 </script>

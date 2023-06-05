@@ -1,5 +1,8 @@
 export const state = () => ({
     coloms: [],
+    showDetail : false,
+    detailnotes : null
+    // itemList: this.itemList.id,
     // itemList: this.itemList,
   })
 
@@ -7,6 +10,12 @@ export const state = () => ({
     setColoms(state, coloms) {
       state.coloms = coloms
     },
+    setShowDetail(state,payload){
+      state.showDetail = payload
+    },
+    detailnotes(state,payload){
+      state.detailnotes = payload
+    }
   }
 
   export const actions = {

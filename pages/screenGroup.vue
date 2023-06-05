@@ -43,12 +43,9 @@
               :key="colom.id"
               :itemList="colom"
               class="mt-5 px-5"
-              v-model="title"
-              
-              @edit-data="editData"
             />
-            <ButtonAddList v-model="title" @add-data="addData" />
-           
+
+            <ButtonAddList />
           </div>
         </div>
         <PopupAllMember :show="isOpen" @close="hide" />
@@ -63,29 +60,6 @@ export default {
     await store.dispatch('profile/getdataUser', store.state.auth.user.id)
   },
   layout: 'navbar',
-
-  // inputData: {
-  //   type: String,
-  //   required: true,
-  // },
-  // item: {
-  //   type: String,
-  //   required: true,
-  // },
-  // props: {
-  //   itemTeam: {
-  //     type: Object,
-  //     required: true
-  //   }
-  // },
-  props: ['id', 'team'],
-  // props: {
-  //   itemTeam: {
-  //     type: Object,
-  //     default: () => ({}),
-  //   },
-  // },
-  // {
   //   id: {
   //     // type: String,
   //     // required: true
@@ -101,54 +75,61 @@ export default {
       },
       dataList: [],
       isOpen: false,
-      title: '',
     }
   },
   computed: {
     coloms() {
       return this.$store.state.coloms.coloms
     },
+    // notesTeam() {
+    //   return this.$store.state.notesTeam.notesTeam
+    // },
   },
   mounted() {
     this.$store.dispatch('coloms/fetchColoms', this.$route.query.id)
+    // this.$store.dispatch('notesTeam/fetchNotesTeam')
     const id = this.$route.query.id
     const team = this.$route.query.team
     // Lakukan sesuatu dengan data query
     console.log('ID:', id)
     console.log('team:', team)
+    // this.itemList = {
+
+    //   // ... Data yang diperoleh dari sumber eksternal atau diubah sesuai kebutuhan
+    // }
   },
   methods: {
-    // handleData(data) {
-    //   console.log(data) // Output: "Data dari komponen"
+    // handleData(idColom) {
+    //   console.log(idColom) // Output: "Data dari komponen"
     // },
-    async addData() {
-      try {
-        await this.$store.dispatch('coloms/addColom', {
-          title: this.title,
-          team: this.$route.query.team,
-          team_id: this.$route.query.id,
-        })
-      } catch (error) {
-        console.log(error)
-      }
+    // async addData() {
+    //   try {
+    //     await this.$store.dispatch('coloms/addColom', {
+    //       title: this.title,
+    //       team: this.$route.query.team,
+    //       team_id: this.$route.query.id,
+    //     })
+    //   } catch (error) {
+    //     console.log(error)
+    //   }
 
-      // this.$router.go()
-    },
-    async editData() {
-      try {
-        await this.$store.dispatch('coloms/updateColom', {
-          // idColoms: this.itemList.id,
-          data: {
-            title: this.title,
-            team_id: this.$route.query.id,
-          },
-        })
-      } catch (error) {
-        console.log(error)
-      }
+    //   this.$router.go()
+    // },
+    // async editData() {
+    //   try {
+    //     await this.$store.dispatch('coloms/updateColom', {
+    //       // idColoms: this.itemList.id,
+    //       data: {
+    //         title: this.title,
+    //         team_id: this.$route.query.id,
+    //       },
+    //     })
+    //   } catch (error) {
+    //     console.log(error)
+    //   }
 
-      // this.$router.go()
-    },
+    //   // this.$router.go()
+    // },
     show() {
       this.isOpen = true
     },
