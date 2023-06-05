@@ -11,7 +11,7 @@
           <label
             for="myPhoto"
             class="cursor-pointer text-gray-500 inline-block text my-2"
-            >Ubah Foto</label
+            >Edit Foto Profil</label
           >
           <a href="#">
             <input
@@ -68,16 +68,18 @@
         <div class="my-4">
           <div class="flex justify-between my-1">
             <p class="text-sm text-gray-500">Kata Sandi</p>
-            <a href="/editpassword" class="text-blue-500 my-auto">Ubah</a>
+            <a href="/editpassword">
+              <IconVectorRight />
+            </a>
           </div>
-          <div class="flex items-center justify-between relative">
+          <!-- <div class="flex items-center justify-between relative">
             <input
               v-model="passKey"
               type="text"
               class="text-sm w-full text-black"
               disabled
             />
-          </div>
+          </div> -->
         </div>
       </form>
     </div>

@@ -274,10 +274,13 @@ export default {
   },
   methods: {
     usernameValidate() {
+      const regexName = /^[a-zA-Z\s]{1,50}$/
       if (!this.username) {
         this.usernameError = 'Maaf, anda belum memasukan username anda.'
       } else if (this.error.username) {
         this.error.username = null
+      } else if (!this.userName.match(regexName)) {
+        this.usernameError = 'Nama pengguna yang anda masukkan tidak valid'
       } else {
         this.usernameError = ''
       }
