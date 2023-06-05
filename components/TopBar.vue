@@ -6,7 +6,7 @@
           <img
             src="../assets/img/logoipsum-245 1.png"
             alt="logo"
-            class="rounded-full w-[52px] h-[41px] mx-3 my-auto object-contain bg-gray-200"
+            class="w-[52px] h-[41px] mx-3 my-auto object-contain"
           />
           <h1 class="text-2xl text-[#0F62FE] font-[IBM Plex Sans]">Bantu.in</h1>
         </NuxtLink>

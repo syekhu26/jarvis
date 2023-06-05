@@ -1,22 +1,23 @@
 <template>
-  <!-- :to="{ name: 'screenGroup', params: { itemTeam: item } }" -->
-  <NuxtLink :to="{ path: '/screenGroup', query: { id: item.id, team: item.title } }">
-    <div @click="emitData">
-      <div
-        class="mx-5 mt-5 border border-slate-300 h-20 w-80 rounded shadow-sm"
+  <!-- <NuxtLink to="/screenGroup"> -->
+    <nuxt-link :to="{ path: '/screenGroup', query: { page: `${item.id}` } }">
+      <div>
+        <div
+      class="mx-5 mt-5 border border-slate-300 h-20 w-80 rounded shadow-sm"
+
       >
         <!-- gambar -->
         <div class="mt-2 flex items-center">
           <div class="px-5">
             <img
-              :src="randomImageUrl"
+              :src="photoGroup"
               width="50"
               height="150"
               alt="Random Image"
-              class="rounded"
+              class="rounded-full"
             />
           </div>
-
+          
           <div>
             <!-- judul -->
             <h1 class="text-sm font-bold text-black mb-1">
@@ -49,11 +50,15 @@
         </div>
       </div>
     </div>
-  </NuxtLink>
+  </nuxt-link>
+  <!-- </NuxtLink> -->
 </template>
 
 <script>
 export default {
+  async asyncData({ store }) {
+    await store.dispatch('team/fetchGroupList', store.state.team.teams.id)
+  },
   props: {
     // inputData: {
     //   type: [String, Boolean, Number],
@@ -72,25 +77,31 @@ export default {
   data() {
     return {
       // detail: false,
-      imageUrls: [
-        'https://images.unsplash.com/photo-1508182314998-3bd49473002f?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80',
-        'https://images.unsplash.com/photo-1682016149111-b6f316f6133c?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=928&q=80',
-        'https://images.unsplash.com/photo-1675849049391-db3d8344b748?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=725&q=80',
-      ],
-      randomImageUrl: '',
+      // imageUrls: [
+      //   'https://images.unsplash.com/photo-1508182314998-3bd49473002f?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80',
+      //   'https://images.unsplash.com/photo-1682016149111-b6f316f6133c?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=928&q=80',
+      //   'https://images.unsplash.com/photo-1675849049391-db3d8344b748?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=725&q=80',
+      // ],
+      // randomImageUrl: '',
     }
   },
-  mounted() {
-    this.randomImageUrl = this.getRandomImageUrl()
+  computed: {
+    photoGroup() {
+      return this.item.photo || require('@/assets/img/Ellipse 1.png')
+    }
   },
+  // mounted() {
+  //   this.randomImageUrl = this.getRandomImageUrl()
+  // },
   methods: {
-    getRandomImageUrl() {
-      const randomIndex = Math.floor(Math.random() * this.imageUrls.length)
-      return this.imageUrls[randomIndex]
-    },
-    emitData() {
-      this.$emit('shareTeam', this.item)
-    },
+    // getRandomImageUrl() {
+    //   const randomIndex = Math.floor(Math.random() * this.imageUrls.length)
+    //   return this.imageUrls[randomIndex]
+    // },
+    // emitData(){
+    //   this.$emit('shareTeam', this.item)
+    // },
+
     // hideDetail() {
     //   this.detail = false
     // },

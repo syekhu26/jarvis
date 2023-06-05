@@ -10,10 +10,15 @@
           class="flex shrink-0 items-center absolute justify-between p-4 bg-slate-100 w-full bg-transparent backdrop-blur"
         >
           <!-- <h1 class="text-2xl font-bold text-black" @shareTeam="dataTeam(item)" v-for="(item, index) in dataList" :key="index" :item="item">{{ item.title }}</h1> -->
-          <h1>
-            <!-- {{ this.$route.query.itemTeam.title }} -->
-            <!-- {{ this.$route.query.itemTeam.id }} -->
-          </h1>
+
+
+          <nuxt-link to="/editgroup">
+            <div class="flex">
+              <img :src="photoGroup" alt="" class="h-9 w-9" />
+              <h1 class="text-black font-bold my-auto mx-2">{{ $store.state.team.teams.data.title }}</h1>
+            </div>
+          </nuxt-link>
+
           <div class="flex items-center" @click="show">
             <iconMemberIcon />
             <div class="flex my-1 relative">
@@ -39,9 +44,11 @@
         <div class="flex-1 overflow-x-auto mt-[80px]">
           <div class="inline-flex h-full items-start space-x-4 px-4 pb-4">
             <BoxList
+
               v-for="colom in coloms"
               :key="colom.id"
               :itemList="colom"
+
               class="mt-5 px-5"
             />
 
@@ -56,9 +63,6 @@
 
 <script>
 export default {
-  async asyncData({ store }) {
-    await store.dispatch('profile/getdataUser', store.state.auth.user.id)
-  },
   layout: 'navbar',
   //   id: {
   //     // type: String,
@@ -67,6 +71,13 @@ export default {
   //     default: () => ({}),
   //   },
   // },
+
+  async asyncData({ store, $axios, params, query }) {
+    const groupId = query.page // Mengambil ID dari query parameter "page"
+    await store.dispatch('team/getDataGroup', groupId) // Mengambil data grup berdasarkan ID
+  },
+  layout: 'navbar',
+
   data() {
     return {
       image: {
@@ -130,6 +141,15 @@ export default {
 
     //   // this.$router.go()
     // },
+
+    photoGroup() {
+      return (
+        this.$store.state.team.teams.photo ||
+        require('../assets/img/Ellipse 1.png')
+      )
+    },
+  },
+  methods: {
     show() {
       this.isOpen = true
     },
