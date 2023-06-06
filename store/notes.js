@@ -3,7 +3,8 @@ export const state = () => ({
     history:[],
     reqlist:[],
     showDetail : false,
-    detailNotes : null
+    detailNotes : null,
+    selectedFilter: null,
   })
   
   export const mutations = {
@@ -24,7 +25,10 @@ export const state = () => ({
     },
     detailNotes(state,payload){
       state.detailNotes = payload
-    }
+    },
+    setFilter(state, filter) {
+      state.selectedFilter = filter;
+    },
   }
   
   export const actions = {
@@ -73,6 +77,10 @@ export const state = () => ({
       catch (error) {
         console.error(error);
       }
+    },
+
+    setSelectedFilter({ commit }, filter) {
+      commit('setFilter', filter);
     },
 
   }

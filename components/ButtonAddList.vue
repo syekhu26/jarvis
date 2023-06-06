@@ -18,6 +18,10 @@
 </template>
 <script>
 export default {
+  async asyncData({ store, $axios, params, query }) {
+    const groupId = query.page // Mengambil ID dari query parameter "page"
+    await store.dispatch('team/getDataGroup', groupId) // Mengambil data grup berdasarkan ID
+  },
   // props: {
   //   judul: {
   //     type: String,

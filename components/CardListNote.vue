@@ -53,8 +53,12 @@
           <div>
             <p class="font-bold">{{ item.subject }}</p>
           </div>
-          <div class="bg-red-400 rounded-full text-[12px] h-6 px-3">
-            {{ item.status }}
+          <div
+            v-for="persen in item.status"
+            :key="persen"
+            class="bg-red-400 rounded-full text-[12px] h-6 px-3"
+          >
+            {{ persen }}
           </div>
         </div>
         <div class="mt-2 max-w-xl break-all">

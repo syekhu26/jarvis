@@ -18,10 +18,13 @@
             <div class="">
               <div class="flex items-center justify-between mt-2">
                 <div class="flex">
-                  <div class="bg-red-400 rounded-full text-[12px] h-6 px-3">
-                    {{ itemDetail.status }}
+                  <div
+                    v-for="persen in itemDetail.status"
+                    :key="persen"
+                    class="bg-red-400 rounded-full text-[12px] h-6 px-3"
+                  >
+                    {{ persen }}
                   </div>
-
                   <div
                     v-if="
                       itemDetail.note_type === 'collaboration' &&
@@ -158,18 +161,18 @@
               <div class="mb-4">
                 <div class="flex">
                   <p>Tanggal Acara :</p>
-                  <p class="px-2">{{ formatDate(itemDetail.event_date) }}</p>
+                  <p class="px-2"> {{ formatDate(itemDetail.event_date) }}</p>
                 </div>
                 <div class="flex">
                   <p>Reminder :</p>
                   <p class="px-2">
-                    {{ formatToH(itemDetail.reminder) }} -
+                     {{ formatToH(itemDetail.reminder) }} -
                     {{ formatDate(itemDetail.reminder) }}
                   </p>
                 </div>
                 <div class="flex">
                   <p>Ringtone :</p>
-                  <p class="text-sky-500 px-2">{{ itemDetail.ringtone }}</p>
+                  <p class="px-2"> {{ itemDetail.ringtone }}</p>
                 </div>
               </div>
               <div class="mb-4">
@@ -267,7 +270,7 @@ export default {
       this.$store.commit('notes/setShowDetail', false)
     },
     formatDate(date) {
-      return this.$moment(date).format('DD/MM/YYYY')
+      return this.$moment(date).format('DD/MM/YYYY HH:mm')
     },
     // formatToH() {
     //   const formattedDate = this.$moment(this.itemDetail.event_date).format('h')

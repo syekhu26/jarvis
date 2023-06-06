@@ -11,11 +11,12 @@
         >
           <!-- <h1 class="text-2xl font-bold text-black" @shareTeam="dataTeam(item)" v-for="(item, index) in dataList" :key="index" :item="item">{{ item.title }}</h1> -->
 
-
           <nuxt-link to="/editgroup">
             <div class="flex">
               <img :src="photoGroup" alt="" class="h-9 w-9" />
-              <h1 class="text-black font-bold my-auto mx-2">{{ $store.state.team.teams.data.title }}</h1>
+              <h1 class="text-black font-bold my-auto mx-2">
+                {{ team }}
+              </h1>
             </div>
           </nuxt-link>
 
@@ -44,11 +45,9 @@
         <div class="flex-1 overflow-x-auto mt-[80px]">
           <div class="inline-flex h-full items-start space-x-4 px-4 pb-4">
             <BoxList
-
               v-for="colom in coloms"
               :key="colom.id"
               :itemList="colom"
-
               class="mt-5 px-5"
             />
 
@@ -63,19 +62,10 @@
 
 <script>
 export default {
-  layout: 'navbar',
-  //   id: {
-  //     // type: String,
-  //     // required: true
-  //     type: Object,
-  //     default: () => ({}),
-  //   },
+  // async asyncData({ store, $axios, params, query }) {
+  //   const groupId = query.page // Mengambil ID dari query parameter "page"
+  //   await store.dispatch('team/getDataGroup', groupId) // Mengambil data grup berdasarkan ID
   // },
-
-  async asyncData({ store, $axios, params, query }) {
-    const groupId = query.page // Mengambil ID dari query parameter "page"
-    await store.dispatch('team/getDataGroup', groupId) // Mengambil data grup berdasarkan ID
-  },
   layout: 'navbar',
 
   data() {
@@ -86,6 +76,8 @@ export default {
       },
       dataList: [],
       isOpen: false,
+      team: this.$route.query.team,
+      id: this.$route.query.id
     }
   },
   computed: {
@@ -148,8 +140,6 @@ export default {
         require('../assets/img/Ellipse 1.png')
       )
     },
-  },
-  methods: {
     show() {
       this.isOpen = true
     },

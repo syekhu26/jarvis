@@ -343,12 +343,12 @@
                   {{ this.edit ? 'Simpan Catatan' : 'Buat Catatan' }}
                 </button>
               </div>
-              <EditNote
+              <!-- <EditNote
                 :form="item"
                 v-if="isShowEdit"
                 @close="hideEdit"
                 @edit="confirmEdit"
-              />
+              /> -->
               <!-- coba -->
               <!-- <div class="flex justify-end mt-8">
                       <button
@@ -510,26 +510,25 @@ export default {
       }
     },
     async handleSubmit() {
-      if (this.edit && this.item.note_type === 'collaboration') {
-        this.isShowEdit = true
-      }
-      if (this.edit && this.item.note_type !== 'collaboration') {
-        await this.$store
-          .dispatch('notes/updateNote', {
-            idNote: this.item.id,
-            data: {
-              subject: this.subject,
-              description: this.description,
-              email: this.items,
-              // email: (this.email = []),
-              event_date: this.date,
-              reminder: this.datetime,
-              ringtone_id: this.voice,
-            },
-          })
-          .finally(() => this.$router.go())
-      }
-      if (!this.edit) {
+      // if (this.edit && this.item.note_type === 'collaboration') {
+      //   this.isShowEdit = true
+      // }
+      // if (this.edit && this.item.note_type !== 'collaboration') {
+      //   await this.$store
+      //     .dispatch('notes/updateNote', {
+      //       idNote: this.item.id,
+      //       data: {
+      //         subject: this.subject,
+      //         description: this.description,
+      //         email: this.items,
+      //         // email: (this.email = []),
+      //         event_date: this.date,
+      //         reminder: this.datetime,
+      //         ringtone_id: this.voice,
+      //       },
+      //     })
+      //     .finally(() => this.$router.go())
+      // }
         try {
           await this.$store.dispatch('notesTeam/addNoteTeam', {
             column_id: this.colomn.id,
@@ -549,8 +548,8 @@ export default {
           console.log(error)
           alert('maaf catatan anda gagal dibuat')
         }
-      }
-      // this.$router.go()
+      
+      this.$router.go()
     },
     async hapus() {
       try {

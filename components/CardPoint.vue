@@ -16,7 +16,7 @@
               />
               <p class="text-sm text-blue-600">Bisa.in point :</p>
             </div>
-            <p class="text-sm font-bold mx-3 mt-2">2500</p>
+            <p class="text-sm font-bold mx-3 mt-2">{{ point }}</p>
           </div>
         </div>
       </div>
@@ -27,7 +27,9 @@
 export default {
   name: 'Modal',
   data() {
-    return {}
+    return {
+      point: this.$route.query.point,
+    }
   },
   methods: {},
 }

@@ -50,7 +50,7 @@
     <div class="w-[260px] h-px bg-gray-300 mx-2"></div>
     <div class="border bg-white w-[260px] mx-2 my-3 p-2">
       <div class="flex">
-        <NuxtLink to="/point">
+        <NuxtLink :to="{ path: '/point', query: { point: point } }">
           <div>
             <div class="flex">
               <img
@@ -60,7 +60,7 @@
               />
               <p class="text-sm text-blue-600">Bisa.in point :</p>
             </div>
-            <p class="text-sm font-bold mx-3">2500</p>
+            <p class="text-sm font-bold mx-3">{{ point }}</p>
           </div>
         </NuxtLink>
         <div class="w-px h-9 bg-gray-300 mx-2"></div>
@@ -68,7 +68,7 @@
           <div class="flex">
             <p class="text-sm">Kuota cacatan :</p>
           </div>
-          <p class="text-sm font-bold mx-1">5</p>
+          <p class="text-sm font-bold mx-1">{{ notes_count }}</p>
         </div>
       </div>
     </div>
@@ -81,8 +81,8 @@
         </button>
       </NuxtLink>
       <button
-      class="w-[260px] border border-red-500 text-red-500 text-sm justify-center p-2 mx-2 my-2 rounded"
-      @click="logout"
+        class="w-[260px] border border-red-500 text-red-500 text-sm justify-center p-2 mx-2 my-2 rounded"
+        @click="logout"
       >
         Keluar
       </button>
@@ -97,8 +97,10 @@ export default {
   //   await store.dispatch('profile/getdataUser', store.state.auth.user.id)
   // },
   data() {
-    return{
-      photo: this.$store.state.profile.dataUser.photo
+    return {
+      photo: this.$store.state.profile.dataUser.photo,
+      point: this.$store.state.profile.dataUser.point,
+      notes_count: this.$store.state.profile.dataUser.notes_count,
     }
   },
   methods: {
@@ -113,9 +115,9 @@ export default {
   },
   computed: {
     ...mapGetters(['isAuthenticated', 'loggedInUser']),
-    avatar(){
+    avatar() {
       return this.photo || require('@/assets/img/profile-user-svgrepo-com.png')
-    }
+    },
   },
 }
 </script>

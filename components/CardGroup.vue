@@ -1,10 +1,10 @@
 <template>
   <!-- <NuxtLink to="/screenGroup"> -->
-    <nuxt-link :to="{ path: '/screenGroup', query: { page: `${item.id}` } }">
-      <div>
-        <div
-      class="mx-5 mt-5 border border-slate-300 h-20 w-80 rounded shadow-sm"
-
+  <!-- "{ path: '/screenGroup', query: { page: `${item.id}` } }" -->
+  <nuxt-link :to="screenGroup">
+    <div>
+      <div
+        class="mx-5 mt-5 border border-slate-300 h-20 w-80 rounded shadow-sm"
       >
         <!-- gambar -->
         <div class="mt-2 flex items-center">
@@ -17,7 +17,7 @@
               class="rounded-full"
             />
           </div>
-          
+
           <div>
             <!-- judul -->
             <h1 class="text-sm font-bold text-black mb-1">
@@ -88,7 +88,21 @@ export default {
   computed: {
     photoGroup() {
       return this.item.photo || require('@/assets/img/Ellipse 1.png')
-    }
+    },
+    screenGroup() {
+      const query = {
+        id: this.item.id,
+        owner: this.item.owner,
+        participant: this.item.participant,
+        photo: this.item.photo,
+        team: this.item.title,
+      }
+
+      return {
+        path: '/ScreenGroup',
+        query,
+      }
+    },
   },
   // mounted() {
   //   this.randomImageUrl = this.getRandomImageUrl()
@@ -101,7 +115,6 @@ export default {
     // emitData(){
     //   this.$emit('shareTeam', this.item)
     // },
-
     // hideDetail() {
     //   this.detail = false
     // },

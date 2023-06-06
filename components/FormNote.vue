@@ -91,6 +91,26 @@
               >
 
               <div class="relative text-gray-600 border">
+                <div>
+                  <div
+                    v-for="item in items"
+                    :key="item"
+                    class="bg-slate-200 rounded mb-2 px-2 flex items-center"
+                  >
+                    {{ item }}
+                    <div>
+                      <button
+                        v-if="item"
+                        class="ml-2 mt-2"
+                        type="button"
+                        @click="remove"
+                        title="Remove"
+                      >
+                        <iconSilangIcon class="w-3 h-3" />
+                      </button>
+                    </div>
+                  </div>
+                </div>
                 <span class="absolute inset-y-0 left-0 flex items-center pl-2">
                   <iconInviteIcon />
                 </span>
@@ -124,27 +144,6 @@
               <span v-if="emailError" class="text-red-500">{{
                 emailError
               }}</span>
-              <div>
-                <div
-                  v-for="item in items"
-                  :key="item"
-                  class="bg-slate-200 rounded mb-2 px-2 flex items-center"
-                >
-                  {{ item }}
-                  <div>
-                    <button
-                      v-if="item"
-                      class="ml-2 mt-2"
-                      type="button"
-                      @click="remove"
-                      title="Remove"
-                    >
-                      <iconSilangIcon class="w-3 h-3" />
-                    </button>
-                  </div>
-                </div>
-              </div>
-
               <div
                 @click="addEmail"
                 class="flex items-center mt-2 text-blue-600 cursor-pointer"
@@ -509,20 +508,21 @@ export default {
         this.isShowEdit = true
       }
       if (this.edit && this.item.note_type !== 'collaboration') {
-        await this.$store.dispatch('notes/updateNote', {
-          idNote: this.item.id,
-          data: {
-            subject: this.subject,
-            description: this.description,
-            email: this.items,
-            // email: (this.email = []),
-            event_date: this.date,
-            reminder: this.datetime,
-            ringtone_id: this.voice,
-          },
-        }).
-        finally(()=> this.$router.go())
-      } 
+        await this.$store
+          .dispatch('notes/updateNote', {
+            idNote: this.item.id,
+            data: {
+              subject: this.subject,
+              description: this.description,
+              email: this.items,
+              // email: (this.email = []),
+              event_date: this.date,
+              reminder: this.datetime,
+              ringtone_id: this.voice,
+            },
+          })
+          .finally(() => this.$router.go())
+      }
       if (!this.edit) {
         try {
           await this.$store.dispatch('notes/addNote', {
@@ -534,7 +534,7 @@ export default {
             reminder: this.datetime,
             ringtone_id: this.voice,
           })
-          this.$router.push('/catatan')
+          this.$router.go('/catatan')
         } catch (error) {
           this.error = error.response.data.data
           this.errorMessage = error.response.data.message

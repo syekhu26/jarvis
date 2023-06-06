@@ -1,42 +1,54 @@
 <template>
-  <div @click="isOpen = !isOpen" class="mt-6 px-6 cursor-pointer">
-    <div
-      class="border border-slate-300 rounded shadow flex items-center justify-center max-w-md w-[159px] h-[32px]"
+  <!-- <div class="relative inline-block text-left">
+    <button
+      @click="toggleDropdown"
+      type="button"
+      class="inline-flex justify-center w-full rounded-md border shadow-sm px-4 py-2 bg-white text-sm font-medium focus:outline-none focus:border-blue-500"
     >
-      <iconSettingIcon />
-      <div class="px-1">Semua</div>
-    </div>
-    <div v-if="isOpen" class="">
-      <div class="fixed inset-0 z-20">
-        <div class="mt-10 my-10">
-          <div
-            class="bg-white w-[360px] h-[229] rounded p-3 shadow border border-slate-200 mt-[315px] mx-[365px]"
-          >
-            <div class="border-b mb-1">Semua</div>
-            <div class="border-b mb-1">Selesai</div>
-            <div class="border-b mb-1">Telat</div>
-            <div>Pemilik</div>
-          </div>
-        </div>
+      {{ selectedOption }}
+    </button>
+    <ul
+      v-if="isOpen"
+      class="origin-top-right absolute right-0 mt-2 w-56 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 divide-y divide-gray-100 focus:outline-none"
+    >
+      <div class="py-1" role="none">
+        <li
+          v-for="(option, index) in options"
+          :key="index"
+          @click="selectOption(option)"
+          class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 border-b border-spacing-x-3"
+          role="menuitem"
+        >
+          <a @click="selectOption(option)">{{ option.label }}</a>
+        </li>
       </div>
-    </div>
-  </div>
-  <!-- <div>
-    <div>
-      
-    </div>
-    <label for="sort">Sort:</label>
-    <select
-      id="sort"
-      v-model="sortValue"
-      @change="applySort"
-      class="focus:outline-none focus:border-blue-500 border rounded"
-    >
-      <option value="">None</option>
-      <option value="asc">Ascending</option>
-      <option value="desc">Descending</option>
-    </select>
+    </ul>
   </div> -->
+  <div class="relative inline-block text-left">
+    <button
+      @click="toggleDropdown"
+      type="button"
+      class="inline-flex justify-center w-full rounded-md border shadow-sm px-4 py-2 bg-white text-sm font-medium focus:outline-none focus:border-blue-500"
+    >
+      {{ selectedOption }}
+    </button>
+    <ul
+      v-if="isOpen"
+      class="origin-top-right absolute right-0 mt-2 w-56 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 divide-y divide-gray-100 focus:outline-none"
+    >
+      <div class="py-1" role="none">
+        <li
+          v-for="(option, index) in options"
+          :key="index"
+          @click="selectOption(option)"
+          class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 border-b border-spacing-x-3"
+          role="menuitem"
+        >
+          <a @click="selectOption(option)">{{ option.label }}</a>
+        </li>
+      </div>
+    </ul>
+  </div>
 </template>
 
 <script>
@@ -44,7 +56,37 @@ export default {
   data() {
     return {
       isOpen: false,
+      selectedOption: 'Semua',
+      options: [
+        { label: 'Semua', Value: 'upcoming=yes' },
+        { label: 'Belum Upload', Value: 'upcoming=yes&notup=yes' },
+        { label: 'Sudah Upload', Value: 'upcoming=yes&up=yes' },
+        { label: 'Pemilik', Value: 'passed=yes&owner=yes' },
+      ],
     }
+  },
+  methods: {
+    toggleDropdown() {
+      this.isOpen = !this.isOpen
+    },
+    // selectOption(option) {
+    //   this.selectedOption = option
+    //   this.isDropdownOpen = false
+    // },
+    selectOption(option) {
+      this.selectedOption = option.label
+      const param = option.value
+      this.loadData(param)
+    },
+    async loadData(param) {
+      console.log(param);
+      try {
+        await this.$axios.get(`/notes/data?${param}`)
+        // .then((response) => {})
+      } catch (error) {
+        console.error(error)
+      }
+    },
   },
 }
 </script>

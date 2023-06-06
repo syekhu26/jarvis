@@ -48,8 +48,7 @@ export default {
                       </div>
                       <div>
                         {{ history.data.owner.username }} telah membuat catatan
-                        untuk
-                        <div
+                        <!-- <div
                           v-for="(member, index) in idNoteToHistory.member"
                           :key="index"
                           class="flex w-full"
@@ -57,9 +56,7 @@ export default {
                           <div class="flex items-center w-full">
                             {{ member.username }}
                           </div>
-                          <!-- {{ history.data.histories.username }}
-                        sudah menyelesaikan tugas. -->
-                        </div>
+                        </div> -->
                       </div>
                     </timeline-item>
                     <timeline-item

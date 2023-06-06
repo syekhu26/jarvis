@@ -34,6 +34,11 @@
 <script>
 export default {
   layout: 'navbar',
+  data() {
+    return {
+      point: this.$route.query.point,
+    }
+  },
   computed: {
     product() {
       return this.$store.state.product.product
