@@ -31,31 +31,26 @@
         <div class="font-bold text-blue-600">{{ request.note }}</div>
       </div>
       <div class="flex justify-end">
-        <button
+        <div v-for="button in tukarPosisi" :key="button.id">
+          <button
+          v-if="button.url === 'https://bantuin.fly.dev/api/note/inv/decline_invitation/f1763262f0affa8ed620bcaf159d8baf832b0d96'"
           class="border border-red-500 hover:bg-red-300 bg-white px-5 py-1 mx-2 rounded"
         >
-          Tolak
+          <!-- Tolak {{ button.url }} -->
+          <a :href="button.url">Tolak</a>
         </button>
         <button
+        v-else-if="button.url === 'https://bantuin.fly.dev/api/note/inv/accept_invitation/f1763262f0affa8ed620bcaf159d8baf832b0d96'"
           class="bg-[#0F62FE] hover:bg-blue-400 text-white hover:text-black px-5 py-1 mx-2 rounded"
         >
-          <!-- <a :href="request.url">Terima</a>  -->
-          Terima
+          <a :href="button.url">Terima</a> 
+          <!-- Terima {{ button.url }} -->
         </button>
+        </div>
         <!-- <div class="border border-red-500 hover:bg-red-300 bg-white px-5 py-1 mx-2 rounded" v-for="request in request.actions" :key="request.id">
           {{ request.action }}
         </div> -->
         <!-- {{ request.action }} -->
-        <!-- <button
-            class="border border-red-500 hover:bg-red-300 bg-white px-5 py-1 mx-2 rounded"
-          >
-            <a :href="request.url">Tolak</a> 
-          </button>
-          <button
-            class="bg-[#0F62FE] hover:bg-blue-400 text-white hover:text-black px-5 py-1 mx-2 rounded"
-          >
-          <a :href="request.url">Terima</a> 
-          </button> -->
       </div>
     </div>
   </div>
@@ -100,6 +95,14 @@ export default {
   },
   computed: {
     ...mapState('notes', ['reqlist']),
+    tukarPosisi() {
+     // Buat array baru dengan posisi index yang ditukar
+     const newArray = [...this.request.actions];
+      const temp = newArray[0];
+      newArray[0] = newArray[1];
+      newArray[1] = temp;
+      return newArray;
+    },
   },
   mounted() {
     this.$store.dispatch('notes/reqlist', this.request.id)

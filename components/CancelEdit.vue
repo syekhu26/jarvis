@@ -42,7 +42,7 @@ export default {
       <div class="mt-10 my-10">
         <div class="bg-white max-w-sm w-full rounded p-6 mx-auto shadow-lg">
           <p class="text-center mb-4">
-            Apakah anda yakin <b>tidak menyimpan</b> perubahan catatan ini?
+            Apakah anda yakin ingin membuang perubahan pada catatan ini?
           </p>
           <div class="flex justify-center my-2">
             <button

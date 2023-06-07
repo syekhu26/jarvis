@@ -159,6 +159,7 @@ export default {
             alert(
               'Selamat Anda berhasil melakukan reset password, silahkan login'
             )
+            this.$router.push('/login')
           })
       } catch (error) {
         this.error = error.response.data.data

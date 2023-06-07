@@ -123,7 +123,7 @@ export default {
       isShowDetail: (state) => state.notes.showDetail,
     }),
     formatDate() {
-      return this.$moment(this.item.event_date).format('DD MMM YYYY')
+      return this.$moment(this.item.event_date).format('DD MMMM YYYY')
     },
   },
 }

@@ -41,25 +41,13 @@ export default {
 </script> -->
 
 <template>
-  <div class="relative inline-block text-left">
+  <!-- <div class="relative inline-block text-left">
     <button
       @click="toggleDropdown"
       type="button"
       class="inline-flex justify-center w-full rounded-md border shadow-sm px-4 py-2 bg-white text-sm font-medium focus:outline-none focus:border-blue-500"
     >
       {{ selectedOption }}
-      <!-- <svg
-        class="-mr-1 ml-2 h-5 w-5"
-        xmlns="http://www.w3.org/2000/svg"
-        viewBox="0 0 20 20"
-        fill="currentColor"
-      >
-        <path
-          fill-rule="evenodd"
-          d="M6.293 7.293a1 1 0 011.414 0L10 9.586l2.293-2.293a1 1 0 111.414 1.414l-3 3a1 1 0 01-1.414 0l-3-3a1 1 0 010-1.414z"
-          clip-rule="evenodd"
-        />
-      </svg> -->
     </button>
     <div
       v-if="isDropdownOpen"
@@ -80,6 +68,19 @@ export default {
         </a>
       </div>
     </div>
+  </div> -->
+  <div>
+    <div class="filter-dropdown">
+      <select v-model="selectedFilter" @change="onFilterChange">
+        <option value="upcoming=yes">Semua</option>
+        <option value="upcoming=yes&notup=yes">Belum Upload</option>
+        <option value="upcoming=yes&up=yes">Sudah Upload</option>
+        <option value="passed=yes&owner=yes">Pemilik</option>
+      </select>
+    </div>
+    <ul class="note-list">
+      <li v-for="note in selectedFilter" :key="note.id"></li>
+    </ul>
   </div>
 </template>
 
@@ -90,9 +91,25 @@ export default {
       isDropdownOpen: false,
       selectedOption: 'Terdekat', // Tulisan awal sebelum dipilih opsi
       options: ['Terdekat', 'Terjauh'], // Daftar opsi dropdown
+      selectedFilter:''
+    }
+  },
+  computed: {
+    filteredNotes() {
+      const notes = this.$store.getters['notes/getNotes']
+      const selectedFilter = this.selectedFilter
+
+      if (selectedFilter === '') {
+        return notes
+      } else {
+        return notes.filter(note => note.category === selectedFilter)
+      }
     }
   },
   methods: {
+    onFilterChange() {
+      this.$store.dispatch('notes/setSelectedFilter', this.selectedFilter)
+    },
     toggleDropdown() {
       this.isDropdownOpen = !this.isDropdownOpen
     },

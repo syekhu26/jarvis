@@ -18,13 +18,19 @@
             <div class="">
               <div class="flex items-center justify-between mt-2">
                 <div class="flex">
-                  <div
-                    v-for="persen in itemDetail.status"
-                    :key="persen"
-                    class="bg-red-400 rounded-full text-[12px] h-6 px-3"
-                  >
-                    {{ persen }}
+                  <div v-if="status === '100%'" class="bg-green-400 rounded-full text-[12px] h-6 px-3">
+                    {{ displayText }}
                   </div>
+                  <div v-else>
+                    <div
+                      v-for="persen in itemDetail.status"
+                      :key="persen"
+                      class="bg-red-400 rounded-full text-[12px] h-6 px-3"
+                    >
+                      {{ persen }}
+                    </div>
+                  </div>
+                  <p>{{ progress }}</p>
                   <div
                     v-if="
                       itemDetail.note_type === 'collaboration' &&
@@ -161,18 +167,18 @@
               <div class="mb-4">
                 <div class="flex">
                   <p>Tanggal Acara :</p>
-                  <p class="px-2"> {{ formatDate(itemDetail.event_date) }}</p>
+                  <p class="px-2">{{ formatDate(itemDetail.event_date) }}</p>
                 </div>
                 <div class="flex">
                   <p>Reminder :</p>
                   <p class="px-2">
-                     {{ formatToH(itemDetail.reminder) }} -
+                    {{ formatToH(itemDetail.reminder) }} -
                     {{ formatDate(itemDetail.reminder) }}
                   </p>
                 </div>
                 <div class="flex">
                   <p>Ringtone :</p>
-                  <p class="px-2"> {{ itemDetail.ringtone }}</p>
+                  <p class="px-2">{{ itemDetail.ringtone }}</p>
                 </div>
               </div>
               <div class="mb-4">
@@ -192,7 +198,7 @@
               <div v-if="$auth.user.id === itemDetail.owner[0]?.id">
                 <button
                   type="submit"
-                  @click="showModal"
+                  @click="updateStatus"
                   class="float-right inline-flex justify-center rounded border border-transparent bg-blue-500 px-4 py-2 text-sm font-medium text-white hover:bg-blue-600 focus:outline-none"
                 >
                   Selesaikan Catatan
@@ -206,7 +212,7 @@
             :show="isOpen"
             @close="hide"
           />
-          <FinishNote :showModal="modal" @close="hideModal" />
+          <!-- <FinishNote :showModal="modal" @close="hideModal" /> -->
         </div>
         <!-- ok -->
       </div>
@@ -234,6 +240,8 @@ export default {
       items: [],
       members: [],
       files: [],
+      displayText: '',
+      status: this.itemDetail.status,
     }
   },
   computed: {
@@ -271,6 +279,14 @@ export default {
     },
     formatDate(date) {
       return this.$moment(date).format('DD/MM/YYYY HH:mm')
+    },
+
+    updateStatus() {
+      // Simulasikan panggilan API untuk memperbarui status
+      // Misalnya, menggunakan Axios atau metode lainnya
+      // Setelah menerima respons dari panggilan API, ubah status dan displayText
+      this.status = '100%'
+      this.displayText = 'Completed'
     },
     // formatToH() {
     //   const formattedDate = this.$moment(this.itemDetail.event_date).format('h')

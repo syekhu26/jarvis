@@ -157,7 +157,7 @@
                     class="block text-sm flex items-start mt-3 mb-2"
                     for="date"
                   >
-                    Tanggal acara
+                    Masukan Tanggal Acara
                   </label>
                   <div class="text-red-500 px-1 mt-3">*</div>
                 </div>
@@ -287,7 +287,7 @@
                 </label>
                 <div>
                   <select class="border w-full h-10 mb-3 focus:border-blue-500">
-                    <option>Tidak Diulang</option>
+                    <option>Tidak diulang</option>
                     <option>Setiap hari</option>
                     <option>Mingguan pada hari selasa</option>
                     <option>Bulanan pada selasa pertama</option>
@@ -295,8 +295,8 @@
                     <option>Setiap hari kerja (senin sampai jumat)</option>
                   </select>
                 </div>
-                <div class="-mt-4 mb-4 text-sm flex items-start">
-                  Disesuaikan tanggal acara
+                <div class="-mt-2 mb-4 text-sm flex items-start">
+                  Disesuaikan dengan tanggal acara
                 </div>
               </div>
 
@@ -306,7 +306,7 @@
                     for="voice"
                     class="mb-2 block text-sm flex items-start"
                   >
-                    Pilih ringtone</label
+                    Pilih nada dering</label
                   >
                   <div class="text-red-500 px-1">*</div>
                 </div>
@@ -315,7 +315,7 @@
                     v-model="voice"
                     class="border w-full h-10 mb-3 focus:border-blue-500 flex items-start"
                   >
-                    <option disabled selected value="">Pilih ringtone</option>
+                    <option disabled selected value="">Pilih nada dering </option>
                     <!-- <option value="1">hahahihi</option>
                         <option value="2">aiyaaiya</option>
                         <option value="3">oke</option> -->

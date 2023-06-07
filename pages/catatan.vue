@@ -36,8 +36,26 @@
       class=""
     /> -->
       <div class="flex -mt-6">
-        <Setting class="mx-3" />
-        <Sorting />
+        <!-- <Setting @filter-changed="getFilteredData" class="mx-3" /> -->
+        <div>
+          <select v-model="selectedFilter" @change="filterNotes">
+            <option value="">Semua</option>
+            <option value="upcoming=yes">Semua</option>
+            <option value="upcoming=yes&notup=yes">Belum Upload</option>
+            <option value="upcoming=yes&up=yes">Sudah Upload</option>
+            <option value="passed=yes&owner=yes">Pemilik</option>
+          </select>
+        </div>
+        <!-- <Setting/> -->
+        <!-- <Sorting /> -->
+        <div>
+          <select v-model="selectedFilter" @change="filterNotes">
+            <option value="upcoming=yes">Semua</option>
+            <option value="upcoming=yes&notup=yes">Belum Upload</option>
+            <option value="upcoming=yes&up=yes">Sudah Upload</option>
+            <option value="passed=yes&owner=yes">Pemilik</option>
+          </select>
+        </div>
       </div>
       <div v-if="notes.length > 0">
         <CardListNote
@@ -46,6 +64,7 @@
           :item="note"
           class="mx-3"
         />
+        <!-- <div v-for="item in filteredData" :key="item.id">{{ item.name }}</div> -->
       </div>
       <div
         v-else
@@ -78,7 +97,7 @@
 </template>
 
 <script>
-import { mapState } from 'vuex'
+import { mapState, mapGetters, mapActions } from 'vuex'
 
 export default {
   async asyncData({ store }) {
@@ -92,21 +111,61 @@ export default {
       isOpen: false,
       detail: false,
       active: 'CardListNote',
+      // filteredData: [],
+      selectedFilter: '',
     }
   },
   computed: {
+    ...mapGetters('notes', ['getNotes']),
+    // notes() {
+    //   const selectedParam = this.$store.state.selectedParam
+    //   if (selectedParam === 'all') {
+    //     return this.$store.state.notes.notes
+    //   } else {
+    //     return this.$store.state.notes.notes.filter(
+    //       (note) => note.param === selectedParam
+    //     )
+    //   }
+    // },
     notes() {
       return this.$store.state.notes.notes
     },
+    // filterParam: {
+    //   get() {
+    //     return this.$store.state.notes.filterParam
+    //   },
+    //   set(value) {
+    //     this.$store.commit('notes/setFilter', value)
+    //   },
+    // },
     ...mapState({
       detailNotes: (state) => state.notes.detailNotes,
       isShowDetail: (state) => state.notes.showDetail,
     }),
   },
   mounted() {
-    this.$store.dispatch('notes/fetchNotes')
+    // this.$store.dispatch('notes/fetchNotes')
+    this.fetchNotes()
   },
   methods: {
+    ...mapActions('notes', ['fetchNotes']),
+    filterNotes() {
+      // const params = {  this.selectedFilter }
+      this.fetchNotes(this.selectedFilter)
+    },
+    // fetchFilteredNotes() {
+    //   this.$store.dispatch('notes/fetchNotes')
+    // },
+    // getFilteredData(filter) {
+    //   this.$axios
+    //     .get(`/notes?${filter}`)
+    //     .then((response) => {
+    //       this.filteredData = response.data
+    //     })
+    //     .catch((error) => {
+    //       console.error(error)
+    //     })
+    // },
     show() {
       this.isOpen = true
     },

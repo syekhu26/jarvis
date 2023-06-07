@@ -4,7 +4,7 @@ export const state = () => ({
     reqlist:[],
     showDetail : false,
     detailNotes : null,
-    selectedFilter: null,
+    filterParam: '',
   })
   
   export const mutations = {
@@ -27,13 +27,13 @@ export const state = () => ({
       state.detailNotes = payload
     },
     setFilter(state, filter) {
-      state.selectedFilter = filter;
+      state.filterParam = filter;
     },
   }
   
   export const actions = {
-    async fetchNotes({ commit }) {
-      const notes = await this.$axios.$get('https://bantuin.fly.dev/api/notes?note=upcoming')
+    async fetchNotes({ commit }, param) {
+      const notes = await this.$axios.$get(`https://bantuin.fly.dev/api/notes?param=${param}`)
       commit('setNotes', notes.data)
     },
     async addNote({ dispatch }, note) {
@@ -81,6 +81,14 @@ export const state = () => ({
 
     setSelectedFilter({ commit }, filter) {
       commit('setFilter', filter);
+      
     },
 
   }
+
+  export const getters = {
+    getNotes(state) {
+      return state.notes
+    },
+    // selectedFilter: (state) => state.selectedFilter,
+  };
