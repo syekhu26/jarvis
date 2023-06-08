@@ -89,6 +89,24 @@
               <label for="email" class="text-sm mb-2 flex items-start">
                 Masukan email anggota</label
               >
+              <div
+                v-for="member in item.member"
+                :key="member"
+                class="bg-slate-200 rounded mb-2 px-2 flex items-center"
+              >
+                {{ member.email }}
+                <div>
+                  <button
+                    v-if="item"
+                    class="ml-2 mt-2"
+                    type="button"
+                    @click="hapus"
+                    title="Remove"
+                  >
+                    <iconSilangIcon class="w-3 h-3" />
+                  </button>
+                </div>
+              </div>
               <div>
                 <div
                   v-for="item in items"
@@ -121,24 +139,6 @@
                   class="py-2 border text-black pl-10 w-full focus:outline-none focus:border-blue-500"
                   placeholder="Masukan email"
                 />
-              </div>
-              <div
-                v-for="member in item.member"
-                :key="member"
-                class="bg-slate-200 rounded mb-2 px-2 flex items-center"
-              >
-                {{ member.email }}
-                <div>
-                  <button
-                    v-if="item"
-                    class="ml-2 mt-2"
-                    type="button"
-                    @click="hapus"
-                    title="Remove"
-                  >
-                    <iconSilangIcon class="w-3 h-3" />
-                  </button>
-                </div>
               </div>
               <span v-if="emailError" class="text-red-500">{{
                 emailError
