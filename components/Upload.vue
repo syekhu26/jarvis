@@ -85,10 +85,10 @@ export default {
       type: Array,
       default: () => [],
     },
-    // id_note: {
-    //   type: Object,
-    //   default: () => ({}),
-    // },
+    dataDetail: {
+      type: Object,
+      default: () => ({}),
+    },
   },
   methods: {
     onChange(e) {

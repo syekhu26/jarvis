@@ -37,26 +37,33 @@
     /> -->
       <div class="flex -mt-6">
         <!-- <Setting @filter-changed="getFilteredData" class="mx-3" /> -->
-        <div>
+        <div class="mx-7 border border-slate-400">
           <select v-model="selectedFilter" @change="filterNotes">
-            <option value="">Semua</option>
-            <option value="upcoming=yes">Semua</option>
+            <!-- <option disabled selected value="">Semua</option> -->
+            <!-- <option value="upcoming=yes">Semua</option>
             <option value="upcoming=yes&notup=yes">Belum Upload</option>
             <option value="upcoming=yes&up=yes">Sudah Upload</option>
-            <option value="passed=yes&owner=yes">Pemilik</option>
+            <option value="passed=yes&owner=yes">Pemilik</option> -->
+            <option
+              v-for="item in pilihanFilter"
+              :value="item.value"
+              :key="item.value"
+            >
+              {{ item.label }}
+            </option>
           </select>
         </div>
-        <!-- <Setting/> -->
-        <!-- <Sorting /> -->
-        <div>
-          <select v-model="selectedFilter" @change="filterNotes">
-            <option value="upcoming=yes">Semua</option>
-            <option value="upcoming=yes&notup=yes">Belum Upload</option>
-            <option value="upcoming=yes&up=yes">Sudah Upload</option>
-            <option value="passed=yes&owner=yes">Pemilik</option>
+        <!-- <Setting />
+        <Sorting /> -->
+        <div class="px-2 border border-slate-400">
+          <select v-model="filter" @change="filters">
+            <option value="upcoming=yes&up=yes&sort=asc">Terdekat</option>
+            <option value="upcoming=yes&up=yes&sort=dsc">Terjauh</option>
           </select>
         </div>
       </div>
+      <!-- <Setting />
+      <Sorting /> -->
       <div v-if="notes.length > 0">
         <CardListNote
           v-for="note in notes"
@@ -112,7 +119,15 @@ export default {
       detail: false,
       active: 'CardListNote',
       // filteredData: [],
-      selectedFilter: '',
+      selectedFilter: 'upcoming=yes',
+      filter: 'upcoming=yes&up=yes&sort=asc',
+      pilihanFilter: [
+        // data dropdown
+        { label: 'Semua', value: 'upcoming=yes' },
+        { label: 'Belum Upload', value: 'upcoming=yes&notup=yes' },
+        { label: 'Sudah Upload', value: 'upcoming=yes&up=yes' },
+        { label: 'Pemilik', value: 'upcoming=yes&owner=yes' },
+      ],
     }
   },
   computed: {
@@ -149,9 +164,14 @@ export default {
   },
   methods: {
     ...mapActions('notes', ['fetchNotes']),
-    filterNotes() {
+    filterNotes(event) {
+      console.log(event.target.value)
       // const params = {  this.selectedFilter }
       this.fetchNotes(this.selectedFilter)
+    },
+    filters() {
+      // const params = {  this.selectedFilter }
+      this.fetchNotes(this.filter)
     },
     // fetchFilteredNotes() {
     //   this.$store.dispatch('notes/fetchNotes')

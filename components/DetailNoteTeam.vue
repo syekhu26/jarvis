@@ -2,6 +2,7 @@
   <div>
     <!-- <CardListNote @click="toggleModal = !toggleModal" /> -->
     <div
+      
       class="fixed inset-0 z-10 overflow-y-auto justify-center items-center overflow-x-hidden"
     >
       <div class="min-h-screen px-4 text-center">
@@ -23,10 +24,7 @@
                   </div>
 
                   <div>
-                    <span
-                      class="text-blue-500 px-2 cursor-pointer"
-                      >lihat</span
-                    >
+                    <span class="text-blue-500 px-2 cursor-pointer">lihat</span>
                   </div>
                   <!-- <History
                   /> -->

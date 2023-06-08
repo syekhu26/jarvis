@@ -18,11 +18,15 @@
             <div class="">
               <div class="flex items-center justify-between mt-2">
                 <div class="flex">
-                  <div v-if="status === '100%'" class="bg-green-400 rounded-full text-[12px] h-6 px-3">
+                  <div
+                    v-if="status === '100%'"
+                    class="bg-green-400 rounded-full text-[12px] h-6 px-3"
+                  >
                     {{ displayText }}
                   </div>
                   <div v-else>
                     <div
+                    :class="{ 'change-color': clicked }"
                       v-for="persen in itemDetail.status"
                       :key="persen"
                       class="bg-red-400 rounded-full text-[12px] h-6 px-3"
@@ -166,18 +170,20 @@
 
               <div class="mb-4">
                 <div class="flex">
-                  <p>Tanggal Acara :</p>
+                  <p class="mr-1">Tanggal Acara</p>
+                  <span> : </span>
                   <p class="px-2">{{ formatDate(itemDetail.event_date) }}</p>
                 </div>
                 <div class="flex">
-                  <p>Reminder :</p>
+                  <p class="mr-9">Reminder</p>
+                  <span class=""> : </span>
                   <p class="px-2">
-                    {{ formatToH(itemDetail.reminder) }} -
                     {{ formatDate(itemDetail.reminder) }}
                   </p>
                 </div>
                 <div class="flex">
-                  <p>Ringtone :</p>
+                  <p class="mr-10">Ringtone</p>
+                  <span> : </span>
                   <p class="px-2">{{ itemDetail.ringtone }}</p>
                 </div>
               </div>
@@ -186,20 +192,26 @@
                 <div class="flex items-center">
                   <img
                     class="rounded-full w-5 h-5"
-                    :src="$store.state.profile.dataUser.photo"
+                    :src="avatar"
                     alt=""
                   />
                   <p class="px-2">{{ itemDetail.owner[0].username }}</p>
                 </div>
               </div>
               <div v-if="itemDetail.owner[0]?.id !== $auth.user.id">
-                <Upload :file="itemDetail.file" :idNote="itemDetail.id" />
+                <Upload
+                  :file="itemDetail.file"
+                  :idNote="itemDetail.id"
+                  :dataDetail="itemDetail"
+                />
               </div>
               <div v-if="$auth.user.id === itemDetail.owner[0]?.id">
                 <button
                   type="submit"
+                  :class="{ active: isActive }"
                   @click="updateStatus"
-                  class="float-right inline-flex justify-center rounded border border-transparent bg-blue-500 px-4 py-2 text-sm font-medium text-white hover:bg-blue-600 focus:outline-none"
+                  :disabled="!isActive"
+                  class="float-right inline-flex justify-center rounded border border-transparent disabled:bg-slate-500 bg-blue-500 px-4 py-2 text-sm font-medium text-white hover:bg-blue-600 focus:outline-none"
                 >
                   Selesaikan Catatan
                 </button>
@@ -240,9 +252,15 @@ export default {
       items: [],
       members: [],
       files: [],
-      displayText: '',
+      // displayText: '',
       status: this.itemDetail.status,
+      isActive: true,
+      clicked: false,
+      bg_status: 'red'
     }
+  },
+  mounted() {
+    this.$store.dispatch('notes/fetchNotes')
   },
   computed: {
     getAllFileName() {
@@ -255,6 +273,15 @@ export default {
 
       return []
     },
+    notes() {
+      return this.$store.state.notes.notes
+    },
+    avatar() {
+      return this.itemDetail.owner[0].photo || require('@/assets/img/profile-user-svgrepo-com.png')
+    },
+    // isButtonDisabled() {
+    //   return this.itemDetail.status.length === 100
+    // },
     sisaMember() {
       return this.itemDetail.member.length - 2
     },
@@ -281,12 +308,26 @@ export default {
       return this.$moment(date).format('DD/MM/YYYY HH:mm')
     },
 
-    updateStatus() {
-      // Simulasikan panggilan API untuk memperbarui status
-      // Misalnya, menggunakan Axios atau metode lainnya
-      // Setelah menerima respons dari panggilan API, ubah status dan displayText
-      this.status = '100%'
-      this.displayText = 'Completed'
+    // updateStatus() {
+    //   // Simulasikan panggilan API untuk memperbarui status
+    //   // Misalnya, menggunakan Axios atau metode lainnya
+    //   // Setelah menerima respons dari panggilan API, ubah status dan displayText
+    //   this.status = '100%'
+    //   this.displayText = 'Completed'
+    // },
+    async updateStatus() {
+      if (!this.clicked) {
+        await this.$store.dispatch('notes/updateNote', {
+          idNote: this.itemDetail.id,
+          data: {
+            status: 'completed',
+          },
+        })
+        this.isActive = false
+        this.clicked = true
+        this.bg_status = 'green';
+        this.$router.go()
+      }
     },
     // formatToH() {
     //   const formattedDate = this.$moment(this.itemDetail.event_date).format('h')
@@ -353,8 +394,20 @@ export default {
 }
 </script>
 
+<style>
+.active {
+  background-color: blue;
+}
+.isActive {
+  background-color: gray;
+}
+.change-color {
+  background-color: green;
+}
+</style>
+
 <!-- column : null description : "woke mantap" event_date :
-"2023-05-29T23:25:22.760+07:00" id : 172 member : [] note_type : "collaboration"
+"2023-05-29T23:25:22.7607:00" id : 172 member : [] note_type : "collaboration"
 owner : [,…] 0 : {id: 31, username: "azwar", email: "stevennorman101@gmail.com",
 phone: "0895641564", job: "gabut",…} email : "stevennorman101@gmail.com" id : 31
 job : "gabut" phone : "0895641564" photo :

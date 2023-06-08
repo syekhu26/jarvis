@@ -68,7 +68,7 @@
           <div class="flex">
             <img
               class="rounded-full w-5 h-5"
-              :src="$store.state.profile.dataUser.photo"
+              :src="avatar"
               alt=""
             />
             <p class="text-gray-500 mx-1 text-sm">
@@ -124,6 +124,9 @@ export default {
     }),
     formatDate() {
       return this.$moment(this.item.event_date).format('DD MMMM YYYY')
+    },
+    avatar() {
+      return this.item.owner[0].photo || require('@/assets/img/profile-user-svgrepo-com.png')
     },
   },
 }

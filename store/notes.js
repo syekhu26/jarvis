@@ -33,7 +33,7 @@ export const state = () => ({
   
   export const actions = {
     async fetchNotes({ commit }, param) {
-      const notes = await this.$axios.$get(`https://bantuin.fly.dev/api/notes?param=${param}`)
+      const notes = await this.$axios.$get(`https://bantuin.fly.dev/api/notes?${param}`)
       commit('setNotes', notes.data)
     },
     async addNote({ dispatch }, note) {

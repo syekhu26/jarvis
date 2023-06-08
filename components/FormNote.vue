@@ -51,7 +51,7 @@
                     subjectError
                   }}</span>
                   <span v-if="error.subject" class="text-red-500"
-                    >username {{ error.subject[0] }}</span
+                    >subject {{ error.subject[0] }}</span
                   >
                 </div>
               </div>
@@ -89,28 +89,27 @@
               <label for="email" class="text-sm mb-2 flex items-start">
                 Masukan email anggota</label
               >
-
-              <div class="relative text-gray-600 border">
-                <div>
-                  <div
-                    v-for="item in items"
-                    :key="item"
-                    class="bg-slate-200 rounded mb-2 px-2 flex items-center"
-                  >
-                    {{ item }}
-                    <div>
-                      <button
-                        v-if="item"
-                        class="ml-2 mt-2"
-                        type="button"
-                        @click="remove"
-                        title="Remove"
-                      >
-                        <iconSilangIcon class="w-3 h-3" />
-                      </button>
-                    </div>
+              <div>
+                <div
+                  v-for="item in items"
+                  :key="item"
+                  class="bg-slate-200 rounded mb-2 px-2 flex items-center"
+                >
+                  {{ item }}
+                  <div>
+                    <button
+                      v-if="item"
+                      class="ml-2 mt-2"
+                      type="button"
+                      @click="remove"
+                      title="Remove"
+                    >
+                      <iconSilangIcon class="w-3 h-3" />
+                    </button>
                   </div>
                 </div>
+              </div>
+              <div class="relative text-gray-600 border">
                 <span class="absolute inset-y-0 left-0 flex items-center pl-2">
                   <iconInviteIcon />
                 </span>
@@ -129,7 +128,7 @@
                 class="bg-slate-200 rounded mb-2 px-2 flex items-center"
               >
                 {{ member.email }}
-                <!-- <div>
+                <div>
                   <button
                     v-if="item"
                     class="ml-2 mt-2"
@@ -139,7 +138,7 @@
                   >
                     <iconSilangIcon class="w-3 h-3" />
                   </button>
-                </div> -->
+                </div>
               </div>
               <span v-if="emailError" class="text-red-500">{{
                 emailError
@@ -286,13 +285,14 @@
                   Tambahkan pengingat ulangan
                 </label>
                 <div>
-                  <select class="border w-full h-10 mb-3 focus:border-blue-500">
-                    <option>Tidak diulang</option>
-                    <option>Setiap hari</option>
-                    <option>Mingguan pada hari selasa</option>
-                    <option>Bulanan pada selasa pertama</option>
-                    <option>Tiap tahun pada 4 april</option>
-                    <option>Setiap hari kerja (senin sampai jumat)</option>
+                  <select
+                    v-model="ulangan"
+                    class="border w-full h-10 mb-3 focus:border-blue-500"
+                  >
+                    <option value="tidak_diulang">Tidak diulang</option>
+                    <option value="harian">Harian</option>
+                    <option value="bulanan">Mingguan</option>
+                    <option value="mingguan">Bulanan</option>
                   </select>
                 </div>
                 <div class="-mt-2 mb-4 text-sm flex items-start">
@@ -315,7 +315,9 @@
                     v-model="voice"
                     class="border w-full h-10 mb-3 focus:border-blue-500 flex items-start"
                   >
-                    <option disabled selected value="">Pilih nada dering </option>
+                    <option disabled selected value="">
+                      Pilih nada dering
+                    </option>
                     <!-- <option value="1">hahahihi</option>
                         <option value="2">aiyaaiya</option>
                         <option value="3">oke</option> -->
@@ -400,7 +402,7 @@ export default {
 
       items: [],
       options: [],
-
+      coba: this.item.member,
       deadlines: [],
       // toggle: false,
       // toggletgl: false,
@@ -418,7 +420,7 @@ export default {
       email: this.item.items ?? '',
       date: this.item.event_date ?? '',
       datetime: this.item.reminder ?? '',
-      pengingat: this.item.pengingat ?? '',
+      ulangan: this.item.frequency ?? 'tidak_diulang',
       voice: this.item.ringtone_id ?? '',
 
       voiceError: '',
@@ -428,8 +430,12 @@ export default {
   async created() {
     await this.ringtone()
   },
-
   methods: {
+    cobaEmail() {
+    for (let i = 0; i < this.item.member; i++) {
+      console.log(this.item.member[i]) // Lakukan sesuatu dengan setiap item dalam dataArray
+    }
+  },
     addEmail() {
       const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
 
@@ -522,6 +528,7 @@ export default {
             },
           })
           .finally(() => this.$router.go())
+        alert('Catatan berhasil tersimpan')
       }
       if (!this.edit) {
         try {
@@ -532,9 +539,11 @@ export default {
             email: this.items,
             event_date: this.date,
             reminder: this.datetime,
+            frequency: this.ulangan,
             ringtone_id: this.voice,
           })
           this.$router.go('/catatan')
+          alert('Catatan berhasil dibuat')
         } catch (error) {
           this.error = error.response.data.data
           this.errorMessage = error.response.data.message
@@ -547,7 +556,7 @@ export default {
     async hapus() {
       try {
         await this.$store.dispatch('notes/remove', this.item.id, {
-          email: this.item.member,
+          email: this.items,
         })
       } catch (error) {
         console.log(error)
