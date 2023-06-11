@@ -18,13 +18,13 @@
             <div class="">
               <div class="flex items-center justify-between mt-2">
                 <div class="flex">
-                  <div
+                  <!-- <div
                     v-if="status === '100%'"
                     class="bg-green-400 rounded-full text-[12px] h-6 px-3"
                   >
                     {{ displayText }}
-                  </div>
-                  <div v-else>
+                  </div> -->
+                  
                     <div
                       :class="{
                         ['change-color']:
@@ -32,9 +32,9 @@
                       }"
                       class="bg-red-400 rounded-full text-[12px] h-6 px-3"
                     >
-                      {{ itemDetail.status[0] }}
+                      {{ statsusIndo }}
                     </div>
-                  </div>
+                  
                   <p>{{ progress }}</p>
                   <div
                     v-if="
@@ -100,18 +100,6 @@
                 >
                   {{ member.username }}
                 </div>
-
-                <!-- <div
-                  class="my-3 bg-sky-500 px-5 py-2 rounded-full text-white font-semibold font-sans block max-w-[100px]"
-                >
-                  {{ itemDetail.member }}
-                </div> -->
-                <!-- <div
-                  class="bg-sky-500 px-5 py-2 rounded-full text-white font-semibold font-sans block max-w-[130px]"
-                >
-                  Kak Jasmine
-                </div> -->
-
                 <div
                   v-if="itemDetail.member.length > 2"
                   class="flex items-center mt-2"
@@ -309,6 +297,12 @@ export default {
         this.itemDetail.status[0] === 'completed'
       )
     },
+    // statusIndo(){
+    //   return (
+    //     this.itemDetail.status[0] === 'completed' ??
+    //     this.itemDetail.status[0] === 'Sudah selesai'
+    //   )
+    // },
   },
   methods: {
     addMember() {
@@ -329,13 +323,6 @@ export default {
       return this.$moment(date).format('DD/MM/YYYY HH:mm')
     },
 
-    // updateStatus() {
-    //   // Simulasikan panggilan API untuk memperbarui status
-    //   // Misalnya, menggunakan Axios atau metode lainnya
-    //   // Setelah menerima respons dari panggilan API, ubah status dan displayText
-    //   this.status = '100%'
-    //   this.displayText = 'Completed'
-    // },
     async updateStatus() {
       if (!this.clicked) {
         await this.$store.dispatch('notes/doneNote', {
@@ -349,19 +336,6 @@ export default {
         this.$router.go()
       }
     },
-    // formatToH() {
-    //   const formattedDate = this.$moment(this.itemDetail.event_date).format('h')
-
-    //   return formattedDate
-    // },
-    // formatToH(date) {
-    //   const eventDate = this.$moment().subtract(1, 'day') // Tanggal sebelumnya
-    //   const reminder = this.$moment(date, 'YYYY-MM-DD') // Tanggal inputan kedua
-
-    //   const diffInDays = eventDate.diff(reminder, 'days') // Perbandingan dalam hari
-
-    //   return `h${diffInDays}`
-    // },
 
     formatToH() {
       if (this.itemDetail.event_date && this.itemDetail.reminder) {
@@ -373,6 +347,12 @@ export default {
       }
       return ''
     },
+    // statusIndo(){
+    //   if (this.itemDetail.status[0] === 'completed' ){
+    //     const status1= this.itemDetail.status[0] === 'completed'
+    //     return status1 = ''
+    //   }
+    // },
 
     show() {
       this.isOpen = true

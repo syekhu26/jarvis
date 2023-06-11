@@ -32,7 +32,7 @@ export default {
 
 <template>
   <div class="">
-    <div class="bg-white max-w-sm w-full rounded p-6 border border-slate-300">
+    <div class="bg-white max-w-[380px] w-screen h-screen rounded p-6 border border-slate-300 max-h-[380px] overflow-auto">
       <p class="text-xl justify-start">Notifikasi</p>
       <!-- <CardNotif/> -->
       <CardNotif

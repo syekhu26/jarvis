@@ -199,21 +199,6 @@
                   >
                   <div class="text-red-500 px-1 mt-3">*</div>
                 </div>
-                <!-- 
-                      <div
-                        class="mt-2 px-2 border-2 w-10 h-10 w-full focus:outline-none focus:border-blue-500 mb-3"
-                      >
-                        <div class="flex item-center">
-                          <iconAlarmIcon class="mt-3" />
-                         
-                          <datetime
-                            type="datetime"
-                            v-model="datetime"
-                            class="mt-2 px-4"
-                            placeholder="Pilih Waktu Remainder"
-                          ></datetime>
-                        </div>
-                      </div> -->
                 <div class="border w-full w-10 h-10 px-2">
                   <vc-date-picker
                     v-model="datetime"
@@ -241,44 +226,6 @@
                     </template>
                   </vc-date-picker>
                 </div>
-              </div>
-              <!-- <input
-                        type="text"
-                        name="subjek"
-                        v-model="datetime"
-                        @input="remainderValidate"
-                        placeholder="Masukkan reminder"
-                        required
-                        class="border text-black px-4 py-2 w-full focus:outline-none focus:border-blue-500"
-                      /> -->
-
-              <div>
-                <div
-                  v-for="deadline in deadlines"
-                  :key="deadline"
-                  class="bg-slate-200 rounded mb-2 px-2 flex items-center"
-                >
-                  {{ deadline }}
-                  <div>
-                    <button
-                      v-if="deadline"
-                      class="ml-2 mt-2"
-                      type="button"
-                      @click="removeDeadlines"
-                      title="Remove"
-                    >
-                      <iconSilangIcon class="w-3 h-3" />
-                    </button>
-                  </div>
-                </div>
-              </div>
-
-              <div
-                @click="addRemainder"
-                class="flex items-center mb-3 text-blue-600 cursor-pointer mt-2"
-              >
-                <iconPlusIcon />
-                <span class="px-1">Tambah pengingat</span>
               </div>
               <div>
                 <label class="mb-2 block text-sm flex items-start" for="date">
