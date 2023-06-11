@@ -25,6 +25,7 @@
           class="px-3 mt-3"
           v-model="note"
           :options="{group: 'BoxList'}"
+          @end="drop"
           @change="log"
         >
           <CardNoteTim
@@ -144,6 +145,22 @@ export default {
         this.buttonText = this.itemList.title
       }
     },
+    async drop() {
+      try {
+        await this.$store.dispatch('coloms/updateColom', {
+          idColoms: this.itemList.id,
+          team_id: this.$route.query.id,
+          data: {
+            note: this.itemList.note,
+          },
+
+        });
+        // this.list
+      } catch (error) {
+        console.error(error);
+      }
+    },
+
     //   sendData() {
     //   const data = this.itemList.id
     //   this.$emit('itemList', data)

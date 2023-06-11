@@ -7,7 +7,7 @@
       </div>
       <div class="min-w-full px-8 items-center mb-8">
         <p class="text-lg mb-4">Daftar catatan dan undangan grub masuk</p>
-        <div v-if="reqlist.data.length">
+        <div v-if="reqlist.data">
           <CardRequest
             v-for="request in reqlist.data.slice(0, 2)"
             :key="request.id"
