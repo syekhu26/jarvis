@@ -23,14 +23,14 @@
         </div>
       </div>
       <div class="flex items-center px-12">
-        <div class="flex">
+        <div class="flex" v-if="request.note">
           <iconTaskIcon />
-          <div class="font-bold text-blue-600">{{ request.note }}</div>
+          <div class="font-bold text-blue-600 px-2">{{ request.note }}</div>
         </div>
-        <!-- <div>
+        <div class="flex" v-if="request.team">
           <iconGroupIcon />
-          <div class="font-bold text-blue-600">{{ request.team }}</div>
-        </div> -->
+          <div class="font-bold text-blue-600 px-2">{{ request.team }}</div>
+        </div>
       </div>
       <div class="flex justify-end">
         <div v-for="(button, index) in tukarPosisi" :key="button.id">

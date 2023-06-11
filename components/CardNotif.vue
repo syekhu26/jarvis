@@ -1,21 +1,47 @@
 <template>
-  <div class="flex border border-gray-400 bg-gray-300 h-[75px] p-3">
-    <img
+  <div class="flex border border-gray-400 bg-gray-300 h-[90px] p-3">
+    <!-- <img
       class="w-9 h-9 rounded-full mx-3"
-      src="https://media.istockphoto.com/id/1309328823/id/foto/potret-headshot-karyawan-pria-tersenyum-di-kantor.jpg?b=1&s=612x612&w=0&k=20&c=ccx6XzMTMauQmAUOkLOSnFjnqH03QqgfRoRKKW9X-lQ="
+      :src="avatar"
       alt=""
-    />
+    /> -->
+    <div
+      class="w-9 h-7 rounded-full mx-3 border border-slate-400 bg-white text-center"
+    >
+      {{ itemNotif.sender.charAt(0).toUpperCase() }}
+    </div>
     <div class="pr-3">
       <p class="text-sm">
-        Nadim Makarim
-        <span class="text-red-500"> menolak </span>
-        undangn grup dari anda .
-        <span class="opacity-50 mx-1">5 menit lalu</span>
+        {{ itemNotif.sender }}
+        <span class=""> {{ itemNotif.title }} </span>
+        <span v-if="itemNotif.notif_type === 'collab'">
+          undangan catatan dari anda.
+        </span>
+        <span v-if="itemNotif.notif_type === 'team'">
+          undangan grup dari anda.
+        </span>
+        <span class="opacity-50 mx-1">{{ itemNotif.send }}</span>
       </p>
-      <div class="flex text-blue-600 my-2">
+      <!-- <div class="flex text-blue-600 my-2">
         <iconNoteIcon class="h-5 w-5" />
         <p class="text-sm">Membeli Tiket Pesawat</p>
-      </div>
+      </div> -->
     </div>
   </div>
 </template>
+
+<script>
+export default {
+  props: {
+    itemNotif: {
+      type: Object,
+      default: () => ({}),
+    },
+  },
+  methods: {
+    avatar() {
+      return this.itemNotif.sender.charAt(0).toUpperCase()
+    },
+  },
+}
+</script>

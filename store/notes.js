@@ -57,9 +57,9 @@ export const state = () => ({
         console.error(error);
       }
     },
-    async remove({ commit },id){
-        await this.$axios.post(`https://bantuin.fly.dev/api/notes/${id}/remove`)
-        commit('setNotes', id);
+    async remove({ commit },{id,data}){
+        await this.$axios.post(`https://bantuin.fly.dev/api/notes/${id}/remove`, data)
+        // commit('setNotes', id);
     },
     // async getData({ commit }) {
     //   try {
@@ -69,6 +69,10 @@ export const state = () => ({
     //     console.error(error);
     //   }
     // }
+    async doneNote(ctx, {idNote,data}) {
+      await this.$axios.put(`https://bantuin.fly.dev/api/notes/${idNote}/complete`, data)
+     
+   },
     async reqlist({ commit }) {
       try {
         const response = await this.$axios.get('https://bantuin.fly.dev/api/reqlist')
@@ -78,10 +82,8 @@ export const state = () => ({
         console.error(error);
       }
     },
-
     setSelectedFilter({ commit }, filter) {
       commit('setFilter', filter);
-      
     },
 
   }
@@ -92,3 +94,6 @@ export const state = () => ({
     },
     // selectedFilter: (state) => state.selectedFilter,
   };
+
+
+ 

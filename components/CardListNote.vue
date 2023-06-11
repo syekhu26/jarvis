@@ -54,11 +54,10 @@
             <p class="font-bold">{{ item.subject }}</p>
           </div>
           <div
-            v-for="persen in item.status"
-            :key="persen"
+            :class="{ ['change-color']: this.item.status[0] === 'completed' }"
             class="bg-red-400 rounded-full text-[12px] h-6 px-3"
           >
-            {{ persen }}
+            {{ item.status[0] }}
           </div>
         </div>
         <div class="mt-2 max-w-xl break-all">
@@ -66,11 +65,7 @@
         </div>
         <div class="flex items-center justify-between mt-5">
           <div class="flex">
-            <img
-              class="rounded-full w-5 h-5"
-              :src="avatar"
-              alt=""
-            />
+            <img class="rounded-full w-5 h-5" :src="avatar" alt="" />
             <p class="text-gray-500 mx-1 text-sm">
               {{ item.owner[0].username }}
             </p>
@@ -126,11 +121,25 @@ export default {
       return this.$moment(this.item.event_date).format('DD MMMM YYYY')
     },
     avatar() {
-      return this.item.owner[0].photo || require('@/assets/img/profile-user-svgrepo-com.png')
+      return (
+        this.item.owner[0].photo ||
+        require('@/assets/img/profile-user-svgrepo-com.png')
+      )
     },
   },
 }
 </script>
+<style lang="postcss">
+.active {
+  background-color: blue;
+}
+.isActive {
+  background-color: gray;
+}
+.change-color {
+  @apply bg-green-600 text-white;
+}
+</style>
 
 <!-- column:null description:"kijyht" event_date:"2023-05-24T20:15:14.930+07:00"
 id:52 member:Array[1] note_type:"personal"

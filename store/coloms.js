@@ -2,8 +2,6 @@ export const state = () => ({
     coloms: [],
     showDetail : false,
     detailnotes : null
-    // itemList: this.itemList.id,
-    // itemList: this.itemList,
   })
 
   export const mutations = {
@@ -31,13 +29,4 @@ export const state = () => ({
       await this.$axios.put(`https://bantuin.fly.dev/api/columns/${idColoms}`, data)
      
    },
-    // async history({ commit },id){
-    //   try {
-    //     const response = await this.$axios.get(`https://bantuin.fly.dev/api/notes/${id}/history`)
-    //     commit('setHistory', response.data);
-    //   }
-    //   catch (error) {
-    //     console.error(error);
-    //   }
-    // },
   }

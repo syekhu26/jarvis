@@ -39,9 +39,13 @@
               class="bg-white py-3 rounded px-5 border-slate-400 border w-full mb-4"
             >
               <div class="flex items-center">
+                <!-- member.photo -->
                 <img
                   class="rounded-full w-10 h-10 mx-1"
-                  :src="member.photo"
+                  :src="
+                    member.photo ||
+                    require('@/assets/img/profile-user-svgrepo-com.png')
+                  "
                   alt=""
                 />
                 <div class="px-2">
@@ -70,6 +74,14 @@ export default {
       default: () => ({}),
     },
   },
+  // computed:{
+  //   avatar() {
+  //     return (
+  //       this.itemDetail.owner[0].photo ||
+  //       require('@/assets/img/profile-user-svgrepo-com.png')
+  //     )
+  //   },
+  // }
 }
 </script>
 

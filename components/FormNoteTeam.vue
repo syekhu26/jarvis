@@ -287,13 +287,14 @@
                   Tambahkan pengingat ulangan
                 </label>
                 <div>
-                  <select class="border w-full h-10 mb-3 focus:border-blue-500">
-                    <option>Tidak Diulang</option>
-                    <option>Setiap hari</option>
-                    <option>Mingguan pada hari selasa</option>
-                    <option>Bulanan pada selasa pertama</option>
-                    <option>Tiap tahun pada 4 april</option>
-                    <option>Setiap hari kerja (senin sampai jumat)</option>
+                  <select
+                    v-model="ulangan"
+                    class="border w-full h-10 mb-3 focus:border-blue-500"
+                  >
+                    <option value="tidak_diulang">Tidak diulang</option>
+                    <option value="harian">Harian</option>
+                    <option value="bulanan">Mingguan</option>
+                    <option value="mingguan">Bulanan</option>
                   </select>
                 </div>
                 <div class="-mt-4 mb-4 text-sm flex items-start">
@@ -424,7 +425,7 @@ export default {
       email: this.item.items ?? '',
       date: this.item.event_date ?? '',
       datetime: this.item.reminder ?? '',
-      pengingat: this.item.pengingat ?? '',
+      ulangan: this.item.frequency ?? 'tidak_diulang',
       voice: this.item.ringtone_id ?? '',
 
       voiceError: '',

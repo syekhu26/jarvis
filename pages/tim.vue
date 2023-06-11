@@ -6,13 +6,9 @@
     </div>
     <hr />
     <p class="p-8">Belum ada tim yang dibuat</p>
-
-    <CardGroup
-      v-for="data in teams"
-      :key="data"
-      :item="data"
-      class=""
-    />
+    <div>
+      <CardGroup v-for="data in teams" :key="data" :item="data" class="" />
+    </div>
 
     <!-- <CardGroup v-for="item in grup" :key="item.id" :item="item" /> -->
 
@@ -64,12 +60,12 @@ export default {
         {
           id: 1,
           name: 'biru',
-          path: './asset/biru.jpg'
+          path: './asset/biru.jpg',
         },
         {
           id: 2,
           name: 'biru',
-          path: './asset/biru.jpg'
+          path: './asset/biru.jpg',
         },
       ],
       dataGrup: [],
@@ -81,8 +77,8 @@ export default {
       // ],
     }
   },
-  computed : {
-    ...mapState('team',['teams'])
+  computed: {
+    ...mapState('team', ['teams']),
   },
   methods: {
     // pushNewData() {

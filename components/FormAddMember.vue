@@ -17,7 +17,7 @@
           </div>
 
           <!-- <p>{{ tim }}</p> -->
-          <form @submit.prevent="addGroup">
+          <form @submit.prevent="tambahEmail">
             <div>
               <div>
                 <label for="email" class="mb-2 block text-sm">
@@ -34,7 +34,7 @@
                   v-model="email"
                   class="py-2 border text-black pl-10 w-full focus:outline-none focus:border-blue-500"
                   placeholder="Masukkan Email Anggota"
-                  required
+                 
                 />
               </div>
               <div>
@@ -90,6 +90,10 @@ export default {
       type: Boolean,
       default: false,
     },
+    itemEmail: {
+      type: Object,
+      default: () => ({}),
+    },
   },
   data() {
     return {
@@ -108,6 +112,16 @@ export default {
     },
     remove(i) {
       this.items.splice(i, 1)
+    },
+
+    async tambahEmail() {
+      await this.$store
+          .dispatch('team/tambahEmail', {
+            idTeam: this.itemEmail.id,
+            data: {
+              email: this.items,
+            },
+          })
     },
   },
 }

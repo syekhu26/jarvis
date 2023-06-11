@@ -27,6 +27,7 @@
                   Batal
                 </button>
                 <button
+                @click="hapus"
                   class="bg-red-500 text-white rounded w-[200px] py-2 mx-2"
                 >
                   Ya
@@ -47,6 +48,30 @@ export default {
       type: Boolean,
       default: false,
     },
+    dataMember: {
+      type: Object,
+      default: () => ({}),
+    },
+    idTeam: {
+      type: Number,
+      default: null
+    }
   },
+
+  methods:{
+    async hapus() {
+      try {
+        await this.$store.dispatch('team/kick', 
+        {
+          id : this.idTeam, 
+          data : {
+            email: this.dataMember.email,
+          }
+        })
+      } catch (error) {
+        console.log(error)
+      }
+    },
+  }
 }
 </script>

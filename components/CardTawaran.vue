@@ -18,7 +18,7 @@
       <div class="max-w-xs rounded overflow-hidden shadow-lg relative">
         <img
           class="w-full h-32"
-          src="https://images.unsplash.com/photo-1508182314998-3bd49473002f?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80"
+          :src="itemTawaran.photo_product"
           alt="image tawaran"
         />
         <div class="px-3 py-4">

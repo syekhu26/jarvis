@@ -19,6 +19,12 @@
 
 <script>
 export default {
+  props: {
+    team: {
+      type: Object,
+      default: () => ({}),
+    },
+  },
   data() {
     return {
       isOpen: false,

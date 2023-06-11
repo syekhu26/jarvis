@@ -1,11 +1,15 @@
 export const state = () => ({
   teams: [],
+  detailTeam:[],
 })
 
 export const mutations = {
   setGroupList(state, teams) {
     state.teams = teams
   },
+  setDetailTeam(state, detailTeam) {
+    state.detailTeam = detailTeam
+},
 }
 
 export const actions = {
@@ -22,6 +26,23 @@ export const actions = {
       alert(err.response.message)
     }
   },
+  async detailTeam({ commit },id){
+    try {
+      const response = await this.$axios.get(`https://bantuin.fly.dev/api/teams/${id}`)
+      commit('setDetailTeam', response.data);
+    }
+    catch (error) {
+      console.error(error);
+    }
+  },
+  async tambahEmail(ctx, {idTeam,data}) {
+    await this.$axios.put(`https://bantuin.fly.dev/api/teams/${idTeam}`, data)
+   
+ },
+ async kick({ commit },{id,data}){
+  await this.$axios.post(`https://bantuin.fly.dev/api/teams/${id}/kick_member`, data)
+  // commit('setDetailTeam', id);
+},
   // async addGroup(ctx, team) {
   //   try {
   //     const headers = { 'Content-Type': 'multipart/form-data' }

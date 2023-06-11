@@ -29,7 +29,7 @@ export default {
     { src: "@/plugins/timeline.js" },
     { src: "@/plugins/datetime.js", mode:"client" },
     // {src:"@/plugins/quasar.js"}
-    { src: "@/plugins/draggable.js" },
+    { src: "@/plugins/draggable.js", mode: 'client' },
     { src: "@/plugins/moment.js" },
   ],
 

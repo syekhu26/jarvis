@@ -26,12 +26,13 @@
                   </div>
                   <div v-else>
                     <div
-                    :class="{ 'change-color': clicked }"
-                      v-for="persen in itemDetail.status"
-                      :key="persen"
+                      :class="{
+                        ['change-color']:
+                          this.itemDetail.status[0] === 'completed',
+                      }"
                       class="bg-red-400 rounded-full text-[12px] h-6 px-3"
                     >
-                      {{ persen }}
+                      {{ itemDetail.status[0] }}
                     </div>
                   </div>
                   <p>{{ progress }}</p>
@@ -190,11 +191,7 @@
               <div class="mb-4">
                 <h5>Pembuat catatan :</h5>
                 <div class="flex items-center">
-                  <img
-                    class="rounded-full w-5 h-5"
-                    :src="avatar"
-                    alt=""
-                  />
+                  <img class="rounded-full w-5 h-5" :src="avatar" alt="" />
                   <p class="px-2">{{ itemDetail.owner[0].username }}</p>
                 </div>
               </div>
@@ -205,12 +202,22 @@
                   :dataDetail="itemDetail"
                 />
               </div>
-              <div v-if="$auth.user.id === itemDetail.owner[0]?.id">
+              <!-- :disabled="disableButton" -->
+              <div v-if="itemDetail.note_type === 'collaboration' && $auth.user.id === itemDetail.owner[0]?.id">
                 <button
                   type="submit"
-                  :class="{ active: isActive }"
+                  :disabled="disableButton"
                   @click="updateStatus"
-                  :disabled="!isActive"
+                  class="float-right inline-flex justify-center rounded border border-transparent disabled:bg-slate-500 bg-blue-500 px-4 py-2 text-sm font-medium text-white hover:bg-blue-600 focus:outline-none"
+                >
+                  Selesaikan Catatan
+                </button>
+              </div>
+              <div v-if="itemDetail.note_type === 'personal' && $auth.user.id === itemDetail.owner[0]?.id">
+                <button
+                  type="submit"
+                  :disabled="disablePersonal"
+                  @click="updateStatus"
                   class="float-right inline-flex justify-center rounded border border-transparent disabled:bg-slate-500 bg-blue-500 px-4 py-2 text-sm font-medium text-white hover:bg-blue-600 focus:outline-none"
                 >
                   Selesaikan Catatan
@@ -256,7 +263,7 @@ export default {
       status: this.itemDetail.status,
       isActive: true,
       clicked: false,
-      bg_status: 'red'
+      bg_status: 'red',
     }
   },
   mounted() {
@@ -277,7 +284,10 @@ export default {
       return this.$store.state.notes.notes
     },
     avatar() {
-      return this.itemDetail.owner[0].photo || require('@/assets/img/profile-user-svgrepo-com.png')
+      return (
+        this.itemDetail.owner[0].photo ||
+        require('@/assets/img/profile-user-svgrepo-com.png')
+      )
     },
     // isButtonDisabled() {
     //   return this.itemDetail.status.length === 100
@@ -287,6 +297,17 @@ export default {
     },
     sisaDoc() {
       return this.itemDetail.file.length - 2
+    },
+    disableButton() {
+      return (
+        this.itemDetail.status[0] === 'completed' ||
+        this.itemDetail.status[0] !== '100%'
+      )
+    },
+    disablePersonal() {
+      return (
+        this.itemDetail.status[0] === 'completed'
+      )
     },
   },
   methods: {
@@ -317,15 +338,14 @@ export default {
     // },
     async updateStatus() {
       if (!this.clicked) {
-        await this.$store.dispatch('notes/updateNote', {
+        await this.$store.dispatch('notes/doneNote', {
           idNote: this.itemDetail.id,
-          data: {
-            status: 'completed',
-          },
+          // data: {
+          //   status: 'completed',
+          // },
         })
-        this.isActive = false
         this.clicked = true
-        this.bg_status = 'green';
+        // this.bg_status = 'green'
         this.$router.go()
       }
     },
@@ -394,7 +414,7 @@ export default {
 }
 </script>
 
-<style>
+<style lang="postcss">
 .active {
   background-color: blue;
 }
@@ -402,7 +422,7 @@ export default {
   background-color: gray;
 }
 .change-color {
-  background-color: green;
+  @apply bg-green-600 text-white;
 }
 </style>
 

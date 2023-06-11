@@ -2,7 +2,7 @@
   <div>
     <!-- <CardListNote @click="toggleModal = !toggleModal" /> -->
     <div
-      
+      v-if="showDetail"
       class="fixed inset-0 z-10 overflow-y-auto justify-center items-center overflow-x-hidden"
     >
       <div class="min-h-screen px-4 text-center">
@@ -19,22 +19,25 @@
             <div class="">
               <div class="flex items-center justify-between mt-2">
                 <div class="flex">
-                  <div class="bg-red-400 rounded-full text-[12px] h-6 px-3">
-                    0%
-                  </div>
-
                   <div>
-                    <span class="text-blue-500 px-2 cursor-pointer">lihat</span>
+                    <span
+                      @click="showStory"
+                      class="text-blue-500 px-2 cursor-pointer"
+                      >lihat progress</span
+                    >
                   </div>
-                  <!-- <History
-                  /> -->
+                  <History
+                    :idNoteToHistory="itemDetail"
+                    :showStory="story"
+                    @close="hideStory"
+                  />
                 </div>
-                <div @click="handleClose" class="cursor-pointer">
+                <div @click="$emit('closeModal')" class="cursor-pointer">
                   <iconSilangIcon />
                 </div>
               </div>
               <div class="flex items-center justify-between mt-5 mb-3">
-                <h1 class="font-bold text-xl">Beli tiket pesawat</h1>
+                <h1 class="font-bold text-xl">{{ itemDetail.subject }}</h1>
                 <div class="flex items-center">
                   <div @click="show" class="p-2 text-blue-500 cursor-pointer">
                     Edit
@@ -43,17 +46,19 @@
                   <div @click="showDelete" class="text-red-500 cursor-pointer">
                     Hapus
                   </div>
-                  <DeleteNote />
+                  <DeleteNoteTeam
+                    :pesan="itemDetail"
+                    :id="itemDetail.id"
+                    :showDelete="del"
+                    @close="hideDelete"
+                  />
                 </div>
               </div>
               <p class="font-sans mb-3 break-all">
-                Beli tiket pesawat untuk tgl 13 Maret 2023 dari Jogja ke
-                Jakarta. Pulang tanggal 5 Maret. Segera untuk dipesan. Jangan
-                sampai lupa
-                <!-- {{ itemDetail.description }} -->
+                {{ itemDetail.description }}
               </p>
 
-              <div v-if="itemDetail.note_type === 'collaboration'" class="mb-4">
+              <div class="mb-4">
                 <div
                   v-for="(member, index) in itemDetail.member.slice(0, 2)"
                   :key="index"
@@ -61,18 +66,6 @@
                 >
                   {{ member.username }}
                 </div>
-
-                <!-- <div
-                    class="my-3 bg-sky-500 px-5 py-2 rounded-full text-white font-semibold font-sans block max-w-[100px]"
-                  >
-                    {{ itemDetail.member }}
-                  </div> -->
-                <!-- <div
-                    class="bg-sky-500 px-5 py-2 rounded-full text-white font-semibold font-sans block max-w-[130px]"
-                  >
-                    Kak Jasmine
-                  </div> -->
-
                 <div
                   v-if="itemDetail.member.length > 2"
                   class="flex items-center mt-2"
@@ -91,8 +84,65 @@
                   />
                 </div>
               </div>
+              <!-- <div class="mt-4">
+                <Upload :file="itemDetail.file" :idNote="itemDetail.id" />
+              </div> -->
+              <div class="mb-2">
+                <label for="" class="font-bold"> Upload File</label>
+                <p>File yang support adalah .jpg , .png atau .pdf</p>
+              </div>
+              <div>
+                <form action="">
+                  <input
+                    type="file"
+                    multiple
+                    name="file"
+                    id="fileInput"
+                    class="overflow-hidden absolute opacity-0"
+                    @change="onChange"
+                    ref="file"
+                    accept=".pdf,.jpg,.jpeg,.png"
+                    :disabled="isButtonDisabled"
+                  />
+                </form>
+                <div
+                  class="text-base bg-white text-black font-semibold py-2 px-5 border border-slate-300 w-44 rounded cursor-pointer disabled:bg-slate-500"
+                >
+                  <label for="fileInput" class="text-center">
+                    <div v-if="files">Upload file</div>
+                  </label>
+                </div>
 
-              <div v-if="itemDetail.note_type === 'collaboration'" class="mb-4">
+                <div class="mt-4" v-if="files.length && !isUpload">
+                  <div v-for="file in files" :key="file.name" class="flex mb-5">
+                    <div>
+                      <img
+                        class="w-72 h-44 rounded border"
+                        :src="generateThumbnail(file)"
+                      />
+                      <div
+                        class="flex items-center justify-between bg-slate-200 border"
+                      >
+                        <p class="px-3" :title="file.name">
+                          {{ makeName(file.name) }}
+                        </p>
+                        <div>
+                          <button
+                            class="ml-2 mt-2"
+                            type="button"
+                            @click="remove(files.indexOf(file))"
+                            title="Remove file"
+                          >
+                            <iconHapusIcon />
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="mb-4 mt-4">
                 <div>File Dokumen :</div>
                 <!-- <div class="text-sky-500 underline">Bukti transaksi.png</div>
                   <div class="text-sky-500 underline">Tiket pesawat.pdf</div> -->
@@ -132,16 +182,21 @@
 
               <div class="mb-4">
                 <div class="flex">
-                  <p>Tanggal Acara :</p>
-                  <p class="px-2">13/03/2021</p>
+                  <p class="mr-1">Tanggal Acara</p>
+                  <span> : </span>
+                  <p class="px-2">{{ formatDate(itemDetail.event_date) }}</p>
                 </div>
                 <div class="flex">
-                  <p>Reminder :</p>
-                  <p class="px-2">H-2 - 11/03/2021</p>
+                  <p class="mr-9">Reminder</p>
+                  <span class=""> : </span>
+                  <p class="px-2">
+                    {{ formatDate(itemDetail.reminder) }}
+                  </p>
                 </div>
                 <div class="flex">
-                  <p>Ringtone :</p>
-                  <p class="text-sky-500 px-2">Aiyaiyaiya</p>
+                  <p class="mr-10">Ringtone</p>
+                  <span> : </span>
+                  <p class="px-2">{{ itemDetail.ringtone }}</p>
                 </div>
               </div>
               <div class="mb-4">
@@ -152,19 +207,25 @@
                     :src="$store.state.profile.dataUser.photo"
                     alt=""
                   />
-                  <p class="px-2"></p>
+                  <p class="px-2">{{ itemDetail.owner[0].username }}</p>
                 </div>
               </div>
-              <!-- <div v-if="itemDetail.owner[0]?.id !== $auth.user.id">
-                  <Upload :file="itemDetail.file" :idNote="itemDetail.id" />
-                </div> -->
-              <div>
+              <!-- <div>
                 <button
                   type="submit"
                   @click="showModal"
                   class="float-right inline-flex justify-center rounded border border-transparent bg-blue-500 px-4 py-2 text-sm font-medium text-white hover:bg-blue-600 focus:outline-none"
                 >
                   Selesaikan Catatan
+                </button>
+              </div> -->
+              <div>
+                <button
+                  type="submit"
+                  @click="upload(idNote)"
+                  class="float-right inline-flex justify-center rounded border border-transparent bg-blue-500 px-4 py-2 text-sm font-medium disabled:bg-slate-500 text-white hover:bg-blue-600 focus:outline-none"
+                >
+                  Simpan File
                 </button>
               </div>
             </div>
@@ -207,6 +268,8 @@ export default {
       items: [],
       members: [],
       files: [],
+      isUpload: false,
+      idNote: this.itemDetail.id
     }
   },
   computed: {
@@ -243,22 +306,8 @@ export default {
       this.$store.commit('coloms/setShowDetail', false)
     },
     formatDate(date) {
-      return this.$moment(date).format('DD/MM/YYYY')
+      return this.$moment(date).format('DD/MM/YYYY HH:mm')
     },
-    // formatToH() {
-    //   const formattedDate = this.$moment(this.itemDetail.event_date).format('h')
-
-    //   return formattedDate
-    // },
-    // formatToH(date) {
-    //   const eventDate = this.$moment().subtract(1, 'day') // Tanggal sebelumnya
-    //   const reminder = this.$moment(date, 'YYYY-MM-DD') // Tanggal inputan kedua
-
-    //   const diffInDays = eventDate.diff(reminder, 'days') // Perbandingan dalam hari
-
-    //   return `h${diffInDays}`
-    // },
-
     formatToH() {
       if (this.itemDetail.event_date && this.itemDetail.reminder) {
         const date1 = new Date(this.itemDetail.event_date)
@@ -268,6 +317,66 @@ export default {
         return `h-${diffDays}`
       }
       return ''
+    },
+
+    onChange(e) {
+      this.files = [...this.files, ...this.$refs.file.files]
+    },
+
+    generateThumbnail(file) {
+      const fileSrc = URL.createObjectURL(file)
+      setTimeout(() => {
+        URL.revokeObjectURL(fileSrc)
+      }, 1000)
+      return fileSrc
+    },
+
+    makeName(name) {
+      return (
+        name.split('.')[0].substring(0) +
+        '.' +
+        name.split('.')[name.split('.').length - 1]
+      )
+    },
+
+    async upload(idNote) {
+      try {
+        this.isUpload = true
+        const formData = new FormData()
+        for (let i = 0; i < this.files.length; i++) {
+          // const file = this.files[i]
+
+          formData.append('path[]', this.files[i])
+        }
+        formData.append('note_id', idNote)
+
+        await this.$axios.post(
+          `https://bantuin.fly.dev/api/attaches`,
+          formData,
+          {
+            headers: {
+              'Content-Type': 'multipart/form-data',
+            },
+          }
+        )
+
+        alert('Selamat Anda berhasil upload')
+        this.$store.dispatch('notes/fetchNotes')
+        this.$store.commit('notes/setShowDetail', false)
+        this.$store.commit('notes/detailNotes', null)
+        this.$router.go()
+      } catch (e) {
+        console.log(e)
+        console.log('Upload File Failled')
+        alert('maaf file anda gagal upload')
+      }
+
+      // .finally(() => {
+      //   this.isUpload = false
+      // })
+    },
+    remove(i) {
+      this.files.splice(i, 1)
     },
 
     show() {

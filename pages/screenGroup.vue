@@ -1,5 +1,5 @@
 <template>
-  <div :style="image" class="h-screen">
+  <div :style="image" class="h-screen bg-no-repeat bg-cover">
     <!-- navbar top -->
     <!-- <div @shareTeam="dataTeam" >{{ item.title }}</div> -->
 
@@ -16,29 +16,27 @@
               <img :src="photoGroup" alt="" class="h-9 w-9" />
               <h1 class="text-black font-bold my-auto mx-2">
                 {{ team }}
+                <!-- {{ detailTeam.data.title }} -->
               </h1>
             </div>
           </nuxt-link>
 
           <div class="flex items-center" @click="show">
-            <iconMemberIcon />
-            <div class="flex my-1 relative">
+            <iconMemberIcon class="mx-4" />
+            <!-- <div
+              v-for="(member, index) in detailTeam.data.participant.slice(0, 3)"
+              :key="index"
+              class="flex my-1 relative -mx-2"
+            >
               <img
                 class="rounded-full w-5 h-5 mx-1 top-0 left-0"
-                src="https://cdn-icons-png.flaticon.com/512/3135/3135715.png"
+                :src="
+                  member.photo ||
+                  require('@/assets/img/profile-user-svgrepo-com.png')
+                "
                 alt=""
               />
-              <img
-                src=" https://cdn-icons-png.flaticon.com/512/3135/3135715.png"
-                alt="Gambar 1"
-                class="rounded-full w-5 h-5 mx-1 top-0 left-0 -ml-3"
-              />
-              <img
-                src="https://cdn-icons-png.flaticon.com/512/3135/3135715.png"
-                alt="Gambar 2"
-                class="rounded-full w-5 h-5 mx-1 -ml-3"
-              />
-            </div>
+            </div> -->
           </div>
         </div>
         <!-- <CardGroup class="w-full w-72 h-72" /> -->
@@ -50,21 +48,32 @@
               :itemList="colom"
               class="mt-5 px-5"
             />
-
             <ButtonAddList />
           </div>
         </div>
-        <PopupAllMember :show="isOpen" @close="hide" />
+        <PopupAllMember
+          :itemTeam="this.$route.query"
+          :show="isOpen"
+          @close="hide"
+        />
       </div>
     </div>
   </div>
 </template>
 
 <script>
+import { mapActions, mapState } from 'vuex'
 export default {
   // async asyncData({ store, $axios, params, query }) {
   //   const groupId = query.page // Mengambil ID dari query parameter "page"
   //   await store.dispatch('team/getDataGroup', groupId) // Mengambil data grup berdasarkan ID
+  // },
+  // async fetch() {
+  //   // Ambil data dari prop bernama 'dataProp'
+  //   this.propData = this.$route.params.dataProp;
+  // },
+  // async asyncData({ store }) {
+  //   await store.dispatch('team/fetchGroupList')
   // },
   layout: 'navbar',
 
@@ -77,19 +86,26 @@ export default {
       dataList: [],
       isOpen: false,
       team: this.$route.query.team,
-      id: this.$route.query.id
+      id: this.$route.query.id,
     }
   },
   computed: {
     coloms() {
       return this.$store.state.coloms.coloms
     },
+    ...mapState('team', ['detailTeam']),
+
+    photoGroup() {
+      return require('@/assets/img/Ellipse 1.png')
+    },
+
     // notesTeam() {
     //   return this.$store.state.notesTeam.notesTeam
     // },
   },
   mounted() {
     this.$store.dispatch('coloms/fetchColoms', this.$route.query.id)
+    this.$store.dispatch('team/detailTeam', this.$route.query.id)
     // this.$store.dispatch('notesTeam/fetchNotesTeam')
     const id = this.$route.query.id
     const team = this.$route.query.team
@@ -133,13 +149,13 @@ export default {
 
     //   // this.$router.go()
     // },
-
-    photoGroup() {
-      return (
-        this.$store.state.team.teams.photo ||
-        require('../assets/img/Ellipse 1.png')
-      )
-    },
+    ...mapActions('team', ['detailTeam']),
+    // photoGroup() {
+    //   return (
+    //     this.$store.state.team.teams.photo ||
+    //     require('../assets/img/Ellipse 1.png')
+    //   )
+    // },
     show() {
       this.isOpen = true
     },

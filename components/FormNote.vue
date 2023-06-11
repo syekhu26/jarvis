@@ -90,11 +90,11 @@
                 Masukan email anggota</label
               >
               <div
-                v-for="member in item.member"
-                :key="member"
+                v-for="anggota in item.member"
+                :key="anggota"
                 class="bg-slate-200 rounded mb-2 px-2 flex items-center"
               >
-                {{ member.email }}
+                {{ anggota.email }}
                 <div>
                   <button
                     v-if="item"
@@ -402,7 +402,7 @@ export default {
 
       items: [],
       options: [],
-      coba: this.item.member,
+      // coba: this.anggota.email,
       deadlines: [],
       // toggle: false,
       // toggletgl: false,
@@ -555,8 +555,11 @@ export default {
     },
     async hapus() {
       try {
-        await this.$store.dispatch('notes/remove', this.item.id, {
-          email: this.items,
+        await this.$store.dispatch('notes/remove', {
+          id: this.item.id,
+          data : {
+            email: this.anggota.email,
+          }
         })
       } catch (error) {
         console.log(error)

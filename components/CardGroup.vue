@@ -1,9 +1,9 @@
 <template>
   <!-- <NuxtLink to="/screenGroup"> -->
   <!-- "{ path: '/screenGroup', query: { page: `${item.id}` } }" -->
+ <div>
   <nuxt-link :to="screenGroup">
-    <div>
-      <div
+    <div
         class="mx-5 mt-5 border border-slate-300 h-20 w-80 rounded shadow-sm"
       >
         <!-- gambar -->
@@ -27,13 +27,20 @@
               {{ item.owner.username }}
             </h1> -->
             <div class="flex items-center">
-              <div class="flex my-1 relative">
+              <div
+                v-for="(member, index) in item.participant.slice(0, 3)"
+                :key="index"
+                class="flex my-1 relative -mx-2"
+              >
                 <img
                   class="rounded-full w-5 h-5 mx-1 top-0 left-0"
-                  src="https://cdn-icons-png.flaticon.com/512/3135/3135715.png"
+                  :src="
+                    member.photo ||
+                    require('@/assets/img/profile-user-svgrepo-com.png')
+                  "
                   alt=""
                 />
-                <img
+                <!-- <img
                   src=" https://cdn-icons-png.flaticon.com/512/3135/3135715.png"
                   alt="Gambar 1"
                   class="rounded-full w-5 h-5 mx-1 top-0 left-0 -ml-3"
@@ -42,15 +49,18 @@
                   src="https://cdn-icons-png.flaticon.com/512/3135/3135715.png"
                   alt="Gambar 2"
                   class="rounded-full w-5 h-5 mx-1 -ml-3"
-                />
+                /> -->
               </div>
-              <p class="text-black">+4</p>
+              <div v-if="item.participant.length > 3">
+                <p class="text-black px-2">+ {{ sisaPoto }}</p>
+              </div>
+              
             </div>
           </div>
         </div>
       </div>
-    </div>
   </nuxt-link>
+ </div>
   <!-- </NuxtLink> -->
 </template>
 
@@ -88,6 +98,9 @@ export default {
   computed: {
     photoGroup() {
       return this.item.photo || require('@/assets/img/Ellipse 1.png')
+    },
+    sisaPoto() {
+      return this.item.participant.length - 3
     },
     screenGroup() {
       const query = {

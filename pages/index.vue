@@ -2,21 +2,21 @@
   <div class="w-full">
     <div>
       <div class="flex items-center justify-between mt-6 px-8">
-        <h1 class="text-2xl font-bold mb-3">Permintaan masuk</h1>
+        <h1 class="text-2xl font-bold mb-3">Undangan masuk</h1>
         <ButtonGlobal @click="show" />
       </div>
       <div class="min-w-full px-8 items-center mb-8">
         <p class="text-lg mb-4">Daftar catatan dan undangan grub masuk</p>
-        <div v-if="reqlist.data">
+        <div v-if="reqlist.data.length">
           <CardRequest
-            v-for="request in reqlist.data"
+            v-for="request in reqlist.data.slice(0, 2)"
             :key="request.id"
             :request="request"
             class="mb-2"
           />
 
           <div v-if="reqlist.data.length > 2" class="flex items-center mt-3">
-            <div>{{ sisaReqlist }} permintaan lagi.</div>
+            <div>{{ sisaReqlist }} undangan lagi.</div>
             <NuxtLink to="/request" class="font-bold text-blue-600 px-1"
               >Lihat Semua</NuxtLink
             >

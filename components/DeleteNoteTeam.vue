@@ -1,8 +1,8 @@
 <template>
   <div>
     <!-- <button type="button" @click="isOpen = !isOpen">
-      <span class="text-red-600">Hapus</span>
-    </button> -->
+        <span class="text-red-600">Hapus</span>
+      </button> -->
     <div
       v-if="showDelete"
       class="fixed inset-0 z-10 overflow-y-auto justify-center items-center overflow-x-hidden"
@@ -18,16 +18,13 @@
             <p class="text-lg font-semibold text-center mb-4">
               Apakah anda yakin menghapus catatan ini?
             </p>
-            <p class="text-sm text-center opacity-50 mb-4">
+            <!-- <p class="text-sm text-center opacity-50 mb-4">
               Anda tidak dapat mengembalikan pesan ini setelah dihapus
             </p>
-            <p
-              v-if="pesan.note_type === 'collaboration'"
-              class="text-lg text-center font-semibold"
-            >
+            <p class="text-lg text-center font-semibold">
               Pesan untuk dilaporkan kepada orang yang dilibatkan
             </p>
-            <div v-if="pesan.note_type === 'collaboration'" class="px-3">
+            <div class="px-3">
               <div class="flex justify-between my-2">
                 <p>Pesan <strong class="text-red-600">*</strong></p>
                 <p class="text-sm text-gray-500 items-end">
@@ -44,19 +41,10 @@
               <span v-if="descriptionError" class="text-red-500">{{
                 descriptionError
               }}</span>
-            </div>
+            </div> -->
             <div class="flex my-4">
               <button
-                v-if="pesan.note_type === 'personal'"
                 @click="deleteNote(id)"
-                class="bg-white border rounded w-[200px] py-2 mx-2"
-              >
-                Hapus
-              </button>
-              <button
-                v-if="pesan.note_type === 'collaboration'"
-                @click="deleteNote(id)"
-                :disabled="!description"
                 class="bg-white border rounded w-[200px] py-2 mx-2 disabled:bg-slate-300"
               >
                 Hapus

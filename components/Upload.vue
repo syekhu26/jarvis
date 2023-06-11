@@ -169,7 +169,7 @@ export default {
   },
   computed: {
     isButtonDisabled() {
-      return this.file.length > 0
+      return this.dataDetail.status[0] === 'have_upload' 
     },
   },
 }
