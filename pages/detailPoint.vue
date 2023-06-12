@@ -43,7 +43,11 @@
       </div>
     </div>
     <PopupRedeem :show="isOpen" @close="hide" />
-    <AlertRedem :errorMessage="errorMessage" v-if="errorMessage" @close="clearErrorMessage"/>
+    <AlertRedem
+      :errorMessage="errorMessage"
+      v-if="errorMessage"
+      @close="clearErrorMessage"
+    />
   </div>
 </template>
 
@@ -63,38 +67,32 @@ export default {
       reward: this.$route.query.reward,
       status: this.$route.query.status,
       terms: this.$route.query.terms,
-      errorMessage: null
+      errorMessage: null,
     }
   },
-  computed:{
+  computed: {
     disableButton() {
-      return (
-        this.point_type === 'redeemed'
-      )
+      return this.point_type === 'redeemed'
     },
   },
   methods: {
     async redem() {
       try {
-      await this.$store.dispatch('transaksi/redem', {
-        data: {
-          product_id: this.$route.query.id,
-          point_type: 'redeemed',
-        },
-      })
-      .then(response => {
-          console.log(response.data)
-          alert('Selamat anda berhasil melakukan redeem product')
+        await this.$store.dispatch('transaksi/redem', {
+          data: {
+            product_id: this.$route.query.id,
+            point_type: 'redeemed',
+          },
         })
+        alert('Selamat anda berhasil melakukan redeem product')
       } catch (error) {
         console.log(error)
-        this.errorMessage = error.response.data.message;
+        this.errorMessage = error.response.data.message
         this.alert = true
       }
-    
     },
     clearErrorMessage() {
-      this.errorMessage = null;
+      this.errorMessage = null
     },
     // redeem() {
     //   alert('Berhasil redeem anda mendapatkan 10 point')
