@@ -15,7 +15,6 @@
           @change="onChange"
           ref="file"
           accept=".pdf,.jpg,.jpeg,.png"
-          :disabled="isButtonDisabled"
         />
       </form>
       <div
@@ -55,7 +54,6 @@
     <div>
       <button
         type="submit"
-        :disabled="isButtonDisabled"
         @click="upload(idNote)"
         class="float-right inline-flex justify-center rounded border border-transparent bg-blue-500 px-4 py-2 text-sm font-medium disabled:bg-slate-500 text-white hover:bg-blue-600 focus:outline-none"
       >
@@ -167,10 +165,11 @@ export default {
     //   })
     // },
   },
+  // this.dataDetail.status[0] === 'have_upload'
   computed: {
-    isButtonDisabled() {
-      return this.dataDetail.status[0] === 'have_upload' 
-    },
+    // isButtonDisabled() {
+    //   return 
+    // },
   },
 }
 </script>

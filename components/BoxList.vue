@@ -33,6 +33,7 @@
             :key="team.id"
             :itemTeam="team"
             class="mb-2"
+            ref="items"
           />
         </draggable>
         <!-- <draggable
@@ -96,12 +97,20 @@ export default {
       showInput: false,
       buttonText: this.itemList.title,
       id: this.$route.query.id,
+      // note: this.itemList.note
+      data:null
+
       // note: this.itemList.note,
       // items: this.note
     }
   },
   mounted() {
     this.$store.dispatch('notesTeam/NotesTeam', this.$route.query.id)
+    // for (let i = 0; i < 10; i++) {
+    //   this.note.push(`team ${i}`)
+    // }
+    // this.loop()
+    // console.log(this.note)
   },
   computed: {
     notesTeam() {
@@ -111,8 +120,15 @@ export default {
       detailNotes: (state) => state.coloms.detailNotes,
       isShowDetail: (state) => state.coloms.showDetail,
     }),
+    loop(data) {
+      return this.itemList.note[data].id;
+    },
   },
   methods: {
+    // loop(data) {
+    //   // this.itemList.note[data].id;
+    //   // const items = this.$refs.itemsRef
+    // },
     async editData() {
       try {
         await this.$store.dispatch('coloms/updateColom', {
@@ -153,8 +169,8 @@ export default {
           data: {
             note: this.itemList.note,
           },
-
         });
+        // this.note = [...id]
         // this.list
       } catch (error) {
         console.error(error);

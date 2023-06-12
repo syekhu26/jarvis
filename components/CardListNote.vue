@@ -54,10 +54,11 @@
             <p class="font-bold">{{ item.subject }}</p>
           </div>
           <div
-            :class="{ ['change-color']: this.item.status[0] === 'completed' }"
+            :class="{ ['change-color']: this.item.status[0] === 'completed' || this.item.status[0] === 'have_upload' }"
             class="bg-red-400 rounded-full text-[12px] h-6 px-3"
           >
-            {{ item.status[0] }}
+          {{ item.status[0].replace("completed", "sudah selesai") }}
+          
           </div>
         </div>
         <div class="mt-2 max-w-xl break-all">
@@ -126,6 +127,13 @@ export default {
         require('@/assets/img/profile-user-svgrepo-com.png')
       )
     },
+    // statusIndo(status) {
+    //   if (this.item.status[0] === 'completed') {
+    //     return 'Sudah selesai'
+    //   } else {
+    //     return status
+    //   }
+    // },
   },
 }
 </script>

@@ -154,11 +154,12 @@ export default {
         this.inputTypeIcon === 'password' ? 'text' : 'password'
     },
     async login() {
+      const lowerCase = this.email.toLowerCase();
       try {
         await this.$auth
           .loginWith('local', {
             data: {
-              email: this.email,
+              email: lowerCase,
               password: this.password,
             },
           })

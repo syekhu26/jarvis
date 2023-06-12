@@ -39,11 +39,6 @@
         <!-- <Setting @filter-changed="getFilteredData" class="mx-3" /> -->
         <div class="mx-7 border border-slate-400">
           <select v-model="selectedFilter" @change="filterNotes">
-            <!-- <option disabled selected value="">Semua</option> -->
-            <!-- <option value="upcoming=yes">Semua</option>
-            <option value="upcoming=yes&notup=yes">Belum Upload</option>
-            <option value="upcoming=yes&up=yes">Sudah Upload</option>
-            <option value="passed=yes&owner=yes">Pemilik</option> -->
             <option
               v-for="item in pilihanFilter"
               :value="item.value"
@@ -97,7 +92,7 @@
 
     <div v-if="active === 'DetailNote'">
       <!-- <DetailNote class="mx-8" /> -->
-      <DetailNoteCollab class="mx-8" />
+      <!-- <DetailNoteCollab class="mx-8" /> -->
     </div>
     <FormNote :show="isOpen" @close="hide" />
   </div>

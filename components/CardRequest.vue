@@ -19,7 +19,7 @@
           <div class="text-black px-1">
             {{ request.message }}
           </div>
-          <div class="text-slate-400">{{ formattedTimeAgo }}</div>
+          <div class="text-slate-400">{{ request.date_invite }}</div>
         </div>
       </div>
       <div class="flex items-center px-12">
@@ -41,6 +41,9 @@
             <!-- {{ button.action }} -->
             <a :href="button.url">Tolak</a>
           </button>
+          <!-- <div v-if="showTolak && index === 0" class="text-blue-500">
+            Undangan telah ditolak
+          </div> -->
           <button
             v-else-if="index === 1"
             class="bg-[#0F62FE] hover:bg-blue-400 text-white hover:text-black px-5 py-1 mx-2 rounded"
@@ -48,6 +51,9 @@
             <a :href="button.url">Terima</a>
             <!-- {{ button.url }} -->
           </button>
+          <!-- <div v-if="showTerima && index === 1" class="text-blue-500">
+            Undangan telah diterima
+          </div> -->
         </div>
         <!-- <div class="border border-red-500 hover:bg-red-300 bg-white px-5 py-1 mx-2 rounded" v-for="request in request.actions" :key="request.id">
           {{ request.action }}
@@ -71,6 +77,8 @@ export default {
   data() {
     return {
       waktu: this.request.date_invite,
+      showTerima: false,
+      showTolak: false,
     }
   },
   computed: {
@@ -83,7 +91,10 @@ export default {
       return newArray
     },
     avatar() {
-      return this.request.photo || require('@/assets/img/profile-user-svgrepo-com.png')
+      return (
+        this.request.photo ||
+        require('@/assets/img/profile-user-svgrepo-com.png')
+      )
     },
 
     formattedTimeAgo() {
@@ -96,8 +107,17 @@ export default {
   mounted() {
     this.$store.dispatch('notes/reqlist', this.request.id)
   },
-  method: {
+  methods: {
     ...mapActions('notes', ['reqlist']),
+    buttonTerima(event) {
+      event.preventDefault()
+      this.showTerima = true
+    },
+
+    buttonTolak(event) {
+      event.preventDefault()
+      this.showTolak = true
+    },
   },
 }
 </script>

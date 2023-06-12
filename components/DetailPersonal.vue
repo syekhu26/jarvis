@@ -24,17 +24,23 @@
                   >
                     {{ displayText }}
                   </div> -->
-                  
-                    <div
-                      :class="{
-                        ['change-color']:
-                          this.itemDetail.status[0] === 'completed',
-                      }"
-                      class="bg-red-400 rounded-full text-[12px] h-6 px-3"
-                    >
-                      {{ statsusIndo }}
-                    </div>
-                  
+
+                  <div
+                    :class="{
+                      ['change-color']:
+                        this.itemDetail.status[0] === 'completed' || this.itemDetail.status[0] === 'have_upload',
+                    }"
+                    class="bg-red-400 rounded-full text-[12px] h-6 px-3"
+                  >
+                    {{ itemDetail.status[0].replace("completed", "sudah selesai") }}
+                  </div>
+
+                  <!-- <div
+                    class="bg-red-400 rounded-full text-[12px] h-6 px-3"
+                  >
+                    {{ itemDetail.status[0].replace("not_upload_yet", "belum upload") }}
+                  </div> -->
+
                   <p>{{ progress }}</p>
                   <div
                     v-if="
@@ -191,7 +197,12 @@
                 />
               </div>
               <!-- :disabled="disableButton" -->
-              <div v-if="itemDetail.note_type === 'collaboration' && $auth.user.id === itemDetail.owner[0]?.id">
+              <div
+                v-if="
+                  itemDetail.note_type === 'collaboration' &&
+                  $auth.user.id === itemDetail.owner[0]?.id
+                "
+              >
                 <button
                   type="submit"
                   :disabled="disableButton"
@@ -201,7 +212,12 @@
                   Selesaikan Catatan
                 </button>
               </div>
-              <div v-if="itemDetail.note_type === 'personal' && $auth.user.id === itemDetail.owner[0]?.id">
+              <div
+                v-if="
+                  itemDetail.note_type === 'personal' &&
+                  $auth.user.id === itemDetail.owner[0]?.id
+                "
+              >
                 <button
                   type="submit"
                   :disabled="disablePersonal"
@@ -256,6 +272,7 @@ export default {
   },
   mounted() {
     this.$store.dispatch('notes/fetchNotes')
+
   },
   computed: {
     getAllFileName() {
@@ -293,10 +310,21 @@ export default {
       )
     },
     disablePersonal() {
-      return (
-        this.itemDetail.status[0] === 'completed'
-      )
+      return this.itemDetail.status[0] === 'completed'
     },
+    statusIndo(status) {
+      if (this.itemDetail.status[0] === 'completed') {
+        return 'Sudah selesai'
+      } else {
+        return status
+      }
+    },
+    //   convertStatus(status) {
+    // if (status === "completed") {
+    //   return "sudah selesai";
+    // } else {
+    //   return status;
+    // }
     // statusIndo(){
     //   return (
     //     this.itemDetail.status[0] === 'completed' ??

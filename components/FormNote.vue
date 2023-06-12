@@ -265,9 +265,6 @@
                     <option disabled selected value="">
                       Pilih nada dering
                     </option>
-                    <!-- <option value="1">hahahihi</option>
-                        <option value="2">aiyaaiya</option>
-                        <option value="3">oke</option> -->
                     <option
                       v-for="option in options"
                       :key="option.id"
@@ -297,18 +294,6 @@
                 @close="hideEdit"
                 @edit="confirmEdit"
               />
-              <!-- coba -->
-              <!-- <div class="flex justify-end mt-8">
-                    <button
-                      @click="showEdit"
-                      type="submit"
-                      value="submit"
-                      class="text-base w-[300px] bg-blue-500 text-white font-semibold py-2 px-5 rounded"
-                    >
-                      Edit Catatan
-                    </button>
-                  </div>
-                  <EditNote/> -->
             </form>
           </div>
         </div>
