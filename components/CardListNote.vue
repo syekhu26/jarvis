@@ -57,7 +57,7 @@
             :class="{ ['change-color']: this.item.status[0] === 'completed' || this.item.status[0] === 'have_upload' }"
             class="bg-red-400 rounded-full text-[12px] h-6 px-3"
           >
-          {{ item.status[0].replace("completed", "sudah selesai") }}
+          {{ getStatus }}
           
           </div>
         </div>
@@ -127,6 +127,20 @@ export default {
         require('@/assets/img/profile-user-svgrepo-com.png')
       )
     },
+    getStatus() {
+      if (this.item.status[0] === 'completed') {
+        return 'Sudah Selesai';
+      } else if (this.item.status[0] === 'have_upload') {
+        return 'Sudah Upload';
+      } else if (this.item.status[0] === 'not_upload_yet') {
+        return 'Belum Upload';
+      } else if (this.item.status[0] === 'late') {
+        return 'Anda Telat';
+      }
+       else {
+        return this.item.status[0]
+      }
+    }
     // statusIndo(status) {
     //   if (this.item.status[0] === 'completed') {
     //     return 'Sudah selesai'

@@ -89,9 +89,10 @@
               <label for="email" class="text-sm mb-2 flex items-start">
                 Masukan email anggota</label
               >
+             <div v-if="showButton">
               <div
-                v-for="anggota in item.member"
-                :key="anggota"
+                v-for="(anggota, index) in item.member"
+                :key="index"
                 class="bg-slate-200 rounded mb-2 px-2 flex items-center"
               >
                 {{ anggota.email }}
@@ -100,13 +101,14 @@
                     v-if="item"
                     class="ml-2 mt-2"
                     type="button"
-                    @click="hapus"
+                    @click="hapus(index)"
                     title="Remove"
                   >
                     <iconSilangIcon class="w-3 h-3" />
                   </button>
                 </div>
               </div>
+             </div>
               <div>
                 <div
                   v-for="item in items"
@@ -344,6 +346,7 @@ export default {
       subjectError: '',
       descriptionError: '',
       emailError: '',
+      showButton : true,
 
       dateError: '',
       datetimeError: '',
@@ -364,10 +367,10 @@ export default {
   },
   methods: {
     cobaEmail() {
-    for (let i = 0; i < this.item.member; i++) {
-      console.log(this.item.member[i]) // Lakukan sesuatu dengan setiap item dalam dataArray
-    }
-  },
+      for (let i = 0; i < this.item.member; i++) {
+        console.log(this.item.member[i]) // Lakukan sesuatu dengan setiap item dalam dataArray
+      }
+    },
     addEmail() {
       const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
 
@@ -485,14 +488,16 @@ export default {
       }
       // this.$router.go()
     },
-    async hapus(id) {
+    async hapus(index) {
       try {
         await this.$store.dispatch('notes/remove', {
           id: this.item.id,
-          data : {
-            email: this.item.member.map(item => item.email),
-          }
+          data: {
+            email: this.item.member.map((item) => item.email)[index],
+          },
         })
+        alert('Member berhasil terhapus')
+        this.showButton = false;
       } catch (error) {
         console.log(error)
       }
@@ -576,6 +581,9 @@ export default {
     // },
   },
   computed: {
+    loop() {
+      return this.item.member.find((item) => item.email)
+    },
     tambahAngka() {
       return this.description.length
     },

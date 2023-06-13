@@ -32,7 +32,13 @@
                     }"
                     class="bg-red-400 rounded-full text-[12px] h-6 px-3"
                   >
+                  <!-- <div>
                     {{ itemDetail.status[0].replace("completed", "sudah selesai") }}
+                  </div>
+                  <div class="text-black" v-if="itemDetail.owner[0]?.id !== $auth.user.id">
+                    {{ itemDetail.status[0].replace("have_upload", "sudah upload") }}
+                  </div> -->
+                  {{ getStatus }}
                   </div>
 
                   <!-- <div
@@ -312,13 +318,28 @@ export default {
     disablePersonal() {
       return this.itemDetail.status[0] === 'completed'
     },
-    statusIndo(status) {
+
+    // statusIndo() {
+    //   if (this.itemDetail.status[0] === 'completed') {
+    //     return'sudah selesai';
+    //   } else if (this.itemDetail.status[0] === 'have upload') {
+    //     this.status = 'sudah upload';
+    //   }
+    // },
+    getStatus() {
       if (this.itemDetail.status[0] === 'completed') {
-        return 'Sudah selesai'
-      } else {
-        return status
+        return 'Sudah Selesai';
+      } else if (this.itemDetail.status[0] === 'have_upload') {
+        return 'Sudah Upload';
+      } else if (this.itemDetail.status[0] === 'not_upload_yet') {
+        return 'Belum Upload';
+      } else if (this.itemDetail.status[0] === 'late') {
+        return 'Anda Telat';
       }
-    },
+       else {
+        return this.itemDetail.status[0]
+      }
+    }
     //   convertStatus(status) {
     // if (status === "completed") {
     //   return "sudah selesai";
@@ -381,6 +402,14 @@ export default {
     //     return status1 = ''
     //   }
     // },
+    // changeStatus(newStatus) {
+    //   if (newStatus === 'Completed') {
+    //     this.itemDetail.status[0] = 'Sudah Selesai';
+    //   } else if (newStatus === 'Have Upload') {
+    //     this.status = 'Sudah Upload';
+    //   }
+    // },
+
 
     show() {
       this.isOpen = true

@@ -14,9 +14,11 @@
           </center>
           <div class="flex justify-between my-2">
             <p>Pesan <strong class="text-red-600">*</strong></p>
-            <p class="text-sm text-gray-500 items-end">0/100</p>
+            <p class="text-sm text-gray-500 items-end">{{ tambahAngka }}/250</p>
           </div>
           <textarea
+            v-model="body"
+            @input="bodyValidate"
             class="w-full border border-gray-500 p-3"
             placeholder="Tulis pesan"
           ></textarea>
@@ -30,9 +32,10 @@
             <!-- @click="form" -->
             <button
               @click="editCollab"
-              class="w-1/2 bg-red-600 text-white ml-1 p-2 rounded"
+              :disabled="!body"
+              class="w-1/2 bg-blue-600 text-white ml-1 p-2 rounded disabled:bg-slate-400"
             >
-              Ya
+              Ubah
             </button>
           </div>
         </div>
@@ -48,10 +51,31 @@ export default {
       default: () => ({}),
     },
   },
+  data() {
+    return {
+      // isOpen: false,
+      body: '',
+      bodyError: '',
+    }
+  },
+  computed: {
+    tambahAngka() {
+      return this.body.length
+    },
+  },
   methods: {
     editCollab() {
       this.$emit('edit')
       this.$router.go()
+    },
+    bodyValidate() {
+      if (!this.body) {
+        this.bodyError = 'Anda belum mengisi deskripsi.'
+      } else if (this.body.length > 250) {
+        this.body = this.body.slice(0, 250)
+      } else {
+        this.bodyError = ''
+      }
     },
   },
 }
