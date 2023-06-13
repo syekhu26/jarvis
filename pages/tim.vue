@@ -1,7 +1,7 @@
 <template>
   <div class="w-full">
     <div class="flex items-center justify-between px-8 mt-6">
-      <h1 class="font-bold">TIM</h1>
+      <h1 class="font-bold"> Daftar TIM</h1>
       <FormCreateGrup @add-data="addData" />
     </div>
     <hr />
