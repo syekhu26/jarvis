@@ -459,7 +459,7 @@ export default {
               ringtone_id: this.voice,
             },
           })
-          // .finally(() => this.$router.go())
+          .finally(() => this.$router.go())
         alert('Catatan berhasil tersimpan')
       }
       if (!this.edit) {
