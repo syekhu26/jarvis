@@ -38,6 +38,7 @@ export default {
   },
   mounted() {
     this.$store.dispatch('notes/fetchNotes')
+    this.$store.dispatch('notes/reqlist')
   },
 }
 </script>

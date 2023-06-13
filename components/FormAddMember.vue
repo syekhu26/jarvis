@@ -34,7 +34,6 @@
                   v-model="email"
                   class="py-2 border text-black pl-10 w-full focus:outline-none focus:border-blue-500"
                   placeholder="Masukkan Email Anggota"
-                 
                 />
               </div>
               <div>
@@ -115,14 +114,25 @@ export default {
     },
 
     async tambahEmail() {
-      await this.$store
-          .dispatch('team/tambahEmail', {
-            idTeam: this.itemEmail.id,
-            data: {
-              email: this.items,
-            },
-          })
+      try {
+        await this.$store.dispatch('team/tambahEmail', {
+          idTeam: this.itemEmail.id,
+          data: {
+            email: this.items,
+          },
+        })
+        this.$router.go()
+        alert('Berhasil menambahkan anggota')
+      } catch (error) {
+        this.error = error.response.data.data
+        this.errorMessage = error.response.data.message
+        console.log(error)
+        alert('maaf anggota tidak berhasil ditambahkan')
+      }
     },
   },
 }
 </script>
+
+<!-- if (!this.edit) {
+} -->

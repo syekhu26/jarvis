@@ -68,6 +68,7 @@ export default {
             email: this.dataMember.email,
           }
         })
+        this.$router.go()
       } catch (error) {
         console.log(error)
       }

@@ -459,7 +459,7 @@ export default {
               ringtone_id: this.voice,
             },
           })
-          .finally(() => this.$router.go())
+          // .finally(() => this.$router.go())
         alert('Catatan berhasil tersimpan')
       }
       if (!this.edit) {
@@ -485,12 +485,12 @@ export default {
       }
       // this.$router.go()
     },
-    async hapus() {
+    async hapus(id) {
       try {
         await this.$store.dispatch('notes/remove', {
           id: this.item.id,
           data : {
-            email: this.anggota.email,
+            email: this.item.member.map(item => item.email),
           }
         })
       } catch (error) {

@@ -70,9 +70,9 @@
                   v-if="$auth.user.id === itemDetail.owner[0]?.id"
                   class="flex items-center"
                 >
-                  <div @click="show" class="p-2 text-blue-500 cursor-pointer">
+                  <button :disabled="disablePersonal" @click="show" class="p-2 text-blue-500 cursor-pointer disabled:text-slate-500">
                     Edit
-                  </div>
+                  </button>
                   <!-- <DeleteNote /> -->
                   <div @click="showDelete" class="text-red-500 cursor-pointer">
                     Hapus

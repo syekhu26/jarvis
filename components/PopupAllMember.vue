@@ -16,7 +16,7 @@
 
                 <span class="px-4">All Member</span>
               </div>
-              <div @click="showModal">
+              <div v-if="detailTeam.data.owner[0]?.id === $auth.user.id" @click="showModal">
                 <iconAddUserIcon />
               </div>
             </div>
@@ -40,10 +40,14 @@
                 <img class="rounded-full w-10 h-10 mx-1" :src="avatar" alt="" />
                 <h5 class="px-2">{{ member.username }}</h5>
               </div>
-              <div @click="showDel">
+              <div
+                v-if="detailTeam.data.owner[0]?.id === $auth.user.id"
+                @click="showDel"
+              >
                 <iconHapusIcon />
               </div>
             </div>
+
             <DeleteMember
               :dataMember="member"
               :show="del"

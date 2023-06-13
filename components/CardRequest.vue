@@ -1,7 +1,7 @@
 <template>
   <div>
     <div
-      class="border border-slate-300 bg-slate-100 w-full rounded max-w-xl h-[145px]"
+      class="border border-slate-300 bg-slate-100 w-full rounded max-w-xl h-[170px]"
     >
       <div class="flex items-center">
         <div>

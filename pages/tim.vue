@@ -5,10 +5,17 @@
       <FormCreateGrup @add-data="addData" />
     </div>
     <hr />
-    <p class="p-8">Belum ada tim yang dibuat</p>
-    <div>
+    <!-- <p class="p-8">Belum ada tim yang dibuat</p> -->
+    <div v-if="teams.length> 0">
       <CardGroup v-for="data in teams" :key="data" :item="data" class="" />
     </div>
+
+    <div
+          v-else
+          class="px-8 text-slate-400 font-bold flex items-center justify-center h-44"
+        >
+          Belum Ada Undangan
+        </div>
 
     <!-- <CardGroup v-for="item in grup" :key="item.id" :item="item" /> -->
 

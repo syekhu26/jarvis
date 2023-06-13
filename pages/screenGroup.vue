@@ -11,15 +11,13 @@
         >
           <!-- <h1 class="text-2xl font-bold text-black" @shareTeam="dataTeam(item)" v-for="(item, index) in dataList" :key="index" :item="item">{{ item.title }}</h1> -->
 
-          <nuxt-link to="/editgroup">
-            <div class="flex">
-              <img :src="photoGroup" alt="" class="h-9 w-9" />
-              <h1 class="text-black font-bold my-auto mx-2">
-                {{ team }}
-                <!-- {{ detailTeam.data.title }} -->
-              </h1>
-            </div>
-          </nuxt-link>
+          <div class="flex">
+            <img :src="photoGroup" alt="" class="h-9 w-9" />
+            <h1 class="text-black font-bold my-auto mx-2">
+              {{ team }}
+              <!-- {{ detailTeam.data.title }} -->
+            </h1>
+          </div>
 
           <div class="flex items-center" @click="show">
             <iconMemberIcon class="mx-4" />

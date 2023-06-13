@@ -23,8 +23,7 @@
         <div ref="listRef" class="flex-1 overflow-y-auto px-3"></div>
         <draggable
           class="px-3 mt-3"
-          v-model="note"
-          :options="{group: 'BoxList'}"
+          :options="{ group: 'BoxList' }"
           @end="drop"
           @change="log"
         >
@@ -98,7 +97,9 @@ export default {
       buttonText: this.itemList.title,
       id: this.$route.query.id,
       // note: this.itemList.note
-      data:null
+      data: null,
+      note: [],
+      // note: this.note
 
       // note: this.itemList.note,
       // items: this.note
@@ -106,11 +107,24 @@ export default {
   },
   mounted() {
     this.$store.dispatch('notesTeam/NotesTeam', this.$route.query.id)
-    // for (let i = 0; i < 10; i++) {
-    //   this.note.push(`team ${i}`)
-    // }
-    // this.loop()
-    // console.log(this.note)
+    // const note = this.itemList.note.reduce((obj, item) => {
+    //   obj[item.id] = item;
+    //   return obj;
+    // }, {});
+
+    // console.log(note);
+
+    //   this.note = this.itemList.note.map((item, index) => {
+    //   // Ubah elemen array menjadi objek dengan ID sebagai properti
+    //   return {
+    //     id: item.id, // Gunakan ID dari data atau tambahkan properti ID baru jika belum ada
+    //     ...item // Tambahkan semua properti lain dari elemen array
+    //   };
+    // });
+    const item = this.itemList.note.find((item) => item.id === 2)
+    if (item) {
+      console.log(item.id) // Output: Item 2
+    }
   },
   computed: {
     notesTeam() {
@@ -120,10 +134,16 @@ export default {
       detailNotes: (state) => state.coloms.detailNotes,
       isShowDetail: (state) => state.coloms.showDetail,
     }),
-    loop(data) {
-      return this.itemList.note[data].id;
+    idNote() {
+      return this.itemList.note.map((item) => item.id)
+      // return this.itemList.filter(item => item.id === 1);
     },
   },
+  // watch:{
+  //   note(data){
+  //     this.loop()
+  //   },
+  // },
   methods: {
     // loop(data) {
     //   // this.itemList.note[data].id;
@@ -167,13 +187,13 @@ export default {
           idColoms: this.itemList.id,
           team_id: this.$route.query.id,
           data: {
-            note: this.itemList.note,
+            note: this.itemList.note.find((item) => item.id),
           },
-        });
+        })
         // this.note = [...id]
         // this.list
       } catch (error) {
-        console.error(error);
+        console.error(error)
       }
     },
 
