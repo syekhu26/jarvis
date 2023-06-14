@@ -23,13 +23,14 @@
         <div ref="listRef" class="flex-1 overflow-y-auto px-3"></div>
         <draggable
           class="px-3 mt-3"
+          v-model="note"
           :options="{ group: 'BoxList' }"
-          @end="drop"
+          @end="drop(index)"
           @change="log"
         >
           <CardNoteTim
-            v-for="team in itemList.note"
-            :key="team.id"
+            v-for="(team, index) in itemList.note"
+            :key="index"
             :itemTeam="team"
             class="mb-2"
             ref="items"
@@ -187,7 +188,8 @@ export default {
           idColoms: this.itemList.id,
           team_id: this.$route.query.id,
           data: {
-            note: this.itemList.note.find((item) => item.id),
+            // note: this.itemList.note.find((item) => item.id)[index],
+            note:this.note
           },
         })
         // this.note = [...id]
