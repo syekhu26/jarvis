@@ -72,15 +72,13 @@
               <IconVectorRight />
             </a>
           </div>
-          <!-- <div class="flex items-center justify-between relative">
-            <input
-              v-model="passKey"
-              type="text"
-              class="text-sm w-full text-black"
-              disabled
-            />
-          </div> -->
         </div>
+        <button
+          @click="hapus"
+          class="my-4 w-full h-12 text-[20px] bg-white rounded border border-red-500"
+        >
+          Hapus Account
+        </button>
       </form>
     </div>
   </div>
@@ -109,8 +107,11 @@ export default {
   },
   computed: {
     avatar() {
-      return this.$store.state.profile.dataUser.photo || require('@/assets/img/profile-user-svgrepo-com.png')
-    }
+      return (
+        this.$store.state.profile.dataUser.photo ||
+        require('@/assets/img/profile-user-svgrepo-com.png')
+      )
+    },
   },
   methods: {
     ToggleIcon() {
@@ -126,7 +127,22 @@ export default {
           alert(res.message)
           this.$store.dispatch('profile/getdataUser', this.$auth.user.id)
         })
-        .catch(() => { alert('File size should be less than 1 MB') })
+        .catch(() => {
+          alert('File size should be less than 1 MB')
+        })
+    },
+    // async hapus() {
+    //   try {
+    //     await this.$axios.post('https://bantuin.fly.dev/api/users',)
+    //     alert('Permintaan reset password berhasil dikirimkan ke email Anda.')
+    //   } catch (error) {
+    //     alert('Terjadi error saat mengirimkan permintaan reset password.')
+    //   }
+    // },
+    hapus() {
+      this.$store.dispatch('profile/deleteUser', this.$auth.user.id)
+      // this.$router.go()
+      alert('account anda berhasil terhapus')
     },
   },
 }

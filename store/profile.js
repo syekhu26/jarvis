@@ -12,6 +12,9 @@ export const mutations = {
   setDataUser(state, value) {
     state.dataUser = value
   },
+  deleteUser(state, userId) {
+      state.dataUser = state.dataUser.filter(user => user.id !== userId)
+    },
 }
 
 export const actions = {
@@ -35,4 +38,8 @@ export const actions = {
     }
     return this.$axios.$put(`users/${user.id}`, data, { headers })
   },
+  async deleteUser({ commit }, userId) {
+        await this.$axios.delete(`https://bantuin.fly.dev/api/users/${userId}`)
+        commit('deleteUser', userId)
+    },
 }

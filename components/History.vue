@@ -48,15 +48,6 @@ export default {
                       </div>
                       <div>
                         {{ history.data.owner.username }} telah membuat catatan
-                        <!-- <div
-                          v-for="(member, index) in idNoteToHistory.member"
-                          :key="index"
-                          class="flex w-full"
-                        >
-                          <div class="flex items-center w-full">
-                            {{ member.username }}
-                          </div>
-                        </div> -->
                       </div>
                     </timeline-item>
                     <timeline-item
@@ -71,27 +62,6 @@ export default {
                       </div> -->
                     </timeline-item>
                   </timeline>
-
-                  <!-- <timeline-item :hollow="false"
-                      >{{ idNoteToHistory.date }}
-                      <div>4/04/2023</div>
-                      <div>Kak Lea sudah menyelesaikan tugas.</div>
-                    </timeline-item>
-                    <timeline-item :hollow="false">
-                      <div>8/4/2023</div>
-                      <div>Kak Jasmin menyelesaikan tugas.</div>
-                    </timeline-item> -->
-
-                  <!-- <timeline>
-                    <timeline-item
-                      v-for="(item, index) in timelineItem"
-                      :key="index"
-                    >
-                    <div>
-                      {{ idNoteToHistory.member }}
-                    </div>
-                    </timeline-item>
-                  </timeline> -->
                 </div>
               </div>
             </div>
@@ -130,14 +100,7 @@ export default {
       date: [],
     }
   },
-  // created(idNoteToHistory) {
-  //   this.$store.dispatch('notes/history', idNoteToHistory)
-  // },
-  // async created() {
-  //   await this.$store.dispatch('notes/history', {
-  //     note_id: this.idNoteToHistory,
-  //   })
-  // },
+
   computed: {
     formatDate() {
       return this.$moment(this.history.data.note_created_at).format(

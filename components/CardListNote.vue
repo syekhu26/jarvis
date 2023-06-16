@@ -54,7 +54,7 @@
             <p class="font-bold">{{ item.subject }}</p>
           </div>
           <div
-            :class="{ ['change-color']: this.item.status[0] === 'completed' || this.item.status[0] === 'have_upload' }"
+            :class="{ ['change-color']: this.item.status[0] === 'completed' || this.item.status[0] === 'have_upload' || this.item.status[0] === '100%'  }"
             class="bg-red-400 rounded-full text-[12px] h-6 px-3"
           >
           {{ getStatus }}

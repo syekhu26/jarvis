@@ -28,7 +28,7 @@
                   <div
                     :class="{
                       ['change-color']:
-                        this.itemDetail.status[0] === 'completed' || this.itemDetail.status[0] === 'have_upload',
+                        this.itemDetail.status[0] === 'completed' || this.itemDetail.status[0] === 'have_upload' || this.itemDetail.status[0] === '100%' ,
                     }"
                     class="bg-red-400 rounded-full text-[12px] h-6 px-3"
                   >
@@ -319,13 +319,7 @@ export default {
       return this.itemDetail.status[0] === 'completed'
     },
 
-    // statusIndo() {
-    //   if (this.itemDetail.status[0] === 'completed') {
-    //     return'sudah selesai';
-    //   } else if (this.itemDetail.status[0] === 'have upload') {
-    //     this.status = 'sudah upload';
-    //   }
-    // },
+ 
     getStatus() {
       if (this.itemDetail.status[0] === 'completed') {
         return 'Sudah Selesai';
@@ -340,18 +334,7 @@ export default {
         return this.itemDetail.status[0]
       }
     }
-    //   convertStatus(status) {
-    // if (status === "completed") {
-    //   return "sudah selesai";
-    // } else {
-    //   return status;
-    // }
-    // statusIndo(){
-    //   return (
-    //     this.itemDetail.status[0] === 'completed' ??
-    //     this.itemDetail.status[0] === 'Sudah selesai'
-    //   )
-    // },
+
   },
   methods: {
     addMember() {

@@ -18,30 +18,7 @@
             <p class="text-lg font-semibold text-center mb-4">
               Apakah anda yakin menghapus catatan ini?
             </p>
-            <!-- <p class="text-sm text-center opacity-50 mb-4">
-              Anda tidak dapat mengembalikan pesan ini setelah dihapus
-            </p>
-            <p class="text-lg text-center font-semibold">
-              Pesan untuk dilaporkan kepada orang yang dilibatkan
-            </p>
-            <div class="px-3">
-              <div class="flex justify-between my-2">
-                <p>Pesan <strong class="text-red-600">*</strong></p>
-                <p class="text-sm text-gray-500 items-end">
-                  {{ tambahAngka }}/250
-                </p>
-              </div>
-              <textarea
-                v-model="description"
-                @input="descriptionValidate"
-                class="w-full border border-gray-500 p-3"
-                placeholder="Tulis pesan"
-                required
-              ></textarea>
-              <span v-if="descriptionError" class="text-red-500">{{
-                descriptionError
-              }}</span>
-            </div> -->
+          
             <div class="flex my-4">
               <button
                 @click="deleteNote(id)"
