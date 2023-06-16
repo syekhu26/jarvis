@@ -1,7 +1,7 @@
 <template>
   <div>
     <div
-      class="rounded-md mx-auto w-full md:w-2/3 over lg:w-3/4 max-h-screen bg-white mt-4 md:mt-0 p-4  mb-4"
+      class="rounded-md mx-auto w-full md:w-2/3 over lg:w-3/4 max-h-screen bg-white mt-4 md:mt-0 p-4 mb-4"
     >
       <ListPolicy title="Kebijakan Privasi Pengguna" is-head>
         <p class="text-regular-base text-justify">
@@ -30,7 +30,7 @@
             ini sebagai "Informasi Perangkat". Kemudian, kami mungkin akan
             mengumpulkan data pribadi yang Anda berikan kepada kami (termasuk
             tetapi tidak terbatas pada, username, email, nomor telepon, dll.)
-            selama pendaftaran untuk dapat memenuhi perjanjian.Dan beberapa file
+            selama pendaftaran untuk dapat memenuhi perjanjian dan beberapa file
             pribadi seperti (foto, file, dan kalender/acara) anda ketika
             mengakses fitur pada aplikasi kami.
           </p>
