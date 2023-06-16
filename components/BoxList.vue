@@ -23,7 +23,6 @@
         <div ref="listRef" class="flex-1 overflow-y-auto px-3"></div>
         <draggable
           class="px-3 mt-3"
-          v-model="note"
           :options="{ group: 'BoxList' }"
           @end="drop(index)"
           @change="log"
