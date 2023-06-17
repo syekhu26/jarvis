@@ -195,7 +195,7 @@
                   <p class="px-2">{{ itemDetail.owner[0].username }}</p>
                 </div>
               </div>
-              <div v-if="itemDetail.owner[0]?.id !== $auth.user.id">
+              <div v-if="itemDetail.owner[0]?.id !== $auth.state.user.data.id">
                 <Upload
                   :file="itemDetail.file"
                   :idNote="itemDetail.id"
