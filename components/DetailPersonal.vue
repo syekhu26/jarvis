@@ -51,7 +51,7 @@
                   <div
                     v-if="
                       itemDetail.note_type === 'collaboration' &&
-                      $auth.user.id === itemDetail.owner[0]?.id
+                      $auth.state.user.data.id === itemDetail.owner[0]?.id
                     "
                   >
                     <span
@@ -73,7 +73,7 @@
               <div class="flex items-center justify-between mt-5 mb-3">
                 <h1 class="font-bold text-xl">{{ itemDetail.subject }}</h1>
                 <div
-                  v-if="$auth.user.id === itemDetail.owner[0]?.id"
+                  v-if="$auth.state.user.data.id === itemDetail.owner[0]?.id"
                   class="flex items-center"
                 >
                   <button :disabled="disablePersonal" @click="show" class="p-2 text-blue-500 cursor-pointer disabled:text-slate-500">
@@ -101,7 +101,7 @@
               <div
                 v-if="
                   itemDetail.note_type === 'collaboration' &&
-                  $auth.user.id === itemDetail.owner[0]?.id
+                  $auth.state.user.data.id === itemDetail.owner[0]?.id
                 "
                 class="mb-4"
               >
@@ -206,7 +206,7 @@
               <div
                 v-if="
                   itemDetail.note_type === 'collaboration' &&
-                  $auth.user.id === itemDetail.owner[0]?.id
+                  $auth.state.user.data.id === itemDetail.owner[0]?.id
                 "
               >
                 <button
@@ -221,7 +221,7 @@
               <div
                 v-if="
                   itemDetail.note_type === 'personal' &&
-                  $auth.user.id === itemDetail.owner[0]?.id
+                  $auth.state.user.data.id === itemDetail.owner[0]?.id
                 "
               >
                 <button
