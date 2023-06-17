@@ -118,7 +118,7 @@ export default {
     updateProfile() {
       this.$store
         .dispatch('profile/updateProfile', {
-          id: this.$auth.user.id,
+          id: this.$auth.state.user.data.id,
           username: this.userName,
           // email: this.userEmail,
           phone: this.userPhone,
