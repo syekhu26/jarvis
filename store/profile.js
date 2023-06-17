@@ -1,5 +1,6 @@
 export const state = () => ({
   dataUser: [],
+  user:[],
 })
 
 export const getters = {
@@ -12,18 +13,25 @@ export const mutations = {
   setDataUser(state, value) {
     state.dataUser = value
   },
+  setUser(state, user) {
+    state.user = user
+  },
   deleteUser(state, userId) {
       state.dataUser = state.dataUser.filter(user => user.id !== userId)
     },
 }
 
 export const actions = {
-  getdataUser({ commit }, id) {
-    return this.$axios
-      .get(`/users/${id}`)
-      .then((res) => commit('setDataUser', res.data))
-      .catch((err) => console.log(err))
+  async fetchUser({ commit }) {
+    const user = await this.$axios.$get(`https://bantuin.fly.dev/api/active_user`)
+    commit('setUser', user.data)
   },
+  // getdataUser({ commit }, id) {
+  //   return this.$axios
+  //     .get(`/active_user/${id}`)
+  //     .then((res) => commit('setDataUser', res.data))
+  //     .catch((err) => console.log(err))
+  // },
   updateProfile(ctx, user) {
     const headers = { 'Content-Type': 'multipart/form-data' }
     const data = new FormData()

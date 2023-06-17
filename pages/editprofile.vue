@@ -69,16 +69,16 @@ export default {
   },
   data() {
     return {
-      userName: this.$store.state.profile.dataUser.username,
+      userName: this.$auth.state.user.data.username,
       usernameError: '',
 
-      userWork: this.$store.state.profile.dataUser.job,
+      userWork: this.$auth.state.user.data.job,
       workError: '',
 
-      userEmail: this.$store.state.profile.dataUser.email,
+      userEmail: this.$auth.state.user.data.email,
       emailError: '',
 
-      userPhone: this.$store.state.profile.dataUser.phone,
+      userPhone: this.$auth.state.user.data.phone,
       phoneError: '',
     }
   },

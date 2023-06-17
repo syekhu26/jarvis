@@ -43,7 +43,7 @@
       />
       <div class="m-2">
         <p class="text-lg font-bold">
-          {{ $store.state.profile.dataUser.username }}
+          {{ $auth.state.user.data.username }}
         </p>
       </div>
     </div>
@@ -93,14 +93,14 @@
 <script>
 import { mapGetters } from 'vuex'
 export default {
-  // async asyncData({ store }) {
-  //   await store.dispatch('profile/getdataUser', store.state.auth.user.id)
-  // },
+  async asyncData({ store }) {
+    await store.dispatch('profile/user')
+  },
   data() {
     return {
-      photo: this.$store.state.profile.dataUser.photo,
-      point: this.$store.state.profile.dataUser.point,
-      notes_count: this.$store.state.profile.dataUser.notes_count,
+      photo: this.$auth.state.user.data.photo,
+      point: this.$auth.state.user.data.point,
+      notes_count: this.$auth.user.data.notes_count,
     }
   },
   methods: {
@@ -112,6 +112,9 @@ export default {
         console.log(err)
       }
     },
+  },
+  mounted() {
+    this.$store.dispatch('profile/fetchUser')
   },
   computed: {
     ...mapGetters(['isAuthenticated', 'loggedInUser']),

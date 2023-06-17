@@ -78,7 +78,7 @@ export default {
             method: 'post',
           },
           user: {
-            url: 'users/{id}',
+            url: '/active_user',
             method: 'get',
             // propertyName: 'user'
           },

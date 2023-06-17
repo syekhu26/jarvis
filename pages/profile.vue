@@ -87,19 +87,19 @@
 export default {
   layout: 'navbar',
   async asyncData({ store }) {
-    await store.dispatch('profile/getdataUser', store.state.auth.user.id)
+    await store.dispatch('profile/fetchUser', store.state.auth.user.id)
   },
   data() {
     return {
       photoUpdate: null,
 
-      userName: this.$store.state.profile.dataUser.username,
+      userName: this.$store.state.profile.user.username,
 
-      userWork: this.$store.state.profile.dataUser.job,
+      userWork: this.$store.state.profile.user.job,
 
-      userEmail: this.$store.state.profile.dataUser.email,
+      userEmail: this.$store.state.profile.user.email,
 
-      userPhone: this.$store.state.profile.dataUser.phone,
+      userPhone: this.$store.state.profile.user.phone,
 
       inputTypeIcon: 'passKey',
       passKey: '***',
@@ -108,7 +108,7 @@ export default {
   computed: {
     avatar() {
       return (
-        this.$store.state.profile.dataUser.photo ||
+        this.$store.state.profile.user.photo ||
         require('@/assets/img/profile-user-svgrepo-com.png')
       )
     },
