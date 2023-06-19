@@ -11,13 +11,25 @@
         >
           <!-- <h1 class="text-2xl font-bold text-black" @shareTeam="dataTeam(item)" v-for="(item, index) in dataList" :key="index" :item="item">{{ item.title }}</h1> -->
 
-          <div class="flex">
+          <!-- <div class="flex">
             <img :src="photoGroup" alt="" class="h-9 w-9" />
             <h1 class="text-black font-bold my-auto mx-2">
               {{ team }}
-              <!-- {{ detailTeam.data.title }} -->
             </h1>
-          </div>
+          </div> -->
+
+          <nuxt-link :to="editGroup">
+            <div class="flex">
+              <img
+                :src="photoGroup"
+                alt=""
+                class="h-9 w-9 rounded-full object-contain bg-gray-200"
+              />
+              <h1 class="text-black font-bold my-auto mx-2">
+                {{ team }}
+              </h1>
+            </div>
+          </nuxt-link>
 
           <div class="flex items-center" @click="show">
             <iconMemberIcon class="mx-4" />
@@ -93,10 +105,27 @@ export default {
     },
     ...mapState('team', ['detailTeam']),
 
-    photoGroup() {
-      return require('@/assets/img/Ellipse 1.png')
-    },
+    // photoGroup() {
+    //   return require('@/assets/img/Ellipse 1.png')
+    // },
 
+    photoGroup() {
+      return this.$route.query.photo || require('../assets/img/Ellipse 1.png')
+    },
+    editGroup() {
+      const query = {
+        id: this.id,
+        owner: this.$route.query.owner,
+        participant: this.$route.query.participant,
+        photo: this.$route.query.photo,
+        team: this.team,
+      }
+
+      return {
+        path: '/editgroup',
+        query,
+      }
+    },
     // notesTeam() {
     //   return this.$store.state.notesTeam.notesTeam
     // },
