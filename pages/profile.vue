@@ -23,6 +23,7 @@
               hidden
             />
           </a>
+          <p v-if="photoError" class="text-red-500">{{ photoError }}</p>
         </center>
         <div class="flex justify-between mt-4">
           <p class="text-xl font-bold">Informasi Personal</p>
@@ -92,6 +93,7 @@ export default {
   data() {
     return {
       photoUpdate: null,
+      photoError: '',
 
       userName: this.$store.state.profile.user.username,
 
@@ -128,7 +130,9 @@ export default {
           this.$store.dispatch('profile/getdataUser', this.$auth.user.id)
         })
         .catch(() => {
-          alert('File size should be less than 1 MB')
+          // alert('File size should be less than 1 MB')
+          this.photoError =
+              'Maaf, terjadi kesalahan dalam mengunggah foto profil. Pastikan foto dalam bentuk jpg, jpeg, png dan ukuran kurang dari 1Mb.'
         })
     },
     // async hapus() {
