@@ -65,16 +65,17 @@ export const actions = {
       .then((res) => commit('setGroupList', res.data))
       .catch((err) => console.log(err))
   },
-  updateGroup(ctx, team) {
+  updateGroup(ctx, dataTim) {
     const headers = { 'Content-Type': 'multipart/form-data' }
     const data = new FormData()
 
-    if (team.photo) {
-      data.append('photo', team.photo)
+    if (dataTim.photo) {
+      data.append('photo', dataTim.photo)
+      console.log("ini photo", dataTim.photo)
     } else {
-      data.append('title', team.title)
-      data.append('email', team.email)
+      data.append('title', dataTim.title)
+      console.log(dataTim)
     }
-    return this.$axios.$put(`teams/${team.id}`, data, { headers })
+    return this.$axios.$put(`teams/${dataTim.id}`, data, { headers })
   },
 }

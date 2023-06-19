@@ -10,14 +10,15 @@
           class="flex shrink-0 items-center absolute justify-between p-4 bg-slate-100 w-full bg-transparent backdrop-blur"
         >
           <!-- <h1 class="text-2xl font-bold text-black" @shareTeam="dataTeam(item)" v-for="(item, index) in dataList" :key="index" :item="item">{{ item.title }}</h1> -->
-
-          <div class="flex">
-            <img :src="photoGroup" alt="" class="h-9 w-9" />
-            <h1 class="text-black font-bold my-auto mx-2">
-              {{ team }}
-              <!-- {{ detailTeam.data.title }} -->
-            </h1>
-          </div>
+          <nuxt-link :to="editdatagroup">
+            <div class="flex">
+              <img :src="photoGroup" alt="" class="h-9 w-9" />
+              <h1 class="text-black font-bold my-auto mx-2">
+                {{ team }}
+                <!-- {{ detailTeam.data.title }} -->
+              </h1>
+            </div>
+          </nuxt-link>
 
           <div class="flex items-center" @click="show">
             <iconMemberIcon class="mx-4" />
