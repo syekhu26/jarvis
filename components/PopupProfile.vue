@@ -66,7 +66,7 @@
         <div class="w-px h-9 bg-gray-300 mx-2"></div>
         <div>
           <div class="flex">
-            <p class="text-sm">Kuota cacatan :</p>
+            <p class="text-sm">Kuota catatan :</p>
           </div>
           <p class="text-sm font-bold mx-1">{{ notes_count }}</p>
         </div>
