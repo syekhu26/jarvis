@@ -80,160 +80,6 @@
                   <span v-if="error.description" class="text-red-500">{{
                     error.description
                   }}</span>
-                  <!-- <p v-if="teksDeskripsi" class="text-red-500">
-                          Maaf, inputan anda melewati batas.
-                        </p> -->
-                </div>
-              </div>
-              <div>
-                <div class="flex">
-                  <label
-                    class="block text-sm flex items-start mt-3 mb-2"
-                    for="date"
-                  >
-                    Tanggal acara
-                  </label>
-                  <div class="text-red-500 px-1 mt-3">*</div>
-                </div>
-                <div class="border w-full h-10">
-                  <div class="">
-                    <vc-date-picker
-                      class=""
-                      v-model="date"
-                      @input="kalenderValidate"
-                      :min-date="new Date()"
-                      mode="dateTime"
-                      :minute-increment="1"
-                    >
-                      <template #default="{ inputValue, inputEvents }">
-                        <div class="flex">
-                          <iconKalenderIcon class="mt-3 mx-2" />
-
-                          <input
-                            :value="inputValue"
-                            v-on="inputEvents"
-                            class="w-full mt-2 border-hidden px-2 mb-2 outline-none"
-                            placeholder="mm-dd-yyyy"
-                          />
-                        </div>
-                        <span v-if="dateError" class="text-red-500">{{
-                          dateError
-                        }}</span>
-                      </template>
-                    </vc-date-picker>
-                  </div>
-                </div>
-              </div>
-              <div>
-                <div class="flex">
-                  <label
-                    for="remainder"
-                    class="block text-sm mt-3 mb-2 flex items-start"
-                  >
-                    Tambahkan pengingat</label
-                  >
-                  <div class="text-red-500 px-1 mt-3">*</div>
-                </div>
-                <!-- 
-                        <div
-                          class="mt-2 px-2 border-2 w-10 h-10 w-full focus:outline-none focus:border-blue-500 mb-3"
-                        >
-                          <div class="flex item-center">
-                            <iconAlarmIcon class="mt-3" />
-                           
-                            <datetime
-                              type="datetime"
-                              v-model="datetime"
-                              class="mt-2 px-4"
-                              placeholder="Pilih Waktu Remainder"
-                            ></datetime>
-                          </div>
-                        </div> -->
-                <div class="border w-full w-10 h-10 px-2">
-                  <vc-date-picker
-                    v-model="datetime"
-                    @input="remainderValidate"
-                    mode="dateTime"
-                    :max-date="date"
-                    :min-date="new Date()"
-                    :minute-increment="1"
-                  >
-                    <template #default="{ inputValue, inputEvents }">
-                      <div class="flex item-center">
-                        <iconAlarmIcon class="mt-3" />
-
-                        <input
-                          :value="inputValue"
-                          v-on="inputEvents"
-                          :disabled="remainderDisabled"
-                          class="w-full mt-2 px-4 outline-none"
-                          placeholder="Pilih waktu reminder"
-                        />
-                      </div>
-                      <span v-if="datetimeError" class="text-red-500">{{
-                        datetimeError
-                      }}</span>
-                    </template>
-                  </vc-date-picker>
-                </div>
-              </div>
-              <!-- <div
-                @click="addRemainder"
-                class="flex items-center mb-3 text-blue-600 cursor-pointer mt-2"
-              >
-                <iconPlusIcon />
-                <span class="px-1">Tambah pengingat</span>
-              </div> -->
-              <div>
-                <label class="mb-2 block text-sm flex items-start" for="date">
-                  Tambahkan pengingat ulangan
-                </label>
-                <div>
-                  <select
-                    v-model="ulangan"
-                    class="border w-full h-10 mb-3 focus:border-blue-500"
-                  >
-                    <option value="tidak_diulang">Tidak diulang</option>
-                    <option value="harian">Harian</option>
-                    <option value="bulanan">Mingguan</option>
-                    <option value="mingguan">Bulanan</option>
-                  </select>
-                </div>
-                <div class="-mt-4 mb-4 text-sm flex items-start">
-                  Disesuaikan tanggal acara
-                </div>
-              </div>
-
-              <div>
-                <div class="flex">
-                  <label
-                    for="voice"
-                    class="mb-2 block text-sm flex items-start"
-                  >
-                    Pilih ringtone</label
-                  >
-                  <div class="text-red-500 px-1">*</div>
-                </div>
-                <div>
-                  <select
-                    v-model="voice"
-                    class="border w-full h-10 mb-3 focus:border-blue-500 flex items-start"
-                  >
-                    <option disabled selected value="">Pilih ringtone</option>
-                    <!-- <option value="1">hahahihi</option>
-                          <option value="2">aiyaaiya</option>
-                          <option value="3">oke</option> -->
-                    <option
-                      v-for="option in options"
-                      :key="option.id"
-                      :value="option.id"
-                    >
-                      {{ option.name }}
-                    </option>
-                  </select>
-                  <div v-if="voiceError" class="text-red-500">
-                    {{ voiceError }}
-                  </div>
                 </div>
               </div>
 
@@ -324,11 +170,6 @@ export default {
       datetimeError: '',
       subject: this.item.subject,
       description: this.item.description ?? '',
-      email: this.item.items ?? '',
-      date: this.item.event_date ?? '',
-      datetime: this.item.reminder ?? '',
-      ulangan: this.item.frequency ?? 'tidak_diulang',
-      voice: this.item.ringtone_id ?? '',
 
       voiceError: '',
       // teksDeskripsi: false,
@@ -382,76 +223,35 @@ export default {
         this.descriptionError = ''
       }
     },
-    emailValidate() {
-      // Regular expression for email validation
-      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
-      if (!this.email.match(emailRegex)) {
-        this.emailError = 'Email yang anda masukkan tidak valid'
-      } else {
-        this.emailError = ''
-      }
-    },
-    kalenderValidate() {
-      if (!this.date) {
-        this.dateError = 'Anda belum memasukkan tanggal acara.'
-      } else {
-        this.dateError = ''
-      }
-    },
-    remainderValidate() {
-      if (!this.datetime) {
-        this.datetimeError = 'Anda belum menambahkan pengingat.'
-      } else {
-        this.datetimeError = ''
-      }
-    },
-    voiceValidate() {
-      if (this.voice === '') {
-        this.voiceError = 'Anda belum menambahkan pengingat.'
-      } else {
-        this.voiceError = ''
-      }
-    },
     async handleSubmit() {
-      // if (this.edit && this.item.note_type === 'collaboration') {
-      //   this.isShowEdit = true
-      // }
-      // if (this.edit && this.item.note_type !== 'collaboration') {
-      //   await this.$store
-      //     .dispatch('notes/updateNote', {
-      //       idNote: this.item.id,
-      //       data: {
-      //         subject: this.subject,
-      //         description: this.description,
-      //         email: this.items,
-      //         // email: (this.email = []),
-      //         event_date: this.date,
-      //         reminder: this.datetime,
-      //         ringtone_id: this.voice,
-      //       },
-      //     })
-      //     .finally(() => this.$router.go())
-      // }
-        try {
-          await this.$store.dispatch('notesTeam/addNoteTeam', {
-            column_id: this.colomn.id,
+      if (this.edit && this.item.note_type === 'collaboration') {
+        this.isShowEdit = true
+      }
+      if (this.edit && this.item.note_type !== 'collaboration') {
+        await this.$store.dispatch('notesTeam/updateNote', {
+          idNote: this.item.id,
+          data: {
             subject: this.subject,
             description: this.description,
-            // email: this.items && this.email,
-            email: this.items,
-            event_date: this.date,
-            reminder: this.datetime,
-            ringtone_id: this.voice,
-          })
-          // this.$router.push('/catatan')
-          //   this.$router.go()
-        } catch (error) {
-          this.error = error.response.data.data
-          this.errorMessage = error.response.data.message
-          console.log(error)
-          alert('maaf catatan anda gagal dibuat')
-        }
-      
+          },
+        })
+        .finally(() => this.$router.go())
+      }
+      try {
+        await this.$store.dispatch('notesTeam/addNoteTeam', {
+          column_id: this.colomn.id,
+          subject: this.subject,
+          description: this.description,
+        })
+        // this.$router.push('/catatan')
+        //   this.$router.go()
+      } catch (error) {
+        this.error = error.response.data.data
+        this.errorMessage = error.response.data.message
+        console.log(error)
+        alert('maaf catatan anda gagal dibuat')
+      }
+
       this.$router.go()
     },
     async hapus() {
@@ -515,31 +315,6 @@ export default {
     handleEdit() {
       if (this.edit) this.$emit('close')
     },
-    // async updateNote(note) {
-    //   await this.$store.dispatch('notes/updateNote', note)
-    // },
-    // async addNote() {
-    //   try {
-    //     await this.$axios
-    //       .post('https://bantuin.fly.dev/api/notes', {
-    //         data: {
-    //           subject: this.subject,
-    //           description: this.description,
-    //           event_date: this.date,
-    //           reminder: this.datetime,
-    //           ringtone_id: this.voice,
-    //         },
-    //       })
-
-    //       .then((response) => {
-    //         console.log(response.data)
-    //         alert('Catatan berhasil disimpan!')
-    //       })
-    //   } catch (error) {
-    //     console.error(error)
-    //     alert('Terjadi kesalahan saat menyimpan catatan.')
-    //   }
-    // },
   },
   computed: {
     tambahAngka() {

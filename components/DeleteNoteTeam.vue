@@ -75,7 +75,7 @@ export default {
   },
   methods: {
     deleteNote(noteId) {
-      this.$store.dispatch('notes/deleteNote', noteId)
+      this.$store.dispatch('notesTeam/deleteNote', noteId)
       this.$router.go()
     },
 

@@ -28,7 +28,7 @@
           @change="log"
         >
           <CardNoteTim
-            v-for="(team, index) in itemList.note"
+            v-for="(team, index) in itemList.cards"
             :key="index"
             :itemTeam="team"
             class="mb-2"
@@ -121,10 +121,10 @@ export default {
     //     ...item // Tambahkan semua properti lain dari elemen array
     //   };
     // });
-    const item = this.itemList.note.find((item) => item.id === 2)
-    if (item) {
-      console.log(item.id) // Output: Item 2
-    }
+    // const item = this.itemList.note.find((item) => item.id === 2)
+    // if (item) {
+    //   console.log(item.id) // Output: Item 2
+    // }
   },
   computed: {
     notesTeam() {
