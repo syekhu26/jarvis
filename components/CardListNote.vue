@@ -129,7 +129,7 @@ export default {
     },
     getStatus() {
       if (this.item.status[0] === 'completed') {
-        return 'Sudah Selesai';
+        return 'Catatan Selesai';
       } else if (this.item.status[0] === 'have_upload') {
         return 'Sudah Upload';
       } else if (this.item.status[0] === 'not_upload_yet') {

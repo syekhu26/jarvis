@@ -4,7 +4,7 @@
       <div class="flex items-center justify-between mt-6 px-8">
         <h1 class="text-2xl font-bold mb-3">Undangan</h1>
       </div>
-      <div v-if="reqlist.data" class="min-w-full px-8 items-center mb-8">
+      <div v-if="reqlist && reqlist.data && reqlist.data.length > 0" class="min-w-full px-8 items-center mb-8">
         <CardRequest
           v-for="request in reqlist.data"
           :key="request.id"
@@ -16,7 +16,7 @@
         v-else
         class="px-8 text-slate-400 font-bold flex items-center justify-center h-44"
       >
-        Belum Ada Undangan
+        Belum Ada Undangan Masuk
       </div>
     </div>
   </div>

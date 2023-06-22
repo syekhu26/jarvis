@@ -150,7 +150,7 @@
                 class="flex items-center mt-2 text-blue-600 cursor-pointer"
               >
                 <iconPlusIcon />
-                <span class="px-1">Tambah email</span>
+                <span class="px-1">Tambah email anggota</span>
               </div>
               <div>
                 <div class="flex">

@@ -1,13 +1,25 @@
 <template>
   <div class="w-full">
     <div>
-      <div class="flex items-center justify-between mt-6 px-8">
-        <h1 class="text-2xl font-bold mb-3">Undangan masuk</h1>
+      <div class="flex justify-end">
         <ButtonGlobal @click="show" />
       </div>
+      <div class="flex items-center mt-6 px-8">
+        <h1
+          v-if="reqlist && reqlist.data && reqlist.data.length > 0"
+          class="text-2xl font-bold mb-3"
+        >
+          Undangan masuk
+        </h1>
+      </div>
       <div class="min-w-full px-8 items-center mb-8">
-        <p class="text-lg mb-4">Daftar catatan dan undangan grub masuk</p>
-        <div v-if="reqlist.data">
+        <p
+          v-if="reqlist && reqlist.data && reqlist.data.length > 0"
+          class="text-lg mb-4"
+        >
+          Daftar catatan dan undangan grub masuk
+        </p>
+        <div v-if="reqlist && reqlist.data && reqlist.data.length > 0">
           <CardRequest
             v-for="request in reqlist.data.slice(0, 2)"
             :key="request.id"
@@ -23,12 +35,12 @@
           </div>
         </div>
 
-        <div
+        <!-- <div
           v-else
           class="px-8 text-slate-400 font-bold flex items-center justify-center h-44"
         >
           Belum Ada Undangan
-        </div>
+        </div> -->
       </div>
     </div>
     <div>
@@ -74,6 +86,7 @@ export default {
     return {
       isOpen: false,
       note: false,
+      request: {},
     }
   },
   methods: {
@@ -87,6 +100,9 @@ export default {
   computed: {
     reqlist() {
       return this.$store.state.notes.reqlist
+    },
+    undangan() {
+      return Object.keys(this.reqlist.data).length === 0 // Mengembalikan true jika objek kosong
     },
     notes() {
       return this.$store.state.notes.notes

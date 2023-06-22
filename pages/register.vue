@@ -350,9 +350,9 @@ export default {
           .then((response) => {
             console.log(response.data)
 
-            alert(
-              'Selamat Anda berhasil melakukan pendaftaran, silahkan cek email'
-            )
+            // alert(
+            //   'Selamat Anda berhasil melakukan pendaftaran, silahkan cek email'
+            // )
             this.$router.push('/login')
           })
         // return {
