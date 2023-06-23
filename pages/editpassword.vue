@@ -21,9 +21,6 @@
               <i v-else><iconEyeHide /></i>
             </div>
           </div>
-          <span v-if="errorMessage" class="text-red-500"
-            > {{errorMessage }}</span
-          >
           <span v-if="oldPassError" class="text-red-500">{{
             oldPassError
           }}</span>
@@ -47,9 +44,7 @@
               <i v-else><iconEyeHide /></i>
             </div>
           </div>
-          <p class="text-gray-500 text-sm">
-            Kata sandi harus terdiri 8 kata, 1 huruf besar, 1 angka.
-          </p>
+          <p class="text-gray-500 text-sm">Kata sandi harus terdiri 8 karakter, 1 huruf besar, 1 angka.</p>
           <span v-if="newPassError" class="text-red-500">{{
             newPassError
           }}</span>
@@ -129,9 +124,7 @@ export default {
       const regex = /^.*(?=.{8,})(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*\d).*$/
       if (!regex.test(this.oldPass)) {
         this.oldPassError =
-          ' Kata sandi anda harus terdiri 8 karakter, 1 huruf besar, 1 angka. '
-      } if (this.errorMessage) {
-        this.errorMessage = null
+          ' Kata sandi harus terdiri 8 karakter, 1 huruf besar, 1 angka. '
       } else {
         this.oldPassError = ''
       }
@@ -139,7 +132,8 @@ export default {
     passNewValidate() {
       const regex = /^.*(?=.{8,})(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*\d).*$/
       if (!regex.test(this.newPass)) {
-        this.newPassError = 'Maaf, Kata sandi baru anda tidak sesuai syarat. '
+        this.newPassError =
+          ' Kata sandi tidak memenuhi syarat. '
       } else {
         this.newPassError = ''
       }
@@ -162,11 +156,14 @@ export default {
           .then((response) => {
             console.log(response.data)
             alert(response.data.message)
-            this.$router.push('/profile')
+            this.$router.push('/profile');
           })
       } catch (error) {
         this.error = error.response.data.data
-        this.errorMessage = 'Maaf, Kata sandi lama anda tidak sesuai'
+        this.errorMessage = error.response.data.message
+        this.oldPassError = 'Maaf, kata sandi lama anda tidak sesuai.'
+        this.newPassError = 'Maaf, kata sandi baru anda tidak sesuai syarat.'
+        this.repeatError = 'Ulang kata sandi baru tidak sesuai sebelumnya.'
       }
     },
   },

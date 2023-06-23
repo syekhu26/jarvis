@@ -55,7 +55,7 @@ export default {
   },
   computed: {
     avatar(){
-      return this.$store.state.profile.dataUser.photo || require('@/assets/img/profile-user-svgrepo-com.png')
+      return this.$store.state.auth.user.data.photo || require('@/assets/img/profile-user-svgrepo-com.png')
     }
   }
 }
