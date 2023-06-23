@@ -16,7 +16,7 @@
         v-else
         class="px-8 text-slate-400 font-bold flex items-center justify-center h-44"
       >
-        Belum Ada Undangan Masuk
+        Tidak Ada Undangan Masuk
       </div>
     </div>
   </div>
